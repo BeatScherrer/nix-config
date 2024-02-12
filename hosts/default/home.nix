@@ -108,18 +108,16 @@
           editor = "vim";
           hooksPath = "~/.git_hooks";
         };
+        merge = {
+          tool = "vimdiff";
+        };
+        mergetool = {
+          prompt = false;
+          keepBackup = false;
+          vimdiff = {
+            cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
+          };
+        };
       };
-
-      # merge = {
-      #   tool = "vimdiff";
-      # };
-      # mergetool = {
-      #   prompt = false;
-      #   keepBackup = false;
-      #   vimdiff = {
-      #     cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
-      #   };
-      # };
   };
-
 }
