@@ -23,10 +23,22 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+  home.packages = with pkgs; [
+    neofetch
+
+    # archives
+    zip
+    unzip
+
+    # utils
+    fzf
+    ripgrep
+    jq
+
+    # monitoring
+    btop
+    iotop
+    iftop
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

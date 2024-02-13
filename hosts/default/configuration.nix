@@ -122,16 +122,11 @@
     git
     xclip
     gnumake
-    fzf
-    ripgrep
     gcc13
     gnomeExtensions.pop-shell
     usbutils
     fwupd
     postgresql_15
-    htop
-    unzip
-    fzf
     nodejs_20
   ];
 
