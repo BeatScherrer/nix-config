@@ -1,61 +1,49 @@
- {
-  pkgs,
-  config,
-  ...
-}: {
-  programs.alacritty.enable = true;
-  programs.alacritty.settings = {
-    colors = with config.colorScheme.colors; {
+{ pkgs, config, ...}:
+
+{
+programs.alacritty = {
+  enable = true;
+  settings = {
+    font = {
+      size = 12;
+      normal = {
+        family = "JetBrainsMonoNL Nerd Font";
+        style = "Light";
+      };
+    };
+    # colors = with config.colorScheme.colors; {
+      primary = {
+        colors = {
+        background = "#1d1f21";
+        # background = "#${base01}";
+        bright_foreground = "#eaeaea";
+        dim_foreground = "#828482";
+        foreground = "#c5c8c6";
+      };
+      normal = {
+        black = "#282a2e";
+        blue = "#5f819d";
+        cyan = "#5e8d87";
+        green = "#8c9440";
+        magenta = "#85678f";
+        red = "#a54242";
+        white = "#707880";
+        yellow = "#de935f";
+      };
       bright = {
-        black = "0x${base00}";
-        blue = "0x${base0D}";
-        cyan = "0x${base0C}";
-        green = "0x${base0B}";
-        magenta = "0x${base0E}";
-        red = "0x${base08}";
-        white = "0x${base06}";
-        yellow = "0x${base09}";
+        black = "#555b65";
+        blue = "#81a2be";
+        cyan = "#8abeb7";
+        green = "#b5bd68";
+        magenta = "#b294bb";
+        red = "#cc6666";
+        white = "#c5c8c6";
+        yellow = "#ffeac3";
       };
       cursor = {
-        cursor = "0x${base06}";
-        text = "0x${base06}";
-      };
-      normal = {
-        black = "0x${base00}";
-        blue = "0x${base0D}";
-        cyan = "0x${base0C}";
-        green = "0x${base0B}";
-        magenta = "0x${base0E}";
-        red = "0x${base08}";
-        white = "0x${base06}";
-        yellow = "0x${base0A}";
-      };
-      primary = {
-        background = "0x${base00}";
-        foreground = "0x${base06}";
+        cursor = "CellForeground";
+        text = "CellBackground";
       };
     };
-    draw_bold_text_with_bright_colors = false;
-    font = {
-      bold = {
-        family = "JetBrainsMono Nerd Font Mono";
-        style = "Bold";
-      };
-      bold_italic = {
-        family = "JetBrainsMono Nerd Font Mono";
-        style = "Bold Italic";
-      };
-      italic = {
-        family = "JetBrainsMono Nerd Font Mono";
-        style = "Italic";
-      };
-      normal = {
-        family = "JetBrainsMono Nerd Font Mono";
-        style = "Regular";
-      };
-      size = 15;
-    };
-    window = {opacity = 0.95;};
   };
 }
-

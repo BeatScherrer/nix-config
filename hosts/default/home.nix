@@ -2,11 +2,11 @@
 
 {
   imports = [
-    #inputs.nix-colors.homeManagerModules.default
+    inputs.nix-colors.homeManagerModules.default
     #(modulesPath + "/home-manager/alacritty.nix")
   ];
 
-  #colorScheme = inputs.nix-colors.colorScheme.gruvbox-dark-medium;
+  # colorScheme = inputs.nix-colors.colorScheme.gruvbox-dark-medium;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
