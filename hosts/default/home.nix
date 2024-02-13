@@ -3,7 +3,6 @@
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    #(modulesPath + "/home-manager/alacritty.nix")
   ];
 
   # colorScheme = inputs.nix-colors.colorScheme.gruvbox-dark-medium;
@@ -131,9 +130,11 @@
           style = "Light";
         };
       };
+      # colors = with config.colorScheme.colors; {
       colors = {
         primary = {
           background = "#1d1f21";
+          # background = "#${base01}";
           bright_foreground = "#eaeaea";
           dim_foreground = "#828482";
           foreground = "#c5c8c6";
