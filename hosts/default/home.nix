@@ -5,7 +5,7 @@
     inputs.nix-colors.homeManagerModules.default
   ];
 
-  # colorScheme = inputs.nix-colors.colorScheme.gruvbox-dark-medium;
+  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -120,6 +120,7 @@
       };
   };
 
+  # TODO: Use color scheme for alacritty coloring
   programs.alacritty = {
     enable = true;
     settings = {
@@ -130,11 +131,9 @@
           style = "Light";
         };
       };
-      # colors = with config.colorScheme.colors; {
-      colors = {
+      colors = with config.colorScheme.colors; {
         primary = {
           background = "#1d1f21";
-          # background = "#${base01}";
           bright_foreground = "#eaeaea";
           dim_foreground = "#828482";
           foreground = "#c5c8c6";
