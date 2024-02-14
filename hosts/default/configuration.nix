@@ -48,7 +48,6 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -56,6 +55,11 @@
     xkb.layout = "us";
     xkb.variant = "";
     #windowManager.i3.enable = true;
+    displayManager = {
+      # gdm.enable = true;
+      sddm.enable = true;
+      sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
+    };
   };
 
   # Enable CUPS to print documents.
@@ -128,6 +132,7 @@
     fwupd
     postgresql_15
     nodejs_20
+    libsForQt5.qt5.qtgraphicaleffects # required for sddm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

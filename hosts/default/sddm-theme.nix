@@ -2,7 +2,7 @@
 
 pkgs.stdenv.mkDerivation {
   name = "sddm-theme";
-  src = pkgs.fetchFromGithub {
+  src = pkgs.fetchFromGitHub {
     owner = "MarianArlt";
     repo = "sddm-sugar-dark";
     rev = "ceb2c455663429be03ba62d9f898c571650ef7fe";
@@ -11,6 +11,6 @@ pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     cp -R ./* $out/
-  ''
+  '';
 }
 
