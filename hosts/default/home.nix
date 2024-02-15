@@ -40,6 +40,10 @@
     iotop
     iftop
 
+    # TODO:
+    # node stuff
+    # nodePackages.angular;
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -95,13 +99,17 @@
   gtk.cursorTheme.package = pkgs.bibata-cursors;
   gtk.cursorTheme.name = "Bibata-Modern-Ice";
 
-  gtk.theme.package = pkgs.adw-gtk3;
-  gtk.theme.name = "adw-gtk3";
+  gtk.theme.package = pkgs.nordic;
+  gtk.theme.name = "Nordic";
+
+  gtk.iconTheme.package = pkgs.nordic;
+  gtk.iconTheme.name = "Nordic-green";
+
 
   qt.enable = true;
   qt.platformTheme = "gtk";
-  qt.style.name = "adwaita-dark";
-  qt.style.package = pkgs.adwaita-qt;
+  qt.style.name = "Nordic";
+  qt.style.package = pkgs.nordic;
 
   programs.git = {
       enable = true;
@@ -148,6 +156,7 @@
   programs.alacritty = {
     enable = true;
     settings = {
+      window.decorations = "None";
       font = {
         size = 12;
         normal = {
