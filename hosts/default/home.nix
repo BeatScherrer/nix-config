@@ -25,6 +25,7 @@
   # environment.
   home.packages = with pkgs; [
     neofetch
+    localsend
 
     # archives
     zip

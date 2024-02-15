@@ -56,9 +56,11 @@
     xkb.variant = "";
     #windowManager.i3.enable = true;
     displayManager = {
-      # gdm.enable = true;
-      sddm.enable = true;
-      sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
+      gdm = {
+        enable = true;
+      };
+      # # sddm.enable = true;
+      # sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
     };
   };
 
@@ -67,7 +69,10 @@
 
   # Enable sound with pipewire.
   sound.enable = true;
+
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
