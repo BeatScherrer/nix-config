@@ -94,7 +94,11 @@
   users.users.beat = {
     isNormalUser = true;
     description = "Beat Scherrer";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [
       signal-desktop
       evolution
@@ -138,7 +142,11 @@
     postgresql_15
     nodejs_20
     libsForQt5.qt5.qtgraphicaleffects # required for sddm
+    docker
   ];
+
+  virtualisation.docker.enable = true;
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
