@@ -24,7 +24,7 @@
         nixos = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
-              ./hosts/default/configuration.nix
+              ./configuration.nix
               inputs.home-manager.nixosModules.default
             ];
           };
@@ -34,7 +34,7 @@
           beat = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = { inherit inputs; };
-            modules = [ ./hosts/default/home.nix ];
+            modules = [ ./home.nix ];
             };
         };
 
