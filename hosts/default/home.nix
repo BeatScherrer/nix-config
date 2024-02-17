@@ -35,6 +35,7 @@
     fzf
     ripgrep
     jq
+    lazygit
 
     # monitoring
     btop
