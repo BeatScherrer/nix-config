@@ -12,7 +12,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -20,14 +20,22 @@
     {
 
       nixosConfigurations ={
+        # NOTE: the "nixos" key corresponds to the hostname
         nixos = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
               ./hosts/default/configuration.nix
-              # inputs.home-manager.nixosModules.default
+              inputs.home-manager.nixosModules.default
             ];
           };
         };
+
+        homeConfigurations = {
+          beat = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
+            modules = [ ./hosts/default/home.nix ];
+            };
         };
 
     };
