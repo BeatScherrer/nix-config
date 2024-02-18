@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
+      ./system_modules/gnome.nix
     ];
 
   # Bootloader.
@@ -44,24 +45,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = true;
-
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
     xkb.variant = "";
     #windowManager.i3.enable = true;
-    displayManager = {
-      gdm = {
-        enable = true;
-      };
       # # sddm.enable = true;
       # sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
-    };
   };
 
   # Enable CUPS to print documents.
@@ -101,8 +91,6 @@
     ];
     packages = with pkgs; [
       signal-desktop
-      evolution
-      gnome.gnome-tweaks
       vscode-fhs
       slack
       zulip
@@ -130,13 +118,11 @@
     just
     vim
     neovim
-    i3
     coreutils
     git
     xclip
     gnumake
     gcc13
-    gnomeExtensions.pop-shell
     usbutils
     fwupd
     postgresql_15
@@ -146,7 +132,6 @@
   ];
 
   virtualisation.docker.enable = true;
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
