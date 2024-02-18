@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       ./system_modules/gnome.nix
+      # ./system_modules/herbstluftwm.nix
     ];
 
   # Bootloader.
@@ -19,6 +20,7 @@
 
   # add flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
 
   # Setup keyfile
   boot.initrd.secrets = {
@@ -44,6 +46,9 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  # symlink to /bin /usr/bin so scripts are portable
+  services.envfs.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
