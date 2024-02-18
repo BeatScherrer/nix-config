@@ -4,6 +4,7 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
     ./modules/alacritty.nix
+    ./modules/sh.nix
   ];
 
   colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
@@ -104,13 +105,6 @@
 
   # TODO: move program configs to program modules to compose a user config conveniently
  
-  programs.bash = {
-    shellAliases = {
-      nixupdate = "sudo nixos-rebuild switch --flake ~/.nix";
-      homeupdate = "home-manager switch --flake ~/.nix";
-      nnix = "nvim ~/.nix";
-    };
-  };
 
   programs.git = {
       enable = true;
