@@ -6,9 +6,9 @@
     ./modules/alacritty.nix
     ./modules/sh.nix
     ./modules/git.nix
+    # ./modules/herbstluftwm.nix # TODO:
   ];
 
-  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -23,6 +23,11 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -72,21 +77,9 @@
   # either
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/beat/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   gtk.enable = true;
   gtk.cursorTheme.package = pkgs.bibata-cursors;
