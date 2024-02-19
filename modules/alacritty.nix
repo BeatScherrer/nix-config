@@ -5,7 +5,7 @@
     settings = {
       window.decorations = "None";
       font = {
-        size = 12;
+        size = 9;
         normal = {
           family = "JetBrainsMonoNL Nerd Font";
           style = "Light";
