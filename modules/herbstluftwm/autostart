@@ -233,7 +233,7 @@ for monitor in $(hc list_monitors | cut -d: -f1); do
 done
 
 # applications
-hc keybind $Mod-b spawn "${BROWSER:-vivaldi-stable}" # use your $TERMINAL with xterm as fallback
+hc keybind $Mod-b spawn "${BROWSER:-firefox}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-space spawn rofi -modi drun -show drun
 
 "$HOME/.config/polybar/launch.sh"
