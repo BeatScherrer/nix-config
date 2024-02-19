@@ -6,7 +6,7 @@
     ./modules/alacritty.nix
     ./modules/sh.nix
     ./modules/git.nix
-    # ./modules/herbstluftwm.nix # TODO:
+    ./modules/herbstluftwm.nix
   ];
 
 

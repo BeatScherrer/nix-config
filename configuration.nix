@@ -9,8 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ./system_modules/gnome.nix
-      # ./system_modules/herbstluftwm.nix
+      # ./system_modules/gnome.nix
+      ./system_modules/herbstluftwm.nix
     ];
 
   # Bootloader.
