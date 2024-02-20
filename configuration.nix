@@ -129,6 +129,7 @@
     gnumake
     gcc13
     usbutils
+    lshw
     fwupd
     postgresql_15
     nodejs_20

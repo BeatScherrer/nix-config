@@ -11,7 +11,7 @@
   home.packages = with pkgs; [
     dconf
     feh
-    # picom # NOTE: This kills graphics, try nvidia?
+    picom
     dunst
     rofi
     playerctl
