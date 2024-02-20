@@ -6,7 +6,7 @@
     ./modules/alacritty.nix
     ./modules/sh.nix
     ./modules/git.nix
-    ./modules/herbstluftwm.nix
+    ./modules/herbstluftwm/herbstluftwm.nix
   ];
 
 
@@ -81,10 +81,15 @@
     # EDITOR = "emacs";
   };
 
-  gtk.enable = true;
-  gtk.cursorTheme.package = pkgs.bibata-cursors;
-  gtk.cursorTheme.name = "Bibata-Modern-Ice";
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 48;
+    gtk.enable = true;
+    x11.enable = true;
+  };
 
+  gtk.enable = true;
   gtk.theme.package = pkgs.nordic;
   gtk.theme.name = "Nordic";
 

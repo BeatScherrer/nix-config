@@ -134,6 +134,9 @@
     nodejs_20
     libsForQt5.qt5.qtgraphicaleffects # required for sddm
     docker
+    # TODO: get schroot somehow
+    debootstrap # schroot
+    pv # schroot
   ];
 
   virtualisation.docker.enable = true;

@@ -3,8 +3,11 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      sddm.enable = true;
-      sddm.theme = "${import ../sddm-theme.nix { inherit pkgs; }}";
+      sddm = {
+        enable = true;
+        theme = "${import ../sddm-theme.nix { inherit pkgs; }}";
+        enableHidpi = true;
+      };
       session = [
         {
           manage = "desktop";
