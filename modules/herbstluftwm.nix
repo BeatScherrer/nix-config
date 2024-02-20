@@ -11,5 +11,6 @@
     # picom # NOTE: This kills graphics, try nvidia?
     dunst
     rofi
+    playerctl
   ];
 }
