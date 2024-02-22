@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # TODO add rofi menu to select between -s and fullscreen screenshots
 

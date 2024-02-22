@@ -1,8 +1,14 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ...}:
 {
   # xdg.configFile."polybar/config.ini".source = ./config.ini;
   # xdg.configFile."polybar/launch.sh".source = ./launch.sh;
   xdg.configFile."polybar/scripts".source = ./scripts;
+
+  # NOTE: Fix polybar service env
+  systemd.user.services.polybar = {
+    Service.Environment = lib.mkForce ""; # to override the package's default configuration
+    Service.PassEnvironment = "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
+  };
 
   home.packages = with pkgs; [
     polybar
@@ -245,7 +251,7 @@ time-alt = " %d.%m.%Y%";
 
 format = "<label>";
 format-background = "${config.colorScheme.palette.base00}";
-format-foreground = "${config.colorScheme.palette.base01}";
+format-foreground = "${config.colorScheme.palette.base07}";
 format-padding = 2;
 
 label = "%time%";
