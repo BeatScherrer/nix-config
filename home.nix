@@ -50,6 +50,9 @@
     iotop
     iftop
 
+    # periphery
+    rofi-bluetooth
+
     # TODO:
     # node stuff
     # nodePackages.angular;
