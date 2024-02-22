@@ -155,14 +155,14 @@ type = "internal/pulseaudio";
 
 format-volume = "<ramp-volume> <label-volume>";
 format-volume-background = "${config.colorScheme.palette.base00}";
-format-volume-foreground = "${config.colorScheme.palette.base01}";
+format-volume-foreground = "${config.colorScheme.palette.base07}";
 format-volume-padding = 2;
 
 label-volume = "%percentage%%";
 
 format-muted-prefix = "  ";
 format-muted-background = "${config.colorScheme.palette.base00}";
-format-muted-foreground = "${config.colorScheme.palette.base01}";
+format-muted-foreground = "${config.colorScheme.palette.base07}";
 format-muted-padding = 2;
 
 ramp-volume-0 = "";
@@ -187,17 +187,17 @@ time-format = "%H:%M";
 
 format-charging = "<animation-charging> <label-charging>";
 format-charging-background = "${config.colorScheme.palette.base00}";
-format-charging-foreground = "${config.colorScheme.palette.base01}";
+format-charging-foreground = "${config.colorScheme.palette.base07}";
 format-charging-padding = 2;
 
 format-discharging = "<ramp-capacity> <label-discharging>";
 format-discharging-background = "${config.colorScheme.palette.base00}";
-format-discharging-foreground = "${config.colorScheme.palette.base01}";
+format-discharging-foreground = "${config.colorScheme.palette.base07}";
 format-discharging-padding = 2;
 
 format-full = "<label-full>";
 format-full-background = "${config.colorScheme.palette.base00}";
-format-full-foreground = "${config.colorScheme.palette.base01}";
+format-full-foreground = "${config.colorScheme.palette.base07}";
 format-full-padding = 2;
 
 label-charging = "%percentage%%";
@@ -235,7 +235,7 @@ interval = "0.5";
 format = "<label>";
 format-prefix = "CPU";
 format-background = "${config.colorScheme.palette.base00}";
-format-foreground = "${config.colorScheme.palette.base01}";
+format-foreground = "${config.colorScheme.palette.base07}";
 format-padding = 2;
 
 label = " %percentage%%";
@@ -265,7 +265,7 @@ interval = 3;
 format = "<label>";
 format-prefix = "RAM";
 format-background = "${config.colorScheme.palette.base00}";
-format-foreground = "${config.colorScheme.palette.base01}";
+format-foreground = "${config.colorScheme.palette.base07}";
 format-padding = 2;
 
 label = " %mb_used%";
@@ -278,7 +278,7 @@ interval = 2;
 
 format-online = "<label-song>";
 format-online-background = "${config.colorScheme.palette.base00}";
-format-online-foreground = "${config.colorScheme.palette.base01}";
+format-online-foreground = "${config.colorScheme.palette.base07}";
 format-online-padding = 2;
 
 label-song =  "%artist% - %title%";
@@ -295,7 +295,7 @@ interval = 2;
 
 format-online = "<icon-prev> <toggle> <icon-next>";
 format-online-background = "${config.colorScheme.palette.base00}";
-format-online-foreground = "${config.colorScheme.palette.base01}";
+format-online-foreground = "${config.colorScheme.palette.base07}";
 format-online-padding = 2;
 
 label-offline = "MPD is offline";
@@ -318,12 +318,12 @@ unknown-as-up = true;
 
 format-connected = "<ramp-signal> <label-connected>";
 format-connected-background = "${config.colorScheme.palette.base00}";
-format-connected-foreground = "${config.colorScheme.palette.base01}";
+format-connected-foreground = "${config.colorScheme.palette.base07}";
 format-connected-padding = 2;
 
 format-disconnected = "<label-disconnected>";
 format-disconnected-background = "${config.colorScheme.palette.base00}";
-format-disconnected-foreground = "${config.colorScheme.palette.base01}";
+format-disconnected-foreground = "${config.colorScheme.palette.base07}";
 format-disconnected-padding = 2;
 
 label-connected = "%local_ip% %ifname% %downspeed:7% %upspeed:7%";
@@ -579,7 +579,7 @@ exec = "~/.config/polybar/scripts/get_song.sh";
 type = "custom/text";
 content = "";
 content-background = "${config.colorScheme.palette.base00}";
-content-foreground = "${config.colorScheme.palette.base01}";
+content-foreground = "${config.colorScheme.palette.base07}";
 content-padding = 2;
 click-left = "~/.config/polybar/scripts/scrot.sh";
 };
