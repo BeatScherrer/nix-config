@@ -8,6 +8,8 @@
   systemd.user.services.polybar = {
     Service.Environment = lib.mkForce ""; # to override the package's default configuration
     Service.PassEnvironment = "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
+    # Service.WantedBy = [ "default.target" ];
+    Install.WantedBy = [ "default.target" ];
   };
 
   home.packages = with pkgs; [
@@ -16,6 +18,7 @@
   ];
 
   # TODO: Use colors from color scheme
+  #
 
   services.polybar = {
     enable = true;
@@ -459,7 +462,7 @@ label-separator-foreground = "${config.colorScheme.palette.base01}";
 # Default: false
 pin-workspaces = true;
 
-# Show urgent workspaces regardless of whether the workspace is actually hidden 
+# Show urgent workspaces regardless of whether the workspace is actually hidden
 # by pin-workspaces.
 #
 # Default: false
@@ -487,13 +490,13 @@ enable-scroll = false;
 # Default: true
 wrapping-scroll = false;
 
-# Set the scroll cycle direction 
+# Set the scroll cycle direction
 # Default: true
 reverse-scroll = false;
 
-# Use fuzzy (partial) matching on labels when assigning 
+# Use fuzzy (partial) matching on labels when assigning
 # icons to workspaces
-# Example: code;♚ will apply the icon to all workspaces 
+# Example: code;♚ will apply the icon to all workspaces
 # containing 'code' in the label
 # Default: false
 fuzzy-match = true;
