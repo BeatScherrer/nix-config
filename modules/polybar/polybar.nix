@@ -3,7 +3,7 @@
 
 { config, pkgs, lib, ...}:
 let
-  colorScheme = config.colorScheme.palette;
+  colorScheme = config.colorScheme.scheme;
 in
 {
   # xdg.configFile."polybar/config.ini".source = ./config.ini;
@@ -53,10 +53,9 @@ in
         # 50%:-10, this will result in an offset in the x or y direction
         # of 50% minus 10 pixels
         offset-x = "0%";
-        offset-y = "1%";
+        offset-y = "0%";
 
-        foreground = "${colorScheme.base05}";
-        # background = "${colorScheme.base03}";
+        foreground = "${colorScheme.foreground0}";
         background = "#00000000";
 
         radius-top = 0.0;
@@ -101,7 +100,7 @@ in
         # ARGB color (e.g. #f00, #ff992a, #ddff1023)
         # By default the tray container will use the bar
         # background color.
-        tray-background = "${colorScheme.base00}";
+        tray-background = "${colorScheme.background0}";
 
         # Tray offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
         tray-offset-x = 0;
@@ -143,15 +142,15 @@ in
 type = "internal/pulseaudio";
 
 format-volume = "<ramp-volume> <label-volume>";
-format-volume-background = "${colorScheme.base00}";
-format-volume-foreground = "${colorScheme.base07}";
+format-volume-background = "${colorScheme.background0}";
+format-volume-foreground = "${colorScheme.foreground0}";
 format-volume-padding = 2;
 
 label-volume = "%percentage%%";
 
 format-muted-prefix = "  ";
-format-muted-background = "${colorScheme.base00}";
-format-muted-foreground = "${colorScheme.base07}";
+format-muted-background = "${colorScheme.background0}";
+format-muted-foreground = "${colorScheme.foreground0}";
 format-muted-padding = 2;
 
 ramp-volume-0 = "";
@@ -175,18 +174,18 @@ poll-interval = 2;
 time-format = "%H:%M";
 
 format-charging = "<animation-charging> <label-charging>";
-format-charging-background = "${colorScheme.base00}";
-format-charging-foreground = "${colorScheme.base07}";
+format-charging-background = "${colorScheme.background0}";
+format-charging-foreground = "${colorScheme.foreground0}";
 format-charging-padding = 2;
 
 format-discharging = "<ramp-capacity> <label-discharging>";
-format-discharging-background = "${colorScheme.base00}";
-format-discharging-foreground = "${colorScheme.base07}";
+format-discharging-background = "${colorScheme.background0}";
+format-discharging-foreground = "${colorScheme.foreground0}";
 format-discharging-padding = 2;
 
 format-full = "<label-full>";
-format-full-background = "${colorScheme.base00}";
-format-full-foreground = "${colorScheme.base07}";
+format-full-background = "${colorScheme.background0}";
+format-full-foreground = "${colorScheme.foreground0}";
 format-full-padding = 2;
 
 label-charging = "%percentage%%";
@@ -223,8 +222,8 @@ interval = "0.5";
 
 format = "<label>";
 format-prefix = "CPU";
-format-background = "${colorScheme.base00}";
-format-foreground = "${colorScheme.base07}";
+format-background = "${colorScheme.background0}";
+format-foreground = "${colorScheme.foreground0}";
 format-padding = 2;
 
 label = " %percentage%%";
@@ -239,8 +238,8 @@ time = " %H:%M";
 time-alt = " %d.%m.%Y%";
 
 format = "<label>";
-format-background = "${colorScheme.base00}";
-format-foreground = "${colorScheme.base07}";
+format-background = "${colorScheme.background0}";
+format-foreground = "${colorScheme.foreground0}";
 format-padding = 2;
 
 label = "%time%";
@@ -253,8 +252,8 @@ interval = 3;
 
 format = "<label>";
 format-prefix = "RAM";
-format-background = "${colorScheme.base00}";
-format-foreground = "${colorScheme.base07}";
+format-background = "${colorScheme.background0}";
+format-foreground = "${colorScheme.foreground0}";
 format-padding = 2;
 
 label = " %mb_used%";
@@ -266,8 +265,8 @@ type = "internal/mpd";
 interval = 2;
 
 format-online = "<label-song>";
-format-online-background = "${colorScheme.base00}";
-format-online-foreground = "${colorScheme.base07}";
+format-online-background = "${colorScheme.background0}";
+format-online-foreground = "${colorScheme.foreground0}";
 format-online-padding = 2;
 
 label-song =  "%artist% - %title%";
@@ -283,8 +282,8 @@ type = "internal/mpd";
 interval = 2;
 
 format-online = "<icon-prev> <toggle> <icon-next>";
-format-online-background = "${colorScheme.base00}";
-format-online-foreground = "${colorScheme.base07}";
+format-online-background = "${colorScheme.background0}";
+format-online-foreground = "${colorScheme.foreground0}";
 format-online-padding = 2;
 
 label-offline = "MPD is offline";
@@ -306,13 +305,13 @@ accumulate-stats = true;
 unknown-as-up = true;
 
 format-connected = "<ramp-signal> <label-connected>";
-format-connected-background = "${colorScheme.base00}";
-format-connected-foreground = "${colorScheme.base07}";
+format-connected-background = "${colorScheme.background0}";
+format-connected-foreground = "${colorScheme.foreground0}";
 format-connected-padding = 2;
 
 format-disconnected = "<label-disconnected>";
-format-disconnected-background = "${colorScheme.base00}";
-format-disconnected-foreground = "${colorScheme.base07}";
+format-disconnected-background = "${colorScheme.background0}";
+format-disconnected-foreground = "${colorScheme.foreground0}";
 format-disconnected-padding = 2;
 
 label-connected = "%local_ip% %ifname% %downspeed:7% %upspeed:7%";
@@ -342,18 +341,18 @@ label-monitor = "%name%";
 
 label-active = "%name%";
 # label-active-background = "${colors.red}"; # TODO:
-label-active-foreground = "${colorScheme.base01}";
+label-active-foreground = "${colorScheme.background1}";
 
 label-occupied = "%icon%";
-label-occupied-underline = "${colorScheme.base01}";
+label-occupied-underline = "${colorScheme.background1}";
 
 label-urgent = "%icon%";
 # label-urgent-foreground = "${colors.red}"; TODO:
 # label-urgent-background = "${colors.red}"; TODO:
 
 label-empty = "%name%";
-label-empty-background = "${colorScheme.base00}";
-label-empty-foreground = "${colorScheme.base01}";
+label-empty-background = "${colorScheme.background0}";
+label-empty-foreground = "${colorScheme.background1}";
 
 label-active-padding = 2;
 label-urgent-padding = 2;
@@ -396,9 +395,9 @@ label-mode-background = "#e60053";
 #   %output%
 # Default: %icon% %name%
 label-focused = "%index%";
-label-focused-foreground = "${colorScheme.base00}";
-label-focused-background = "${colorScheme.base05}";
-label-focused-underline = "${colorScheme.base07}";
+label-focused-foreground = "${colorScheme.background0}";
+label-focused-background = "${colorScheme.foreground0}";
+label-focused-underline = "${colorScheme.foreground0}";
 label-focused-padding = 2;
 
 # Available tokens:
@@ -408,8 +407,8 @@ label-focused-padding = 2;
 #   %output%
 # Default: %icon% %name%
 label-unfocused = "%index%";
-label-unfocused-foreground = "${colorScheme.base01}";
-label-unfocused-background = "${colorScheme.base00}";
+label-unfocused-foreground = "${colorScheme.background1}";
+label-unfocused-background = "${colorScheme.background0}";
 label-unfocused-padding = 2;
 
 # Available tokens:
@@ -419,8 +418,8 @@ label-unfocused-padding = 2;
 #   %output%
 # Default: %icon% %name%
 label-visible = "%index%";
-label-visible-foreground = "${colorScheme.base01}";
-label-visible-background = "${colorScheme.base00}";
+label-visible-foreground = "${colorScheme.background1}";
+label-visible-background = "${colorScheme.background0}";
 label-visible-padding = 2;
 
 # Available tokens:
@@ -437,8 +436,8 @@ label-urgent-padding = 2;
 # Separator in between workspaces
 label-separator = "";
 label-separator-padding = 1;
-label-separator-background = "${colorScheme.base00}";
-label-separator-foreground = "${colorScheme.base01}";
+label-separator-background = "${colorScheme.background0}";
+label-separator-foreground = "${colorScheme.background1}";
 
 # Only show workspaces defined on the same output as the bar
 #
@@ -491,7 +490,7 @@ fuzzy-match = true;
 "module/temperature" = {
 type = "internal/temperature";
 
-format-background = "${colorScheme.base00}";
+format-background = "${colorScheme.background0}";
 format-padding = 2;
 
 # Seconds to sleep between updates
@@ -542,8 +541,8 @@ content-padding = 0;
 type = "custom/script";
 interval = 1;
 format = " <label>";
-format-background = "${colorScheme.base07}";
-format-foreground = "${colorScheme.base00}";
+format-background = "${colorScheme.foreground0}";
+format-foreground = "${colorScheme.background0}";
 format-padding = 2;
 exec = "~/.config/polybar/scripts/get_song.sh";
 };
@@ -551,8 +550,8 @@ exec = "~/.config/polybar/scripts/get_song.sh";
 "module/launcher" = {
   type = "custom/text";
   content = "";
-  content-background = "${colorScheme.base00}";
-  content-foreground = "${colorScheme.base07}";
+  content-background = "${colorScheme.background0}";
+  content-foreground = "${colorScheme.foreground0}";
   content-padding = 2;
   click-left = "sh ~/.scripts/rofi_launcher.sh";
 };
@@ -560,8 +559,8 @@ exec = "~/.config/polybar/scripts/get_song.sh";
 "module/bluetooth" = {
   type = "custom/script";
   interval = 1;
-  format-background = "${colorScheme.base00}";
-  format-foreground = "${colorScheme.base07}";
+  format-background = "${colorScheme.background0}";
+  format-foreground = "${colorScheme.foreground0}";
   format-padding = 2;
   exec = "~/.config/polybar/scripts/bluetooth.sh";
 };
@@ -569,8 +568,8 @@ exec = "~/.config/polybar/scripts/get_song.sh";
 "module/scrot" = {
   type = "custom/text";
   content = "";
-  content-background = "${colorScheme.base00}";
-  content-foreground = "${colorScheme.base07}";
+  content-background = "${colorScheme.background0}";
+  content-foreground = "${colorScheme.foreground0}";
   content-padding = 2;
   click-left = "~/.config/polybar/scripts/scrot.sh";
 };
@@ -578,8 +577,8 @@ exec = "~/.config/polybar/scripts/get_song.sh";
 "module/powermenu" = {
   type = "custom/text";
   content = "";
-  content-background = "${colorScheme.base00}";
-  content-foreground = "${colorScheme.base01}";
+  content-background = "${colorScheme.background0}";
+  content-foreground = "${colorScheme.foreground0}";
   content-padding = 2;
   click-left = "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu -theme ~/.config/rofi/themes/beat.rasi";
 };

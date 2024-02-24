@@ -1,6 +1,6 @@
 {config, lib, pkgs, ...}:
 let
-  colorScheme = config.colorScheme.palette;
+  colorScheme = config.colorScheme.scheme;
 in
 {
   # TODO:
@@ -19,31 +19,32 @@ in
       };
       colors = with config.colorScheme.colors; {
         primary = {
-          background = "0x${colorScheme.base00}";
-          bright_foreground = "0x${colorScheme.base07}";
-          dim_foreground = "0x${colorScheme.base04}";
-          foreground = "0x${colorScheme.base06}";
+          background = "0x${colorScheme.background0}";
+          dim_foreground = "0x${colorScheme.background1}";
+          foreground = "0x${colorScheme.foreground0}";
+          bright_foreground = "0x${colorScheme.foreground0}";
         };
         normal = {
-          black = "0x${colorScheme.base00}";
-          blue = "0x${colorScheme.base0D}";
-          cyan = "0x${colorScheme.base0C}";
-          green = "0x${colorScheme.base0B}";
-          magenta = "0x${colorScheme.base0F}";
-          red = "0x${colorScheme.base08}";
-          white = "0x${colorScheme.base07}";
-          yellow = "0x${colorScheme.base0A}";
+          # black = "0x${colorScheme.black}";
+          # white = "0x${colorScheme.white}";
+          red = "0x${colorScheme.red}";
+          green = "0x${colorScheme.green}";
+          blue = "0x${colorScheme.blue}";
+          yellow = "0x${colorScheme.yellow}";
+          magenta = "0x${colorScheme.magenta}";
+          cyan = "0x${colorScheme.cyan}";
         };
-        # bright = {
-        #   black = "#555b65";
-        #   blue = "#81a2be";
-        #   cyan = "#8abeb7";
-        #   green = "#b5bd68";
-        #   magenta = "#b294bb";
-        #   red = "#cc6666";
-        #   white = "#c5c8c6";
-        #   yellow = "#ffeac3";
-        # };
+        bright = {
+          # black = "#555b65";
+          # white = "#c5c8c6";
+          # TODO:
+          # red = "0x${colorScheme.bright.red}";
+          # green = "0x${colorScheme.bright.green}";
+          # blue = "0x${colorScheme.bright.blue}";
+          # yellow = "0x${colorScheme.bright.yellow}";
+          # magenta = "0x${colorScheme.bright.magenta}";
+          # cyan = "0x${colorScheme.bright.cyan}";
+        };
         cursor = {
           cursor = "CellForeground";
           text = "CellBackground";
