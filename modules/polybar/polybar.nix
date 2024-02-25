@@ -77,7 +77,7 @@ in
         # modules-left = launcher i3 sep
         modules-left = "launcher info-hlwm-workspaces sep";
         modules-center = "date song";
-        modules-right = "scrot sep alsa bluetooth sep network sep memory cpu sep powermenu sep";
+        modules-right = "scrot sep alsa bluetooth sep network sep memory cpu sep battery powermenu sep";
 
         # The separator will be inserted between the output of each module
         separator = " ";
@@ -94,7 +94,7 @@ in
         tray-detached = false;
 
         # Tray icon max size
-        tray-maxsize = 16;
+        tray-maxsize = 56;
 
         # Background color for the tray container
         # ARGB color (e.g. #f00, #ff992a, #ddff1023)
@@ -168,8 +168,10 @@ ramp-headphones-1 = "";
 type = "internal/battery";
 
 full-at = "99";
-battery = "BAT1";
-adapter = "ACAD";
+# Use the following command to list batteries and adapters:
+# $ ls -1 /sys/class/power_supply/
+battery = "BAT0";
+adapter = "AC";
 poll-interval = 2;
 time-format = "%H:%M";
 
@@ -340,15 +342,15 @@ format-padding = 0;
 label-monitor = "%name%";
 
 label-active = "%name%";
-# label-active-background = "${colors.red}"; # TODO:
+label-active-background = "${colorScheme.red}";
 label-active-foreground = "${colorScheme.background1}";
 
 label-occupied = "%icon%";
 label-occupied-underline = "${colorScheme.background1}";
 
 label-urgent = "%icon%";
-# label-urgent-foreground = "${colors.red}"; TODO:
-# label-urgent-background = "${colors.red}"; TODO:
+label-urgent-foreground = "${colorScheme.background0}";
+label-urgent-background = "${colorScheme.red}";
 
 label-empty = "%name%";
 label-empty-background = "${colorScheme.background0}";
