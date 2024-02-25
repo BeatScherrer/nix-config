@@ -1,11 +1,11 @@
 {
-  background0 = "282a2e";
+  background0 = "212121";
   background1 = "555b65";
   background2 = ""; # TODO:
 
-  foreground0 = "707880";
-  foreground1 = "";
-  foreground2 = "";
+  foreground0 = "c7c7c7";
+  foreground1 = "666666";
+  foreground2 = "424242";
 
   color1 = "";
   color2 = "";
