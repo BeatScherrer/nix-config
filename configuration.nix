@@ -95,10 +95,7 @@
       "docker"
     ];
     packages = with pkgs; [
-      signal-desktop
       vscode-fhs
-      slack
-      zulip
     ];
   };
 
@@ -149,6 +146,17 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  # Control light with keys
+  programs.light.enable = true;
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      { keys = [ 232 ]; events = [ "key" ]; command = "/run/wrappers/bin/light -A 10"; }
+      { keys = [ 233 ]; events = [ "key" ]; command = "/run/wrappers/bin/light -U 10"; }
+    ];
+  };
+  sound.mediaKeys.enable = true;
 
   # List services that you want to enable:
   services.fwupd.enable = true;

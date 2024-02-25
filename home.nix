@@ -1,14 +1,22 @@
 { config, pkgs, inputs, modulesPath, ... }:
 
+let
+in
 {
   imports = [
-    inputs.nix-colors.homeManagerModules.default
+    # inputs.nix-colors.homeManagerModules.default
     ./modules/alacritty.nix
     ./modules/sh.nix
     ./modules/git.nix
     ./modules/herbstluftwm/herbstluftwm.nix
+    ./modules/color-scheme/color-scheme.nix
   ];
 
+  # colorScheme = colorScheme;
+  colorScheme = {
+    enable = true;
+    name = "gravel-pit";
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -27,13 +35,20 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
+  # colorScheme = inputs.nix-colors.colorSchemes.everforest;
+
+  nixpkgs.config.allowUnfree = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    home-manager
     neofetch
     localsend
+    telegram-desktop
+    signal-desktop
+    slack
+    zulip
 
     # archives
     zip
@@ -102,7 +117,6 @@
 
   gtk.iconTheme.package = pkgs.nordic;
   gtk.iconTheme.name = "Nordic-green";
-
 
   qt.enable = true;
   qt.platformTheme = "gtk";
