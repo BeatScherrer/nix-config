@@ -76,6 +76,7 @@ in
     gnome.nautilus
     gnome.gnome-calendar
     gnome.seahorse
+    gnome.gnome-calculator
     evolution
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
