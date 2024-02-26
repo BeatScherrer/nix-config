@@ -94,9 +94,6 @@
       "wheel"
       "docker"
     ];
-    packages = with pkgs; [
-      vscode-fhs
-    ];
   };
 
   home-manager = {
@@ -113,6 +110,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    home-manager
     wireguard-tools
     llvmPackages_16.clang-unwrapped
     alacritty

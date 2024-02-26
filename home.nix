@@ -42,7 +42,6 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    home-manager
     neofetch
     localsend
     telegram-desktop
@@ -73,8 +72,11 @@ in
     # nodePackages.angular;
 
     # basic gui tools
+    dbus
+    gnome.nautilus
     gnome.gnome-calendar
-    gnome-online-accounts
+    gnome.seahorse
+    evolution
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -119,7 +121,7 @@ in
   gtk.iconTheme.name = "Nordic-green";
 
   qt.enable = true;
-  qt.platformTheme = "gtk";
-  qt.style.name = "Nordic";
-  qt.style.package = pkgs.nordic;
+  qt.platformTheme = "qtct";
+  qt.style.name = "kvantum";
+  # qt.style.package = pkgs.adwaita-qt;
 }
