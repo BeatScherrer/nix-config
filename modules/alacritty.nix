@@ -3,8 +3,9 @@ let
   colorScheme = config.colorScheme.scheme;
 in
 {
-  # TODO:
-  # - [ ] add colors from theme
+  home.packages = with pkgs; [
+    alacritty
+  ];
 
   programs.alacritty = {
     enable = true;

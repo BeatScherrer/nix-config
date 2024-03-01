@@ -1,7 +1,11 @@
 {config, pkgs, ...}:
 {
   services.xserver = {
+    dpi = 180;
+    upscaleDefaultCursor = true;
     enable = true;
+    xkb.layout = "us";
+    xkb.variant = "";
     displayManager = {
       sddm = {
         enable = true;

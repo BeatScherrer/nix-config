@@ -5,7 +5,7 @@
 
 {
   imports =
-    [ 
+    [
       (modulesPath + "/installer/scan/not-detected.nix")
       ./hardware/nvidia.nix
     ];
@@ -42,7 +42,4 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  services.xserver.dpi = 180;
-  services.xserver.upscaleDefaultCursor = true;
 }

@@ -9,9 +9,10 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
+      ./system_modules/printing.nix
       # ./system_modules/gnome.nix
       ./system_modules/herbstluftwm.nix
-      ./system_modules/printing.nix
+      # ./system_modules/hyprland.nix
     ];
 
   # Bootloader.
@@ -33,14 +34,13 @@
   boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".keyFile = "/crypto_keyfile.bin";
 
   networking.hostName = "nixos"; # Define your hostname.
+  # Enable networking
+  networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
@@ -50,15 +50,6 @@
 
   # symlink to /bin /usr/bin so scripts are portable
   services.envfs.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "";
-    #windowManager.i3.enable = true;
-      # # sddm.enable = true;
-      # sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
-  };
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -72,16 +63,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    jack.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.beat = {
@@ -112,7 +95,6 @@
     wireguard-tools
     llvmPackages_16.clang-unwrapped
     alacritty
-    firefox
     just
     vim
     neovim
