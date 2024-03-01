@@ -10,6 +10,7 @@ in
     ./modules/git.nix
     ./modules/herbstluftwm/herbstluftwm.nix
     ./modules/color-scheme/color-scheme.nix
+    # ./modules/hyprland/hyprland.nix
   ];
 
   # colorScheme = colorScheme;
@@ -33,7 +34,14 @@ in
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      nix-direnv.enable = true;
+    };
+  };
 
   # colorScheme = inputs.nix-colors.colorSchemes.everforest;
 
@@ -78,6 +86,7 @@ in
     gnome.seahorse
     gnome.gnome-calculator
     evolution
+    okular
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

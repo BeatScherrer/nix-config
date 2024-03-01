@@ -11,6 +11,7 @@
       inputs.home-manager.nixosModules.default
       # ./system_modules/gnome.nix
       ./system_modules/herbstluftwm.nix
+      ./system_modules/printing.nix
     ];
 
   # Bootloader.
@@ -58,9 +59,6 @@
       # # sddm.enable = true;
       # sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -133,7 +131,15 @@
     # TODO: get schroot somehow
     debootstrap # schroot
     pv # schroot
+
+    gnome.gnome-keyring
+    gnome-online-accounts
+    dbus
   ];
+
+  services.gnome.gnome-keyring.enable = true;
+  services.gnome.gnome-online-accounts.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   virtualisation.docker.enable = true;
 
