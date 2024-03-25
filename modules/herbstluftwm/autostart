@@ -8,7 +8,8 @@ hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
+xsetroot -solid '#000000'
+xsetroot -cursor_name left_ptr &
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -187,7 +188,6 @@ for state in active urgent normal; do
     attr theme.${state}.outer_color C
 done
 hc attr theme.tiling.outer_width 1
-hc attr theme.background_color '#141414'
 
 hc set window_gap 0
 hc set frame_padding 0
@@ -240,5 +240,6 @@ hc keybind $Mod-space spawn rofi -modi drun -show drun
 . "$HOME/.fehbg"
 picom
 dunst
+
 
 hc load "$(cat "$HOME/.config/herbstluftwm/layouts/25-50-25")"
