@@ -95,7 +95,6 @@
     wireguard-tools
     llvmPackages_16.clang-unwrapped
     alacritty
-    just
     vim
     neovim
     coreutils
