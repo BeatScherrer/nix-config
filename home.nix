@@ -56,12 +56,14 @@ in
     signal-desktop
     slack
     zulip
+    vscode-fhs
+    helix
 
     # archives
     zip
     unzip
 
-    # utils
+    # cli utils
     fzf
     ripgrep
     jq
@@ -87,6 +89,8 @@ in
     gnome.gnome-calculator
     evolution
     okular
+    firefox
+    pavucontrol
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -119,7 +123,7 @@ in
     name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
     size = 48;
-    gtk.enable = true;
+    #gtk.enable = true;
     x11.enable = true;
   };
 
@@ -129,6 +133,11 @@ in
 
   gtk.iconTheme.package = pkgs.nordic;
   gtk.iconTheme.name = "Nordic-green";
+
+  gtk.cursorTheme = {
+    name = "Bibita-Modern-Ice";
+    package = pkgs.bibata-cursors;
+  };
 
   qt.enable = true;
   qt.platformTheme = "qtct";
