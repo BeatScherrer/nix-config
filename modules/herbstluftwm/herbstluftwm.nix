@@ -9,6 +9,7 @@
   xdg.configFile."herbstluftwm/layouts".source = ./layouts;
 
   home.packages = with pkgs; [
+    lxappearance
     dconf
     feh
     picom
