@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
 
-echo TODO
+getBluetoothInfo(){
+  local info="$(bluetoothctl info > /dev/null)"
+
+  if [[ -n "$info" ]]; then
+    echo A
+  else
+    echo ""
+  fi
+}
+
+getBluetoothInfo "$@"
 
