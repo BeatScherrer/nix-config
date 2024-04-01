@@ -94,7 +94,7 @@ in
         tray-detached = false;
 
         # Tray icon max size
-        tray-maxsize = 56;
+        tray-maxsize = 32;
 
         # Background color for the tray container
         # ARGB color (e.g. #f00, #ff992a, #ddff1023)

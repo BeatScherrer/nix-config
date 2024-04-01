@@ -36,6 +36,7 @@
   networking.hostName = "nixos"; # Define your hostname.
   # Enable networking
   networking.networkmanager.enable = true;
+  programs.nm-applet.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -116,10 +117,14 @@
     gnome.gnome-keyring
     gnome-online-accounts
     dbus
+
+    samba
+    cifs-utils
   ];
 
   services.gnome.gnome-keyring.enable = true;
   services.gnome.gnome-online-accounts.enable = true;
+  services.gvfs.enable = true; # required for smb
   security.pam.services.sddm.enableGnomeKeyring = true;
 
   virtualisation.docker.enable = true;
