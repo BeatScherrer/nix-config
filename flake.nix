@@ -20,11 +20,17 @@
     {
 
       nixosConfigurations ={
-        # NOTE: the "nixos" key corresponds to the hostname
-        nixos = nixpkgs.lib.nixosSystem {
+        smolboi = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
-              ./configuration.nix
+              ./hosts/smolboi/configuration.nix
+              inputs.home-manager.nixosModules.default
+            ];
+          };
+        P1 = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; };
+            modules = [
+              ./hosts/P1/configuration.nix
               inputs.home-manager.nixosModules.default
             ];
           };

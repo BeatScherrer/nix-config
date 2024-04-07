@@ -9,10 +9,10 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ./system_modules/printing.nix
-      # ./system_modules/gnome.nix
-      ./system_modules/herbstluftwm.nix
-      # ./system_modules/hyprland.nix
+      ../../system_modules/printing.nix
+      # ../../system_modules/gnome.nix
+      ../../system_modules/herbstluftwm.nix
+      # ../../system_modules/hyprland.nix
     ];
 
   # Bootloader.
@@ -22,7 +22,6 @@
 
   # add flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 
   # Setup keyfile
   boot.initrd.secrets = {
@@ -82,7 +81,7 @@
     # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "beat" = import ./home.nix;
+      "beat" = import ../../home.nix;
     };
   };
 
