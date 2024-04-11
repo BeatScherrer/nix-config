@@ -1,16 +1,25 @@
 {config, pkgs, ...}:
+
 {
   services.xserver = {
-    dpi = 180;
+    resolutions = [
+      {
+        x = 7680;
+        y = 2160;
+      }
+    ];
+
+    dpi = 140;
     upscaleDefaultCursor = true;
+
     enable = true;
     xkb.layout = "us";
     xkb.variant = "";
+    xkb.options = "compose:ralt";
+
     displayManager = {
-      sddm = {
+      gdm = {
         enable = true;
-        theme = "${import ../sddm-theme.nix { inherit pkgs; }}";
-        enableHidpi = true;
       };
       session = [
         {
@@ -28,11 +37,6 @@
 
   environment.systemPackages = with pkgs; [
     herbstluftwm
+    xorg.xev
   ];
-
-  environment.variables = {
-    GDK_SCALE = "2";
-    GDK_DPI_SCALE = "0.5";
-  };
-
 }

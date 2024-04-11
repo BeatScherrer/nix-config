@@ -121,20 +121,17 @@
     cifs-utils
   ];
 
+  environment.variables = {
+    GDK_SCALE = "2";
+    GDK_DPI_SCALE = "0.5";
+  };
+
   services.gnome.gnome-keyring.enable = true;
   services.gnome.gnome-online-accounts.enable = true;
   services.gvfs.enable = true; # required for smb
   security.pam.services.sddm.enableGnomeKeyring = true;
 
   virtualisation.docker.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # Control light with keys
   programs.light.enable = true;
@@ -149,15 +146,6 @@
 
   # List services that you want to enable:
   services.fwupd.enable = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

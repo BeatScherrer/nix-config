@@ -72,12 +72,12 @@ in
       "bar/main" = {
         "inherit" = "bar/base";
         monitor = "eDP-1-1";
-        monitor-fallback = "eDP-1";
+        monitor-fallback = "DP-0";
 
         # modules-left = launcher i3 sep
         modules-left = "launcher info-hlwm-workspaces sep";
         modules-center = "date song";
-        modules-right = "scrot sep alsa bluetooth sep network sep memory cpu sep battery powermenu sep";
+        modules-right = "scrot sep volume bluetooth sep network sep memory temperature cpu sep battery powermenu sep";
 
         # The separator will be inserted between the output of each module
         separator = " ";
@@ -127,17 +127,7 @@ in
 #
 # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-      "module/volume" = {
-        type = "internal/pulseaudio";
-        format.volume = "<ramp-volume> <label-volume>";
-        label.muted.text = "🔇";
-        label.muted.foreground = "#666";
-        ramp.volume = ["🔈" "🔉" "🔊"];
-        click.right = "pavucontrol &";
-      };
-
-
-"module/alsa" = {
+"module/volume" = {
 
 type = "internal/pulseaudio";
 
@@ -300,7 +290,7 @@ icon-next = "";
 
 "module/network" = {
 type = "internal/network";
-interface = "enp4s0";
+interface = "eno1"; # TODO: make configurable with options
 
 interval = "1.0";
 accumulate-stats = true;

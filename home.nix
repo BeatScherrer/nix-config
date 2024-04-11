@@ -68,6 +68,7 @@ in
     ripgrep
     jq
     lazygit
+    tldr
 
     # monitoring
     btop
@@ -128,7 +129,7 @@ in
   home.pointerCursor = {
     name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
-    size = 48;
+    size = 32;
     #gtk.enable = true;
     x11.enable = true;
   };

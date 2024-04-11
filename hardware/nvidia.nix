@@ -1,3 +1,5 @@
+# TODO: wrap the prime stuff in an option
+
 { config, pkgs, ... }:
 {
   hardware.opengl = {
