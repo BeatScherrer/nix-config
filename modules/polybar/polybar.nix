@@ -1,5 +1,6 @@
 # TODO:
 # - [ ] add options for bar height and font size
+# - [ ] make volume module work with pipewire
 
 { config, pkgs, lib, ...}:
 let
