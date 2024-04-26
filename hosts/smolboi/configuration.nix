@@ -11,7 +11,7 @@
       inputs.home-manager.nixosModules.default
       ../../system_modules/printing.nix
       ../../system_modules/herbstluftwm.nix
-      # ../../system_modules/hyprland.nix
+      #../../system_modules/hyprland.nix
       #../../system_modules/gnome.nix
     ];
 
@@ -34,6 +34,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # TODO: Move to sound module with options
   # Enable sound with pipewire.
   sound.enable = true;
   security.rtkit.enable = true;
@@ -53,9 +54,6 @@
       "networkmanager"
       "wheel"
       "docker"
-    ];
-    packages = with pkgs; [
-      firefox
     ];
   };
 
