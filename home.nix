@@ -10,6 +10,7 @@ in
     ./modules/git.nix
     ./modules/herbstluftwm/herbstluftwm.nix
     ./modules/color-scheme/color-scheme.nix
+    ./modules/games/games.nix
     # ./modules/hyprland/hyprland.nix
   ];
 
