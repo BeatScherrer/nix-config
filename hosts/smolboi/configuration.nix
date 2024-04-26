@@ -21,11 +21,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # TODO: Move to networking module with options
   networking.hostName = "smolboi"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Enable networking TODO: Move to networking module with options
   networking.networkmanager.enable = true;
+  networking.wireguard.enable = true;
   programs.nm-applet.enable = true;
 
   # Set your time zone.
