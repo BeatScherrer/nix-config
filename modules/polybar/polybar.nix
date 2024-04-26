@@ -25,7 +25,7 @@ in
 
   services.polybar = {
     enable = true;
-    script = "polybar main &";
+    script = "DISPLAY=:0 polybar main &";
 
     settings = {
       "global/wm" = {
@@ -34,9 +34,9 @@ in
       };
 
       "bar/base" = {
-        font-0 = "Inconsolata for Powerline:size=28;4";
+        font-0 = "Inconsolata for Powerline:size=24;4";
         font-1 = "Font Awesome 6 Pro:style=Light:size=24;4";
-        font-2 = "Font Awesome 6 Brands:size=40;4";
+        font-2 = "Font Awesome 6 Brands:size=36;4";
 
         override-redirect = true;
         monitor-strict = false;
