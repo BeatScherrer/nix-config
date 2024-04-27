@@ -59,6 +59,7 @@ in
     zulip
     vscode-fhs
     helix
+    bc
 
     # archives
     zip
