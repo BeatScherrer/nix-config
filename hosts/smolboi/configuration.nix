@@ -90,6 +90,9 @@
     gnome-online-accounts
     dbus
 
+    debootstrap # schroot
+    pv # schroot
+
     pkg-config
   ];
 
