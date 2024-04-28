@@ -55,11 +55,13 @@ in
     localsend
     telegram-desktop
     signal-desktop
+    threema-desktop
     slack
     zulip
     vscode-fhs
     helix
     bc
+    nmap
 
     # archives
     zip
@@ -95,7 +97,6 @@ in
     firefox
     pavucontrol
     font-manager
-    blueman
     pika-backup
     libreoffice
     inkscape
@@ -132,8 +133,8 @@ in
     name = "Nordic-cursors";
     package = pkgs.nordic;
     size = 32;
-    #gtk.enable = true;
-    #x11.enable = true;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   gtk.enable = true;
