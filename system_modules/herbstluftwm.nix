@@ -1,6 +1,16 @@
 {config, pkgs, ...}:
 
 {
+  environment.systemPackages = with pkgs; [
+    herbstluftwm
+    xorg.xev
+    gnome.gnome-keyring
+    gnome-online-accounts
+    gnome.gvfs
+    dbus
+    blueman
+  ];
+
   services.xserver = {
     resolutions = [
       {
@@ -10,7 +20,7 @@
     ];
 
     dpi = 140;
-    upscaleDefaultCursor = true;
+    #upscaleDefaultCursor = true;
 
     enable = true;
     xkb.layout = "us";
@@ -35,8 +45,9 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    herbstluftwm
-    xorg.xev
-  ];
+  services.gnome.gnome-keyring.enable = true;
+  services.gvfs.enable = true; # required for smb
+  services.blueman.enable = true;
+
+  security.pam.services.login.enableGnomeKeyring = true;
 }
