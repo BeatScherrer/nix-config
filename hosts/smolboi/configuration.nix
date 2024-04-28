@@ -82,6 +82,7 @@
     lshw
     fwupd
     libsForQt5.qt5.qtgraphicaleffects # required for sddm
+    docker
 
     samba
     cifs-utils
@@ -95,6 +96,8 @@
 
     pkg-config
   ];
+
+  virtualisation.docker.enable = true;
 
   fonts.packages = with pkgs; [
     nerdfonts
