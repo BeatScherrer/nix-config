@@ -97,7 +97,7 @@ in
     firefox
     google-chrome
     pavucontrol
-    font-manager
+    # font-manager
     pika-backup
     libreoffice
     inkscape
@@ -151,7 +151,7 @@ in
   };
 
   qt.enable = true;
-  qt.platformTheme = "qtct";
+  qt.platformTheme.name = "qtct";
   qt.style.name = "kvantum";
   # qt.style.package = pkgs.adwaita-qt;
 }

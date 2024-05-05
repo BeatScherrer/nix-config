@@ -41,9 +41,10 @@
           '';
         }
       ];
-      defaultSession = "herbstluft";
     };
   };
+
+  services.displayManager.defaultSession = "herbstluft";
 
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true; # required for smb
