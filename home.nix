@@ -95,6 +95,7 @@ in
     evolution
     okular
     firefox
+    google-chrome
     pavucontrol
     font-manager
     pika-backup
