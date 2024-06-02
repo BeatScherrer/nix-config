@@ -16,33 +16,32 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
+    in {
 
-      nixosConfigurations ={
+      nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; };
-            modules = [
-              ./hosts/smolboi/configuration.nix
-              inputs.home-manager.nixosModules.default
-            ];
-          };
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/smolboi/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
         P1 = nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs; };
-            modules = [
-              ./hosts/P1/configuration.nix
-              inputs.home-manager.nixosModules.default
-            ];
-          };
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/P1/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
         };
+      };
 
-        homeConfigurations = {
-          beat = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = { inherit inputs; };
-            modules = [ ./home.nix ];
-            };
+      homeConfigurations = {
+        beat = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [ ./home.nix ];
         };
+      };
 
     };
 }

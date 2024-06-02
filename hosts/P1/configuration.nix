@@ -5,32 +5,31 @@
 { inputs, config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-      ../../system_modules/printing.nix
-      # ../../system_modules/gnome.nix
-      ../../system_modules/herbstluftwm.nix
-      # ../../system_modules/hyprland.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+    ../../system_modules/printing.nix
+    # ../../system_modules/gnome.nix
+    ../../system_modules/herbstluftwm.nix
+    # ../../system_modules/hyprland.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = ["psmouse.synaptics_intertouch=0"];
+  boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
 
   # add flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".device = "/dev/disk/by-uuid/1262150f-e6ad-4dd6-89e6-6db5cda4e267";
-  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".device =
+    "/dev/disk/by-uuid/1262150f-e6ad-4dd6-89e6-6db5cda4e267";
+  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".keyFile =
+    "/crypto_keyfile.bin";
 
   networking.hostName = "nixos"; # Define your hostname.
   # Enable networking
@@ -70,19 +69,13 @@
   users.users.beat = {
     isNormalUser = true;
     description = "Beat Scherrer";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   home-manager = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs; };
-    users = {
-      "beat" = import ../../home.nix;
-    };
+    users = { "beat" = import ../../home.nix; };
   };
 
   # Allow unfree packages
@@ -138,8 +131,16 @@
   services.actkbd = {
     enable = true;
     bindings = [
-      { keys = [ 232 ]; events = [ "key" ]; command = "/run/wrappers/bin/light -A 10"; }
-      { keys = [ 233 ]; events = [ "key" ]; command = "/run/wrappers/bin/light -U 10"; }
+      {
+        keys = [ 232 ];
+        events = [ "key" ];
+        command = "/run/wrappers/bin/light -A 10";
+      }
+      {
+        keys = [ 233 ];
+        events = [ "key" ];
+        command = "/run/wrappers/bin/light -U 10";
+      }
     ];
   };
   sound.mediaKeys.enable = true;

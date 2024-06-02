@@ -1,16 +1,15 @@
 { config, pkgs, inputs, modulesPath, ... }:
 
 let
-in
-{
+in {
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ./modules/alacritty.nix
-    ./modules/sh.nix
     ./modules/git.nix
     ./modules/herbstluftwm/herbstluftwm.nix
     ./modules/color-scheme/color-scheme.nix
     ./modules/games/games.nix
+    ./modules/shell/zsh.nix
     # ./modules/hyprland/hyprland.nix
   ];
 
@@ -73,6 +72,7 @@ in
     jq
     lazygit
     tldr
+    nixfmt
 
     # monitoring
     btop
@@ -117,8 +117,7 @@ in
     # '')
   ];
 
-  home.file = {
-  };
+  home.file = { };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home

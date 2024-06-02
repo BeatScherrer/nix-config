@@ -1,8 +1,5 @@
-{ config, pkgs, ...}:
-{
-  environment.systemPackages = with pkgs; [
-    system-config-printer
-  ];
+{ config, pkgs, ... }: {
+  environment.systemPackages = with pkgs; [ system-config-printer ];
 
   services.printing.enable = true;
   services.avahi = {
@@ -10,7 +7,5 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-  services.printing.drivers = with pkgs; [
-    hplip
-  ];
+  services.printing.drivers = with pkgs; [ hplip ];
 }

@@ -1,12 +1,16 @@
-{ config, pkgs, ...}:
-{
-  environment.systemPackages = with pkgs; [
-    hyprland
-  ];
+{ config, pkgs, ... }: {
+  environment.systemPackages = with pkgs; [ hyprland ];
 
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+  };
+
+  services.xserver.displayManager = {
+    gdm = {
+      enable = true;
+      wayland = true;
+    };
   };
 
   environment.sessionVariables = {
@@ -14,16 +18,18 @@
     WLR_NO_HARDWARE_CURSOR = "1";
     # hint to electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+    # from https://wiki.hyprland.org/Nvidia/
+    LIBVA_DRIVER_NAME = "nvidia";
+    XDG_SESSION_TYPE = "wayland";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
-
-  # hardware = {
-  #   opengl.enable = true;
-  #
-  #   # most wayland compositors need this
-  #   nvidia.modesetting.enable = true;
-  # };
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
+  boot.initrd.availableKernelModules =
+    [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 }

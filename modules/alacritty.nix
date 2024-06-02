@@ -1,11 +1,7 @@
-{config, lib, pkgs, ...}:
-let
-  colorScheme = config.colorScheme.scheme;
-in
-{
-  home.packages = with pkgs; [
-    alacritty
-  ];
+{ config, lib, pkgs, ... }:
+let colorScheme = config.colorScheme.scheme;
+in {
+  home.packages = with pkgs; [ alacritty ];
 
   programs.alacritty = {
     enable = true;

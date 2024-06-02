@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -12,12 +12,10 @@
   ];
 
   services.xserver = {
-    resolutions = [
-      {
-        x = 7680;
-        y = 2160;
-      }
-    ];
+    resolutions = [{
+      x = 7680;
+      y = 2160;
+    }];
 
     dpi = 140;
     #upscaleDefaultCursor = true;
@@ -28,25 +26,26 @@
     xkb.options = "compose:ralt";
 
     displayManager = {
-      gdm = {
-        enable = true;
-      };
-      session = [
-        {
-          manage = "desktop";
-          name = "herbstluft";
-          start = ''
-            ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
-            waitPID=$!
-          '';
-        }
-      ];
+      gdm = { enable = true; };
+      session = [{
+        manage = "desktop";
+        name = "herbstluft";
+        start = ''
+          ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
+          waitPID=$!
+        '';
+      }];
     };
   };
 
   services.displayManager.defaultSession = "herbstluft";
 
-  services.gnome.gnome-keyring.enable = true;
+  services.gnome = {
+    gnome-keyring.enable = true;
+    gnome-settings-daemon.enable = true;
+    evolution-data-server.enable = true;
+    gnome-online-accounts.enable = true;
+  };
   services.gvfs.enable = true; # required for smb
   services.blueman.enable = true;
 

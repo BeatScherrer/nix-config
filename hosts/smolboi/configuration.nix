@@ -5,15 +5,14 @@
 { inputs, config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-      ../../system_modules/printing.nix
-      ../../system_modules/herbstluftwm.nix
-      #../../system_modules/hyprland.nix
-      #../../system_modules/gnome.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+    ../../system_modules/printing.nix
+    ../../system_modules/herbstluftwm.nix
+    #../../system_modules/hyprland.nix
+    #../../system_modules/gnome.nix
+  ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -50,19 +49,16 @@
   users.users.beat = {
     isNormalUser = true;
     description = "Beat Scherrer";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
+
+  programs.zsh.enable = true; # TODO:
+  users.defaultUserShell = pkgs.zsh; # TODO:
 
   home-manager = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs; };
-    users = {
-      "beat" = import ../../home.nix;
-    };
+    users = { "beat" = import ../../home.nix; };
   };
 
   # Allow unfree packages
@@ -97,11 +93,29 @@
     pkg-config
   ];
 
+  # TODO: modularize this
+  environment.shellAliases = {
+    nixupdate = "sudo nixos-rebuild switch --flake ~/.nix";
+    homeupdate = "home-manager switch --flake ~/.nix";
+    nnix = "nvim ~/.nix";
+    sourcezsh = "source ~/.zshrc"; # TODO: Where is the rc file placed in nixos?
+    config = "git --git-dir=$HOME/.cfg/ --work-tree=$HOME";
+
+    # personal
+    cdsrc = "cd ~/src";
+    cdairshow = "cdsrc && cd airshow";
+    cdaf = "cdsrc && cd albatros_frontend";
+    sc = "sudo SYSTEMD_EDITOR=vim systemctl";
+    jc = "sudo journalctl";
+    vimf = "nvim $(fzf)";
+
+    # MT-Robot AG
+    cdmtr = "cd ~/src";
+  };
+
   virtualisation.docker.enable = true;
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-  ];
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

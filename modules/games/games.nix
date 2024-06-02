@@ -1,6 +1,1 @@
-{ config, pkgs, ...}:
-{
-  home.packages = with pkgs; [
-    steam
-  ];
-}
+{ config, pkgs, ... }: { home.packages = with pkgs; [ steam ]; }
