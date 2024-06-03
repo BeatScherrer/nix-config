@@ -8,10 +8,9 @@ in {
     settings = {
       window.decorations = "None";
       font = {
-        size = 14;
+        size = 15;
         normal = {
-          family = "JetBrainsMonoNL Nerd Font";
-          style = "Light";
+          family = "IosevkaNerdFont";
         };
       };
       colors = with config.colorScheme.colors; {

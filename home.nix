@@ -72,7 +72,9 @@ in {
     jq
     lazygit
     tldr
-    nixfmt
+    nixfmt-classic
+    stylua
+    lua-language-server
 
     # monitoring
     btop
