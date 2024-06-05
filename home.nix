@@ -1,7 +1,14 @@
-{ config, pkgs, inputs, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  modulesPath,
+  ...
+}:
 
 let
-in {
+in
+{
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ./modules/alacritty.nix
@@ -61,6 +68,8 @@ in {
     helix
     bc
     nmap
+    gcc
+    zig
 
     # archives
     zip
@@ -72,9 +81,15 @@ in {
     jq
     lazygit
     tldr
-    nixfmt-classic
+
+    # lsp and formatters
     stylua
     lua-language-server
+    nixd
+    nixfmt-rfc-style
+    shfmt
+    codespell
+    markdownlint-cli
 
     # monitoring
     btop
