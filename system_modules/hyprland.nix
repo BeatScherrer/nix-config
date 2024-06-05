@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [ hyprland ];
 
   programs.hyprland = {
@@ -29,7 +30,11 @@
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-  boot.initrd.availableKernelModules =
-    [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.initrd.availableKernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
   boot.kernelParams = [ "nvidia-drm.modeset=1" ];
 }

@@ -13,4 +13,3 @@ pkgs.stdenv.mkDerivation {
     cp -R ./* $out/
   '';
 }
-

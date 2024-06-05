@@ -1,9 +1,9 @@
-{config, pkgs, ...}:
+{ pkgs, ... }:
 let
   aliases = {
-      nixupdate = "sudo nixos-rebuild switch --flake ~/.nix";
-      homeupdate = "home-manager switch --flake ~/.nix";
-      nnix = "nvim ~/.nix";
+    nixupdate = "sudo nixos-rebuild switch --flake ~/.nix";
+    homeupdate = "home-manager switch --flake ~/.nix";
+    nnix = "nvim ~/.nix";
   };
 in
 {
@@ -12,6 +12,6 @@ in
   };
 
   users = {
-    defaultUserShell = pkgs.bash
+    defaultUserShell = pkgs.bash;
   };
 }

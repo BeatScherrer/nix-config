@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   programs.git = {
     enable = true;
     userName = "BeatScherrer";
@@ -12,25 +13,24 @@
       pa = "pull --recurse-submodules";
       fa = "fetch --all";
       cs = "clone --recursive -b";
-      lg = ''
-        log -20 --oneline --abbrev-commit --pretty=format:"%h %ad | %s%d [%an]" --date=short'';
-      hist = ''
-        log -20 --graph --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'';
+      lg = ''log -20 --oneline --abbrev-commit --pretty=format:"%h %ad | %s%d [%an]" --date=short'';
+      hist = ''log -20 --graph --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'';
       type = "cat-file -t";
       dump = "cat-file -p";
       subup = "submodule update --init --recursive";
       last = "log -1 HEAD";
       unstage = "reset HEAD --";
       mh = "merge -Xignore-space-change -Xrename-threshold=25";
-      unpushed =
-        "log --branches --not --remotes --no-walk --decorate --oneline";
+      unpushed = "log --branches --not --remotes --no-walk --decorate --oneline";
     };
     extraConfig = {
       core = {
         editor = "vim";
         hooksPath = "~/.git_hooks";
       };
-      merge = { tool = "vimdiff"; };
+      merge = {
+        tool = "vimdiff";
+      };
       mergetool = {
         prompt = false;
         keepBackup = false;

@@ -3,7 +3,12 @@
 # - Set color scheme name with: colorScheme.name = "gravel-pit";
 # - Provide the color scheme with: colorScheme.scheme;
 
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 with lib;
 let
   cfg = config.colorScheme;
@@ -43,10 +48,10 @@ let
       # "bright.magenta"
       # "bright.cyan"
     ];
-    message =
-      "The color scheme '${cfg.name}' is missing one or more required keys!";
+    message = "The color scheme '${cfg.name}' is missing one or more required keys!";
   };
-in {
+in
+{
   imports = [ ];
 
   options = {
@@ -66,12 +71,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    colorScheme = { scheme = import ./schemes/${cfg.name}.nix; };
+    colorScheme = {
+      scheme = import ./schemes/${cfg.name}.nix;
+    };
 
     assertions = [
       (assertSchemeKeys (import ./schemes/${cfg.name}.nix))
       (assertSchemeKeys (import ./schemes/${default_theme}.nix))
     ];
   };
-
 }

@@ -12,10 +12,12 @@
   ];
 
   services.xserver = {
-    resolutions = [{
-      x = 7680;
-      y = 2160;
-    }];
+    resolutions = [
+      {
+        x = 7680;
+        y = 2160;
+      }
+    ];
 
     dpi = 140;
     #upscaleDefaultCursor = true;
@@ -26,15 +28,19 @@
     xkb.options = "compose:ralt";
 
     displayManager = {
-      gdm = { enable = true; };
-      session = [{
-        manage = "desktop";
-        name = "herbstluft";
-        start = ''
-          ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
-          waitPID=$!
-        '';
-      }];
+      gdm = {
+        enable = true;
+      };
+      session = [
+        {
+          manage = "desktop";
+          name = "herbstluft";
+          start = ''
+            ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
+            waitPID=$!
+          '';
+        }
+      ];
     };
   };
 

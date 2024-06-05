@@ -2,19 +2,28 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
-
 {
-  imports = [ # Include the results of the hardware scan.
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ../../system_modules/printing.nix
     ../../system_modules/herbstluftwm.nix
+    ../../system_modules/steam.nix
     #../../system_modules/hyprland.nix
     #../../system_modules/gnome.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -49,7 +58,11 @@
   users.users.beat = {
     isNormalUser = true;
     description = "Beat Scherrer";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   programs.zsh.enable = true; # TODO:
@@ -57,8 +70,12 @@
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = { "beat" = import ../../home.nix; };
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+    users = {
+      "beat" = import ../../home.nix;
+    };
   };
 
   # Allow unfree packages
