@@ -1,5 +1,9 @@
-{ config, pkgs, ... }: {
-  imports = [ ../polybar/polybar.nix ];
+{ config, pkgs, ... }:
+{
+  imports = [
+    ../polybar/polybar.nix
+    ../rofi/rofi.nix
+  ];
 
   xdg.configFile."herbstluftwm/autostart".source = ./autostart;
   xdg.configFile."herbstluftwm/scripts".source = ./scripts;
