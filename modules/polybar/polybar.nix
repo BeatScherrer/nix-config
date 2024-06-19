@@ -30,7 +30,7 @@ in
 
   services.polybar = {
     enable = true;
-    script = "DISPLAY=:0 polybar main &";
+    script = "polybar main &";
 
     settings = {
       "global/wm" = {
@@ -40,6 +40,7 @@ in
 
       "bar/base" = {
         font-0 = "Inconsolata for Powerline:size=24;4";
+        # TODO: Add font awseom pro smh
         font-1 = "Font Awesome 6 Pro:style=Light:size=24;4";
         font-2 = "Font Awesome 6 Brands:size=36;4";
 
@@ -77,7 +78,7 @@ in
 
       "bar/main" = {
         "inherit" = "bar/base";
-        monitor = "eDP-1-1";
+        monitor = "DP-1";
         monitor-fallback = "DP-0";
 
         # modules-left = launcher i3 sep
