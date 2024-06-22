@@ -17,7 +17,7 @@
     ../../system_modules/herbstluftwm.nix
     ../../system_modules/steam.nix
     #../../system_modules/hyprland.nix
-    #../../system_modules/gnome.nix
+    ../../system_modules/gnome.nix
   ];
 
   nix.settings.experimental-features = [
@@ -29,12 +29,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # TODO: Move to networking module with options
   networking.hostName = "trident"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
   programs.nm-applet.enable = true;
+
+  programs.coolercontrol.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
@@ -96,6 +100,8 @@
     fwupd
     libsForQt5.qt5.qtgraphicaleffects # required for sddm
     docker
+    liquidctl
+    lm_sensors
 
     samba
     cifs-utils

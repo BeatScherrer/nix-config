@@ -78,7 +78,7 @@ in
 
       "bar/main" = {
         "inherit" = "bar/base";
-        monitor = "DP-1";
+        monitor = "DP-5";
         monitor-fallback = "DP-0";
 
         # modules-left = launcher i3 sep
