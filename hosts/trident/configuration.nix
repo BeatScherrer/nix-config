@@ -118,26 +118,6 @@
     pkg-config
   ];
 
-  # TODO: modularize this
-  environment.shellAliases = {
-    nixupdate = "sudo nixos-rebuild switch --flake ~/.nix";
-    homeupdate = "home-manager switch --flake ~/.nix";
-    nnix = "nvim ~/.nix";
-    sourcezsh = "source ~/.zshrc"; # TODO: Where is the rc file placed in nixos?
-    config = "git --git-dir=$HOME/.cfg/ --work-tree=$HOME";
-
-    # personal
-    cdsrc = "cd ~/src";
-    cdairshow = "cdsrc && cd airshow";
-    cdaf = "cdsrc && cd albatros_frontend";
-    sc = "sudo SYSTEMD_EDITOR=vim systemctl";
-    jc = "sudo journalctl";
-    vimf = "nvim $(fzf)";
-
-    # MT-Robot AG
-    cdmtr = "cd ~/src";
-  };
-
   fonts.packages = with pkgs; [
     nerdfonts
     font-awesome
