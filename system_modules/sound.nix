@@ -1,12 +1,12 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
-  environment.systemPackages = with pkgs; [ system-config-printer ];
-
-  services.printing.enable = true;
-  services.avahi = {
+  sound.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
   };
-  services.printing.drivers = with pkgs; [ hplip ];
 }
