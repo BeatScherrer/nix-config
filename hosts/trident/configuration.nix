@@ -16,8 +16,10 @@
     ../../system_modules/printing.nix
     ../../system_modules/herbstluftwm.nix
     ../../system_modules/steam.nix
+    ../../system_modules/games.nix
+    ../../system_modules/virtualization.nix
     #../../system_modules/hyprland.nix
-    ../../system_modules/gnome.nix
+    # ../../system_modules/gnome.nix
   ];
 
   nix.settings.experimental-features = [
@@ -65,7 +67,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
+      "audio"
     ];
   };
 
@@ -135,8 +137,6 @@
     # MT-Robot AG
     cdmtr = "cd ~/src";
   };
-
-  virtualisation.docker.enable = true;
 
   fonts.packages = with pkgs; [
     nerdfonts
