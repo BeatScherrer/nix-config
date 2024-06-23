@@ -6,8 +6,4 @@ in
   programs.bash = {
     shellAliases = aliases;
   };
-
-  users = {
-    defaultUserShell = pkgs.bash;
-  };
 }

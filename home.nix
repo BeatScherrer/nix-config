@@ -16,7 +16,7 @@ in
     ./modules/herbstluftwm/herbstluftwm.nix
     ./modules/color-scheme/color-scheme.nix
     ./modules/games/games.nix
-    ./modules/shell/zsh.nix
+    ./modules/shell/shell.nix
     # ./modules/hyprland/hyprland.nix
   ];
 
