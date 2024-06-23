@@ -9,7 +9,7 @@
 @import "colors.rasi"
 
 configuration {
-  font:                             "Roboto Mono for Powerline, Font Awesome 6 Pro 14";
+  font:                             "Iosevka Nerd Font, Font Awesome 6 Pro 14";
     show-icons:                     true;
     icon-theme:                     "Papirus";
     display-drun:                   "";

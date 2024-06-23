@@ -215,6 +215,7 @@ hc rule class="battle.net.exe"
 hc rule class="lutris"
 hc rule class="steam"
 hc rule class="upc.exe"
+hc rule name ="Steam"
 
 hc set tree_style '╾│ ├└╼─┐'
 
