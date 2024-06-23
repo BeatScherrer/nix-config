@@ -18,6 +18,7 @@
     ../../system_modules/steam.nix
     ../../system_modules/games.nix
     ../../system_modules/virtualization.nix
+    ../../system_modules/sound.nix
     #../../system_modules/hyprland.nix
     # ../../system_modules/gnome.nix
   ];
@@ -47,18 +48,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
-  # TODO: Move to sound module with options
-  # Enable sound with pipewire.
-  sound.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.beat = {
