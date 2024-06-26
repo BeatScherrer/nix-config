@@ -39,7 +39,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
-  programs.nm-applet.enable = true;
 
   programs.coolercontrol.enable = true;
 

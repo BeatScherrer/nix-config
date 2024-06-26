@@ -56,4 +56,6 @@
   services.blueman.enable = true;
 
   security.pam.services.login.enableGnomeKeyring = true;
+
+  programs.nm-applet.enable = true;
 }
