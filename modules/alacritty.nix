@@ -10,7 +10,7 @@ in
     settings = {
       window.decorations = "None";
       font = {
-        size = 15;
+        size = 13;
         normal = {
           family = "IosevkaNerdFont";
         };

@@ -13,4 +13,6 @@
   sc = "sudo SYSTEMD_EDITOR=vim systemctl";
   jc = "sudo journalctl";
   vimf = "nvim $(fzf)";
+  cm = "cmake -GNinja";
+  # mm = "type mm && export CCACHE_BASEDIR=${PWD} && ninja -j${MAKE_CORES}"; # FIXME:
 }

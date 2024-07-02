@@ -87,6 +87,7 @@ in
     lua-language-server
     nixd
     nixfmt-rfc-style
+    bash-language-server
     shfmt
     codespell
     markdownlint-cli

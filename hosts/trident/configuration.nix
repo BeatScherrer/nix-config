@@ -19,7 +19,7 @@
     ../../system_modules/games.nix
     ../../system_modules/virtualization.nix
     ../../system_modules/sound.nix
-    #../../system_modules/hyprland.nix
+    # ../../system_modules/hyprland.nix
     # ../../system_modules/gnome.nix
   ];
 
@@ -92,7 +92,14 @@
     docker
     liquidctl
     lm_sensors
+    cmake
+    clang
+    gcc
+    gnumake
 
+    rustup
+
+    # network shares
     samba
     cifs-utils
 
