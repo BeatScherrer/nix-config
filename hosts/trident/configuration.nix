@@ -13,14 +13,14 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    ../../system_modules/printing.nix
-    ../../system_modules/herbstluftwm.nix
-    ../../system_modules/steam.nix
-    ../../system_modules/games.nix
-    ../../system_modules/virtualization.nix
-    ../../system_modules/sound.nix
-    # ../../system_modules/hyprland.nix
-    # ../../system_modules/gnome.nix
+    ../../modules/nixos/printing.nix
+    ../../modules/nixos/herbstluftwm.nix
+    ../../modules/nixos/steam.nix
+    ../../modules/nixos/games.nix
+    ../../modules/nixos/virtualization.nix
+    ../../modules/nixos/sound.nix
+    # ../../modules/nixos/hyprland.nix
+    # ../../modules/nixos/gnome.nix
   ];
 
   nix.settings.experimental-features = [
@@ -68,7 +68,7 @@
       inherit inputs;
     };
     users = {
-      "beat" = import ../../home.nix;
+      "beat" = import ../../home-manager/home.nix;
     };
   };
 

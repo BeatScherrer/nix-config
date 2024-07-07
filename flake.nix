@@ -59,7 +59,7 @@
           extraSpecialArgs = {
             inherit inputs;
           };
-          modules = [ ./home.nix ];
+          modules = [ ./home-manager/home.nix ];
         };
       };
     };

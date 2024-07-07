@@ -2,10 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ../../system_modules/printing.nix
@@ -20,16 +26,19 @@
   boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
 
   # add flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Setup keyfile
-  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
+  boot.initrd.secrets = {
+    "/crypto_keyfile.bin" = null;
+  };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".device =
-    "/dev/disk/by-uuid/1262150f-e6ad-4dd6-89e6-6db5cda4e267";
-  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".keyFile =
-    "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".device = "/dev/disk/by-uuid/1262150f-e6ad-4dd6-89e6-6db5cda4e267";
+  boot.initrd.luks.devices."luks-1262150f-e6ad-4dd6-89e6-6db5cda4e267".keyFile = "/crypto_keyfile.bin";
 
   networking.hostName = "nixos"; # Define your hostname.
   # Enable networking
@@ -69,13 +78,21 @@
   users.users.beat = {
     isNormalUser = true;
     description = "Beat Scherrer";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = { "beat" = import ../../home.nix; };
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+    users = {
+      "beat" = import ../../home-manager/home.nix;
+    };
   };
 
   # Allow unfree packages

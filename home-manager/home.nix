@@ -5,19 +5,17 @@
   modulesPath,
   ...
 }:
-
-let
-in
 {
   imports = [
     # inputs.nix-colors.homeManagerModules.default
-    ./modules/alacritty.nix
-    ./modules/git.nix
-    ./modules/herbstluftwm/herbstluftwm.nix
-    ./modules/color-scheme/color-scheme.nix
-    ./modules/games/games.nix
-    ./modules/shell/shell.nix
-    # ./modules/hyprland/hyprland.nix
+    ../modules/home-manager/alacritty.nix
+
+    ../modules/home-manager/git.nix
+    ../modules/home-manager/herbstluftwm/herbstluftwm.nix
+    ../modules/home-manager/color-scheme/color-scheme.nix
+    ../modules/home-manager/games/games.nix
+    ../modules/home-manager/shell/shell.nix
+    # ./modules/home-manager/hyprland/hyprland.nix
   ];
 
   # colorScheme = colorScheme;

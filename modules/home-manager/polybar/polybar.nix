@@ -135,7 +135,6 @@ in
       # _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
       "module/volume" = {
-
         type = "internal/pulseaudio";
 
         format-volume = "<ramp-volume> <label-volume>";
