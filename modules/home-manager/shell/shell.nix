@@ -11,8 +11,8 @@
     oh-my-posh = {
       enable = true;
       # useTheme = "bubblesextra";
-      settings = builtins.fromJSON (
-        builtins.unsafeDiscardStringContext (builtins.readFile ./oh-my-posh/themes/gravel_pit.omp.json)
+      settings = builtins.fromTOML (
+        builtins.unsafeDiscardStringContext (builtins.readFile ./oh-my-posh/themes/gravel_pit.omp.toml)
       );
     };
     fzf = {
