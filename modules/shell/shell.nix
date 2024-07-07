@@ -10,7 +10,10 @@
   programs = {
     oh-my-posh = {
       enable = true;
-      useTheme = "bubblesextra";
+      # useTheme = "bubblesextra";
+      settings = builtins.fromJSON (
+        builtins.unsafeDiscardStringContext (builtins.readFile ./oh-my-posh/themes/gravel_pit.omp.json)
+      );
     };
     fzf = {
       enable = true;
