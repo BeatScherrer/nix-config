@@ -94,6 +94,7 @@
     biome
     lemminx
     dockerfile-language-server-nodejs
+    taplo
 
     # monitoring
     btop
