@@ -103,7 +103,7 @@
     samba
     cifs-utils
 
-    gnome.gnome-keyring
+    gnome-keyring
     gnome-online-accounts
     dbus
 

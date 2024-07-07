@@ -46,6 +46,7 @@ in
     direnv = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
   };
@@ -81,16 +82,20 @@ in
     jq
     lazygit
     tldr
+    just
 
     # lsp and formatters
     stylua
     lua-language-server
     nixd
     nixfmt-rfc-style
-    bash-language-server
     shfmt
     codespell
     markdownlint-cli
+    nodePackages.jsonlint
+    biome
+    lemminx
+    dockerfile-language-server-nodejs
 
     # monitoring
     btop
@@ -106,10 +111,10 @@ in
 
     # basic gui tools
     dbus
-    gnome.nautilus
-    gnome.gnome-calendar
-    gnome.seahorse
-    gnome.gnome-calculator
+    nautilus
+    gnome-calendar
+    seahorse
+    gnome-calculator
     evolution
     okular
     firefox

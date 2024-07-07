@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  aliases = import ./aliases.nix;
+  aliases = import ../aliases.nix;
 in
 {
   programs = {

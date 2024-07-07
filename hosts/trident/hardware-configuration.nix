@@ -20,6 +20,7 @@
     "usbhid"
     "usb_storage"
     "sd_mod"
+    "amdgpu"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];

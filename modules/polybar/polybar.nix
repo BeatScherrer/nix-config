@@ -78,8 +78,8 @@ in
 
       "bar/main" = {
         "inherit" = "bar/base";
-        monitor = "DP-1";
-        monitor-fallback = "DP-0";
+        monitor = "DisplayPort-4";
+        monitor-fallback = "DP-4";
 
         # modules-left = launcher i3 sep
         modules-left = "launcher info-hlwm-workspaces sep";

@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     herbstluftwm
     xorg.xev
-    gnome.gnome-keyring
+    gnome-keyring
     gnome-online-accounts
     gnome.gvfs
     dbus
@@ -12,6 +12,7 @@
   ];
 
   services.xserver = {
+    videoDrivers = [ "amdgpu" ];
     resolutions = [
       {
         x = 7680;
