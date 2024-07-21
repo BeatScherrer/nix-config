@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 {
   home.file = {
-    ".local/share/wallpapers" = {
+    ".local/share/avatars" = {
       enable = true;
-      source = ./wallpapers;
+      source = ./avatars;
       recursive = true;
     };
   };

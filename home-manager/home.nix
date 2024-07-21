@@ -15,6 +15,8 @@
     ../modules/home-manager/color-scheme/color-scheme.nix
     ../modules/home-manager/games/games.nix
     ../modules/home-manager/shell/shell.nix
+    ../modules/home-manager/wallpapers/wallpapers.nix
+    # ../modules/home-manager/wallpapers/avatars.nix # TODO: add avatar to folder
     # ./modules/home-manager/hyprland/hyprland.nix
   ];
 

@@ -107,7 +107,7 @@ prompt_os() {
   # TODO: make colors work in the following manner!
 
   if [[ "$os_name" == "NixOS" && -n $version_codename ]]; then
-    prompt_segment "[38;5;28m" white "$nixos_logo  $version_codename"
+    prompt_segment blue white "$nixos_logo  $version_codename"
   elif [[ "$os_name" == "Ubuntu" && -n "$version_codename" ]]; then
     prompt_segment orange white "$ubuntu_logo  $version_codename"
   elif [[ "$os_name" == "Debian" && -n "$version_codename" ]]; then
