@@ -62,7 +62,7 @@
     localsend
     telegram-desktop
     signal-desktop
-    threema-desktop
+    # threema-desktop
     slack
     zulip
     vscode-fhs
