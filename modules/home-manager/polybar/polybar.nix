@@ -30,7 +30,7 @@ in
 
   services.polybar = {
     enable = true;
-    script = "polybar main &";
+    script = "~/.config/polybar/scripts/launch_polybar.sh";
 
     settings = {
       "global/wm" = {
@@ -78,7 +78,7 @@ in
 
       "bar/main" = {
         "inherit" = "bar/base";
-        monitor = "DisplayPort-0";
+        monitor = builtins.getEnv "MONITOR";
         monitor-fallback = "DP-0";
 
         # modules-left = launcher i3 sep
