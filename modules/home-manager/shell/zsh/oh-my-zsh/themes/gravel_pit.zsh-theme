@@ -99,7 +99,7 @@ prompt_os() {
   local nixos_logo="\uF313"
 
   local os_name
-  os_name=$(cat /etc/os-release | grep '^NAME=' | cut -d'=' -f2)
+  os_name=$(cat /etc/os-release | grep '^NAME=' | cut -d'=' -f2 | tr -d '"')
 
   local version_codename
   version_codename=$(cat /etc/os-release | grep '^VERSION_CODENAME=' | cut -d'=' -f2)
@@ -109,11 +109,14 @@ prompt_os() {
   if [[ "$os_name" == "NixOS" && -n $version_codename ]]; then
     prompt_segment blue white "$nixos_logo  $version_codename"
   elif [[ "$os_name" == "Ubuntu" && -n "$version_codename" ]]; then
+    # TODO: Fix orange
     prompt_segment orange white "$ubuntu_logo  $version_codename"
   elif [[ "$os_name" == "Debian" && -n "$version_codename" ]]; then
     prompt_segment orange white "$debian  $version_codename"
   elif [[ "$os_name" == "Arch" ]]; then
     prompt_segment "[38;5;25m" white "$arch "
+  else
+    prompt_segment white black  "${os_name} - ${version_codename}"
   fi
 }
 
@@ -149,11 +152,6 @@ prompt_git() {
     ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
     ref="◈ $(command git describe --exact-match --tags HEAD 2> /dev/null)" || \
     ref="➦ $(command git rev-parse --short HEAD 2> /dev/null)"
-    if [[ -n $dirty ]]; then
-      prompt_segment yellow black
-    else
-      prompt_segment green $CURRENT_FG
-    fi
 
     local ahead behind
     ahead=$(command git log --oneline @{upstream}.. 2>/dev/null)
@@ -180,12 +178,17 @@ prompt_git() {
     zstyle ':vcs_info:*' enable git
     zstyle ':vcs_info:*' get-revision true
     zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr '✚'
+    zstyle ':vcs_info:*' stagedstr '✚ '
     zstyle ':vcs_info:*' unstagedstr '±'
     zstyle ':vcs_info:*' formats ' %u%c'
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
-    echo -n "${${ref:gs/%/%%}/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+
+    if [[ -n $dirty ]]; then
+      prompt_segment yellow black "${${ref:gs/%/%%}/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+    else
+      prompt_segment green black "${${ref:gs/%/%%}/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+    fi
   fi
 }
 
