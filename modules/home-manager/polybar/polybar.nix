@@ -52,15 +52,15 @@ in
         # Dimension defined as pixel value (e.g. 35) or percentage (e.g. 50%),
         # the percentage can optionally be extended with a pixel offset like so:
         # 50%:-10, this will result in a width or height of 50% minus 10 pixels
-        width = "100%";
+        width = "50%";
         height = 60;
 
         # Offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
         # the percentage can optionally be extended with a pixel offset like so:
         # 50%:-10, this will result in an offset in the x or y direction
         # of 50% minus 10 pixels
-        offset-x = "0%";
-        offset-y = "0%";
+        offset-x = "25%";
+        offset-y = 5;
 
         foreground = "${colorScheme.foreground0}";
         background = "#00000000";
