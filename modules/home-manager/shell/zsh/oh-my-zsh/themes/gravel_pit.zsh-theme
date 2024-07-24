@@ -28,6 +28,11 @@
 # hostname to whether the last call exited with an error to whether background
 # jobs are running in this shell will all be displayed automatically when
 # appropriate.
+#
+# NOTE: to test the prompt use `print -P`. This enables the prompt expansion
+# for colors use: `spectrum_ls` (oh-my-zsh uses that apparently)
+
+autoload -U colors && colors
 
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
@@ -71,16 +76,17 @@ trailing_separator(){
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
 prompt_segment() {
-  local bg_color fg_color
+  local bg_color fg_color text
   [[ -n $1 ]] && bg_color="$1" || bg_color="%k"
   [[ -n $2 ]] && fg_color="$2" || fg_color="%f"
+  text="$3"
 
   local bg fg
   [[ -n $bg_color ]] && bg="%K{$bg_color}" || bg="%k"
   [[ -n $fg_color ]] && fg="%F{$fg_color}" || fg="%f"
 
   leading_separator $bg_color
-  echo -n "$bg$fg$3%k"
+  echo -n "$bg$fg$text%k"
   trailing_separator $bg_color
 }
 
@@ -104,23 +110,21 @@ prompt_os() {
   local version_codename
   version_codename=$(cat /etc/os-release | grep '^VERSION_CODENAME=' | cut -d'=' -f2)
 
-  # TODO: make colors work in the following manner!
-
   if [[ "$os_name" == "NixOS" && -n $version_codename ]]; then
     prompt_segment blue white "$nixos_logo  $version_codename"
   elif [[ "$os_name" == "Ubuntu" && -n "$version_codename" ]]; then
-    # TODO: Fix orange
-    prompt_segment orange white "$ubuntu_logo  $version_codename"
+    # NOTE: 202 does not work in ubuntu smh...
+    prompt_segment "202" white "$ubuntu_logo  $version_codename"
   elif [[ "$os_name" == "Debian" && -n "$version_codename" ]]; then
     prompt_segment orange white "$debian  $version_codename"
   elif [[ "$os_name" == "Arch" ]]; then
-    prompt_segment "[38;5;25m" white "$arch "
+    prompt_segment "25" white "$arch "
   else
-    prompt_segment white black  "${os_name} - ${version_codename}"
+    prompt_segment white black  "fallback: ${os_name} - ${version_codename}"
   fi
 }
 
-# Context: user@hostname (who am I and where am I)
+# Context: user@hostname (who am I)
 prompt_context() {
   if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)%n   %m"
@@ -310,4 +314,5 @@ build_prompt() {
   prompt_status
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='%{%f%b%k%}$(build_prompt)
+%F{cyan}>%f '
