@@ -287,9 +287,9 @@ prompt_git() {
 
 prompt_status() {
   if [[ $RETVAL == 0 ]]; then
-    prompt_segment default green "→  "
+    prompt_segment default green "→ "
   else
-    prompt_segment default red "→  "
+    prompt_segment default red "→ "
   fi
 }
 
