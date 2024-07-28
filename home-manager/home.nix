@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  modulesPath,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     # inputs.nix-colors.homeManagerModules.default
@@ -58,6 +52,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    # productivity
+    synology-drive-client
+
     neofetch
     localsend
     telegram-desktop

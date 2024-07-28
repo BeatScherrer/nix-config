@@ -1,0 +1,146 @@
+#!/usr/bin/bash
+
+# TODO fix these colors, they pollute all sorts of stuff
+# source "$HOME/.scripts/log.bash"
+
+workspace="${HOME}/workspace"
+mtr_bash_utils="${workspace}/bash/mtr_utils.bash"
+
+if [[ -f ${mtr_bash_utils} ]]; then
+  # shellcheck source=/home/beat/workspace/bash/mtr_utils.bash
+  . "${mtr_bash_utils}"
+fi
+
+#aliases
+if [[ -f "${HOME}/.aliases_mt" ]]; then
+  source "${HOME}/.aliases_mt"
+fi
+
+# Helper function to change to git dir
+ccd() {
+  cd "$workspace/mtrsys/${1:-develop}/" || return 1
+}
+
+cducc() {
+  cd "$workspace/ucc/${1:-development}" || return 1
+}
+
+cdclient() {
+  cd "$workspace/ucc/${1-development}/src/MTRobot.UCC/src/MTRobot.UCC.Presentation.Web/ucc-client" || exit
+}
+
+# Helper function to change to a particular build directory
+cdbuild() {
+  ccd "$1" && cd build || return 1
+}
+
+# Helper function to change to a particular source directory
+cdsrc() {
+  if [[ -z "$1" ]];then
+    cd "$HOME/src"
+  else
+    ccd "$1" && cd src || return 1
+  fi
+}
+
+# submodule navigation helper
+cds() {
+  cd "$1" || return 1
+}
+_cds() {
+  COMPREPLY=()
+  cur=${COMP_WORDS[$COMP_CWORD]}
+  declare -a submdodules
+  submodules="$(git submodule 2>/dev/null | awk '{print $2}' | grep "^$cur" || echo '')"
+  COMPREPLY=($(compgen -W '$submodules' -- ''))
+}
+complete -F _cds cds
+
+sourceros() {
+  echo "sourcing ros"
+  source /opt/ros/melodic/setup.bash
+  #echo "setting ROS_MASTER_URI=http:10.0.52.114:11311/"
+  #export ROS_MASTER_URI=http://10.0.52.114:11311/
+  #export ROS_IP=10.0.20.244
+  export TURTLEBOT3_MODEL=burger
+
+  if [[ -f "$HOME/workspace/ros_ws/devel/setup.bash" ]]; then
+    echo "sourcing ros_ws"
+    source "$HOME/workspace/ros_ws/devel/setup.bash"
+  fi
+
+  alias tf='cd /var/tmp && rosrun tf view_frames && evince frames.pdf &'
+}
+
+# source ros automatically if present
+if [[ -f "/opt/ros/melodic/setup.bash" ]]; then
+  sourceros
+fi
+
+sourcerti6() {
+  echo "sourcing rti_connext_dds-6.1.0"
+  source "/opt/rti_connext_dds-6.1.0/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash"
+}
+
+sourcerti7() {
+  echo "sourcing rti_connext_dds-7.0.0"
+  source "/opt/rti_connext_dds-7.0.0/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash"
+}
+
+#
+#  ccache
+if [[ "${SCHROOT_CHROOT_NAME-}" == "ub22" ]]; then
+  export PATH=/usr/lib/ccache:$PATH
+  export CC="ccache clang-17"
+  export CXX="ccache clang++-17"
+  export CCACHE_DIR="${HOME}/.ccache_ub22"
+  export CCACHE_SLOPPINESS="pch_defines,time_macros,include_file_ctime,include_file_mtime"
+fi
+
+__make() {
+  filename="/tmp/nvim_quickfix.log"
+  cd build && schroot -c chroot:mt_ubuntu18 -- make "$@" |& tee "$filename"
+}
+
+# add RTI tools to path if present
+if [[ -d "/opt/rti_connext_dds-7.0.0/bin" ]]; then
+  export PATH="/opt/rti_connext_dds-7.0.0/bin:$PATH"
+elif [[ -d "/opt/rti_connext_dds-6.1.0/bin" ]]; then
+  export PATH="/opt/rti_connext_dds-6.1.0/bin:$PATH"
+fi
+
+cleanws() {
+  if [[ -d "build" && -d "install" && -d "log" ]]; then
+    rm -rf build install log
+  fi
+}
+
+sshr() {
+  ssh -X "mtr@robot-$1.mt"
+}
+
+sshm() {
+  ssh "mtr@ms-$1.mt"
+}
+
+mt-rti-spy() {
+  mt-spy -topicRegex "$1" -printSample
+}
+
+####################
+# UCC functionality
+####################
+cleanbuild() {
+  dotnet nuget locals all -c # when nuget package changed with the same version, generally unneeded
+  dotnet restore
+  dotnet clean # generally unneeded
+  dotnet build
+}
+
+vncpi() {
+  ssh -t -f -L 5900:localhost:5900 "pi2" "x11vnc -auth guess -localhost -display :0" &> /dev/null
+  sleep 2
+  vncviewer localhost:5900
+}
+
+export SIMULATION_CONFIG="$HOME/sim_config.xml"

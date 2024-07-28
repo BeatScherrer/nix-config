@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#bEdit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -59,8 +59,11 @@
     ];
   };
 
-  programs.zsh.enable = true; # TODO:
-  users.defaultUserShell = pkgs.zsh; # TODO:
+  users.defaultUserShell = pkgs.bash; # TODO:
+  programs.bash.blesh.enable = true;
+  environment.variables = {
+    TERM = "xterm-256color";
+  };
 
   home-manager = {
     # also pass inputs to home-manager modules

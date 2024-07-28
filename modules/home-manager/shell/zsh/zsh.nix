@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 let
   aliases = import ../aliases.nix;
 in
@@ -17,7 +17,7 @@ in
 
   programs = {
     zsh = {
-      enable = true;
+      enable = false;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = aliases;
