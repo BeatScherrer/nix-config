@@ -4,6 +4,8 @@
   environment.systemPackages = with pkgs; [
     herbstluftwm
     xorg.xev
+    xorg.xauth
+    xorg.xhost
     gnome-keyring
     gnome-online-accounts
     gnome.gvfs
