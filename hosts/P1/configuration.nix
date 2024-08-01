@@ -14,10 +14,11 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    ../../system_modules/printing.nix
-    # ../../system_modules/gnome.nix
-    ../../system_modules/herbstluftwm.nix
-    # ../../system_modules/hyprland.nix
+    ../../modules/nixos/printing.nix
+    # ../../modules/nixos/gnome.nix
+    ../../modules/nixos/herbstluftwm.nix
+    ../../modules/nixos/user.nix
+    # ../../modules/nixos/hyprland.nix
   ];
 
   # Bootloader.
@@ -72,17 +73,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.beat = {
-    isNormalUser = true;
-    description = "Beat Scherrer";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
   };
 
   home-manager = {

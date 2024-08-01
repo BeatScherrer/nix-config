@@ -49,14 +49,25 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.beat = {
-    isNormalUser = true;
-    description = "Beat Scherrer";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "audio"
-    ];
+  # NOTE: The default GID is 100, which proved to be troublesome when
+  # using systemd-nspawn! (cannot bind the user without a private user group)
+  users = {
+    users.beat = {
+      isNormalUser = true;
+      description = "Beat Scherrer";
+      group = "beat";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "audio"
+      ];
+    };
+    groups = {
+      beat = {
+        members = [ "beat" ];
+        gid = 1000;
+      };
+    };
   };
 
   users.defaultUserShell = pkgs.bash; # TODO:
@@ -110,8 +121,10 @@
     gnome-online-accounts
     dbus
 
-    debootstrap # schroot
+    inputs.debootstrapPin.legacyPackages."x86_64-linux".debootstrap # schroot
     pv # schroot
+    boost # Required to build schroot
+    boost.dev # Required to build schroot
 
     pkg-config
   ];
