@@ -80,6 +80,7 @@
     lazygit
     tldr
     just
+    killall
 
     # lsp and formatters
     stylua
@@ -93,7 +94,10 @@
     biome
     lemminx
     dockerfile-language-server-nodejs
+    hadolint
     taplo
+    tailwindcss-language-server
+    vale
 
     # monitoring
     btop
