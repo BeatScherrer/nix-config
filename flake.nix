@@ -9,6 +9,8 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     debootstrapPin.url = "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
+    # -- Local Overlays --
+    # schroot.url = "path:/home/beat/.nix/modules/overlays/schroot/flake.nix";
   };
 
   outputs =
@@ -20,10 +22,12 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        # overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
+      };
     in
     {
-
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
           specialArgs = {

@@ -240,9 +240,9 @@ done
 hc keybind $Mod-b spawn "${BROWSER:-firefox}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-space spawn rofi -modi drun -show drun
 
-# "$HOME/.config/polybar/launch.sh"
 . "$HOME/.fehbg"
 picom
+systemctl --user restart polybar # Workaround for polybar startup issue
 dunst
 
 
