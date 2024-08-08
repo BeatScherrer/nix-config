@@ -1,4 +1,16 @@
-# allow our nixpkgs import to be overridden if desired
+# FIXME:
+# - [ ] Apparently the build step tries to install stuff and alter nix store files
+
+# TODO:
+# - [ ] find out where the schroot package is installing in the build step
+# - [ ] investigate all the etc file stuff going on
+
+# NOTE: /usr/bin should go to /nix/store/.../bin
+# NOTE: /share should go to /nix/store/.../share
+# NOTE: /usr/lib should go to /nix/store/.../lib
+# NOTE: /usr/lib should go to /nix/store/.../lib
+# NOTE: /etc/ ??
+
 {
   pkgs ? import <nixpkgs> { },
   stdenv,
