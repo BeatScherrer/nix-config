@@ -67,5 +67,15 @@
           modules = [ ./home-manager/home.nix ];
         };
       };
+
+        devShell = pkgs.mkShell {
+          buildInputs =
+            with pkgs;
+            dependencies
+            ++ [
+              nixd
+              nixfmt
+            ];
+        };
     };
 }
