@@ -1,7 +1,7 @@
 # FIXME:
 # Issues:
 # - [ ] installation fails (nix build)
-# - [ ] overlay fails (used in main flake)
+# - [ ] overlay fails (used in main flake, due to this flake failing?)
 
 {
   description = "Schroot package flake";
@@ -41,6 +41,7 @@
               libuuid
               gettext
               doxygen
+              nixd
             ];
         };
       }
