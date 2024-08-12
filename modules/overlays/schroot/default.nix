@@ -11,11 +11,10 @@
 # NOTE: /usr/lib should go to /nix/store/.../lib
 # NOTE: /etc/ ??
 
+# allow our nixpkgs import to be overridden if desired
 {
   pkgs ? import <nixpkgs> { },
   stdenv,
-  version,
-  dependencies,
 }:
 stdenv.mkDerivation {
   name = "schroot";
@@ -31,22 +30,26 @@ stdenv.mkDerivation {
     ninja
   ];
 
-  buildInputs = dependencies;
+  buildInputs = with pkgs; [
+    boost
+    groff
+    perl538Packages.Po4a
+    groff
+    libuuid
+    gettext
+    doxygen
+  ];
 
   cmakeFlags = [ "-G Ninja" ];
 
-  # FIXME:
   installPhase = ''
+    mkdir -p "$out"
 
+    echo "ls: $(ls)"
+    echo "pwd: $(pwd)"
+
+    #cmake -P cmake_install.cmake
+    ninja install
   '';
 
-  # see https://nixos.org/nixpkgs/manual/#ssec-install-phase
-  # $src is defined as the location of our `src` attribute above
-  # installPhase = ''
-  #   # $out is an automatically generated filepath by nix,
-  #   # but it's up to you to make it what you need. We'll create a directory at
-  #   # that filepath, then copy our sources into it.
-  #   mkdir $out
-  #   cp -rv $src/* $out
-  # '';
 }

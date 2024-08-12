@@ -10,7 +10,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
     debootstrapPin.url = "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
     # -- Local Overlays --
-    # schroot.url = "path:/home/beat/.nix/modules/overlays/schroot/flake.nix";
+    # schroot.url = "path:/home/beat/.nix/modules/overlays/schroot";
   };
 
   outputs =

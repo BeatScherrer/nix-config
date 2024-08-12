@@ -21,30 +21,11 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
-        version = "1.6.13-3";
-        stdenv = pkgs.stdenv;
-
-        dependencies = with pkgs; [
-          boost
-          groff
-          perl538Packages.Po4a
-          groff
-          libuuid
-          gettext
-          doxygen
-        ];
       in
       {
         # overlay = final: prev: { schroot = prev.pkgs.callPackage ./. { }; };
 
-        packages.default = import ./default.nix {
-          inherit
-            pkgs
-            version
-            stdenv
-            dependencies
-            ;
-        };
+        packages.default = pkgs.callPackage ./default.nix { };
 
         devShell = pkgs.mkShell {
           buildInputs =
@@ -53,6 +34,13 @@
             ++ [
               cmake
               ninja
+              boost
+              groff
+              perl538Packages.Po4a
+              groff
+              libuuid
+              gettext
+              doxygen
             ];
         };
       }

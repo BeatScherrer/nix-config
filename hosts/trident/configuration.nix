@@ -125,7 +125,6 @@
     pv # schroot
     boost # Required to build schroot
     boost.dev # Required to build schroot
-    # schroot
 
     pkg-config
   ];
