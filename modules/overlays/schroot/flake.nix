@@ -30,8 +30,7 @@
         devShell = pkgs.mkShell {
           buildInputs =
             with pkgs;
-            dependencies
-            ++ [
+            [
               cmake
               ninja
               boost
