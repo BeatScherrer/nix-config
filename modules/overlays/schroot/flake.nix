@@ -28,21 +28,18 @@
         packages.default = pkgs.callPackage ./default.nix { };
 
         devShell = pkgs.mkShell {
-          buildInputs =
-            with pkgs;
-            dependencies
-            ++ [
-              cmake
-              ninja
-              boost
-              groff
-              perl538Packages.Po4a
-              groff
-              libuuid
-              gettext
-              doxygen
-              nixd
-            ];
+          buildInputs = with pkgs; [
+            cmake
+            ninja
+            boost
+            groff
+            perl538Packages.Po4a
+            groff
+            libuuid
+            gettext
+            doxygen
+            nixd
+          ];
         };
       }
     );

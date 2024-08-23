@@ -9,6 +9,8 @@
     };
     pulse.enable = true;
     jack.enable = true;
+    # TODO: fix stuttering
+    # https://www.reddit.com/r/linux_gaming/comments/11yp7ig/pipewire_audio_stuttering_when_playing_games_or/
   };
 
   # TODO: add user name as input to this module

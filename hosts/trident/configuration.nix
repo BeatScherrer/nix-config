@@ -14,13 +14,14 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ../../modules/nixos/printing.nix
-    ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/steam.nix
     ../../modules/nixos/games.nix
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/sound.nix
+    ../../modules/nixos/herbstluftwm.nix
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
+    # ../../modules/nixos/cosmic.nix
   ];
 
   nix.settings.experimental-features = [
@@ -71,7 +72,7 @@
   };
 
   users.defaultUserShell = pkgs.bash; # TODO:
-  programs.bash.blesh.enable = true;
+  # programs.bash.blesh.enable = true;
   environment.variables = {
     TERM = "xterm-256color";
   };

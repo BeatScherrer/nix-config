@@ -24,6 +24,7 @@ stdenv.mkDerivation {
     ref = "debian/master";
     rev = "59d82cf28a34cc7e91ef86b92333c54266d81789";
   };
+  # src = /home/beat/src/schroot;
 
   nativeBuildInputs = with pkgs; [
     cmake
@@ -42,14 +43,13 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-G Ninja" ];
 
-  installPhase = ''
-    mkdir -p "$out"
-
-    echo "ls: $(ls)"
-    echo "pwd: $(pwd)"
-
-    #cmake -P cmake_install.cmake
-    ninja install
-  '';
+  # installPhase = ''
+  #   mkdir -p "$out"
+  #
+  #   echo "ls: $(ls)"
+  #   echo "pwd: $(pwd)"
+  #
+  #   ninja install
+  # '';
 
 }
