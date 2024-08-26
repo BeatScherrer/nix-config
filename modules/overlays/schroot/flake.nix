@@ -23,24 +23,11 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        # overlay = final: prev: { schroot = prev.pkgs.callPackage ./. { }; };
+        overlay = final: prev: { schroot = prev.pkgs.callPackage ./. { }; };
 
+        # NOTE: use `nix develop .#packages.x86_64-linux.default` to develop this package or comment devShell below
+        # When using this shell we do not really need the devshell
         packages.default = pkgs.callPackage ./default.nix { };
-
-        devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            cmake
-            ninja
-            boost
-            groff
-            perl538Packages.Po4a
-            groff
-            libuuid
-            gettext
-            doxygen
-            nixd
-          ];
-        };
       }
     );
 }

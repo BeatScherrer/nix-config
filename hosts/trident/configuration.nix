@@ -112,8 +112,6 @@
     gcc
     gnumake
 
-    rustup
-
     # network shares
     samba
     cifs-utils
@@ -126,6 +124,7 @@
     pv # schroot
     boost # Required to build schroot
     boost.dev # Required to build schroot
+    # schroot # FIXME: overlay?
 
     pkg-config
   ];
