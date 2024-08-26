@@ -1,7 +1,3 @@
-#bEdit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   inputs,
   config,
@@ -10,7 +6,6 @@
 }:
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ../../modules/nixos/printing.nix
@@ -36,8 +31,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # TODO: Move to networking module with options
-  networking.hostName = "trident"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "trident";
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
@@ -71,7 +65,7 @@
     };
   };
 
-  users.defaultUserShell = pkgs.bash; # TODO:
+  users.defaultUserShell = pkgs.bash;
   # programs.bash.blesh.enable = true;
   environment.variables = {
     TERM = "xterm-256color";
@@ -87,11 +81,8 @@
     };
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
     neovim
@@ -103,7 +94,6 @@
     usbutils
     lshw
     fwupd
-    libsForQt5.qt5.qtgraphicaleffects # required for sddm
     docker
     liquidctl
     lm_sensors
