@@ -6,6 +6,8 @@
   nnvim = "cd ~/.config/nvim";
   cdnix = "cd ~/.nix";
   cdsrc = "cd ~/src";
+  cdmtr = "cdsrc && cd mtrobot";
+  cdschroot = "cdmtr && cd debian-packages/mt-schroot/usr/bin";
   sourcezsh = "source ~/.zshrc";
   config = "git --git-dir=$HOME/.cfg/ --work-tree=$HOME";
   cdairshow = "cdsrc && cd beat/airshow";

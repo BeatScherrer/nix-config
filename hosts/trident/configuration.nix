@@ -101,6 +101,7 @@
     clang
     gcc
     gnumake
+    envsubst
 
     # network shares
     samba
