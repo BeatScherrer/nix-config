@@ -1,6 +1,5 @@
-{}:
+{ pkgs, ... }:
 {
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # NOTE: The default GID is 100, which proved to be troublesome when
@@ -22,6 +21,6 @@
         gid = 1000;
       };
     };
+    defaultUserShell = pkgs.bash;
   };
-
-
+}

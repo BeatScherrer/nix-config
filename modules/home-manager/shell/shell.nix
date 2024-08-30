@@ -15,6 +15,7 @@
 
   home.sessionVariables = {
     TERM = "xterm-256color";
+    MAKE_CORES = "30";
   };
 
 }

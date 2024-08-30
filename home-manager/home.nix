@@ -154,8 +154,10 @@
   # either
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    MAKE_CORES = "30";
+    EDITOR = "nvim";
   };
 
   home.pointerCursor = {

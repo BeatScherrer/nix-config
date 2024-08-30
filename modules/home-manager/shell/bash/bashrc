@@ -1,9 +1,9 @@
 #!/bin/bash
 
 case $- in
-  # Enable the subsequent settings only in interactive sessions
-  *i*) ;;
-  *) return ;;
+# Enable the subsequent settings only in interactive sessions
+*i*) ;;
+*) return ;;
 esac
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -91,8 +91,6 @@ source "$OSH"/oh-my-bash.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-export DISPLAY=${DISPLAY:-:1}
-
 vpn() {
   local target="$1"
   local state="$2"
@@ -143,8 +141,8 @@ fi
 # pnpm
 export PNPM_HOME="/${HOME}.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 

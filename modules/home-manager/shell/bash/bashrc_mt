@@ -31,7 +31,7 @@ cdbuild() {
 
 # Helper function to change to a particular source directory
 cdsrc() {
-  if [[ -z "$1" ]];then
+  if [[ -z "$1" ]]; then
     cd "$HOME/src"
   else
     ccd "$1" && cd src || return 1
@@ -84,24 +84,12 @@ sourcerti7() {
 
 #
 #  ccache
-if [[ "${SCHROOT_CHROOT_NAME-}" == "ub22" ]]; then
+if [[ true ]]; then
   export PATH=/usr/lib/ccache:$PATH
-  export CC="ccache clang-17"
-  export CXX="ccache clang++-17"
+  export CC="ccache clang-18"
+  export CXX="ccache clang++-18"
   export CCACHE_DIR="${HOME}/.ccache_ub22"
   export CCACHE_SLOPPINESS="pch_defines,time_macros,include_file_ctime,include_file_mtime"
-fi
-
-__make() {
-  filename="/tmp/nvim_quickfix.log"
-  cd build && schroot -c chroot:mt_ubuntu18 -- make "$@" |& tee "$filename"
-}
-
-# add RTI tools to path if present
-if [[ -d "/opt/rti_connext_dds-7.0.0/bin" ]]; then
-  export PATH="/opt/rti_connext_dds-7.0.0/bin:$PATH"
-elif [[ -d "/opt/rti_connext_dds-6.1.0/bin" ]]; then
-  export PATH="/opt/rti_connext_dds-6.1.0/bin:$PATH"
 fi
 
 cleanws() {
@@ -133,7 +121,7 @@ cleanbuild() {
 }
 
 vncpi() {
-  ssh -t -f -L 5900:localhost:5900 "pi2" "x11vnc -auth guess -localhost -display :0" &> /dev/null
+  ssh -t -f -L 5900:localhost:5900 "pi2" "x11vnc -auth guess -localhost -display :0" &>/dev/null
   sleep 2
   vncviewer localhost:5900
 }

@@ -16,5 +16,5 @@
   jc = "sudo journalctl";
   vimf = "nvim $(fzf)";
   cm = "cmake -GNinja";
-  # mm = "type mm && export CCACHE_BASEDIR=${PWD} && ninja -j${MAKE_CORES}"; # FIXME:
+  mm = "CCACHE_BASEDIR=\${PWD}; echo \"ninja build (CCACHE_BASEDIR set) (MAKE_CORES:\${MAKE_CORES})\"; ninja -j\${MAKE_CORES}";
 }

@@ -8,6 +8,8 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    ../../modules/nixos/user.nix
+    ../../modules/nixos/locale.nix
     ../../modules/nixos/printing.nix
     ../../modules/nixos/steam.nix
     ../../modules/nixos/games.nix
@@ -36,40 +38,6 @@
   networking.wireguard.enable = true;
 
   programs.coolercontrol.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Zurich";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # NOTE: The default GID is 100, which proved to be troublesome when
-  # using systemd-nspawn! (cannot bind the user without a private user group)
-  users = {
-    users.beat = {
-      isNormalUser = true;
-      description = "Beat Scherrer";
-      group = "beat";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "audio"
-      ];
-    };
-    groups = {
-      beat = {
-        members = [ "beat" ];
-        gid = 1000;
-      };
-    };
-  };
-
-  users.defaultUserShell = pkgs.bash;
-  # programs.bash.blesh.enable = true;
-  environment.variables = {
-    TERM = "xterm-256color";
-  };
 
   home-manager = {
     # also pass inputs to home-manager modules
