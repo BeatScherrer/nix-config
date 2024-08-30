@@ -20,7 +20,7 @@ in
   systemd.user.services.polybar = {
     Service.Environment = lib.mkForce ""; # to override the package's default configuration
     Service.PassEnvironment = "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
-    Install.WantedBy = [ "graphical.target" ];
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   home.packages = with pkgs; [

@@ -9,8 +9,12 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     debootstrapPin.url = "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # -- Local Overlays --
-    # schroot.url = "path:/home/beat/.nix/modules/overlays/schroot";
+    schroot.url = "path:/home/beat/.nix/modules/overlays/schroot";
   };
 
   outputs =
@@ -18,13 +22,15 @@
       self,
       nixpkgs,
       home-manager,
+      nixos-cosmic,
+      schroot,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        # overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
+        overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
       };
     in
     {
@@ -52,8 +58,15 @@
             inherit inputs;
           };
           modules = [
-            ./hosts/trident/configuration.nix
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+              };
+            }
+            nixos-cosmic.nixosModules.default
             inputs.home-manager.nixosModules.default
+            ./hosts/trident/configuration.nix
           ];
         };
       };
@@ -68,14 +81,11 @@
         };
       };
 
-        devShell = pkgs.mkShell {
-          buildInputs =
-            with pkgs;
-            dependencies
-            ++ [
-              nixd
-              nixfmt
-            ];
-        };
+      devShell = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          nixd
+          nixfmt
+        ];
+      };
     };
 }

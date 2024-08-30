@@ -25,6 +25,7 @@
     win-virtio
     win-spice
     quickemu
+    distrobox
   ];
 
   users.users.beat.extraGroups = [

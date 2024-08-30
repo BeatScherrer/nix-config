@@ -59,6 +59,7 @@
     localsend
     telegram-desktop
     signal-desktop
+    discord
     # threema-desktop
     slack
     zulip
@@ -118,10 +119,13 @@
     seahorse
     gnome-calculator
     evolution
+    thunderbird
     okular
     firefox
     google-chrome
     pavucontrol
+    flameshot
+
     # font-manager
     pika-backup
     libreoffice

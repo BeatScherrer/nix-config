@@ -1,7 +1,3 @@
-#bEdit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   inputs,
   config,
@@ -10,17 +6,17 @@
 }:
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ../../modules/nixos/printing.nix
-    ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/steam.nix
     ../../modules/nixos/games.nix
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/sound.nix
+    ../../modules/nixos/herbstluftwm.nix
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
+    # ../../modules/nixos/cosmic.nix
   ];
 
   nix.settings.experimental-features = [
@@ -35,8 +31,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # TODO: Move to networking module with options
-  networking.hostName = "trident"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "trident";
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
@@ -70,8 +65,8 @@
     };
   };
 
-  users.defaultUserShell = pkgs.bash; # TODO:
-  programs.bash.blesh.enable = true;
+  users.defaultUserShell = pkgs.bash;
+  # programs.bash.blesh.enable = true;
   environment.variables = {
     TERM = "xterm-256color";
   };
@@ -86,11 +81,8 @@
     };
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
     neovim
@@ -102,7 +94,6 @@
     usbutils
     lshw
     fwupd
-    libsForQt5.qt5.qtgraphicaleffects # required for sddm
     docker
     liquidctl
     lm_sensors
@@ -110,8 +101,7 @@
     clang
     gcc
     gnumake
-
-    rustup
+    envsubst
 
     # network shares
     samba
@@ -125,6 +115,7 @@
     pv # schroot
     boost # Required to build schroot
     boost.dev # Required to build schroot
+    # schroot # FIXME: overlay?
 
     pkg-config
   ];
