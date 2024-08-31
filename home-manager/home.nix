@@ -158,6 +158,7 @@
   home.sessionVariables = {
     MAKE_CORES = "30";
     EDITOR = "nvim";
+    TERMINAL = "xterm-256color";
   };
 
   home.pointerCursor = {
