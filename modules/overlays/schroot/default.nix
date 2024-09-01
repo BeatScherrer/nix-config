@@ -1,9 +1,9 @@
 # FIXME:
 # - [ ] Apparently the build step tries to install stuff and alter nix store files
 
-# TODO:
-# - [ ] find out where the schroot package is installing in the build step
-# - [ ] investigate all the etc file stuff going on
+# TODO: Hack along until this thing works...
+# - patches
+# - custom phases
 
 # allow our nixpkgs import to be overridden if desired
 {
@@ -13,12 +13,12 @@
 stdenv.mkDerivation {
   name = "schroot";
 
-  # src = builtins.fetchGit {
-  #   url = "https://salsa.debian.org/debian/schroot.git";
-  #   ref = "debian/master";
-  #   rev = "59d82cf28a34cc7e91ef86b92333c54266d81789";
-  # };
-  src = /home/beat/src/schroot;
+  src = builtins.fetchGit {
+    url = "https://salsa.debian.org/debian/schroot.git";
+    ref = "debian/master";
+    rev = "59d82cf28a34cc7e91ef86b92333c54266d81789";
+  };
+  # src = /home/beat/src/schroot;
 
   nativeBuildInputs = with pkgs; [
     cmake

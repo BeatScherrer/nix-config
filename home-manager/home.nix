@@ -156,9 +156,7 @@
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
   home.sessionVariables = {
-    MAKE_CORES = "30";
     EDITOR = "nvim";
-    TERMINAL = "xterm-256color";
   };
 
   home.pointerCursor = {

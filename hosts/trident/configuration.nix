@@ -51,6 +51,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  environment.sessionVariables = {
+    MAKE_CORES = "30";
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     neovim
@@ -62,7 +66,6 @@
     usbutils
     lshw
     fwupd
-    docker
     liquidctl
     lm_sensors
     cmake
