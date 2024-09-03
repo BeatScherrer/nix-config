@@ -125,6 +125,7 @@
     google-chrome
     pavucontrol
     flameshot
+    bitwarden
 
     # font-manager
     pika-backup
