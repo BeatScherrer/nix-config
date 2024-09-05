@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # -- Local Overlays --
-    schroot.url = "path:/home/beat/.nix/modules/overlays/schroot";
+    # schroot.url = "path:/home/beat/.nix/modules/overlays/schroot";
   };
 
   outputs =
@@ -23,14 +23,14 @@
       nixpkgs,
       home-manager,
       nixos-cosmic,
-      schroot,
+      # schroot,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
+        # overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
       };
     in
     {
