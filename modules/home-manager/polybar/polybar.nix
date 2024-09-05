@@ -24,13 +24,16 @@ in
   };
 
   home.packages = with pkgs; [
-    polybar
     scrot
   ];
 
   services.polybar = {
     enable = true;
     script = "~/.config/polybar/scripts/launch_polybar.sh";
+    package = pkgs.polybar.override {
+      mpdSupport = true;
+      pulseSupport = true;
+    };
 
     settings = {
       "global/wm" = {
