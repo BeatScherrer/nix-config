@@ -36,6 +36,8 @@
     win-spice
     quickemu
     distrobox
+    podman-compose
+    podman-desktop
   ];
 
   users.users.beat.extraGroups = [ "libvirtd" ];
