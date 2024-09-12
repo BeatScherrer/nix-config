@@ -118,7 +118,7 @@
     gnome-calendar
     seahorse
     gnome-calculator
-    gnome.gnome-clocks
+    gnome-clocks
     evolution
     thunderbird
     okular
