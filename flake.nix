@@ -13,8 +13,10 @@
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # -- Local Overlays --
-    # schroot.url = "path:/home/beat/.nix/modules/overlays/schroot";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -23,18 +25,18 @@
       nixpkgs,
       home-manager,
       nixos-cosmic,
-      # schroot,
+      rust-overlay,
       ...
     }@inputs:
     let
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
-        # overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
+        inherit system;
       };
     in
     {
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -44,7 +46,6 @@
           ];
         };
         P1 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -54,7 +55,6 @@
           ];
         };
         trident = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -68,6 +68,12 @@
             nixos-cosmic.nixosModules.default
             inputs.home-manager.nixosModules.default
             ./hosts/trident/configuration.nix
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              }
+            )
           ];
         };
       };

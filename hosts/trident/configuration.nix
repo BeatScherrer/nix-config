@@ -73,6 +73,7 @@
     gcc
     gnumake
     envsubst
+    rust-bin.stable.latest.default
 
     # network shares
     samba
