@@ -27,15 +27,14 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
       pkgs = import nixpkgs {
-        inherit system;
         # overlays = [ schroot.overlay ]; # NOTE: if eventually the schroot overlay works...
       };
     in
     {
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -45,6 +44,7 @@
           ];
         };
         P1 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -54,6 +54,7 @@
           ];
         };
         trident = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
