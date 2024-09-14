@@ -6,6 +6,7 @@
   nnvim = "cd ~/.config/nvim";
   cdnix = "cd ~/.nix";
   cdsrc = "cd ~/src";
+  cdbeat = "cdsrc && cd beat";
   cdmtr = "cdsrc && cd mtrobot";
   cdschroot = "cdmtr && cd debian-packages/mt-schroot/usr/bin";
   sourcezsh = "source ~/.zshrc";
