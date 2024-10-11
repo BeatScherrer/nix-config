@@ -123,6 +123,7 @@
     thunderbird
     okular
     firefox
+    chromium
     google-chrome
     pavucontrol
     flameshot

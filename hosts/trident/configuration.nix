@@ -74,6 +74,7 @@
     gnumake
     envsubst
     rust-bin.stable.latest.default
+    pnpm
 
     # network shares
     samba
