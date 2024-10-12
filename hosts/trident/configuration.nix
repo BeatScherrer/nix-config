@@ -52,11 +52,14 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # TODO:
   environment.sessionVariables = {
     MAKE_CORES = "30";
   };
 
+  # TODO: add this to default packages module
   environment.systemPackages = with pkgs; [
+    fd
     vim
     neovim
     wget
@@ -94,17 +97,11 @@
     pkg-config
   ];
 
+  # TODO: add to fonts module
   fonts.packages = with pkgs; [
     nerdfonts
     font-awesome
   ];
-
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
