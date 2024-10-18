@@ -108,10 +108,6 @@
     # periphery
     rofi-bluetooth
 
-    # TODO:
-    # node stuff
-    # nodePackages.angular;
-
     # basic gui tools
     dbus
     nautilus
@@ -127,7 +123,7 @@
     google-chrome
     pavucontrol
     flameshot
-    bitwarden
+    bitwarden-desktop
 
     # font-manager
     pika-backup
