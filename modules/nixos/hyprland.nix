@@ -1,6 +1,14 @@
 { config, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ hyprland ];
+  environment.systemPackages = with pkgs; [
+    hyprland
+    hyprpicker
+    hyprcursor
+    hyprlock
+    hypridle
+    hyprpaper
+    kitty # TODO: remove if not used
+  ];
 
   programs.hyprland = {
     enable = true;
@@ -21,14 +29,13 @@
     NIXOS_OZONE_WL = "1";
     # from https://wiki.hyprland.org/Nvidia/
     # LIBVA_DRIVER_NAME = "nvidia";
-    XDG_SESSION_TYPE = "wayland";
+    # XDG_SESSION_TYPE = "wayland";
     # GBM_BACKEND = "nvidia-drm";
     # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # xdg.portal.enable = true;
+  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # boot.initrd.availableKernelModules = [
   #   "nvidia"
