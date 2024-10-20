@@ -11,7 +11,7 @@
     ../modules/home-manager/shell/shell.nix
     ../modules/home-manager/wallpapers/wallpapers.nix
     ../modules/home-manager/avatars/avatars.nix
-    # ./modules/home-manager/hyprland/hyprland.nix
+    ../modules/home-manager/hyprland/hyprland.nix
   ];
 
   # colorScheme = colorScheme;
