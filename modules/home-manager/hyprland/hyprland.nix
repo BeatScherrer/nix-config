@@ -3,6 +3,9 @@
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
+      # Autostart
+      "exec-once" = "h";
+
       # Variables
       "$mod" = "SUPER";
       "$terminal" = "alacritty";
@@ -12,6 +15,8 @@
       # Keybindings
       bind =
         [
+          # Launcher
+          "$mod, Space, exec, rofi -modi drun -show drun"
           # Applications
           "$mod, B, exec, $browser"
           "$mod, F, exec, $fileManager"
@@ -19,6 +24,7 @@
           "$mod, T, exec, alacritty" # TODO: set to Enter?
           "$mod, Print, exec, grimblast copy area"
           # Navigation
+          "$mod, w, killactive"
           "$mod, h, movefocus, l"
           "$mod, j, movefocus, d"
           "$mod, k, movefocus, u"
