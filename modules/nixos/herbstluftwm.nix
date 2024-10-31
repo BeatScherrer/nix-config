@@ -14,7 +14,6 @@
   ];
 
   services.xserver = {
-    videoDrivers = [ "amdgpu" ];
     resolutions = [
       {
         x = 7680;
