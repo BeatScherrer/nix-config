@@ -40,5 +40,8 @@
     podman-desktop
   ];
 
-  users.users.beat.extraGroups = [ "libvirtd" ];
+  users.users.beat.extraGroups = [
+    "libvirtd"
+    "kvm"
+  ];
 }
