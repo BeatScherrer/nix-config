@@ -19,6 +19,9 @@
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
+
+    # work modules
+    ../../modules/nixos/mtr/mtr.nix
   ];
 
   nix.settings.experimental-features = [
