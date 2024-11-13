@@ -9,6 +9,12 @@
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
+    configFile = pkgs.writeText "my.cf" ''
+      [mysqld]
+      default-time-zone = "+00:00"
+      datadir=/var/lib/mysql
+      port=3306
+    '';
     ensureUsers = [
       {
         name = "root";
