@@ -4,7 +4,23 @@
     mysql-workbench
     xmlstarlet
     libxml2
+    tailscale
+    tailscale-systray
   ];
+  services.tailscale.enable = true;
+
+  # Tailscale tray service
+  systemd.user.services.tailscale-systray = {
+    enable = true;
+    description = "Tailscale sys tray";
+    unitConfig = {
+      Type = "simple";
+    };
+    serviceConfig = {
+      ExecStart = "${pkgs.tailscale-systray}/bin/tailscale-systray";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
 
   services.mysql = {
     enable = true;
