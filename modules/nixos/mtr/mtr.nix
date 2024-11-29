@@ -7,9 +7,13 @@
     tailscale
     tailscale-systray
   ];
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
 
-  # Tailscale tray service
+  # Tailscale
+  # TODO: this does not really update tho...
   systemd.user.services.tailscale-systray = {
     enable = true;
     description = "Tailscale sys tray";
@@ -22,6 +26,7 @@
     wantedBy = [ "multi-user.target" ];
   };
 
+  # mysql
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
