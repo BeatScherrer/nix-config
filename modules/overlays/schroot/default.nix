@@ -1,13 +1,9 @@
 # FIXME:
 # - [ ] Apparently the build step tries to install stuff and alter nix store files
 
-# TODO: Hack along until this thing works...
-# - patches
-# - custom phases
-
 # allow our nixpkgs import to be overridden if desired
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs,
   stdenv,
 }:
 stdenv.mkDerivation {
@@ -18,11 +14,10 @@ stdenv.mkDerivation {
     ref = "debian/master";
     rev = "59d82cf28a34cc7e91ef86b92333c54266d81789";
   };
-  # src = /home/beat/src/schroot;
+  # src = /home/beat/src/schroot; # NOTE: use with `nix build --impure`
 
   nativeBuildInputs = with pkgs; [
-    cmake
-    ninja
+    pkgconfig
   ];
 
   buildInputs = with pkgs; [
@@ -35,16 +30,25 @@ stdenv.mkDerivation {
     doxygen
   ];
 
-  cmakeFlags = [ "-G Ninja" ];
+  phases = [
+    "unpackPhase"
+    "patchPhase"
+    "configurePhase"
+    "buildPhase"
+    "installPhase"
+  ];
 
-  # TODO: fix the installation to put the results to the correct place
-  # installPhase = ''
-  #   mkdir -p "$out"
-  #
-  #   echo "ls: $(ls)"
-  #   echo "pwd: $(pwd)"
-  #
-  #   ninja install
-  # '';
+  installPhase = ''
+    mkdir -p $out
+    make install DESTDIR=$out || echo "failed"
+  '';
+
+  configureFlags = [
+    "--prefix=$out"
+    "--sysconfdir=$out/etc"
+    "--localstatedir=$out/var"
+  ];
+
+  # cmakeFlags = [ "-G Ninja" ];
 
 }
