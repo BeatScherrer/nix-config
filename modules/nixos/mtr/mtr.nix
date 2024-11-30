@@ -13,15 +13,11 @@
   };
 
   # Tailscale
-  # TODO: this does not really update tho...
   systemd.user.services.tailscale-systray = {
     enable = true;
-    description = "Tailscale sys tray";
-    unitConfig = {
-      Type = "simple";
-    };
+    description = "Tailscale system tray";
     serviceConfig = {
-      ExecStart = "${pkgs.tailscale-systray}/bin/tailscale-systray";
+      ExecStart = "${pkgs.bashInteractive}/bin/bash -i -c \"${pkgs.tailscale-systray}/bin/tailscale-systray\"";
     };
     wantedBy = [ "multi-user.target" ];
   };
