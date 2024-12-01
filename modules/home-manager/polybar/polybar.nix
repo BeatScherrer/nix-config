@@ -42,10 +42,10 @@ in
       };
 
       "bar/base" = {
-        font-0 = "Inconsolata for Powerline:size=24;4";
+        font-0 = "Inconsolata for Powerline:size=18;4";
         # TODO: Add font awseom pro smh
-        font-1 = "Font Awesome 6 Pro:style=Light:size=24;4";
-        font-2 = "Font Awesome 6 Brands:size=36;4";
+        font-1 = "Font Awesome 6 Pro:style=Light:size=18;4";
+        font-2 = "Font Awesome 6 Brands:size=32;4";
 
         override-redirect = true;
         monitor-strict = false;
