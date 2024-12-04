@@ -9,7 +9,7 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;
-      enableBashIntegration = true;
+      enableBashIntegration = false; # NOTE: fails on ubuntu22 --> do manually in bashrc
     };
   };
 
