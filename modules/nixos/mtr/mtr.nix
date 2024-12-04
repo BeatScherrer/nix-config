@@ -6,6 +6,7 @@
     libxml2
     tailscale
     tailscale-systray
+    bash-language-server
   ];
   services.tailscale = {
     enable = true;
