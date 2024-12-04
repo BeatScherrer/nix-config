@@ -35,6 +35,7 @@
       };
     in
     {
+      # NOTE: nix uses the hostname entry by default
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
           specialArgs = {
@@ -78,6 +79,7 @@
         };
       };
 
+      # NOTE: home manager uses the user name entry by default
       homeConfigurations = {
         beat = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
