@@ -147,3 +147,5 @@ esac
 # pnpm end
 
 [[ -f "/home/beat/workspace/mtrsys/develop/build/sim/sim_helpers.sh" ]] && source "/home/beat/workspace/mtrsys/develop/build/sim/sim_helpers.sh"
+
+set +o noclobber

@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 let
   aliases = import ../aliases.nix;
   bashrc = builtins.readFile ./bashrc;
@@ -19,10 +19,12 @@ in
 
   home.file = {
     # TODO:
+    # NOTE: symlink to home to edit quickly
     # ".bashrc" = {
     #   source = ./bashrc;
     # };
 
+    # NOTE: symlink to home to edit quickly
     ".bashrc_mt" = {
       source = ./bashrc_mt;
     };
