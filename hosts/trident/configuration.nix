@@ -15,6 +15,7 @@
     ../../modules/nixos/games.nix
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/sound.nix
+    ../../modules/nixos/crypto.nix
     ../../modules/nixos/herbstluftwm.nix
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix

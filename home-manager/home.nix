@@ -13,13 +13,14 @@
     ../modules/home-manager/avatars/avatars.nix
     ../modules/home-manager/hyprland/hyprland.nix
     ../modules/home-manager/music_production/music_production.nix
+    ../modules/home-manager/zellij/zellij.nix
   ];
 
-  # colorScheme = colorScheme;
   colorScheme = {
     enable = true;
     name = "gravel-pit";
   };
+  # colorScheme = inputs.nix-colors.colorSchemes.everforest;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -46,8 +47,6 @@
     };
   };
 
-  # colorScheme = inputs.nix-colors.colorSchemes.everforest;
-
   nixpkgs.config.allowUnfree = true;
 
   # The home.packages option allows you to install Nix packages into your
@@ -71,11 +70,9 @@
     gcc
     zig
 
-    # archives
+    # cli utils
     zip
     unzip
-
-    # cli utils
     fzf
     ripgrep
     jq
@@ -84,7 +81,7 @@
     just
     killall
 
-    # lsp and formatters
+    # LSP and formatters
     stylua
     lua-language-server
     nixd
@@ -109,7 +106,7 @@
     # periphery
     rofi-bluetooth
 
-    # basic gui tools
+    # basic GUI tools
     dbus
     nautilus
     gnome-calendar
@@ -125,6 +122,7 @@
     pavucontrol
     flameshot
     bitwarden-desktop
+    obs-studio
 
     # font-manager
     pika-backup
