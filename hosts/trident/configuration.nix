@@ -103,7 +103,7 @@
 
   # TODO: add to fonts module
   fonts.packages = with pkgs; [
-    nerdfonts
+    nerd-fonts.iosevka
     font-awesome
   ];
 
