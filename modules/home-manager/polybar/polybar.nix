@@ -575,9 +575,9 @@ in
       "module/coolant" = {
         type = "custom/script";
         interval = 1;
-        format = " <label>";
-        format-background = "${colorScheme.foreground0}";
-        format-foreground = "${colorScheme.background0}";
+        format = " <label>";
+        format-background = "${colorScheme.background0}";
+        format-foreground = "${colorScheme.foreground0}";
         format-padding = 2;
         exec = "~/.config/polybar/scripts/coolant.sh";
       };
