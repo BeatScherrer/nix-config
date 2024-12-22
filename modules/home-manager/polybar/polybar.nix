@@ -87,7 +87,7 @@ in
         # modules-left = launcher i3 sep
         modules-left = "launcher info-hlwm-workspaces sep";
         modules-center = "date song";
-        modules-right = "scrot sep volume bluetooth sep network sep memory temperature cpu sep battery powermenu sep";
+        modules-right = "scrot sep volume bluetooth sep network sep memory temperature coolant cpu sep battery powermenu sep";
 
         # The separator will be inserted between the output of each module
         separator = " ";
@@ -570,6 +570,16 @@ in
         content-foreground = "${colorScheme.foreground0}";
         content-padding = 2;
         click-left = "~/.config/polybar/scripts/scrot.sh";
+      };
+
+      "module/coolant" = {
+        type = "custom/script";
+        interval = 1;
+        format = " <label>";
+        format-background = "${colorScheme.foreground0}";
+        format-foreground = "${colorScheme.background0}";
+        format-padding = 2;
+        exec = "~/.config/polybar/scripts/coolant.sh";
       };
 
       "module/powermenu" = {
