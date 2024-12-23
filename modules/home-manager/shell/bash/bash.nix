@@ -1,8 +1,7 @@
-{ lib, ... }:
+{ config, pkgs, ... }:
 let
   aliases = import ../aliases.nix;
   bashrc = builtins.readFile ./bashrc;
-  bashrc_mt = builtins.readFile ./bashrc_mt;
 in
 {
 
@@ -12,23 +11,16 @@ in
       shellAliases = aliases;
       bashrcExtra = ''
         ${bashrc}
-        ${bashrc_mt}
       '';
     };
   };
 
+  home.file.".bashrc_mt".source =
+    config.lib.file.mkOutOfStoreSymlink "/home/beat/.nix/modules/home-manager/shell/bash/bashrc_mt";
+  # home.file.".bashrc".source =
+  #   config.lib.file.mkOutOfStoreSymlink "/home/beat/.nix/modules/home-manager/shell/bash/bashrc";
+
   home.file = {
-    # TODO:
-    # NOTE: symlink to home to edit quickly
-    # ".bashrc" = {
-    #   source = ./bashrc;
-    # };
-
-    # NOTE: symlink to home to edit quickly
-    ".bashrc_mt" = {
-      source = ./bashrc_mt;
-    };
-
     ".oh-my-bash/custom/themes" = {
       source = ./oh-my-bash/themes;
       recursive = true;

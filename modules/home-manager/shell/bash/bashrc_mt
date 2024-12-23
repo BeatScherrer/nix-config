@@ -126,9 +126,3 @@ vncpi() {
   vncviewer localhost:5900
 }
 
-simulation_path="/home/beat/src/mtrobot/mtrsys/sim/build/test/bash/sim_helpers.sh"
-if [[ -f ${simulation_path} ]]; then
-  . "$simulation_path"
-fi
-
-export MTR_SIM_CONFIG="$HOME/sim_config.xml"
