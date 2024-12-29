@@ -13,6 +13,11 @@
   ];
   nix.configureBuildUsers = true;
 
+  users.users.beat = {
+    home = "/Users/beat";
+    name = "beat";
+  };
+
   # Enable experimental nix command and flakes
   # nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''

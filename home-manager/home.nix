@@ -25,7 +25,9 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "beat";
-  home.homeDirectory = "/home/beat";
+  # TODO: set this dynamically
+# https://discourse.nixos.org/t/homedirectory-is-note-of-type-path-darwin/57453/3
+  # home.homeDirectory = /Users/beat;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
