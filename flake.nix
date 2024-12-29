@@ -1,3 +1,8 @@
+# TODO: add nix darwin to this somehow
+# - do not import pkgs for x86
+# - 
+# Resources: https://gist.github.com/jmatsushita/5c50ef14b4b96cb24ae5268dab613050
+
 {
   description = "Nixos config flake";
 
@@ -17,6 +22,10 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,13 +35,12 @@
       home-manager,
       nixos-cosmic,
       rust-overlay,
+      darwin,
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      linuxSystems = [ "x86_64-linux" "aarch64-linux"];
+      darwinSystems = [ "aarch64-darwin" ];
     in
     {
       # NOTE: nix uses the hostname entry by default
@@ -47,6 +55,7 @@
           ];
         };
         P1 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -56,6 +65,7 @@
           ];
         };
         trident = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -69,9 +79,7 @@
             nixos-cosmic.nixosModules.default
             inputs.home-manager.nixosModules.default
             ./hosts/trident/configuration.nix
-            (
-              { pkgs, ... }:
-              {
+            ({ pkgs, ... }: {
                 nixpkgs.overlays = [ rust-overlay.overlays.default ];
               }
             )
@@ -79,10 +87,23 @@
         };
       };
 
+      # TODO: add macbook config
+      darwinConfigurations = {
+        obsidian = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+        inherit inputs;
+      };
+          modules = [
+            ./hosts/obsidian/configuration.nix
+      ];
+
+        };
+      };
+
       # NOTE: home manager uses the user name entry by default
       homeConfigurations = {
         beat = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
           extraSpecialArgs = {
             inherit inputs;
           };
@@ -90,11 +111,12 @@
         };
       };
 
-      devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixd
-          nixfmt
-        ];
-      };
+      # TODO: make this system agnostic?
+      # devShell = pkgs.mkShell {
+      #   buildInputs = with pkgs; [
+      #     nixd
+      #     nixfmt
+      #   ];
+      # };
     };
 }
