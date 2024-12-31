@@ -12,7 +12,7 @@ in
       font = {
         size = 12;
         normal = {
-          family = "IosevkaNerdFont";
+          family = "Iosevka Nerd Font";
         };
       };
       colors = with config.colorScheme.colors; {

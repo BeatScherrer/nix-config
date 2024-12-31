@@ -18,6 +18,8 @@
     name = "beat";
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   # Enable experimental nix command and flakes
   # nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
@@ -37,11 +39,10 @@
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-    kitty
     terminal-notifier
-    hello
-    cowsay
     lazygit
+    ripgrep
+    neovim
   ];
 
   # TODO:
@@ -51,6 +52,7 @@
   # };
   programs.nix-index.enable = true;
 
+  # TODO:
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
    ];
@@ -59,6 +61,7 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 
+  system.defaults.NSGlobalDomain.NSWindowShouldDragOnGesture = true;
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 

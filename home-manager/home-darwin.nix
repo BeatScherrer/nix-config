@@ -5,30 +5,23 @@
     ../modules/home-manager/alacritty.nix
 
     ../modules/home-manager/git.nix
-    # ../modules/home-manager/herbstluftwm/herbstluftwm.nix
-    # ../modules/home-manager/color-scheme/color-scheme.nix
+    ../modules/home-manager/color-scheme/color-scheme.nix
     # ../modules/home-manager/games/games.nix
     ../modules/home-manager/shell/shell.nix
     ../modules/home-manager/wallpapers/wallpapers.nix
     ../modules/home-manager/avatars/avatars.nix
-    # ../modules/home-manager/hyprland/hyprland.nix
-    # ../modules/home-manager/music_production/music_production.nix
     # ../modules/home-manager/zellij/zellij.nix
   ];
 
-  # colorScheme = {
-  #   enable = true;
-  #   name = "gravel-pit";
-  # };
+  colorScheme = {
+    enable = true;
+    name = "gravel-pit";
+  };
   # colorScheme = inputs.nix-colors.colorSchemes.everforest;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "beat";
-  # TODO: set this dynamically
-# https://discourse.nixos.org/t/homedirectory-is-note-of-type-path-darwin/57453/3
-  # home.homeDirectory = /Users/beat;
-
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -58,7 +51,7 @@
     # productivity
     # synology-drive-client
     #
-    # neofetch
+    neofetch
     # localsend
     # telegram-desktop
     # signal-desktop
@@ -100,44 +93,16 @@
     # taplo
     # tailwindcss-language-server
     # vale
-    #
-    # # monitoring
-    # btop
-    # iotop
-    # iftop
-    #
-    # # periphery
-    # rofi-bluetooth
-    #
-    # # basic GUI tools
-    # dbus
-    # nautilus
-    # gnome-calendar
-    # seahorse
-    # gnome-calculator
-    # gnome-clocks
-    # evolution
+
     # thunderbird
-    # okular
     # firefox
-    # chromium
-    # google-chrome
-    # pavucontrol
-    # flameshot
     # bitwarden-desktop
     # obs-studio
-    #
-    # # font-manager
-    # pika-backup
-    # libreoffice
     # inkscape
     # obsidian
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # TODO:
+    # nerd-fonts.iosevka
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -159,29 +124,4 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
-  # home.pointerCursor = {
-  #   name = "Nordic-cursors";
-  #   package = pkgs.nordic;
-  #   size = 32;
-  #   gtk.enable = true;
-  #   x11.enable = true;
-  # };
-
-  # gtk.enable = true;
-  # gtk.theme.package = pkgs.nordic;
-  # gtk.theme.name = "Nordic-darker";
-  #
-  # gtk.iconTheme.package = pkgs.nordic;
-  # gtk.iconTheme.name = "Nordic-green";
-  #
-  # gtk.cursorTheme = {
-  #   name = "Nordic-cursors";
-  #   package = pkgs.nordic;
-  # };
-  #
-  # qt.enable = true;
-  # qt.platformTheme.name = "qtct";
-  # qt.style.name = "kvantum";
-  # qt.style.package = pkgs.adwaita-qt;
 }
