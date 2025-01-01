@@ -43,7 +43,6 @@
     };
   };
 
-
   nixpkgs.config.allowUnfree = true;
 
   # The home.packages option allows you to install Nix packages into your
@@ -53,57 +52,25 @@
     # synology-drive-client
     #
     neofetch
-    # localsend
-    # telegram-desktop
-    # signal-desktop
-    # discord
-    # # threema-desktop
-    # slack
-    # zulip
-    # vscode-fhs
-    # helix
-    # bc
-    # nmap
-    # gcc
-    # zig
-    #
-    # # cli utils
-    # zip
-    # unzip
-    # fzf
-    # ripgrep
-    # jq
-    # lazygit
-    # tldr
-    # just
-    # killall
-    #
     # # LSP and formatters
-    # stylua
-    # lua-language-server
-    # nixd
-    # nixfmt-rfc-style
-    # shfmt
-    # codespell
-    # markdownlint-cli
-    # nodePackages.jsonlint
-    # biome
-    # lemminx
-    # dockerfile-language-server-nodejs
-    # hadolint
-    # taplo
-    # tailwindcss-language-server
-    # vale
+    stylua
+    lua-language-server
+    nixd
+    nixfmt-rfc-style
+    shfmt
+    codespell
+    markdownlint-cli
+    nodePackages.jsonlint
+    biome
+    lemminx
+    dockerfile-language-server-nodejs
+    hadolint
+    taplo
+    tailwindcss-language-server
+    vale
 
     # thunderbird
     # firefox
-    # bitwarden-desktop
-    # obs-studio
-    # inkscape
-    # obsidian
-
-    # TODO:
-    # nerd-fonts.iosevka
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -112,6 +79,12 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
+  # TODO:
+  # homebrew = {
+  #   enable = true;
+  #   casks = pkgs.callPackage ./darwin/casks.nix {};
+  # };
 
   home.file = { };
 
