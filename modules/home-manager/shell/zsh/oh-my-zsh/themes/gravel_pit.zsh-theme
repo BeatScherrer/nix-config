@@ -103,24 +103,28 @@ prompt_os() {
   local debian_logo="\uF306"
   local ubuntu_logo="\uF31b"
   local nixos_logo="\uF313"
+  local apple_logo="\ue711"
 
+  if command -v sw_vers > /dev/null; then
+    prompt_segment "25" white "$apple_logo "
+  else
   local os_name
   os_name=$(cat /etc/os-release | grep '^NAME=' | cut -d'=' -f2 | tr -d '"')
 
   local version_codename
   version_codename=$(cat /etc/os-release | grep '^VERSION_CODENAME=' | cut -d'=' -f2)
-
   if [[ "$os_name" == "NixOS" && -n $version_codename ]]; then
     prompt_segment blue white "$nixos_logo  $version_codename"
   elif [[ "$os_name" == "Ubuntu" && -n "$version_codename" ]]; then
     # NOTE: 202 does not work in ubuntu smh...
     prompt_segment "202" white "$ubuntu_logo  $version_codename"
   elif [[ "$os_name" == "Debian" && -n "$version_codename" ]]; then
-    prompt_segment orange white "$debian  $version_codename"
+    prompt_segment orange white "$debian_logo  $version_codename"
   elif [[ "$os_name" == "Arch" ]]; then
-    prompt_segment "25" white "$arch "
+    prompt_segment "25" white "$arch_logo "
   else
     prompt_segment white black  "fallback: ${os_name} - ${version_codename}"
+  fi
   fi
 }
 
