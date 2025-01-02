@@ -89,7 +89,7 @@
             };
         };
     in
-    {
+    rec {
       # NOTE: nix uses the hostname entry by default
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
@@ -170,13 +170,9 @@
         };
       };
 
+      # NOTE: To quickly apply home-manager changes without updating nix with `home-manager switch --flake .`
       homeConfigurations = {
-        beat = home-manager.lib.homeManagerConfiguration {
-          extraSpecialArgs = {
-            inherit inputs;
-          };
-          modules = [ ./home-manager/home.nix ];
-        };
+        beat = nixosConfigurations.trident.config.home-manager.users.beat.home;
       };
 
       devShells = forAllSystems devShell;
