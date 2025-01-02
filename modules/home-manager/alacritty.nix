@@ -8,11 +8,11 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
-      window.decorations = "None";
+      # window.decorations = "None";
       font = {
         size = 12;
         normal = {
-          family = "IosevkaNerdFont";
+          family = "Iosevka Nerd Font";
         };
       };
       colors = with config.colorScheme.colors; {

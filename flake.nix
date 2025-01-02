@@ -1,3 +1,8 @@
+# TODO: add nix darwin to this somehow
+# - do not import pkgs for x86
+# -
+# Resources: https://gist.github.com/jmatsushita/5c50ef14b4b96cb24ae5268dab613050
+
 {
   description = "Nixos config flake";
 
@@ -17,6 +22,25 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
   };
 
   outputs =
@@ -26,13 +50,44 @@
       home-manager,
       nixos-cosmic,
       rust-overlay,
+      darwin,
+      nix-homebrew,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      user = "beat";
+      linuxSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      darwinSystems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      # helper to call a function for each system
+      forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
+      # helper to call the dev shell for each system
+      devShell =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default =
+            with pkgs;
+            mkShell {
+              nativeBuildInputs = with pkgs; [
+                nixd
+                nixfmt
+              ];
+              shellHook = with pkgs; ''
+                export EDITOR=nvim
+              '';
+            };
+        };
     in
     {
       # NOTE: nix uses the hostname entry by default
@@ -47,6 +102,7 @@
           ];
         };
         P1 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -56,6 +112,7 @@
           ];
         };
         trident = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
@@ -79,10 +136,43 @@
         };
       };
 
+      # TODO: add macbook config
+      darwinConfigurations = {
+        obsidian = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./hosts/obsidian/configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.beat = import ./home-manager/home-darwin.nix;
+            }
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                inherit user;
+                enable = true;
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
+                };
+                mutableTaps = false;
+                autoMigrate = true;
+              };
+            }
+          ];
+        };
+      };
+
       # NOTE: home manager uses the user name entry by default
       homeConfigurations = {
         beat = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
           extraSpecialArgs = {
             inherit inputs;
           };
@@ -90,11 +180,6 @@
         };
       };
 
-      devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixd
-          nixfmt
-        ];
-      };
+      devShells = forAllSystems devShell;
     };
 }
