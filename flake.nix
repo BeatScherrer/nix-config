@@ -83,7 +83,7 @@
                 nixd
                 nixfmt
               ];
-              shellHook = with pkgs; ''
+              shellHook = ''
                 export EDITOR=nvim
               '';
             };
@@ -117,6 +117,7 @@
             inherit inputs;
           };
           modules = [
+            ./hosts/trident/configuration.nix
             {
               nix.settings = {
                 substituters = [ "https://cosmic.cachix.org/" ];
@@ -124,7 +125,7 @@
               };
             }
             nixos-cosmic.nixosModules.default
-            inputs.home-manager.nixosModules.default
+            home-manager.nixosModules.default
             ./hosts/trident/configuration.nix
             (
               { pkgs, ... }:
@@ -136,7 +137,6 @@
         };
       };
 
-      # TODO: add macbook config
       darwinConfigurations = {
         obsidian = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
@@ -170,7 +170,6 @@
         };
       };
 
-      # NOTE: home manager uses the user name entry by default
       homeConfigurations = {
         beat = home-manager.lib.homeManagerConfiguration {
           extraSpecialArgs = {
