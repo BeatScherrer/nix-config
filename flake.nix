@@ -41,6 +41,9 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
   outputs =
@@ -55,6 +58,7 @@
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
+      ghostty,
       ...
     }@inputs:
     let
