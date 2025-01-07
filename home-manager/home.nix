@@ -3,6 +3,7 @@
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ../modules/home-manager/alacritty.nix
+    ../modules/home-manager/ghostty/ghosty.nix
 
     ../modules/home-manager/git.nix
     ../modules/home-manager/herbstluftwm/herbstluftwm.nix
@@ -26,7 +27,7 @@
   # manage.
   home.username = "beat";
   # TODO: set this dynamically
-# https://discourse.nixos.org/t/homedirectory-is-note-of-type-path-darwin/57453/3
+  # https://discourse.nixos.org/t/homedirectory-is-note-of-type-path-darwin/57453/3
   # home.homeDirectory = /Users/beat;
 
   # This value determines the Home Manager release that your configuration is

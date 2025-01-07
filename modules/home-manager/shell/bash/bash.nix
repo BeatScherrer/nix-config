@@ -4,7 +4,6 @@ let
   bashrc = builtins.readFile ./bashrc;
 in
 {
-
   programs = {
     bash = {
       enable = true;

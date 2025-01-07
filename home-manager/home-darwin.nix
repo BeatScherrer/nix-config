@@ -3,6 +3,7 @@
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ../modules/home-manager/alacritty.nix
+    ../modules/home-manager/ghostty/ghosty.nix
 
     ../modules/home-manager/git.nix
     ../modules/home-manager/color-scheme/color-scheme.nix
