@@ -1,12 +1,8 @@
-{ ... }:
+{ config, ... }:
 let
   aliases = import ../aliases.nix;
 in
 {
-  # TODO: custom zsh theme (think about this):
-  # - Create a git repo with the custom theme
-  # - use the git repo in nix automatically install the theme on configuration with given commit id
-
   # copy file to the custom oh-my-zsh directory
   home.file = {
     ".zsh_custom/themes" = {
@@ -15,8 +11,14 @@ in
     };
   };
 
+  # NOTE: this requires an absolute path... At least this works with mac and linux
+  home.file.".zshrcExtra".source =
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
+    + "/.nix/modules/home-manager/shell/zsh/zshrcExtra";
+
   programs = {
     zsh = {
+      initExtra = builtins.readFile ./zshrcExtra;
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
