@@ -18,7 +18,7 @@ in
 
   programs = {
     zsh = {
-      initExtra = builtins.readFile ./zshrcExtra;
+      initExtra = "source $HOME/.zshrcExtra";
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;

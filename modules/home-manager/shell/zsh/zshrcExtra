@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+_darwinUpdate() {
+	local nix_config="$HOME/.nix"
+	nix build "$nix_config#darwinConfigurations.obsidian.system" --extra-experimental-features 'nix-command flakes'
+	$nix_config/result/sw/bin/darwin-rebuild switch --flake $nix_config#obsidian
+}
+
+darwinUpdate() {
+	(set -e; _darwinUpdate)
+}
