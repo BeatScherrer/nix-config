@@ -93,8 +93,7 @@
             };
         };
     in
-    rec {
-      # NOTE: nix uses the hostname entry by default
+    {
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
           specialArgs = {
@@ -174,7 +173,6 @@
         };
       };
 
-      # NOTE: To quickly apply home-manager changes without updating nix with `home-manager switch --flake .`
       homeConfigurations = {
         beat = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
