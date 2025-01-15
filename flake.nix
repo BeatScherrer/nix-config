@@ -176,7 +176,11 @@
 
       # NOTE: To quickly apply home-manager changes without updating nix with `home-manager switch --flake .`
       homeConfigurations = {
-        beat = nixosConfigurations.trident.config.home-manager.users.beat.home;
+        beat = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          modules = [ ./home-manager/home.nix ];
+          extraSpecialArgs = { inherit inputs; };
+        };
       };
 
       devShells = forAllSystems devShell;
