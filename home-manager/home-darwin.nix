@@ -80,12 +80,6 @@
     # '')
   ];
 
-  # TODO:
-  # homebrew = {
-  #   enable = true;
-  #   casks = pkgs.callPackage ./darwin/casks.nix {};
-  # };
-
   home.file = { };
 
   # Home Manager can also manage your environment variables through

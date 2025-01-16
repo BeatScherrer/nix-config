@@ -40,6 +40,11 @@
     neovim
   ];
 
+  homebrew = {
+    enable = true;
+    casks = pkgs.callPackage ./casks.nix { };
+  };
+
   programs.nix-index.enable = true;
 
   fonts.packages = with pkgs; [ nerd-fonts.iosevka ];
