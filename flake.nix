@@ -13,7 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
-    debootstrapPin.url = "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
+    debootstrapPin.url =
+      "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,9 +27,11 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew = { url = "github:zhaofengli-wip/nix-homebrew"; };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
@@ -41,64 +44,34 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
+    ghostty = { url = "github:ghostty-org/ghostty"; };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      nixos-cosmic,
-      rust-overlay,
-      darwin,
-      nix-homebrew,
-      homebrew-bundle,
-      homebrew-core,
-      homebrew-cask,
-      ghostty,
-      ...
-    }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixos-cosmic, rust-overlay, darwin
+    , nixgl, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask
+    , ghostty, ... }@inputs:
     let
       user = "beat";
-      linuxSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      darwinSystems = [
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+      linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
+      darwinSystems = [ "aarch64-darwin" "x86_64-darwin" ];
       # helper to call a function for each system
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
       # helper to call the dev shell for each system
-      devShell =
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default =
-            with pkgs;
+      devShell = system:
+        let pkgs = nixpkgs.legacyPackages.${system};
+        in {
+          default = with pkgs;
             mkShell {
-              nativeBuildInputs = with pkgs; [
-                nixd
-                nixfmt
-              ];
+              nativeBuildInputs = with pkgs; [ nixd nixfmt ];
               shellHook = ''
                 export EDITOR=nvim
               '';
             };
         };
-    in
-    {
+    in {
       nixosConfigurations = {
         smolboi = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/smolboi/configuration.nix
             inputs.home-manager.nixosModules.default
@@ -106,9 +79,7 @@
         };
         P1 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/P1/configuration.nix
             inputs.home-manager.nixosModules.default
@@ -116,26 +87,23 @@
         };
         trident = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/trident/configuration.nix
             {
               nix.settings = {
                 substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+                trusted-public-keys = [
+                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+                ];
               };
             }
             nixos-cosmic.nixosModules.default
             home-manager.nixosModules.default
             ./hosts/trident/configuration.nix
-            (
-              { pkgs, ... }:
-              {
-                nixpkgs.overlays = [ rust-overlay.overlays.default ];
-              }
-            )
+            ({ pkgs, ... }: {
+              nixpkgs.overlays = [ rust-overlay.overlays.default ];
+            })
           ];
         };
       };
@@ -143,9 +111,7 @@
       darwinConfigurations = {
         obsidian = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/obsidian/configuration.nix
             home-manager.darwinModules.home-manager
