@@ -28,7 +28,6 @@ _: [
   #   softwareupdate --install-rosetta --agree-to-license
   # Note that it is very difficult to remove Rosetta 2 once it is installed.
   # "steam" 
-  "steamlink"
   "vlc"
 
   # Productivity Tools
