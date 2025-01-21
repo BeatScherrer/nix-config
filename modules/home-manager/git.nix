@@ -38,6 +38,9 @@
           cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
         };
       };
+      safe = {
+        directory = "*";
+      };
     };
   };
 }
