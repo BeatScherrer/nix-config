@@ -1,11 +1,13 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ../polybar/polybar.nix
     ../rofi/rofi.nix
   ];
 
-  xdg.configFile."herbstluftwm/autostart".source = ./autostart;
+  xdg.configFile."herbstluftwm/autostart".source =
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
+    + "/.nix/modules/home-manager/herbstluftwm/autostart";
   xdg.configFile."herbstluftwm/scripts".source = ./scripts;
   xdg.configFile."herbstluftwm/layouts".source = ./layouts;
 
