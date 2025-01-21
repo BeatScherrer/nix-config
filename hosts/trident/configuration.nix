@@ -47,6 +47,8 @@
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
+  services.tailscale.enable = true;
+
   programs.coolercontrol.enable = true;
 
   home-manager = {
