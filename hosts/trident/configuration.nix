@@ -17,6 +17,7 @@
     ../../modules/nixos/sound.nix
     ../../modules/nixos/crypto.nix
     ../../modules/nixos/herbstluftwm.nix
+    ../../modules/nixos/ssh.nix
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
