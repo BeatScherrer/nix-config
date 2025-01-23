@@ -23,8 +23,6 @@ fzfe() {
   echo -n "" | fzf --print-query --prompt="Enter regex> " --preview='echo {} | highlight --syntax regex'
 }
 
-PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
 OSH_THEME="gravel_pit"
@@ -72,40 +70,11 @@ plugins=(
 # shellcheck source=/home/beat/.oh-my-bash/oh-my-bash.sh
 source "$OSH"/oh-my-bash.sh
 
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 vpn() {
   local target="$1"
   local state="$2"
 
   nmcli connection "$state" "$target"
-}
-
-wake() {
-  local target="$1"
-
-  if [[ "$target" == "smolboi" ]]; then
-    wakeonlan b4:2e:99:a1:4d:aa
-  else
-    echo "target not found"
-  fi
 }
 
 pacmanSearch() {
@@ -125,25 +94,5 @@ fi
 if [[ -f "$HOME/.bashrc_mt" ]]; then
   . "$HOME/.bashrc_mt"
 fi
-
-export NVM_DIR="$HOME/.nvm"
-# shellcheck source=/dev/null
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# shellcheck source=/dev/null
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-if [[ -f "$HOME/.cargo/env" ]]; then
-  . "$HOME/.cargo/env"
-fi
-
-# pnpm
-export PNPM_HOME="/${HOME}.local/share/pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME:"*) ;;
-*) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-[[ -f "/home/beat/workspace/mtrsys/develop/build/sim/sim_helpers.sh" ]] && source "/home/beat/workspace/mtrsys/develop/build/sim/sim_helpers.sh"
 
 set +o noclobber
