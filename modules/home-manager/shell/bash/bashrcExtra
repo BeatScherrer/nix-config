@@ -96,3 +96,5 @@ if [[ -f "$HOME/.bashrc_mt" ]]; then
 fi
 
 set +o noclobber
+
+unset QT_PLUGIN_PATH
