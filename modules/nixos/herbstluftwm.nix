@@ -14,6 +14,9 @@
   ];
 
   services.xserver = {
+    windowManager.herbstluftwm = {
+      enable = true;
+    };
     resolutions = [
       {
         x = 7680;
@@ -33,20 +36,8 @@
       gdm = {
         enable = true;
       };
-      session = [
-        {
-          manage = "desktop";
-          name = "herbstluft";
-          start = ''
-            ${pkgs.herbstluftwm}/bin/herbstluftwm --locked &
-            waitPID=$!
-          '';
-        }
-      ];
     };
   };
-
-  services.displayManager.defaultSession = "herbstluft";
 
   services.gnome = {
     gnome-keyring.enable = true;
