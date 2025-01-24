@@ -1,5 +1,16 @@
-{ ... }:
+{ config, pkgs, ... }:
 {
+  # WARN: vnc does not find an appropriate Xsession
+  # environment.systemPackages = with pkgs; [
+  #   tigervnc
+  #   xorg.xinit
+  # ];
+
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "${pkgs.herbstluftwm}/bin/herbstluftwm --locked &";
+  };
+
   services.openssh = {
     enable = true;
     ports = [ 22 ];
