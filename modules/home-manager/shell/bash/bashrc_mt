@@ -110,6 +110,17 @@ mt-rti-spy() {
   mt-spy -topicRegex "$1" -printSample
 }
 
+mtrenter() {
+  local container_name="${1:-mtr-beat-latest}"
+  distrobox enter "$container_name"
+}
+
+mtrrestart() {
+  local container_name="${1:-mtr-beat-latest}"
+  distrobox stop "$container_name"
+  distrobox enter "$container_name"
+}
+
 ####################
 # UCC functionality
 ####################
@@ -125,4 +136,3 @@ vncpi() {
   sleep 2
   vncviewer localhost:5900
 }
-
