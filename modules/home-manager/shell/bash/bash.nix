@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   aliases = import ../aliases.nix;
-  bashrc = builtins.readFile ./bashrc;
 in
 {
   programs = {
