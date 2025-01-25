@@ -13,6 +13,11 @@
     useRoutingFeatures = "client";
   };
 
+  # NOTE: enabling the firewall creates issues with gazebo: see
+  # - https://docs.ros.org/en/rolling/How-To-Guides/Installation-Troubleshooting.html#enable-multicast
+  # - https://gazebosim.org/docs/latest/troubleshooting/#network-configuration-issue
+  networking.firewall.enable = false;
+
   # Tailscale
   systemd.user.services.tailscale-systray = {
     enable = true;
