@@ -61,6 +61,7 @@
     telegram-desktop
     signal-desktop
     discord
+    spotify
     # threema-desktop
     slack
     zulip
@@ -81,6 +82,7 @@
     tldr
     just
     killall
+    yt-dlp
 
     # LSP and formatters
     stylua
@@ -124,6 +126,7 @@
     flameshot
     bitwarden-desktop
     obs-studio
+    evince
 
     # font-manager
     pika-backup
