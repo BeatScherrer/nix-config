@@ -4,6 +4,13 @@ MTR_CURRENT_MTRSYS="sim"
 MTR_WORKSPACE="${HOME}/src/mtrobot"
 MTR_BUILD_DIR="${MTR_WORKSPACE}/mtrsys/${MTR_CURRENT_MTRSYS}/build"
 
+MTR_ENV_FILE="${MTR_BUILD_DIR}/test/mtrsys.env"
+MTR_FUNCTIONS="${MTR_BUILD_DIR}/test/bash/mtr_functions.sh"
+if [[ -f "${MTR_ENV_FILE}" && -f "${MTR_FUNCTIONS}" ]]; then
+  export MTR_ENV_FILE
+  . "$MTR_FUNCTIONS"
+fi
+
 #aliases
 if [[ -f "${HOME}/.aliases_mt" ]]; then
   . "${HOME}/.aliases_mt"
@@ -92,7 +99,7 @@ mt-rti-spy() {
 }
 
 mtrstop() {
-  local container_name"${1:-mtr-beat-latest}"
+  local container_name="${1:-mtr-beat-latest}"
   distrobox stop "$container_name"
 }
 
