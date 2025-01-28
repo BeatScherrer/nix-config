@@ -18,6 +18,7 @@
     ../../modules/nixos/crypto.nix
     ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/ssh.nix
+    ../../modules/nixos/AI.nix
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
@@ -97,6 +98,7 @@
     rust-bin.stable.latest.default
     pnpm
     inputs.ghostty.packages.x86_64-linux.default
+    lsof
 
     # network shares
     samba
