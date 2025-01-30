@@ -7,6 +7,7 @@
     tailscale
     tailscale-systray
     bash-language-server
+    pyright
   ];
   services.tailscale = {
     enable = true;

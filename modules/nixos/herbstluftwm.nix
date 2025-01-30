@@ -31,11 +31,24 @@
     xkb.layout = "us";
     xkb.variant = "";
     xkb.options = "compose:ralt";
+    # NOTE: attempt to fix the odyssey g9 monitor issue...
+    # serverFlagsSection = ''
+    #   Option "BlankTime" "0"
+    #   Option "StandbyTime" "0"
+    #   Option "SuspendTime" "0"
+    #   Option "OffTime" "0"
+    # '';
 
     displayManager = {
       gdm = {
         enable = true;
       };
+
+      # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
+      sessionCommands = ''
+        ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
+        ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
+      '';
     };
   };
 

@@ -47,6 +47,10 @@ cdsrc() {
   fi
 }
 
+cdgazebo() {
+  cd "${HOME}/src/humble/ros2_ws/src/mt-gazebo" || return 1
+}
+
 # submodule navigation helper
 cds() {
   cd "$1" || return 1
