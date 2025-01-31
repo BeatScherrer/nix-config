@@ -60,6 +60,7 @@
   systemd.targets.hybrid-sleep.enable = false;
 
   programs.coolercontrol.enable = true;
+  programs.bash.blesh.enable = true;
 
   home-manager = {
     # also pass inputs to home-manager modules

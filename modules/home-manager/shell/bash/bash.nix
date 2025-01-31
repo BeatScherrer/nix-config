@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   aliases = import ../aliases.nix;
 in
@@ -14,6 +14,8 @@ in
         if [[ -f "$HOME/.bashrc_mt" ]]; then
           . $HOME/.bashrc_mt
         fi
+
+        . ${pkgs.blesh}/share/blesh/ble.sh
       '';
     };
   };
