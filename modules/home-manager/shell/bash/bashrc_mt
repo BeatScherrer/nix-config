@@ -18,7 +18,7 @@ fi
 
 # Helper function to change to git dir
 ccd() {
-  cd "${MTR_WORKSPACE}/mtrsys/${1:-sim}/" || return 1
+  cd "${MTR_WORKSPACE}/mtrsys/${1:-${MTR_CURRENT_MTRSYS}}/" || return 1
 }
 
 cducc() {
@@ -102,17 +102,17 @@ mt-rti-spy() {
   mt-spy -topicRegex "$1" -printSample
 }
 
-mtrstop() {
+mtstop() {
   local container_name="${1:-mtr-beat-latest}"
   distrobox stop "$container_name"
 }
 
-mtrenter() {
+mtenter() {
   local container_name="${1:-mtr-beat-latest}"
   distrobox enter "$container_name"
 }
 
-mtrrestart() {
+mtrestart() {
   local container_name="${1:-mtr-beat-latest}"
   mtrstop "$container_name"
   mtrenter "$container_name"
