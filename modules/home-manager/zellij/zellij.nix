@@ -8,7 +8,7 @@
     enable = true;
     enableBashIntegration = false;
     settings = {
-      theme = "nord";
+      theme = "kanagawa";
     };
   };
 
