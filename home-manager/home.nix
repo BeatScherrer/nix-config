@@ -132,6 +132,7 @@
     pika-backup
     libreoffice
     inkscape
+    gimp
     obsidian
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
