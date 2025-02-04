@@ -39,6 +39,15 @@
   nix.gc.dates = "daily";
   nix.gc.options = "--delete-older-than 7d";
 
+  # list all current system packages in /etc/current-system-packages
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+    formatted;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -53,11 +62,6 @@
 
   services.tailscale.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
-
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
 
   programs.coolercontrol.enable = true;
   programs.bash.blesh.enable = true;
@@ -103,6 +107,7 @@
     pnpm
     inputs.ghostty.packages.x86_64-linux.default
     lsof
+    appimage-run
 
     # network shares
     samba
