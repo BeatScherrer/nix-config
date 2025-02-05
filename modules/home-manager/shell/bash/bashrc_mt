@@ -11,6 +11,8 @@ if [[ -f "${MTR_ENV_FILE}" && -f "${MTR_FUNCTIONS}" ]]; then
   . "$MTR_FUNCTIONS"
 fi
 
+MTR_SIM_RUN_CMD="distrobox enter mtr-beat-latest -- bash -c"
+
 #aliases
 if [[ -f "${HOME}/.aliases_mt" ]]; then
   . "${HOME}/.aliases_mt"
