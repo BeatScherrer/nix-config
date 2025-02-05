@@ -14,13 +14,18 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # Path to your oh-my-bash installation.
 export OSH="${HOME}/.oh-my-bash"
 export SYSTEMD_EDITOR=vim
-# export GIT_EDITOR="NVR --remote-tab-wait + 'set bufhidden=delete'"
 
-# TODO: fix the command to act like I actually want
-# export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-
+# FIXME:
 fzfe() {
   echo -n "" | fzf --print-query --prompt="Enter regex> " --preview='echo {} | highlight --syntax regex'
+}
+
+vimf() {
+  vim "$(fzf)"
+}
+
+catf() {
+  cat "$(fzf)"
 }
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -41,7 +46,7 @@ export OMB_USE_SUDO=true
 # Add wisely, as too many completions slow down shell startup.
 completions=(
   git
-  composer
+  # composer
   ssh
 )
 
@@ -50,7 +55,6 @@ completions=(
 # Example format: aliases=(vagrant composer git-avh)
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
-  # general
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -58,8 +62,8 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  bashmarks
+  # git # add aliases
+  # bashmarks # add bash marks with bm -a mark_name; bm -g mark_name; bm -l
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -81,6 +85,12 @@ vpn() {
 
 pacmanSearch() {
   pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
+}
+
+nixSearch() {
+  if ! rg "$1" </etc/current-system-packages; then
+    echo "no package found with '$1'"
+  fi
 }
 
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
