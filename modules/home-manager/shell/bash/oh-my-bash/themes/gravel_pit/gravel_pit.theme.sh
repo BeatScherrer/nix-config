@@ -211,10 +211,10 @@ prompt_os() {
     prompt_segment default orange "${ubuntu_logo} ${version_id} "
   elif [[ "$os_name" == "Debian" && -n "$version_codename" ]]; then
     prompt_segment orange white "$debian $version_codename  "
-  elif [[ "$os_name" == "Arch" ]]; then
-    prompt_segment blue white "$arch  "
+  elif [[ "$os_name" == "Arch" || "$os_name" == "Arch Linux" ]]; then
+    prompt_segment default blue "$arch_logo "
   else
-    prompt_segment white black  "fallback: ${os_name} - ${version_codename}"
+    prompt_segment white black "fallback: ${os_name} - ${version_codename}"
   fi
 }
 
@@ -235,19 +235,19 @@ prompt_schroot() {
 
 prompt_sim_host() {
   if [[ -n "$HOSTCFG" ]]; then
-    if command -v xmlstarlet &> /dev/null; then
+    if command -v xmlstarlet &>/dev/null; then
       local host_type host_id
       host_type=$(xmlstarlet sel -t -v "/config/hostType" "$HOSTCFG")
       host_id=$(xmlstarlet sel -t -v "/config/hostId" "$HOSTCFG")
 
-     case "$host_type" in
-       "robot")
-         host_type="r"
-         ;;
-       "master")
-         host_type="m"
-         ;;
-     esac
+      case "$host_type" in
+      "robot")
+        host_type="r"
+        ;;
+      "master")
+        host_type="m"
+        ;;
+      esac
 
       prompt_segment default cyan "${host_type}-${host_id} "
     fi
