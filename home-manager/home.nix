@@ -116,7 +116,6 @@
     seahorse
     gnome-calculator
     gnome-clocks
-    evolution
     thunderbird
     okular
     firefox
