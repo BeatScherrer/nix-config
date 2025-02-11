@@ -8,10 +8,15 @@
     tailscale-systray
     bash-language-server
     pyright
+    remmina
   ];
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "client";
+  };
+
+  programs.git.hooks = {
+    commit-msg = ./git_hooks/commit-msg;
   };
 
   # NOTE: enabling the firewall creates issues with gazebo: see
