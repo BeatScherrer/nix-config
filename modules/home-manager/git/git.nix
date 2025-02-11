@@ -23,10 +23,12 @@
       mh = "merge -Xignore-space-change -Xrename-threshold=25";
       unpushed = "log --branches --not --remotes --no-walk --decorate --oneline";
     };
+    hooks = {
+      commit-msg = ./git_hooks/commit-msg;
+    };
     extraConfig = {
       core = {
         editor = "vim";
-        hooksPath = "~/.git_hooks";
       };
       merge = {
         tool = "vimdiff";

@@ -15,10 +15,6 @@
     useRoutingFeatures = "client";
   };
 
-  programs.git.hooks = {
-    commit-msg = ./git_hooks/commit-msg;
-  };
-
   # NOTE: enabling the firewall creates issues with gazebo: see
   # - https://docs.ros.org/en/rolling/How-To-Guides/Installation-Troubleshooting.html#enable-multicast
   # - https://gazebosim.org/docs/latest/troubleshooting/#network-configuration-issue

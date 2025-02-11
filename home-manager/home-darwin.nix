@@ -1,10 +1,11 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ../modules/home-manager/alacritty.nix
     ../modules/home-manager/ghostty/ghosty.nix
 
-    ../modules/home-manager/git.nix
+    ../modules/home-manager/git/git.nix
     ../modules/home-manager/color-scheme/color-scheme.nix
     # ../modules/home-manager/games/games.nix
     ../modules/home-manager/shell/shell.nix
@@ -89,5 +90,7 @@
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 }

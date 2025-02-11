@@ -5,7 +5,7 @@
     ../modules/home-manager/alacritty.nix
     ../modules/home-manager/ghostty/ghosty.nix
 
-    ../modules/home-manager/git.nix
+    ../modules/home-manager/git/git.nix
     ../modules/home-manager/herbstluftwm/herbstluftwm.nix
     ../modules/home-manager/color-scheme/color-scheme.nix
     ../modules/home-manager/games/games.nix
