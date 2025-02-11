@@ -15,6 +15,10 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export OSH="${HOME}/.oh-my-bash"
 export SYSTEMD_EDITOR=vim
 
+sourcebash() {
+  . "$HOME/.bashrc"
+}
+
 # FIXME:
 fzfe() {
   echo -n "" | fzf --print-query --prompt="Enter regex> " --preview='echo {} | highlight --syntax regex'
