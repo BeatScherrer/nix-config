@@ -7,4 +7,7 @@
   jc = "sudo journalctl";
   cm = "cmake -GNinja";
   mm = "CCACHE_BASEDIR=\${PWD}; echo \"ninja build (CCACHE_BASEDIR set) (MAKE_CORES:\${MAKE_CORES})\"; ninja -j\${MAKE_CORES}";
+  nnix = "nvim ~/.nix";
+  sourcebash = "source ~/.bashrc";
+  sourcezsh = "source ~/.zshrc";
 }

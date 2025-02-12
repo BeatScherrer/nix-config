@@ -5,10 +5,9 @@ MTR_WORKSPACE="${HOME}/src/mtrobot"
 MTR_BUILD_DIR="${MTR_WORKSPACE}/mtrsys/${MTR_CURRENT_MTRSYS}/build"
 
 MTR_ENV_FILE="${MTR_BUILD_DIR}/test/mtrsys.env"
-MTR_FUNCTIONS="${MTR_BUILD_DIR}/test/bash/mtr_functions.sh"
-if [[ -f "${MTR_ENV_FILE}" && -f "${MTR_FUNCTIONS}" ]]; then
-  export MTR_ENV_FILE
-  . "$MTR_FUNCTIONS"
+if [[ -f "${MTR_ENV_FILE}" ]]; then
+  . $MTR_ENV_FILE
+  . "$MTR_BUILD_DIR/test/bash/sim_helpers.sh"
 fi
 
 export MTR_SIM_GAZEBO_CMD=""
