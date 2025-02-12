@@ -9,6 +9,7 @@
     bash-language-server
     pyright
     remmina
+    ccache
   ];
   services.tailscale = {
     enable = true;
