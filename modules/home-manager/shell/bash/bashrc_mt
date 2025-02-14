@@ -13,6 +13,9 @@ if [[ -f "${MTR_ENV_FILE}" ]]; then
   . "$MTR_FUNCTIONS"
 fi
 
+# NOTE: use the first set to run gazebo and ucc in the schroot
+# export MTR_SIM_GAZEBO_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
+# export MTR_SIM_UCC_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
 export MTR_SIM_GAZEBO_CMD=""
 export MTR_SIM_UCC_CMD=""
 
