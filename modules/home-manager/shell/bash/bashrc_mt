@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-MTR_CURRENT_MTRSYS="sim"
+MTR_CURRENT_MTRSYS="2"
 MTR_WORKSPACE="${HOME}/src/mtrobot"
 MTR_BUILD_DIR="${MTR_WORKSPACE}/mtrsys/${MTR_CURRENT_MTRSYS}/build"
 
 MTR_ENV_FILE="${MTR_BUILD_DIR}/test/mtrsys.env"
 if [[ -f "${MTR_ENV_FILE}" ]]; then
-  . $MTR_ENV_FILE
+  # shellcheck source=/dev/null
+  . "$MTR_ENV_FILE"
+  # shellcheck source=/dev/null
   . "$MTR_BUILD_DIR/test/bash/sim_helpers.sh"
 fi
 
@@ -43,7 +45,7 @@ cdbuild() {
 # Helper function to change to a particular source directory
 cdsrc() {
   if [[ -z "$1" ]]; then
-    cd "$HOME/src"
+    cd "$HOME/src" || return 1
   else
     ccd "$1" && cd src || return 1
   fi
@@ -78,13 +80,11 @@ sourcerti7() {
 
 #
 #  ccache
-if [[ true ]]; then
-  export PATH=/usr/lib/ccache:$PATH
-  export CC="ccache clang-19"
-  export CXX="ccache clang++-19"
-  export CCACHE_DIR="${HOME}/.ccache_ub22"
-  export CCACHE_SLOPPINESS="pch_defines,time_macros,include_file_ctime,include_file_mtime"
-fi
+export PATH=/usr/lib/ccache:$PATH
+export CC="ccache clang-19"
+export CXX="ccache clang++-19"
+export CCACHE_DIR="${HOME}/.ccache_ub22"
+export CCACHE_SLOPPINESS="pch_defines,time_macros,include_file_ctime,include_file_mtime"
 
 cleanws() {
   if [[ -d "build" && -d "install" && -d "log" ]]; then
