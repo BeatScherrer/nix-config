@@ -11,6 +11,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# Disable telemetry for rti dds gen
+export collect_telemetry=false
+
 # Path to your oh-my-bash installation.
 export OSH="${HOME}/.oh-my-bash"
 export SYSTEMD_EDITOR=vim
