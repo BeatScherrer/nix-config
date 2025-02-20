@@ -14,6 +14,7 @@
     ../modules/home-manager/avatars/avatars.nix
     ../modules/home-manager/hyprland/hyprland.nix
     ../modules/home-manager/music_production/music_production.nix
+    ../modules/home-manager/synology_drive.nix
     ../modules/home-manager/zellij/zellij.nix
   ];
 
@@ -53,9 +54,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # productivity
-    synology-drive-client
-
     neofetch
     localsend
     telegram-desktop
