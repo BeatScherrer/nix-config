@@ -60,6 +60,7 @@
     localsend
     telegram-desktop
     signal-desktop
+    whatsapp-for-linux
     discord
     spotify
     # threema-desktop
