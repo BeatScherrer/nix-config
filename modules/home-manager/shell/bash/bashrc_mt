@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export MTR_CURRENT_MTRSYS="2"
+export MTR_CURRENT_MTRSYS="sim"
 export MTR_WORKSPACE="${HOME}/src/mtrobot"
 export MTR_SYS_PATH="${MTR_WORKSPACE}/mtrsys/${MTR_CURRENT_MTRSYS}"
 export MTR_BUILD_DIR="${MTR_SYS_PATH}/build"
@@ -13,9 +13,15 @@ if [[ -f "${MTR_ENV_FILE}" ]]; then
   . "$MTR_FUNCTIONS"
 fi
 
-# NOTE: use the first set to run gazebo and ucc in the schroot
+# schroot
 # export MTR_SIM_GAZEBO_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
 # export MTR_SIM_UCC_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
+
+# distrobox
+# export MTR_SIM_GAZEBO_CMD="distrobox enter mtr-beat-latest -- /bin/bash -c"
+# export MTR_SIM_UCC_CMD="distrobox enter mtr-beat-latest -- /bin/bash -c"
+
+# do not wrap commands
 export MTR_SIM_GAZEBO_CMD=""
 export MTR_SIM_UCC_CMD=""
 
@@ -124,7 +130,7 @@ mtenter() {
 
 mtrestart() {
   local container_name="${1:-mtr-beat-latest}"
-  mtstop "$container_name"
+  mtoff "$container_name"
   mtenter "$container_name"
 }
 
