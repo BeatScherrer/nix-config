@@ -6,6 +6,7 @@
     xorg.xev
     xorg.xauth
     xorg.xhost
+    xorg.xeyes
     gnome-keyring
     gnome-online-accounts
     gnome.gvfs
