@@ -7,6 +7,7 @@
     xorg.xauth
     xorg.xhost
     xorg.xeyes
+    xorg.xinit
     gnome-keyring
     gnome-online-accounts
     gnome.gvfs
@@ -32,13 +33,6 @@
     xkb.layout = "us";
     xkb.variant = "";
     xkb.options = "compose:ralt";
-    # NOTE: attempt to fix the odyssey g9 monitor issue...
-    # serverFlagsSection = ''
-    #   Option "BlankTime" "0"
-    #   Option "StandbyTime" "0"
-    #   Option "SuspendTime" "0"
-    #   Option "OffTime" "0"
-    # '';
 
     displayManager = {
       gdm = {
