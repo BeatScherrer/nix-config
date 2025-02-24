@@ -16,7 +16,7 @@
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/sound.nix
     ../../modules/nixos/crypto.nix
-    ../../modules/nixos/herbstluftwm.nix
+    # ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/i3lock.nix
     ../../modules/nixos/ollama.nix
@@ -24,7 +24,7 @@
     ../../modules/nixos/teamviewer/teamviewer.nix
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
-    # ../../modules/nixos/cosmic.nix
+    ../../modules/nixos/cosmic.nix
 
     # work modules
     ../../modules/nixos/mtr/mtr.nix
@@ -109,6 +109,7 @@
     inputs.ghostty.packages.x86_64-linux.default
     lsof
     appimage-run
+    mpv
 
     # network shares
     samba
