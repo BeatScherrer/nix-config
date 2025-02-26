@@ -116,7 +116,7 @@
     gnome-calculator
     gnome-clocks
     thunderbird
-    okular
+    kdePackages.okular
     firefox
     chromium
     google-chrome
