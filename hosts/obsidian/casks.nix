@@ -14,12 +14,18 @@ _: [
   "loom"
   "slack"
   "telegram"
+  "whatsapp"
   "zoom"
+  "signal"
+  "thunderbird"
 
   # Utility Tools
   "appcleaner"
   "syncthing"
   "tailscale"
+  "homebrew/caks/xquartz"
+  "remote-desktop-manager"
+  "synology-drive"
 
   # Entertainment Tools
   # WARN:
