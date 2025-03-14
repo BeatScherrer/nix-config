@@ -66,7 +66,12 @@ cdsrc() {
 }
 
 cdgazebo() {
-  cd "${HOME}/src/humble/ros2_ws/src/mt-gazebo" || return 1
+  if [[ -z "$MTR_SIM_ROS_WS" ]]; then
+    echo "MTR_SIM_ROS_WS not set"
+    return 1
+  fi
+
+  cd "${MTR_SIM_ROS_WS:-/home/beat/src/jazz}/ros2_ws/src/mt-gazebo" || return 1
 }
 
 # submodule navigation helper
@@ -147,6 +152,10 @@ mtrestart() {
 
 viewShowroomCamera() {
   mpv rtsps://10.0.0.1:7441/DIJkjGw404SBfpIj
+}
+
+mt_debug() {
+  sudo gdbserver --attach :7777 $(pgrep "$1")
 }
 
 ####################
