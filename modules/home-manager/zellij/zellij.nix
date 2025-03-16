@@ -37,9 +37,6 @@
           "bind \"Ctrl Shift l\" \"Ctrl Shift Right\"" = {
             MovePane = "Right";
           };
-
-          # "bind 'Ctrl h'" = "move-left"; # Move left with Ctrl+H
-          # "bind 'Ctrl l'" = "move-right"; # Move right with Ctrl+L
         };
         # shared = {
         #
