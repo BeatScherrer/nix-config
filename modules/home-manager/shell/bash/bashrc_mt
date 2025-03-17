@@ -173,3 +173,7 @@ vncpi() {
   sleep 2
   vncviewer localhost:5900
 }
+
+viewPf() {
+  "$MTR_WORKSPACE/analysis/plot-pf.pl" "$1"
+}
