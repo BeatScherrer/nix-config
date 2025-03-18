@@ -139,6 +139,10 @@ mtoff() {
   distrobox stop "$container_name"
 }
 
+ub24() {
+  mtenter mtr-24-beat
+}
+
 mtenter() {
   local container_name="${1:-mtr-24-beat}"
   distrobox enter "$container_name"
@@ -148,6 +152,12 @@ mtrestart() {
   local container_name="${1:-mtr-24-beat}"
   mtoff "$container_name"
   mtenter "$container_name"
+}
+
+restart() {
+  simgazeborestart
+  simmasterrestart
+  simrobotrestart
 }
 
 viewShowroomCamera() {
@@ -175,5 +185,5 @@ vncpi() {
 }
 
 viewPf() {
-  "$MTR_WORKSPACE/analysis/plot-pf.pl" "$1"
+  "$MTR_WORKSPACE/analysis/plot-pf.pl" "$MTR_LOGS_DIR/pf.log" | gnuplot
 }
