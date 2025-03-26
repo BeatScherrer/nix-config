@@ -13,6 +13,8 @@ if [[ -f "${MTR_ENV_FILE}" ]]; then
   . "$MTR_FUNCTIONS"
 fi
 
+export ROS_LOCALHOST_ONLY=1
+
 # schroot
 # export MTR_SIM_GAZEBO_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
 # export MTR_SIM_UCC_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
