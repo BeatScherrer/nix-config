@@ -9,6 +9,7 @@
     };
   };
 
+  # FIXME: thte cooling_control script lacks the environment, i.e. bc
   systemd.services.cooling_control = {
     enable = true;
     after = [ "network.target" ];
