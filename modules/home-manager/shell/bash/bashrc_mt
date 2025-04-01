@@ -67,6 +67,10 @@ cdsrc() {
   fi
 }
 
+cdmtrobot() {
+  cd "$MTR_WORKSPACE" || return 1
+}
+
 cdgazebo() {
   if [[ -z "$MTR_SIM_ROS_WS" ]]; then
     echo "MTR_SIM_ROS_WS not set"
