@@ -25,6 +25,7 @@
     # ../../modules/nixos/hyprland.nix
     # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
+    ../../modules/nixos/cooling_control/cooling_control.nix
 
     # work modules
     ../../modules/nixos/mtr/mtr.nix
@@ -60,6 +61,8 @@
   networking.hostName = "trident";
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
+
+  time.timeZone = "Europe/Zurich";
 
   services.tailscale.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];

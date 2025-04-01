@@ -1,0 +1,23 @@
+{ ... }:
+{
+  systemd.timers.cooling_control_timer = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "5s";
+      OnUnitActiveSec = "5s";
+      Unit = "cooling_control.service";
+    };
+  };
+
+  systemd.services.cooling_control = {
+    enable = true;
+    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    description = "Cooling control service";
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = ./cooling_control.bash;
+    };
+  };
+
+}
