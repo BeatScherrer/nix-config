@@ -7,9 +7,11 @@
     tailscale
     tailscale-systray
     bash-language-server
+    neocmakelsp
     pyright
     remmina
     ccache
+    freecad
   ];
   services.tailscale = {
     enable = true;
