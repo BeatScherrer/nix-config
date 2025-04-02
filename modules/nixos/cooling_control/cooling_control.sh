@@ -6,10 +6,14 @@ fan_speed=100
 
 if [ "$(echo "$TEMP > 40" | bc -l)" -eq 1 ]; then
   fan_speed="100"
+elif [ "$(echo "$TEMP > 38" | bc -l)" -eq 1 ]; then
+  fan_speed="80"
 elif [ "$(echo "$TEMP > 35" | bc -l)" -eq 1 ]; then
-  fan_speed="75"
+  fan_speed="65"
+elif [ "$(echo "$TEMP > 33" | bc -l)" -eq 1 ]; then
+  fan_speed="50"
 elif [ "$(echo "$TEMP > 30" | bc -l)" -eq 1 ]; then
-  fan_speed="30"
+  fan_speed="40"
 elif [ "$(echo "$TEMP > 25" | bc -l)" -eq 1 ]; then
   fan_speed="20"
 elif [ "$(echo "$TEMP > 20" | bc -l)" -eq 1 ]; then

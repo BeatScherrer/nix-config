@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   systemd.timers.cooling_control_timer = {
     wantedBy = [ "timers.target" ];
@@ -17,8 +17,15 @@
     description = "Cooling control service";
     serviceConfig = {
       Type = "simple";
-      ExecStart = ./cooling_control.bash;
+      ExecStart = "${pkgs.bash}/bin/bash ${./cooling_control.sh}";
     };
+    path = with pkgs; [
+      coreutils
+      gawk
+      bc
+      liquidctl
+      lm_sensors
+    ];
   };
 
 }
