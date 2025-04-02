@@ -9,7 +9,7 @@ if [ "$(echo "$TEMP > 40" | bc -l)" -eq 1 ]; then
 elif [ "$(echo "$TEMP > 38" | bc -l)" -eq 1 ]; then
   fan_speed="80"
 elif [ "$(echo "$TEMP > 35" | bc -l)" -eq 1 ]; then
-  fan_speed="65"
+  fan_speed="60"
 elif [ "$(echo "$TEMP > 33" | bc -l)" -eq 1 ]; then
   fan_speed="50"
 elif [ "$(echo "$TEMP > 30" | bc -l)" -eq 1 ]; then
