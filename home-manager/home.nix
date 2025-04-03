@@ -118,7 +118,7 @@
     gnome-clocks
     thunderbird
     kdePackages.okular
-    firefox
+    librewolf
     chromium
     google-chrome
     pavucontrol
