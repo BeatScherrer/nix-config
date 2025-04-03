@@ -138,6 +138,30 @@
             )
           ];
         };
+        legion = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/legion/configuration.nix
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [
+                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+                ];
+              };
+            }
+            nixos-cosmic.nixosModules.default
+            home-manager.nixosModules.default
+            ./hosts/legion/configuration.nix
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              }
+            )
+          ];
+        };
       };
 
       darwinConfigurations = {
