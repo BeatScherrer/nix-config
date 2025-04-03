@@ -53,9 +53,7 @@
   time.timeZone = "Europe/Zurich";
 
   services.tailscale.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
 
-  programs.coolercontrol.enable = true;
   programs.bash.blesh.enable = true;
 
   home-manager = {
@@ -82,7 +80,6 @@
     usbutils
     lshw
     fwupd
-    liquidctl
     lm_sensors
     cmake
     clang
@@ -104,12 +101,6 @@
     gnome-keyring
     gnome-online-accounts
     dbus
-
-    inputs.debootstrapPin.legacyPackages."x86_64-linux".debootstrap # schroot
-    pv # schroot
-    boost # Required to build schroot
-    boost.dev # Required to build schroot
-    # schroot # FIXME: overlay?
 
     pkg-config
   ];
