@@ -12,6 +12,7 @@
     ../../modules/nixos/locale.nix
     ../../modules/nixos/printing.nix
     ../../modules/nixos/virtualization.nix
+    ../../modules/nixos/container.nix
     ../../modules/nixos/sound.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/ollama.nix
@@ -24,6 +25,11 @@
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  container = {
+    enable = true;
+    containerEngine = "podman";
+  };
 
   # garbage collection
   nix.gc.automatic = true;

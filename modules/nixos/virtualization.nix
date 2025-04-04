@@ -1,16 +1,5 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   virtualisation = {
-    # containers
-    containers.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = true; # create a `docker` alias
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-
-    };
-
     # VM
     libvirtd = {
       enable = true;
@@ -35,13 +24,7 @@
     win-virtio
     win-spice
     quickemu
-    distrobox
-    podman-compose
-    podman-desktop
   ];
 
-  users.users.beat.extraGroups = [
-    "libvirtd"
-    "kvm"
-  ];
+  users.users.beat.extraGroups = [ "libvirtd" "kvm" ];
 }
