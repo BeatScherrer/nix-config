@@ -18,6 +18,7 @@
     ../../modules/nixos/ollama.nix
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/gnome.nix
+    ../../modules/nixos/nvidia.nix
     # ../../modules/nixos/cosmic.nix
     # ../../modules/nixos/hyprland.nix
 
