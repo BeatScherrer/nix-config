@@ -1,10 +1,4 @@
-{
-  inputs,
-  config,
-  pkgs,
-  ...
-}:
-{
+{ inputs, config, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
@@ -14,6 +8,7 @@
     ../../modules/nixos/steam.nix
     ../../modules/nixos/games.nix
     ../../modules/nixos/virtualization.nix
+    ../../modules/nixos/container/container.nix
     ../../modules/nixos/sound.nix
     ../../modules/nixos/crypto.nix
     ../../modules/nixos/herbstluftwm.nix
@@ -31,10 +26,12 @@
     ../../modules/nixos/mtr/mtr.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  container = {
+    enable = true;
+    containerEngine = "podman";
+  };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # garbage collection
   nix.gc.automatic = true;
@@ -42,13 +39,12 @@
   nix.gc.options = "--delete-older-than 7d";
 
   # list all current system packages in /etc/current-system-packages
-  environment.etc."current-system-packages".text =
-    let
-      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-      formatted = builtins.concatStringsSep "\n" sortedUnique;
-    in
-    formatted;
+  environment.etc."current-system-packages".text = let
+    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+    sortedUnique =
+      builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+    formatted = builtins.concatStringsSep "\n" sortedUnique;
+  in formatted;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -72,20 +68,14 @@
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = {
-      inherit inputs;
-    };
-    users = {
-      "beat" = import ../../home-manager/home.nix;
-    };
+    extraSpecialArgs = { inherit inputs; };
+    users = { "beat" = import ../../home-manager/home.nix; };
   };
 
   nixpkgs.config.allowUnfree = true;
 
   # TODO:
-  environment.sessionVariables = {
-    MAKE_CORES = "30";
-  };
+  environment.sessionVariables = { MAKE_CORES = "30"; };
 
   # TODO: add this to default packages module
   environment.systemPackages = with pkgs; [
@@ -122,20 +112,11 @@
     gnome-online-accounts
     dbus
 
-    inputs.debootstrapPin.legacyPackages."x86_64-linux".debootstrap # schroot
-    pv # schroot
-    boost # Required to build schroot
-    boost.dev # Required to build schroot
-    # schroot # FIXME: overlay?
-
     pkg-config
   ];
 
   # TODO: add to fonts module
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-    font-awesome
-  ];
+  fonts.packages = with pkgs; [ nerd-fonts.iosevka font-awesome ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

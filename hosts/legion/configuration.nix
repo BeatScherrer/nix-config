@@ -12,7 +12,7 @@
     ../../modules/nixos/locale.nix
     ../../modules/nixos/printing.nix
     ../../modules/nixos/virtualization.nix
-    ../../modules/nixos/container.nix
+    ../../modules/nixos/container/container.nix
     ../../modules/nixos/sound.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/ollama.nix
@@ -28,7 +28,7 @@
 
   container = {
     enable = true;
-    containerEngine = "podman";
+    containerEngine = "docker";
   };
 
   # garbage collection
@@ -71,7 +71,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # TODO:
-  environment.sessionVariables = { MAKE_CORES = "30"; };
+  environment.sessionVariables = { MAKE_CORES = "12"; };
 
   # TODO: add this to default packages module
   environment.systemPackages = with pkgs; [
