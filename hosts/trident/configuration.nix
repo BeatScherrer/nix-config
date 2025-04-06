@@ -26,10 +26,13 @@
     ../../modules/nixos/mtr/mtr.nix
   ];
 
+  # custom module options
+  # ---------------------------------------------------------------------------
   container = {
     enable = true;
     containerEngine = "podman";
   };
+  # ---------------------------------------------------------------------------
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
