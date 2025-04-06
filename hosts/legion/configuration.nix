@@ -7,7 +7,7 @@
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.default
+    ../../modules/nixos/hardware/nvidia.nix
     ../../modules/nixos/user.nix
     ../../modules/nixos/locale.nix
     ../../modules/nixos/printing.nix
@@ -18,11 +18,12 @@
     ../../modules/nixos/ollama.nix
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/gnome.nix
-    ../../modules/nixos/nvidia.nix
     # ../../modules/nixos/cosmic.nix
     # ../../modules/nixos/hyprland.nix
 
     ../../modules/nixos/mtr/mtr.nix
+
+    inputs.home-manager.nixosModules.default
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
