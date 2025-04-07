@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     mysql-workbench
     xmlstarlet
@@ -12,6 +11,8 @@
     remmina
     ccache
     freecad
+    lldb
+    blender
   ];
   services.tailscale = {
     enable = true;
@@ -28,7 +29,8 @@
     enable = true;
     description = "Tailscale system tray";
     serviceConfig = {
-      ExecStart = "${pkgs.bashInteractive}/bin/bash -i -c \"${pkgs.tailscale-systray}/bin/tailscale-systray\"";
+      ExecStart = ''
+        ${pkgs.bashInteractive}/bin/bash -i -c "${pkgs.tailscale-systray}/bin/tailscale-systray"'';
     };
     wantedBy = [ "multi-user.target" ];
   };
@@ -46,22 +48,21 @@
     ensureUsers = [
       {
         name = "root";
-        ensurePermissions = {
-          "*.*" = "ALL PRIVILEGES";
-        };
+        ensurePermissions = { "*.*" = "ALL PRIVILEGES"; };
       }
       {
         name = "mtr";
-        ensurePermissions = {
-          "*.*" = "ALL PRIVILEGES";
-        };
+        ensurePermissions = { "*.*" = "ALL PRIVILEGES"; };
       }
       {
         name = "backup";
-        ensurePermissions = {
-          "*.*" = "SELECT, LOCK TABLES";
-        };
+        ensurePermissions = { "*.*" = "SELECT, LOCK TABLES"; };
       }
     ];
   };
+
+  # required for lldb debugging with neovim
+  # WARN: allows any process to trace any other process. This can be a security risk, so ensure you understand the implications before making this change.
+  boot.kernel.sysctl."kernel.yama.ptrace_scope" = 0;
+
 }

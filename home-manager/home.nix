@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ../modules/home-manager/alacritty.nix
@@ -17,6 +16,7 @@
     # ../modules/home-manager/music_production/music_production.nix
     ../modules/home-manager/synology_drive.nix
     ../modules/home-manager/zellij/zellij.nix
+    ../modules/home-manager/gnome.nix
   ];
 
   colorScheme = {
@@ -157,9 +157,7 @@
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   home.pointerCursor = {
     name = "Nordic-cursors";
