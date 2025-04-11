@@ -13,6 +13,7 @@
     freecad
     lldb
     blender
+    dig
   ];
   services.tailscale = {
     enable = true;
