@@ -19,6 +19,11 @@
     ../modules/home-manager/gnome.nix
   ];
 
+  polybar = {
+    enable = true;
+    mainMonitor = "DP-2.3";
+  };
+
   colorScheme = {
     enable = true;
     name = "gravel-pit";
