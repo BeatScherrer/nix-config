@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let customFonts = pkgs.callPackage ../modules/home-manager/fonts/fonts.nix { };
+in {
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ../modules/home-manager/alacritty.nix
@@ -134,6 +136,8 @@
 
     # font-manager
     pika-backup
+    customFonts
+    fontconfig
     libreoffice
     inkscape
     gimp
