@@ -21,6 +21,12 @@ width=${mrect[2]}
 height=${mrect[3]}
 
 scratchpad_width=$((width / 2))
+minimal_scratchpad_width=1500
+
+if ((scratchpad_width < "$minimal_scratchpad_width")); then
+  scratchpad_width="$minimal_scratchpad_width"
+fi
+
 scratchpad_height=$(bc -l <<<"$height/1.5")
 
 scratchpad_x_offset="$(bc <<<"${mrect[0]} + ($width / 2 - $scratchpad_width * 0.5)")"
