@@ -20,7 +20,7 @@ mrect=($(hc monitor_rect ""))
 width=${mrect[2]}
 height=${mrect[3]}
 
-scratchpad_width=$((width / 3))
+scratchpad_width=$((width / 2))
 scratchpad_height=$(bc -l <<<"$height/1.5")
 
 scratchpad_x_offset="$(bc <<<"${mrect[0]} + ($width / 2 - $scratchpad_width * 0.5)")"
