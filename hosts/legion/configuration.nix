@@ -21,6 +21,7 @@
     ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
     # ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/herbstluftwm.nix
 
     ../../modules/nixos/mtr/mtr.nix
 
@@ -29,10 +30,17 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Custom options
+  #----------------------------------------------------------------------------
+
+  # TODO: can we configure home-manager options here as well?
+
   container = {
     enable = true;
     containerEngine = "docker";
   };
+
+  #----------------------------------------------------------------------------
 
   # garbage collection
   nix.gc.automatic = true;
