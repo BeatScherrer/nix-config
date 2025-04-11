@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+# TODO: make this configurable for both setups
 
-{
+{ config, pkgs, ... }: {
   services.autorandr = { enable = true; };
 
   environment.systemPackages = with pkgs; [
