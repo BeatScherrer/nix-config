@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  services.autorandr = { enable = true; };
+
   environment.systemPackages = with pkgs; [
     herbstluftwm
     xorg.xev
@@ -16,28 +18,15 @@
   ];
 
   services.xserver = {
-    windowManager.herbstluftwm = {
-      enable = true;
-    };
-    resolutions = [
-      {
-        x = 7680;
-        y = 2160;
-      }
-    ];
-
+    windowManager.herbstluftwm = { enable = true; };
     dpi = 140;
-    #upscaleDefaultCursor = true;
-
     enable = true;
     xkb.layout = "us";
     xkb.variant = "";
     xkb.options = "compose:ralt";
 
     displayManager = {
-      gdm = {
-        enable = true;
-      };
+      gdm = { enable = true; };
 
       # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
       sessionCommands = ''
