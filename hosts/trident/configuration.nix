@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    ../../modules/nixos/nix.nix
     ../../modules/nixos/user.nix
     ../../modules/nixos/locale.nix
     ../../modules/nixos/printing.nix
@@ -34,20 +35,14 @@
   };
   # ---------------------------------------------------------------------------
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # garbage collection
-  nix.gc.automatic = true;
-  nix.gc.dates = "daily";
-  nix.gc.options = "--delete-older-than 7d";
-
   # list all current system packages in /etc/current-system-packages
-  environment.etc."current-system-packages".text = let
-    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-    sortedUnique =
-      builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-    formatted = builtins.concatStringsSep "\n" sortedUnique;
-  in formatted;
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+    formatted;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
