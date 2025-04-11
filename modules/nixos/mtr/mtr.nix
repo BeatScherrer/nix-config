@@ -23,6 +23,7 @@
   # - https://docs.ros.org/en/rolling/How-To-Guides/Installation-Troubleshooting.html#enable-multicast
   # - https://gazebosim.org/docs/latest/troubleshooting/#network-configuration-issue
   networking.firewall.enable = false;
+  security.pki.certificateFiles = [ ./ca.crt ];
 
   # Tailscale
   systemd.user.services.tailscale-systray = {
