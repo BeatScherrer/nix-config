@@ -242,4 +242,4 @@ picom --backend glx
 systemctl --user restart polybar # Workaround for polybar startup issue
 dunst
 
-hc load "$(cat "$HOME/.config/herbstluftwm/layouts/25-50-25")"
+# hc load "$(cat "$HOME/.config/herbstluftwm/layouts/25-50-25")"
