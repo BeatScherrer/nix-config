@@ -99,21 +99,6 @@
     in
     {
       nixosConfigurations = {
-        smolboi = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/smolboi/configuration.nix
-            inputs.home-manager.nixosModules.default
-          ];
-        };
-        P1 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/P1/configuration.nix
-            inputs.home-manager.nixosModules.default
-          ];
-        };
         trident = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
