@@ -1,7 +1,10 @@
 # TODO: make this configurable for both setups
 
-{ config, pkgs, ... }: {
-  services.autorandr = { enable = true; };
+{ config, pkgs, ... }:
+{
+  services.autorandr = {
+    enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     herbstluftwm
@@ -18,7 +21,9 @@
   ];
 
   services.xserver = {
-    windowManager.herbstluftwm = { enable = true; };
+    windowManager.herbstluftwm = {
+      enable = true;
+    };
     dpi = 140;
     enable = true;
     xkb.layout = "us";
@@ -26,7 +31,9 @@
     xkb.options = "compose:ralt";
 
     displayManager = {
-      gdm = { enable = true; };
+      gdm = {
+        enable = true;
+      };
 
       # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
       sessionCommands = ''

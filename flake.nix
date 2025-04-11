@@ -115,9 +115,11 @@
             nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
-              home-manager.userGlobalPkgs = true;
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.beat = import ./hosts/trident/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.${user} = import ./hosts/trident/home.nix;
+              # home-manager.users.${user} = import ./home-manager/home.nix;
             }
             ./hosts/trident/configuration.nix
             (
@@ -144,9 +146,10 @@
             nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
-              home-manager.userGlobalPkgs = true;
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.beat = import ./hosts/legion/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.${user} = import ./hosts/legion/home.nix;
             }
             ./hosts/legion/configuration.nix
             (
@@ -190,13 +193,13 @@
         };
       };
 
-      homeConfigurations = {
-        ${user} = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { inherit inputs user; };
-        };
-      };
+      # homeConfigurations = {
+      #   ${user} = home-manager.lib.homeManagerConfiguration {
+      #     pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      #     modules = [ ./home-manager/home.nix ];
+      #     extraSpecialArgs = { inherit inputs user; };
+      #   };
+      # };
 
       devShells = forAllSystems devShell;
     };

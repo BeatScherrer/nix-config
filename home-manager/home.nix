@@ -1,6 +1,8 @@
-{ pkgs, ... }:
-let customFonts = pkgs.callPackage ../modules/home-manager/fonts/fonts.nix { };
-in {
+{ pkgs, lib, ... }:
+let
+  customFonts = pkgs.callPackage ../modules/home-manager/fonts/fonts.nix { };
+in
+{
   imports = [
     # inputs.nix-colors.homeManagerModules.default
     ../modules/home-manager/alacritty.nix
@@ -18,13 +20,9 @@ in {
     # ../modules/home-manager/music_production/music_production.nix
     ../modules/home-manager/synology_drive.nix
     ../modules/home-manager/zellij/zellij.nix
-    ../modules/home-manager/gnome.nix
+    # FIXME: duplicate option definitions
+    # ../modules/home-manager/gnome.nix
   ];
-
-  polybar = {
-    enable = true;
-    mainMonitor = "DP-2.3";
-  };
 
   colorScheme = {
     enable = true;
@@ -166,7 +164,9 @@ in {
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 
   home.pointerCursor = {
     name = "Nordic-cursors";

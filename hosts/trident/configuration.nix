@@ -1,7 +1,12 @@
-{ inputs, config, pkgs, ... }: {
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.default
     ../../modules/nixos/nix.nix
     ../../modules/nixos/user.nix
     ../../modules/nixos/locale.nix
@@ -48,32 +53,25 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 50;
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # TODO: Move to networking module with options
+  time.timeZone = "Europe/Zurich";
+
   networking.hostName = "trident";
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
-  time.timeZone = "Europe/Zurich";
-
   services.tailscale.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  programs.coolercontrol.enable = true;
   programs.bash.blesh.enable = true;
-
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = { "beat" = import ../../home-manager/home.nix; };
-  };
 
   nixpkgs.config.allowUnfree = true;
 
   # TODO:
-  environment.sessionVariables = { MAKE_CORES = "30"; };
+  environment.sessionVariables = {
+    MAKE_CORES = "30";
+  };
 
   # TODO: add this to default packages module
   environment.systemPackages = with pkgs; [
@@ -114,7 +112,10 @@
   ];
 
   # TODO: add to fonts module
-  fonts.packages = with pkgs; [ nerd-fonts.iosevka font-awesome ];
+  fonts.packages = with pkgs; [
+    nerd-fonts.iosevka
+    font-awesome
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

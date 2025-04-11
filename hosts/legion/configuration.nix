@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -24,11 +29,12 @@
     ../../modules/nixos/herbstluftwm.nix
 
     ../../modules/nixos/mtr/mtr.nix
-
-    inputs.home-manager.nixosModules.default
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Custom options
   #----------------------------------------------------------------------------
@@ -48,12 +54,13 @@
   nix.gc.options = "--delete-older-than 7d";
 
   # list all current system packages in /etc/current-system-packages
-  environment.etc."current-system-packages".text = let
-    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-    sortedUnique =
-      builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-    formatted = builtins.concatStringsSep "\n" sortedUnique;
-  in formatted;
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+    formatted;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -73,16 +80,12 @@
 
   programs.bash.blesh.enable = true;
 
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = { "beat" = import ../../home-manager/home.nix; };
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   # TODO:
-  environment.sessionVariables = { MAKE_CORES = "12"; };
+  environment.sessionVariables = {
+    MAKE_CORES = "12";
+  };
 
   # TODO: add this to default packages module
   environment.systemPackages = with pkgs; [
@@ -123,7 +126,10 @@
   ];
 
   # TODO: add to fonts module
-  fonts.packages = with pkgs; [ nerd-fonts.iosevka font-awesome ];
+  fonts.packages = with pkgs; [
+    nerd-fonts.iosevka
+    font-awesome
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

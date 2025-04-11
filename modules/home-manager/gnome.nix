@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   imports = [ ../home-manager/rofi/rofi.nix ];
 
   # NOTE: use `dconf watch /` to monitor setting changes
@@ -35,10 +36,12 @@
       enable-hot-corners = false;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-      gtk-theme = lib.mkForce "Nordic Darker";
+      # gtk-theme = lib.mkForce "Nordic-darker";
       toolkit-accessibility = true;
     };
-    "org/gnome/mutter" = { "dynamic-workspaces" = false; };
+    "org/gnome/mutter" = {
+      "dynamic-workspaces" = false;
+    };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "close,minimize,maximize:appmenu";
       num-workspaces = 10;
@@ -79,37 +82,32 @@
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
       ];
     };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
-      {
-        name = "ghostty";
-        command = "ghostty";
-        binding = "<Super>t";
-      };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
-      {
-        name = "kitty ctrl_alt";
-        command = "kitty -e tmux";
-        binding = "<Ctrl><Alt>t";
-      };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
-      {
-        name = "rofi-rbw";
-        command = "rofi-rbw --action copy";
-        binding = "<Ctrl><Super>s";
-      };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" =
-      {
-        name = "rofi launcher";
-        command = "rofi -modi drun -show drun";
-        # command = "rofi -theme nord -show run -display-run 'run: '";
-        binding = "<Super>space";
-      };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" =
-      {
-        name = "librewolf";
-        command = "librewolf";
-        binding = "<Super>b";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      name = "ghostty";
+      command = "ghostty";
+      binding = "<Super>t";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      name = "kitty ctrl_alt";
+      command = "kitty -e tmux";
+      binding = "<Ctrl><Alt>t";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      name = "rofi-rbw";
+      command = "rofi-rbw --action copy";
+      binding = "<Ctrl><Super>s";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+      name = "rofi launcher";
+      command = "rofi -modi drun -show drun";
+      # command = "rofi -theme nord -show run -display-run 'run: '";
+      binding = "<Super>space";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+      name = "librewolf";
+      command = "librewolf";
+      binding = "<Super>b";
+    };
   };
 
 }
