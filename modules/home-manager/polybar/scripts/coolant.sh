@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 getCoolantTemp() {
-  local temp="$(($(cat /sys/class/hwmon/hwmon8/temp1_input) / 1000))"
-  echo "$temp"
+  local temperature=$(sensors | grep "Coolant temp" | awk '{print $3}' | tr -d '+°C')
+  echo "$temperature"
 }
 
 getCoolantTemp
