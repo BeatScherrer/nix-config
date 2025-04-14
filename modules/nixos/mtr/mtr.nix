@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   environment.systemPackages = with pkgs; [
     mysql-workbench
@@ -20,6 +25,9 @@
     enable = true;
     useRoutingFeatures = "client";
   };
+
+  # use 'uc-3' to find 'uc-3.mt-robot.com'
+  networking.search = [ "mt-robot.com" ];
 
   # NOTE: enabling the firewall creates issues with gazebo: see
   # - https://docs.ros.org/en/rolling/How-To-Guides/Installation-Troubleshooting.html#enable-multicast
@@ -72,12 +80,5 @@
   # required for lldb debugging with neovim
   # WARN: allows any process to trace any other process. This can be a security risk, so ensure you understand the implications before making this change.
   boot.kernel.sysctl."kernel.yama.ptrace_scope" = 0;
-
-  # SSH targets
-  programs.ssh.extraConfig = ''
-    Include config.d/*
-  '';
-
-  home.file.".ssh/config.d/mtr".source = config.lib.file.mkOutOfStoreSymlink ./ssh/mtr.ssh;
 
 }

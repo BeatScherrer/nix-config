@@ -1,0 +1,20 @@
+Host b4
+  User mtr
+  Hostname robot-104.mt-robot.com
+
+Host b5
+  User mtr
+  Hostname robot-105.mt-robot.com
+
+Host m13
+  User mtr
+  Hostname ms-12.mt-robot.com
+
+Host m12
+  User mtr
+  Hostname ms-12.mt-robot.com
+
+Host m13
+  User mtr
+  Hostname ms-13.mt-robot.com
+
