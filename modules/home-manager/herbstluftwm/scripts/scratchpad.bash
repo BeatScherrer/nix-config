@@ -20,14 +20,14 @@ mrect=($(hc monitor_rect ""))
 width=${mrect[2]}
 height=${mrect[3]}
 
-scratchpad_width=$((width / 2))
-minimal_scratchpad_width=1500
+scratchpad_width=$(bc -l <<<"${width} * 0.8")
+maximal_scratchpad_width=4000
 
-if ((scratchpad_width < "$minimal_scratchpad_width")); then
-  scratchpad_width="$minimal_scratchpad_width"
+if ((scratchpad_width > "$maximal_scratchpad_width")); then
+  scratchpad_width="$maximal_scratchpad_width"
 fi
 
-scratchpad_height=$(bc -l <<<"$height/1.5")
+scratchpad_height=$(bc -l <<<"$height * 0.8")
 
 scratchpad_x_offset="$(bc <<<"${mrect[0]} + ($width / 2 - $scratchpad_width * 0.5)")"
 scratchpad_y_offset="$(bc <<<"${mrect[1]} + ($height / 2 - $scratchpad_height * 0.5)")"
