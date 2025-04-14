@@ -18,6 +18,14 @@ in
     enable = mkEnableOption "polybar";
     mainMonitor = mkOption { type = types.str; };
     fallbackMonitor = mkOption { type = types.str; };
+    width = mkOption {
+      type = types.str;
+      default = "50%";
+    };
+    offset_x = mkOption {
+      type = types.str;
+      default = "25%";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -62,14 +70,14 @@ in
           # Dimension defined as pixel value (e.g. 35) or percentage (e.g. 50%),
           # the percentage can optionally be extended with a pixel offset like so:
           # 50%:-10, this will result in a width or height of 50% minus 10 pixels
-          width = "50%";
+          width = cfg.width;
           height = 60;
 
           # Offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
           # the percentage can optionally be extended with a pixel offset like so:
           # 50%:-10, this will result in an offset in the x or y direction
           # of 50% minus 10 pixels
-          offset-x = "25%";
+          offset-x = cfg.offset_x;
           offset-y = 5;
 
           foreground = "${colorScheme.foreground0}";

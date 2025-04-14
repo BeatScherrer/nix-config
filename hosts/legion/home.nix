@@ -10,5 +10,7 @@
     enable = true;
     mainMonitor = "DP-2.3";
     fallbackMonitor = "DP-4";
+    width = "100%";
+    offset_x = "0";
   };
 }
