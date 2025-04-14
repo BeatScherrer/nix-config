@@ -2,15 +2,22 @@
 # - [ ] add options for bar height and font size
 # - [ ] make volume module work with pipewire
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   colorScheme = config.colorScheme.scheme;
   cfg = config.polybar;
-in {
+in
+{
   options.polybar = {
     enable = mkEnableOption "polybar";
     mainMonitor = mkOption { type = types.str; };
+    fallbackMonitor = mkOption { type = types.str; };
   };
 
   config = mkIf cfg.enable {
@@ -20,10 +27,8 @@ in {
 
     # NOTE: Fix polybar service env
     systemd.user.services.polybar = {
-      Service.Environment =
-        lib.mkForce ""; # to override the package's default configuration
-      Service.PassEnvironment =
-        "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
+      Service.Environment = lib.mkForce ""; # to override the package's default configuration
+      Service.PassEnvironment = "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
       Install.WantedBy = [ "graphical-session.target" ];
     };
 
@@ -84,13 +89,12 @@ in {
         "bar/main" = {
           "inherit" = "bar/base";
           monitor = cfg.mainMonitor;
-          monitor-fallback = "DP-0";
+          monitor-fallback = cfg.fallbackMonitor;
 
           # modules-left = launcher i3 sep
           modules-left = "launcher info-hlwm-workspaces sep";
           modules-center = "date song";
-          modules-right =
-            "scrot sep volume bluetooth sep network sep memory temperature coolant cpu sep battery powermenu sep";
+          modules-right = "scrot sep volume bluetooth sep network sep memory temperature coolant cpu sep battery powermenu sep";
 
           # The separator will be inserted between the output of each module
           separator = " ";
@@ -509,8 +513,7 @@ in {
           # $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
           # to find path to desired file
           # Default reverts to thermal zone setting
-          hwmon-path =
-            "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input";
+          hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input";
 
           # Base temperature for where to start the ramp (in degrees celsius)
           # Default: 0
@@ -592,8 +595,7 @@ in {
           content-background = "${colorScheme.background0}";
           content-foreground = "${colorScheme.foreground0}";
           content-padding = 2;
-          click-left =
-            "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu -theme ~/.config/rofi/themes/beat.rasi";
+          click-left = "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu -theme ~/.config/rofi/themes/beat.rasi";
         };
 
         "module/info-hlwm-workspaces" = {
