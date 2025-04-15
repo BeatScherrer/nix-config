@@ -21,9 +21,9 @@ width=${mrect[2]}
 height=${mrect[3]}
 
 scratchpad_width=$(bc -l <<<"${width} * 0.8")
-maximal_scratchpad_width=4000
+maximal_scratchpad_width=3000
 
-if ((scratchpad_width > "$maximal_scratchpad_width")); then
+if [[ $(bc <<<"$scratchpad_width > $maximal_scratchpad_width") == 1 ]]; then
   scratchpad_width="$maximal_scratchpad_width"
 fi
 
