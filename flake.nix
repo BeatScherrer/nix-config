@@ -12,8 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
-    debootstrapPin.url =
-      "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
+    debootstrapPin.url = "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +29,9 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew = { url = "github:zhaofengli-wip/nix-homebrew"; };
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+    };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
@@ -43,31 +44,60 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    ghostty = { url = "github:ghostty-org/ghostty"; };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-cosmic, rust-overlay, darwin
-    , nixgl, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask
-    , ghostty, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixos-cosmic,
+      rust-overlay,
+      darwin,
+      nixgl,
+      nix-homebrew,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
+      ghostty,
+      ...
+    }@inputs:
     let
       user = "beat";
-      linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
-      darwinSystems = [ "aarch64-darwin" "x86_64-darwin" ];
+      linuxSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      darwinSystems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
       # helper to call a function for each system
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
       # helper to call the dev shell for each system
-      devShell = system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
-          default = with pkgs;
+      devShell =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default =
+            with pkgs;
             mkShell {
-              nativeBuildInputs = with pkgs; [ nixd nixfmt-rfc-style ];
+              nativeBuildInputs = with pkgs; [
+                nixd
+                nixfmt-rfc-style
+              ];
               shellHook = ''
                 export EDITOR=nvim
               '';
             };
         };
-    in {
+    in
+    {
       nixosConfigurations = {
         trident = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -92,9 +122,12 @@
               # home-manager.users.${user} = import ./home-manager/home.nix;
             }
             ./hosts/trident/configuration.nix
-            ({ pkgs, ... }: {
-              nixpkgs.overlays = [ rust-overlay.overlays.default ];
-            })
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              }
+            )
           ];
         };
         legion = nixpkgs.lib.nixosSystem {
@@ -119,9 +152,12 @@
               home-manager.users.${user} = import ./hosts/legion/home.nix;
             }
             ./hosts/legion/configuration.nix
-            ({ pkgs, ... }: {
-              nixpkgs.overlays = [ rust-overlay.overlays.default ];
-            })
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              }
+            )
           ];
         };
       };
@@ -137,8 +173,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.${user} =
-                import ./home-manager/home-darwin.nix;
+              home-manager.users.beat = import ./home-manager/home-darwin.nix;
             }
             nix-homebrew.darwinModules.nix-homebrew
             {

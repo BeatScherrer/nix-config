@@ -17,7 +17,10 @@ in
   options.polybar = {
     enable = mkEnableOption "polybar";
     mainMonitor = mkOption { type = types.str; };
-    fallbackMonitor = mkOption { type = types.str; };
+    fallbackMonitor = mkOption {
+      type = types.str;
+      default = "DP-0";
+    };
     width = mkOption {
       type = types.str;
       default = "50%";
