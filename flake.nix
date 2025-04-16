@@ -1,6 +1,7 @@
 # NOTE:
 # - update all inputs: `nix flake update`
 # - update single input: `nix flake lock --update-input nixpkgs`
+# -
 
 {
   description = "Nixos config flake";
@@ -12,7 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
-    debootstrapPin.url = "github:nixos/nixpkgs/9d757ec498666cc1dcc6f2be26db4fd3e1e9ab37";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -119,9 +119,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.${user} = import ./hosts/trident/home.nix;
-              # home-manager.users.${user} = import ./home-manager/home.nix;
             }
-            ./hosts/trident/configuration.nix
             (
               { pkgs, ... }:
               {
