@@ -38,15 +38,14 @@
 
   # Custom options
   #----------------------------------------------------------------------------
-
-  # TODO: can we configure home-manager options here as well?
-
   container = {
     enable = true;
     containerEngine = "docker";
   };
-
   #----------------------------------------------------------------------------
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # garbage collection
   nix.gc.automatic = true;
