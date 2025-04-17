@@ -27,6 +27,8 @@ export ROS_LOCALHOST_ONLY=1
 export MTR_SIM_GAZEBO_CMD=""
 export MTR_SIM_UCC_CMD=""
 
+xhost +
+
 #aliases
 if [[ -f "${HOME}/.aliases_mt" ]]; then
   . "${HOME}/.aliases_mt"
