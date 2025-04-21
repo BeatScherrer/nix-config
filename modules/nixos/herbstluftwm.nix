@@ -13,6 +13,7 @@
     xorg.xhost
     xorg.xeyes
     xorg.xinit
+    xdotool
     gnome-keyring
     gnome-online-accounts
     gnome.gvfs
