@@ -29,6 +29,10 @@ in
       type = types.str;
       default = "25%";
     };
+    network_interface = mkOption {
+      type = types.str;
+      default = "eno1";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -315,7 +319,7 @@ in
 
         "module/network" = {
           type = "internal/network";
-          interface = "eno1"; # TODO: make configurable with options
+          interface = cfg.network_interface;
 
           interval = "1.0";
           accumulate-stats = true;
