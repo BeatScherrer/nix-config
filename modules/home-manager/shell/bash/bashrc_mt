@@ -14,6 +14,7 @@ if [[ -f "${MTR_ENV_FILE}" ]]; then
 fi
 
 export ROS_LOCALHOST_ONLY=1
+export GZ_DESCRIPTOR_PATH="${GZ_DESCRIPTOR_PATH}:${MTR_SIM_ROS_WS}/ros2_ws/build/mt_gz_msgs/mt_gz_msgs-msgs.gz_desc"
 
 # schroot
 # export MTR_SIM_GAZEBO_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
@@ -149,6 +150,12 @@ ub24() {
   unset GDK_PIXBUF_MODULE_FILE # do not leak the nix store to containers etc.
   export TERM=xterm-256color   # fixes 'terminal is not fully functional' and resulting journal issues
   mtenter mtr-24-beat
+}
+
+ub22() {
+  unset GDK_PIXBUF_MODULE_FILE # do not leak the nix store to containers etc.
+  export TERM=xterm-256color   # fixes 'terminal is not fully functional' and resulting journal issues
+  mtenter mtr-22-beat
 }
 
 mtenter() {

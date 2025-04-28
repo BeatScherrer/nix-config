@@ -157,6 +157,7 @@ hc set frame_transparent_width 3
 hc set show_frame_decorations 'focused_if_multiple'
 hc set frame_bg_transparent on
 hc set frame_gap 10
+hc set swap_monitors_to_get_tag false # avoid tag swapping
 
 hc attr theme.title_height 15
 hc attr theme.title_when always
