@@ -13,6 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules/nixos/nix.nix
     ../../modules/nixos/hardware/nvidia.nix
     ../../modules/nixos/user.nix
     ../../modules/nixos/locale.nix
@@ -46,20 +47,6 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-
-  # garbage collection
-  nix.gc.automatic = true;
-  nix.gc.dates = "daily";
-  nix.gc.options = "--delete-older-than 7d";
-
-  # list all current system packages in /etc/current-system-packages
-  environment.etc."current-system-packages".text =
-    let
-      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-      formatted = builtins.concatStringsSep "\n" sortedUnique;
-    in
-    formatted;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
