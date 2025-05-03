@@ -8,7 +8,7 @@
   # garbage collection
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
-  nix.gc.options = "--delete-older-than +5";
+  nix.gc.options = "--delete-older-than +10";
 
   # list all current system packages in /etc/current-system-packages
   environment.etc."current-system-packages".text =
