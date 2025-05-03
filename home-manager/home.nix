@@ -62,22 +62,29 @@ in
   home.packages = with pkgs; [
     neofetch
     localsend
+    # Messengers
     telegram-desktop
     signal-desktop
     whatsapp-for-linux
     discord
-    spotify
-    # threema-desktop
+    element-desktop
     slack
     zulip
+    # threema-desktop
+
+    spotify
+
+    # Code editors
     vscode-fhs
     helix
-    bc
-    nmap
+
+    # Compilers / Languages
     gcc
     zig
 
     # cli utils
+    bc
+    nmap
     zip
     unzip
     fzf
@@ -88,6 +95,9 @@ in
     just
     killall
     yt-dlp
+    btop
+    iotop
+    iftop
 
     # LSP and formatters
     stylua
@@ -105,11 +115,6 @@ in
     taplo
     tailwindcss-language-server
     vale
-
-    # monitoring
-    btop
-    iotop
-    iftop
 
     # periphery
     rofi-bluetooth
