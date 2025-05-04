@@ -183,6 +183,51 @@ mt_debug() {
   sudo gdbserver --attach :7777 $(pgrep "$1")
 }
 
+usage() {
+  echo "Usage: show [ -t | --trp ] "
+  return 1
+}
+
+show() {
+  local show_trp=unset
+
+  parse_arguments="$(getopt --options -t --longoptions trp -- --trp)"
+  valid_arguments="$?"
+  if [[ "$valid_arguments" != "0" ]]; then
+    usage
+  fi
+
+  echo "parsed arugments is $parse_arguments"
+  eval set -- "$parse_arguments"
+
+  while :; do
+    local arg="$1"
+    case $arg in
+    -t | --trp)
+      show_trp=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      return 1
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      usage
+      return 1
+      ;;
+    esac
+  done
+
+  if [[ $show_trp ]]; then
+    mt-gnuplot-visualizer -g "${MTR_LOGS_DIR}/traj.mtl"
+  fi
+
+}
+
 ####################
 # UCC functionality
 ####################
