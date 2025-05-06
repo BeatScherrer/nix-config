@@ -1,7 +1,12 @@
 # TODO: wrap the prime stuff in an option
 
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  environment.systemPackages = with pkgs; [
+    nvidia-container-toolkit
+  ];
 
   hardware = {
     graphics.enable = true;
@@ -11,7 +16,7 @@
       modesetting.enable = true;
 
       # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-      powerManagement.enable = false;
+      powerManagement.enable = true;
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;

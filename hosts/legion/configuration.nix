@@ -53,6 +53,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 50;
 
+  # # Fix suspend issue
+  # systemd.services."systemd-suspend" = {
+  #   serviceConfig = {
+  #     Environment = ''"SYSTEMD_SLEEP_FREEZE_USER_SESSION=false'';
+  #   };
+  # };
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # TODO: Move to networking module with options

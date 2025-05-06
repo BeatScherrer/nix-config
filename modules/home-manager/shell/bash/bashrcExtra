@@ -94,6 +94,10 @@ pacmanSearch() {
   pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
 }
 
+cdnix() {
+  cd "$HOME/.nix" || return 1
+}
+
 nixSearch() {
   if ! rg "$1" </etc/current-system-packages; then
     echo "no package found with '$1'"
