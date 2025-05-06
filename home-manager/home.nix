@@ -16,6 +16,7 @@ in
     ../modules/home-manager/wallpapers/wallpapers.nix
     ../modules/home-manager/avatars/avatars.nix
     ../modules/home-manager/hyprland/hyprland.nix
+    ../modules/home-manager/work/mtr.nix
     # FIXME:
     # ../modules/home-manager/music_production/music_production.nix
     ../modules/home-manager/synology_drive.nix

@@ -1,3 +1,7 @@
+Host b3
+  User mtr
+  Hostname robot-103.mt-robot.com
+
 Host b4
   User mtr
   Hostname robot-104.mt-robot.com
