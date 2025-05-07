@@ -18,7 +18,7 @@ in
 
   programs = {
     zsh = {
-      initExtra = "source $HOME/.zshrcExtra";
+      initContent = "source $HOME/.zshrcExtra";
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
