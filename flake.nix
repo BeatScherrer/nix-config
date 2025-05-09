@@ -129,7 +129,7 @@
             (
               { inputs, config, ... }:
               let
-                gitRev = self.rev or self.dirtyShortRev or "unknown";
+                gitRev = builtins.substring 0 7 self.rev or self.dirtyShortRev or "unknown";
               in
               {
                 system.nixos.label =
