@@ -126,6 +126,18 @@
                 nixpkgs.overlays = [ rust-overlay.overlays.default ];
               }
             )
+            (
+              { inputs, config, ... }:
+              let
+                gitRev = self.rev or self.dirtyShortRev or "unknown";
+              in
+              {
+                system.nixos.label =
+                  (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
+                  + config.system.nixos.version
+                  + "-SHA:${gitRev}";
+              }
+            )
           ];
         };
         legion = nixpkgs.lib.nixosSystem {
