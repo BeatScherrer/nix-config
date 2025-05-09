@@ -136,6 +136,7 @@ in
     bitwarden-desktop
     obs-studio
     evince
+    loupe
 
     # font-manager
     pika-backup
@@ -172,6 +173,11 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
+  ];
 
   home.pointerCursor = {
     name = "Nordic-cursors";
