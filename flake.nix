@@ -133,7 +133,13 @@
             (
               { config, ... }:
               let
-                gitRev = builtins.substring 0 7 self.rev or self.dirtyShortRev or "unknown";
+                gitRev =
+                  if self ? rev then
+                    builtins.substring 0 7 self.rev
+                  else if self ? dirtyShortRev then
+                    self.dirtyShortRev + "-dirty"
+                  else
+                    "unknown";
               in
               {
                 system.nixos.label =
@@ -175,7 +181,13 @@
             (
               { config, ... }:
               let
-                gitRev = builtins.substring 0 7 self.rev or self.dirtyShortRev or "unknown";
+                gitRev =
+                  if self ? rev then
+                    builtins.substring 0 7 self.rev
+                  else if self ? dirtyShortRev then
+                    self.dirtyShortRev
+                  else
+                    "unknown";
               in
               {
                 system.nixos.label =
