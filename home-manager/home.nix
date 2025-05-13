@@ -64,7 +64,7 @@ in
     localsend
     # Messengers
     telegram-desktop
-    signal-desktop
+    signal-desktop-bin
     whatsapp-for-linux
     discord
     element-desktop
