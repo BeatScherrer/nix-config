@@ -8,6 +8,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # NOTE: mako is not building on stable. Not sure where that comes in after all...
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -121,13 +122,16 @@
               home-manager.users.${user} = import ./hosts/trident/home.nix;
             }
             (
-              { pkgs, ... }:
+              { ... }:
               {
-                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+                nixpkgs.overlays = [
+                  rust-overlay.overlays.default
+                  # ghostty.packages.${system}.default
+                ];
               }
             )
             (
-              { inputs, config, ... }:
+              { config, ... }:
               let
                 gitRev = builtins.substring 0 7 self.rev or self.dirtyShortRev or "unknown";
               in
@@ -166,6 +170,18 @@
               { pkgs, ... }:
               {
                 nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              }
+            )
+            (
+              { config, ... }:
+              let
+                gitRev = builtins.substring 0 7 self.rev or self.dirtyShortRev or "unknown";
+              in
+              {
+                system.nixos.label =
+                  (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
+                  + config.system.nixos.version
+                  + "-SHA:${gitRev}";
               }
             )
           ];
