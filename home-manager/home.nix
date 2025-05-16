@@ -75,7 +75,6 @@ in
     spotify
 
     # Code editors
-    vscode-fhs
     helix
 
     # Compilers / Languages
