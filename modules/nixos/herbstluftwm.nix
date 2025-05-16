@@ -19,6 +19,8 @@
     gnome.gvfs
     dbus
     blueman
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk # change this based on your DE
   ];
 
   services.xserver = {
@@ -42,6 +44,11 @@
         ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
       '';
     };
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   services.gnome = {

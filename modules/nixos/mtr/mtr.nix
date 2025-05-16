@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ./vscode.nix ];
+
   environment.systemPackages = with pkgs; [
     mysql-workbench
     xmlstarlet
