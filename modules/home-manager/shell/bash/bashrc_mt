@@ -107,8 +107,8 @@ sourcerti7() {
 #
 #  ccache
 export PATH=/usr/lib/ccache:$PATH
-export CC="ccache clang-19"
-export CXX="ccache clang++-19"
+export CC="ccache clang-20"
+export CXX="ccache clang++-20"
 export CCACHE_DIR="${HOME}/.ccache_ub22"
 export CCACHE_SLOPPINESS="pch_defines,time_macros,include_file_ctime,include_file_mtime"
 
