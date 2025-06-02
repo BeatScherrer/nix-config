@@ -247,3 +247,13 @@ vncpi() {
 viewPf() {
   "$MTR_WORKSPACE/analysis/plot-pf.pl" "$MTR_LOGS_DIR/pf.log" | gnuplot
 }
+
+viewDot() {
+  local dot_file="$1"
+
+  local tmp
+  tmp="/tmp/$(basename $dot_file .dot)"
+
+  dot -Tpng -o "$tmp" "$dot_file"
+  xdg-open "$tmp"
+}
