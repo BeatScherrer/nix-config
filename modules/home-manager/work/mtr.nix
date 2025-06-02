@@ -1,9 +1,12 @@
 { config, ... }:
 {
   # ssh
-  programs.ssh.extraConfig = ''
-    Include ~/.ssh/config.d/*
-  '';
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Include ~/.ssh/config.d/*
+    '';
+  };
 
   home.file.".ssh/config.d/mtr".source =
     config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory

@@ -10,9 +10,9 @@ Host b5
   User mtr
   Hostname robot-105.mt-robot.com
 
-Host m13
+Host m3
   User mtr
-  Hostname ms-12.mt-robot.com
+  Hostname ms-3.mt-robot.com
 
 Host m12
   User mtr
