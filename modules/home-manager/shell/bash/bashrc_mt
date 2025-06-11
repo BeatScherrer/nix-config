@@ -257,3 +257,7 @@ viewDot() {
   dot -Tpng -o "$tmp" "$dot_file"
   xdg-open "$tmp"
 }
+
+viewTrp() {
+  mt-gnuplot-visualizer -g "$MTR_LOGS_DIR/traj.mtl"
+}
