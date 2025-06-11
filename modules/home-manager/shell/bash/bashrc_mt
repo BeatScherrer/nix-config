@@ -259,5 +259,6 @@ viewDot() {
 }
 
 viewTrp() {
-  mt-gnuplot-visualizer -g "$MTR_LOGS_DIR/traj.mtl"
+  cd "$MTR_LOGS_DIR" && mt-gnuplot-visualizer -g "$MTR_LOGS_DIR/traj.mtl"
+  cd - || return
 }
