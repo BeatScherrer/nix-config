@@ -137,7 +137,7 @@
                   if self ? rev then
                     builtins.substring 0 7 self.rev
                   else if self ? dirtyShortRev then
-                    self.dirtyShortRev + "-dirty"
+                    self.dirtyShortRev
                   else
                     "unknown";
               in
