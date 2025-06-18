@@ -66,14 +66,13 @@ in
       "terminal.integrated.fontFamily" = "'Iosevka Nerd Font', 'JetBrains Mono'";
       "terminal.integrated.fontSize" = 14;
     };
-  };
 
-  # TODO: add keybidingns
-  # [
-  #     {
-  #         "key": "ctrl+p",
-  #         "command": "-extension.vim_ctrl+p",
-  #         "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
-  #     }
-  # ]
+    keybindings = [
+      {
+        key = "ctrl+p";
+        command = "-extension.vim_ctrl+p";
+        when = "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'";
+      }
+    ];
+  };
 }
