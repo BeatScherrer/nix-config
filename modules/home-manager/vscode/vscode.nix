@@ -45,17 +45,25 @@ let
 
 in
 {
-  environment.systemPackages = with pkgs; [
-    (vscode-with-extensions.override {
-      vscodeExtensions = [
-        angular-vscode
-        kanagawa-vscode
-        csdevkit-vscode
-        biome-vscode
-        vim-vscode
-        clangd-vscode
-        playwright-vscode
-      ];
-    })
-  ];
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      angular-vscode
+      kanagawa-vscode
+      csdevkit-vscode
+      biome-vscode
+      vim-vscode
+      clangd-vscode
+      playwright-vscode
+      dracula-theme.theme-dracula
+    ];
+    userSettings = {
+      "workbench.colorTheme" = "Kanagawa";
+      "editor.fontSize" = 13;
+      "editor.fontFamily" = "'Iosevka Nerd Font','JetBrains Mono'";
+      "editor.fontLigatures" = true;
+      "terminal.integrated.fontFamily" = "'Iosevka Nerd Font', 'JetBrains Mono'";
+      "terminal.integrated.fontSize" = 13;
+    };
+  };
 }
