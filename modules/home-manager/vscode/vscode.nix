@@ -47,23 +47,33 @@ in
 {
   programs.vscode = {
     enable = true;
+    package = pkgs.vscode.fhs;
     extensions = with pkgs.vscode-extensions; [
-      angular-vscode
+      usernamehw.errorlens
       kanagawa-vscode
+      angular-vscode
       csdevkit-vscode
       biome-vscode
       vim-vscode
       clangd-vscode
       playwright-vscode
-      dracula-theme.theme-dracula
     ];
     userSettings = {
       "workbench.colorTheme" = "Kanagawa";
-      "editor.fontSize" = 13;
+      "editor.fontSize" = 14;
       "editor.fontFamily" = "'Iosevka Nerd Font','JetBrains Mono'";
       "editor.fontLigatures" = true;
       "terminal.integrated.fontFamily" = "'Iosevka Nerd Font', 'JetBrains Mono'";
-      "terminal.integrated.fontSize" = 13;
+      "terminal.integrated.fontSize" = 14;
     };
   };
+
+  # TODO: add keybidingns
+  # [
+  #     {
+  #         "key": "ctrl+p",
+  #         "command": "-extension.vim_ctrl+p",
+  #         "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'"
+  #     }
+  # ]
 }
