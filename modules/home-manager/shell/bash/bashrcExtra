@@ -98,6 +98,17 @@ cdnix() {
   cd "$HOME/.nix" || return 1
 }
 
+cdbeat() {
+  cdsrc && cd beat || return
+  if [[ -n "$1" ]]; then
+    cd "$1" || return
+  fi
+}
+
+cdaquila() {
+  cdbeat tauri-app || return
+}
+
 nixSearch() {
   if ! rg "$1" </etc/current-system-packages; then
     echo "no package found with '$1'"
