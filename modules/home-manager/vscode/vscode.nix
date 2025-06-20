@@ -45,34 +45,36 @@ let
 
 in
 {
-  programs.vscode.profiles.default = {
+  programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhs;
-    extensions = with pkgs.vscode-extensions; [
-      usernamehw.errorlens
-      kanagawa-vscode
-      angular-vscode
-      csdevkit-vscode
-      biome-vscode
-      vim-vscode
-      clangd-vscode
-      playwright-vscode
-    ];
-    userSettings = {
-      "workbench.colorTheme" = "Kanagawa";
-      "editor.fontSize" = 14;
-      "editor.fontFamily" = "'Iosevka Nerd Font','JetBrains Mono'";
-      "editor.fontLigatures" = true;
-      "terminal.integrated.fontFamily" = "'Iosevka Nerd Font', 'JetBrains Mono'";
-      "terminal.integrated.fontSize" = 14;
-    };
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        usernamehw.errorlens
+        kanagawa-vscode
+        angular-vscode
+        csdevkit-vscode
+        biome-vscode
+        vim-vscode
+        clangd-vscode
+        playwright-vscode
+      ];
+      userSettings = {
+        "workbench.colorTheme" = "Kanagawa";
+        "editor.fontSize" = 14;
+        "editor.fontFamily" = "'Iosevka Nerd Font','JetBrains Mono'";
+        "editor.fontLigatures" = true;
+        "terminal.integrated.fontFamily" = "'Iosevka Nerd Font', 'JetBrains Mono'";
+        "terminal.integrated.fontSize" = 14;
+      };
 
-    keybindings = [
-      {
-        key = "ctrl+p";
-        command = "-extension.vim_ctrl+p";
-        when = "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'";
-      }
-    ];
+      keybindings = [
+        {
+          key = "ctrl+p";
+          command = "-extension.vim_ctrl+p";
+          when = "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'";
+        }
+      ];
+    };
   };
 }
