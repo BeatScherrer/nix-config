@@ -20,6 +20,7 @@
     lldb
     blender
     dig
+    schroot
   ];
   services.tailscale = {
     enable = true;
