@@ -15,11 +15,9 @@
     xwayland.enable = true;
   };
 
-  services.xserver.displayManager = {
-    gdm = {
-      enable = true;
-      wayland = true;
-    };
+  services.desktopManager.gnome = {
+    enable = true;
+    wayland = true;
   };
 
   environment.sessionVariables = {

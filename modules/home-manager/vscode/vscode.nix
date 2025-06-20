@@ -45,7 +45,7 @@ let
 
 in
 {
-  programs.vscode = {
+  programs.vscode.profiles.default = {
     enable = true;
     package = pkgs.vscode.fhs;
     extensions = with pkgs.vscode-extensions; [
