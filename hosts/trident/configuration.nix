@@ -20,7 +20,7 @@
     ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/i3lock.nix
-    ../../modules/nixos/ollama.nix
+    # ../../modules/nixos/ollama.nix # TODO:
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
     # ../../modules/nixos/hyprland.nix
