@@ -20,7 +20,10 @@
     lldb
     blender
     dig
+    # Schroot deps
     schroot
+    debootstrap
+    pv
   ];
   services.tailscale = {
     enable = true;
