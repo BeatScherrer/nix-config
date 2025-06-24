@@ -120,6 +120,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.${user} = import ./hosts/trident/home.nix;
+              home-manager.backupFileExtension = "backup";
             }
             (
               { ... }:
@@ -170,6 +171,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.${user} = import ./hosts/legion/home.nix;
+              home-manager.backupFileExtension = "backup";
             }
             ./hosts/legion/configuration.nix
             (
@@ -212,6 +214,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.beat = import ./home-manager/home-darwin.nix;
+              home-manager.backupFileExtension = "backup";
             }
             nix-homebrew.darwinModules.nix-homebrew
             {
@@ -231,9 +234,10 @@
         };
       };
 
+      # TODO: how to use the provided nixpkgs?
       # homeConfigurations = {
       #   ${user} = home-manager.lib.homeManagerConfiguration {
-      #     pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      #     pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
       #     modules = [ ./home-manager/home.nix ];
       #     extraSpecialArgs = { inherit inputs user; };
       #   };
