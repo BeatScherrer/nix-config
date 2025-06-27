@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   kanagawa-vscode = pkgs.vscode-utils.extensionFromVscodeMarketplace {
     name = "kanagawa";
@@ -58,23 +58,17 @@ in
         vim-vscode
         clangd-vscode
         playwright-vscode
+        redhat.vscode-xml
       ];
-      userSettings = {
-        "workbench.colorTheme" = "Kanagawa";
-        "editor.fontSize" = 14;
-        "editor.fontFamily" = "'Iosevka Nerd Font','JetBrains Mono'";
-        "editor.fontLigatures" = true;
-        "terminal.integrated.fontFamily" = "'Iosevka Nerd Font', 'JetBrains Mono'";
-        "terminal.integrated.fontSize" = 14;
-      };
 
-      keybindings = [
-        {
-          key = "ctrl+p";
-          command = "-extension.vim_ctrl+p";
-          when = "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'";
-        }
-      ];
+      # NOTE: Do not use the nix declarative config so the config can still be adjusted from inside vscode...
     };
   };
+
+  home.file.".config/Code/User/settings.json".source =
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
+    + "/.nix/modules/home-manager/vscode/settings/user_settings.json";
+  home.file.".config/Code/User/keybindings.json".source =
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
+    + "/.nix/modules/home-manager/vscode/settings/keybindings.json";
 }
