@@ -10,5 +10,6 @@
   },
   "files.associations": {
     "*.ndgeojson": "jsonl"
-  }
+  },
+  "editor.lineNumbers": "relative"
 }

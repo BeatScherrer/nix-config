@@ -20,6 +20,7 @@
     lldb
     blender
     dig
+    claude-code
     # Schroot deps
     schroot
     debootstrap
