@@ -11,5 +11,11 @@
   "files.associations": {
     "*.ndgeojson": "jsonl"
   },
-  "editor.lineNumbers": "relative"
+  "editor.lineNumbers": "relative",
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
 }
