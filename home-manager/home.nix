@@ -114,6 +114,7 @@ in
     taplo
     tailwindcss-language-server
     vale
+    docker-language-server
 
     # periphery
     rofi-bluetooth
