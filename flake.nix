@@ -48,6 +48,10 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    claude-desktop = {
+      url = "github:k3d3/claude-desktop-linux-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -64,6 +68,7 @@
       homebrew-core,
       homebrew-cask,
       ghostty,
+      claude-desktop,
       ...
     }@inputs:
     let

@@ -96,6 +96,7 @@
     rust-bin.stable.latest.default
     pnpm
     inputs.ghostty.packages.x86_64-linux.default
+    inputs.claude-desktop.packages.x86_64-linux.default
     lsof
     appimage-run
     mpv
