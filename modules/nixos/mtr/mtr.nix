@@ -22,6 +22,7 @@
     dig
     claude-code
     steam-run
+    appimage-run
     # Schroot deps
     schroot
     debootstrap
