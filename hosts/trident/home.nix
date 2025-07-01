@@ -9,6 +9,6 @@
 
   polybar = {
     enable = true;
-    mainMonitor = "DisplayPort-2";
+    mainMonitor = "DisplayPort-4";
   };
 }
