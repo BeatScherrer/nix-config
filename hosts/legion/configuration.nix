@@ -8,7 +8,9 @@
   pkgs,
   ...
 }:
-
+let
+  system = "x86_64-linux";
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -101,7 +103,8 @@
     envsubst
     rust-bin.stable.latest.default
     pnpm
-    inputs.ghostty.packages.x86_64-linux.default
+    inputs.ghostty.packages.${system}.default
+    inputs.claude-desktop.packages.${system}.default
     lsof
     appimage-run
     mpv
