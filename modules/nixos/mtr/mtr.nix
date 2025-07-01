@@ -21,6 +21,7 @@
     blender
     dig
     claude-code
+    steam-run
     # Schroot deps
     schroot
     debootstrap
