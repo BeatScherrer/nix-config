@@ -6,7 +6,7 @@
 }:
 {
   environment.systemPackages = with pkgs; [
-    # mysql-workbench # FIXME:
+    mysql-workbench
     xmlstarlet
     libxml2
     tailscale

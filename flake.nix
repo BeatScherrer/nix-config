@@ -178,7 +178,6 @@
               home-manager.users.${user} = import ./hosts/legion/home.nix;
               home-manager.backupFileExtension = "backup";
             }
-            ./hosts/legion/configuration.nix
             (
               { pkgs, ... }:
               {
