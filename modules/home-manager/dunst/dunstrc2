@@ -352,7 +352,7 @@
 [urgency_normal]
     background = "#222222"
     foreground = "#ffffff"
-	frame_color = "#5e5086"
+	frame_color = "#de935f"
 	highlight = "#722ae6, #e4b5cb"
     timeout = 20
     override_pause_level = 30
