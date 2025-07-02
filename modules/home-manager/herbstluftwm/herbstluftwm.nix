@@ -3,6 +3,7 @@
   imports = [
     ../polybar/polybar.nix
     ../rofi/rofi.nix
+    ../dunst/dunst.nix
   ];
 
   xdg.configFile."herbstluftwm/autostart".source =
@@ -16,7 +17,6 @@
     dconf
     feh
     picom
-    dunst
     rofi
     playerctl
   ];
