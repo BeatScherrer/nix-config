@@ -25,11 +25,11 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = (100, 300)
+    width = (100, 500)
 
     # The height of a single notification, excluding the frame.
     # dynamic height from 0 to 300
-    height = (0, 300)
+    height = (0, 400)
     # constant height of 300
     # height = 300
     # NOTE: Dunst from version 1.11 and older don't support dynamic height
@@ -41,7 +41,7 @@
     # Offset from the origin
     # NOTE: Dunst from version 1.11 and older use this alternative notation
     # offset = 10x50
-    offset = (0, 50)
+    offset = (0, 80)
 
     # Scale factor. It is auto-detected if value is 0.
 	# NOTE: The screenshot was made with scale = 2
