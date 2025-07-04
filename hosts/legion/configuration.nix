@@ -3,18 +3,14 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  inputs,
-  config,
   pkgs,
   ...
 }:
-let
-  system = "x86_64-linux";
-in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules/nixos/default.nix
     ../../modules/nixos/nix.nix
     ../../modules/nixos/hardware/nvidia.nix
     ../../modules/nixos/user.nix
@@ -34,11 +30,6 @@ in
     ../../modules/nixos/mtr/mtr.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   # Custom options
   #----------------------------------------------------------------------------
   container = {
@@ -54,73 +45,19 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 50;
-
-  # # Fix suspend issue
-  # systemd.services."systemd-suspend" = {
-  #   serviceConfig = {
-  #     Environment = ''"SYSTEMD_SLEEP_FREEZE_USER_SESSION=false'';
-  #   };
-  # };
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # TODO: Move to networking module with options
   networking.hostName = "legion";
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
   time.timeZone = "Europe/Zurich";
 
-  services.tailscale.enable = true;
-
-  programs.bash.blesh.enable = true;
-
   nixpkgs.config.allowUnfree = true;
 
-  # TODO:
   environment.sessionVariables = {
     MAKE_CORES = "12";
   };
-
-  # TODO: add this to default packages module
-  environment.systemPackages = with pkgs; [
-    fd
-    vim
-    neovim
-    wget
-    home-manager
-    git
-    coreutils
-    xclip
-    usbutils
-    lshw
-    fwupd
-    lm_sensors
-    cmake
-    clang
-    gcc
-    gnumake
-    envsubst
-    rust-bin.stable.latest.default
-    pnpm
-    inputs.ghostty.packages.${system}.default
-    inputs.claude-desktop.packages.${system}.default
-    inputs.cursor.packages.${pkgs.system}.default
-    lsof
-    appimage-run
-    mpv
-    wireguard-tools
-
-    # network shares
-    samba
-    cifs-utils
-
-    gnome-keyring
-    gnome-online-accounts
-    dbus
-
-    pkg-config
-  ];
 
   # TODO: add to fonts module
   fonts.packages = with pkgs; [
