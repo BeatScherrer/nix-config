@@ -52,6 +52,10 @@
       url = "github:k3d3/claude-desktop-linux-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cursor = {
+      url = "github:omarcresp/cursor-flake/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -69,6 +73,7 @@
       homebrew-cask,
       ghostty,
       claude-desktop,
+      cursor,
       ...
     }@inputs:
     let

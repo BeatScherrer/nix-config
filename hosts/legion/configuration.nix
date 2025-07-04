@@ -105,6 +105,7 @@ in
     pnpm
     inputs.ghostty.packages.${system}.default
     inputs.claude-desktop.packages.${system}.default
+    inputs.cursor.packages.${pkgs.system}.default
     lsof
     appimage-run
     mpv
