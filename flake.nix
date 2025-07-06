@@ -219,10 +219,9 @@
             ./hosts/obsidian/configuration.nix
             home-manager.darwinModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.beat = import ./home-manager/home-darwin.nix;
+              home-manager.users.${user} = import ./home-manager/home-darwin.nix;
               home-manager.backupFileExtension = "backup";
             }
             nix-homebrew.darwinModules.nix-homebrew
