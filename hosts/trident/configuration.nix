@@ -7,6 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/nixos/default.nix
     ../../modules/nixos/nix.nix
     ../../modules/nixos/user.nix
     ../../modules/nixos/locale.nix
@@ -40,15 +41,6 @@
   };
   # ---------------------------------------------------------------------------
 
-  # list all current system packages in /etc/current-system-packages
-  environment.etc."current-system-packages".text =
-    let
-      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-      formatted = builtins.concatStringsSep "\n" sortedUnique;
-    in
-    formatted;
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -72,45 +64,6 @@
   environment.sessionVariables = {
     MAKE_CORES = "30";
   };
-
-  # TODO: add this to default packages module
-  environment.systemPackages = with pkgs; [
-    fd
-    vim
-    neovim
-    wget
-    home-manager
-    git
-    coreutils
-    xclip
-    usbutils
-    lshw
-    fwupd
-    liquidctl
-    lm_sensors
-    cmake
-    clang
-    gcc
-    gnumake
-    envsubst
-    rust-bin.stable.latest.default
-    pnpm
-    inputs.ghostty.packages.x86_64-linux.default
-    inputs.claude-desktop.packages.x86_64-linux.default
-    lsof
-    appimage-run
-    mpv
-
-    # network shares
-    samba
-    cifs-utils
-
-    gnome-keyring
-    gnome-online-accounts
-    dbus
-
-    pkg-config
-  ];
 
   # TODO: add to fonts module
   fonts.packages = with pkgs; [
