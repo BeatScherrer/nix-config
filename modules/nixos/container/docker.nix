@@ -1,15 +1,28 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.docker;
-in {
+let
+  cfg = config.docker;
+in
+{
 
-  options.docker = { enable = mkEnableOption "docker"; };
+  options.docker = {
+    enable = mkEnableOption "docker";
+  };
 
   config = mkIf cfg.enable {
     virtualisation.docker.enable = true;
 
     # FIXME: hard coded user...
     users.users.beat.extraGroups = [ "docker" ];
+
+    environment.systemPackages = with pkgs; [
+      docker-compose
+    ];
   };
 
 }
