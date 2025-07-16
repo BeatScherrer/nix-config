@@ -137,6 +137,7 @@ in
     obs-studio
     evince
     loupe
+    masterpdfeditor
 
     # font-manager
     pika-backup

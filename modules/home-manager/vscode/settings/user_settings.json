@@ -17,5 +17,10 @@
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
-  }
+  },
+  "yaml.schemas": {
+    "file:///home/beat/.vscode/extensions/atlassian.atlascode-3.8.6/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "atlascode.jira.enabled": false,
+  "redhat.telemetry.enabled": false
 }
