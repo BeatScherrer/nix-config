@@ -35,6 +35,7 @@
   container = {
     enable = true;
     containerEngine = "docker";
+    nvidia = true;
   };
   #----------------------------------------------------------------------------
 

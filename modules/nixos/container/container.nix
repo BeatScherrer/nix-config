@@ -25,6 +25,10 @@ in
       type = ContainerEngineMode;
       default = "podman";
     };
+    nvidia = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -33,6 +37,8 @@ in
     # enable either one imported module or the other
     docker.enable = cfg.containerEngine == "docker" || cfg.containerEngine == "both";
     podman.enable = cfg.containerEngine == "podman" || cfg.containerEngine == "both";
+
+    docker.nvidia = cfg.nvidia;
 
     environment.sessionVariables =
       mkIf (cfg.containerEngine == "docker" || cfg.containerEngine != "both")

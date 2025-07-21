@@ -12,6 +12,10 @@ in
 
   options.docker = {
     enable = mkEnableOption "docker";
+    nvidia = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -20,7 +24,7 @@ in
       enableNvidia = true; # NOTE: this is required even though it's deprecated...
     };
     hardware.graphics.enable32Bit = true;
-    hardware.nvidia-container-toolkit.enable = true;
+    hardware.nvidia-container-toolkit.enable = mkIf cfg.nvidia hardware.true;
 
     # FIXME: hard coded user...
     users.users.beat.extraGroups = [ "docker" ];
