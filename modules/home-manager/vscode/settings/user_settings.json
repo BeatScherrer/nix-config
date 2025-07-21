@@ -4,7 +4,6 @@
   "editor.fontSize": 14,
   "terminal.integrated.fontFamily": "'Iosevka Nerd Font', 'JetBrains Mono'",
   "terminal.integrated.fontSize": 14,
-  "workbench.colorTheme": "Kanagawa",
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
@@ -22,5 +21,6 @@
     "file:///home/beat/.vscode/extensions/atlassian.atlascode-3.8.6/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "atlascode.jira.enabled": false,
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "workbench.colorTheme": "Kanagawa"
 }
