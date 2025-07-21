@@ -1,12 +1,23 @@
-# TODO: investigate why podman works on trident but not on legion...
-
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 with lib;
 let
   cfg = config.container;
-  ContainerEngineMode = types.enum [ "podman" "docker" ];
-in {
-  imports = [ ./podman.nix ./docker.nix ];
+  ContainerEngineMode = types.enum [
+    "podman"
+    "docker"
+    "both"
+  ];
+in
+{
+  imports = [
+    ./podman.nix
+    ./docker.nix
+  ];
 
   options.container = {
     enable = mkEnableOption "container";
@@ -20,11 +31,13 @@ in {
     environment.systemPackages = with pkgs; [ distrobox ];
 
     # enable either one imported module or the other
-    docker.enable = cfg.containerEngine == "docker";
-    podman.enable = cfg.containerEngine == "podman";
+    docker.enable = cfg.containerEngine == "docker" || cfg.containerEngine == "both";
+    podman.enable = cfg.containerEngine == "podman" || cfg.containerEngine == "both";
 
-    environment.sessionVariables = mkIf (cfg.containerEngine == "docker") {
-      DBX_CONTAINER_MANAGER = "docker";
-    };
+    environment.sessionVariables =
+      mkIf (cfg.containerEngine == "docker" || cfg.containerEngine != "both")
+        {
+          DBX_CONTAINER_MANAGER = "docker";
+        };
   };
 }

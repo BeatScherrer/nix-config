@@ -15,7 +15,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      enableNvidia = true; # NOTE: this is required even though it's deprecated...
+    };
+    hardware.graphics.enable32Bit = true;
+    hardware.nvidia-container-toolkit.enable = true;
 
     # FIXME: hard coded user...
     users.users.beat.extraGroups = [ "docker" ];
@@ -23,6 +28,7 @@ in
     environment.systemPackages = with pkgs; [
       docker-compose
     ];
+
   };
 
 }
