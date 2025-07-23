@@ -27,6 +27,7 @@
     appimage-run
     mpv
     wireguard-tools
+    inetutils
 
     # network shares
     samba
