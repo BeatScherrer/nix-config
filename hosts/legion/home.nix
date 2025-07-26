@@ -2,7 +2,8 @@
 {
   imports = [
     ../../home-manager/home.nix
-    ../../modules/home-manager/work/mtr.nix
+    ../../modules/home-manager/work/mtr/mtr.nix
+    ../../modules/home-manager/work/unlimited-booking/unlimited-booking.nix
     ../../modules/home-manager/vscode/vscode.nix
   ];
 

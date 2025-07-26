@@ -32,18 +32,21 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ distrobox ];
+    hardware.nvidia-container-toolkit.enable = mkIf cfg.nvidia true;
+    environment.systemPackages =
+      with pkgs;
+      [ distrobox ]
+      ++ optionals cfg.nvidia [
+        nvidia-container-toolkit
+      ];
 
     # enable either one imported module or the other
     docker.enable = cfg.containerEngine == "docker" || cfg.containerEngine == "both";
     podman.enable = cfg.containerEngine == "podman" || cfg.containerEngine == "both";
-
     docker.nvidia = cfg.nvidia;
 
-    environment.sessionVariables =
-      mkIf (cfg.containerEngine == "docker" || cfg.containerEngine != "both")
-        {
-          DBX_CONTAINER_MANAGER = "docker";
-        };
+    environment.sessionVariables = mkIf (cfg.containerEngine == "docker") {
+      DBX_CONTAINER_MANAGER = "docker";
+    };
   };
 }
