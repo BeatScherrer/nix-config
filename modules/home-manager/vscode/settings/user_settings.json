@@ -22,5 +22,7 @@
   },
   "atlascode.jira.enabled": false,
   "redhat.telemetry.enabled": false,
-  "workbench.colorTheme": "Kanagawa"
+  "workbench.colorTheme": "Kanagawa",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "git.confirmSync": false
 }
