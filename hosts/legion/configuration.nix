@@ -22,7 +22,7 @@
     ../../modules/nixos/ssh.nix
     # ../../modules/nixos/ollama.nix
     ../../modules/nixos/flatpak.nix
-    ../../modules/nixos/gnome.nix
+    # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
     # ../../modules/nixos/hyprland.nix
     ../../modules/nixos/herbstluftwm.nix

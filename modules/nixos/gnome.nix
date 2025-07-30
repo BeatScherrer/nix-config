@@ -18,6 +18,7 @@
     xkb.options = "compose:ralt";
     enable = true;
     displayManager = {
+      gdm.enable = true;
       # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
@@ -25,8 +26,6 @@
       '';
     };
   };
-
-  services.displayManager.gdm.enable = true;
 
   # RDP
   services.xrdp = {
