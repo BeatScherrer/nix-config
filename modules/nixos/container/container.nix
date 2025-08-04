@@ -44,6 +44,7 @@ in
     docker.enable = cfg.containerEngine == "docker" || cfg.containerEngine == "both";
     podman.enable = cfg.containerEngine == "podman" || cfg.containerEngine == "both";
     docker.nvidia = cfg.nvidia;
+    podman.nvidia = cfg.nvidia;
 
     environment.sessionVariables = mkIf (cfg.containerEngine == "docker") {
       DBX_CONTAINER_MANAGER = "docker";
