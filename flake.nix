@@ -186,7 +186,9 @@
             (
               { pkgs, ... }:
               {
-                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+                nixpkgs.overlays = [
+                  rust-overlay.overlays.default
+                ];
               }
             )
             (
