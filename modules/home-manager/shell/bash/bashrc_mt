@@ -248,6 +248,10 @@ viewPf() {
   "$MTR_WORKSPACE/analysis/plot-pf.pl" "$MTR_LOGS_DIR/pf.log" | gnuplot
 }
 
+viewPfNew() {
+  "$MTR_WORKSPACE/analysis/plot-pf.pl" "$MTR_LOGS_DIR/localization/pf_data.log" | gnuplot
+}
+
 viewDot() {
   local dot_file="$1"
 
