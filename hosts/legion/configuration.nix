@@ -60,6 +60,11 @@
     MAKE_CORES = "12";
   };
 
+  # Legion-specific display setup
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.autorandr}/bin/autorandr docked
+  '';
+
   # TODO: add to fonts module
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
