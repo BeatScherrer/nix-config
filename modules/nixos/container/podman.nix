@@ -30,11 +30,6 @@ in
       podman-tui
       podman-compose
     ];
-
-    # WARN: https://discourse.nixos.org/t/nvidia-ctk-shows-gpu-but-podman-doesnt-find-it-for-passthrough/65869
-    # podman does not chedck /var/run/cdi but only in /etc/cdi
-    environment.etc."cdi/nvidia-container-toolkit.json".source =
-      mkIf cfg.nvidia "/run/cdi/nvidia-container-toolkit.json";
   };
 
 }
