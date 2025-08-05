@@ -35,7 +35,7 @@
 
     displayManager = {
       sessionCommands = ''
-        ${pkgs.xhost}/bin/xhost +local:          # allow container to use x
+        ${pkgs.xorg.xhost}/bin/xhost +local:          # allow container to use x
       '';
     };
   };
