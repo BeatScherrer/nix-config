@@ -34,10 +34,8 @@
     xkb.options = "compose:ralt";
 
     displayManager = {
-      # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
       sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
-        ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
+        ${pkgs.xhost}/bin/xhost +local:          # allow container to use x
       '';
     };
   };

@@ -56,6 +56,12 @@
   services.tailscale.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
+  # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
+    ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
+  '';
+
   programs.bash.blesh.enable = true;
 
   nixpkgs.config.allowUnfree = true;
