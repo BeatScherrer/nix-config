@@ -71,7 +71,7 @@ in
     zulip
     # threema-desktop
 
-    spotify
+    tidal-hifi
 
     # Code editors
     helix
