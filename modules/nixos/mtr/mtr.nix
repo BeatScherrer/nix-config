@@ -1,10 +1,12 @@
 {
   pkgs,
-  config,
-  lib,
   ...
 }:
 {
+  imports = [
+    ./mysql.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     mysql-workbench
     xmlstarlet
@@ -54,36 +56,6 @@
   };
 
   # mysql
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
-    configFile = pkgs.writeText "my.cf" ''
-      [mysqld]
-      default-time-zone = "+00:00"
-      datadir=/var/lib/mysql
-      port=3306
-    '';
-    ensureUsers = [
-      {
-        name = "root";
-        ensurePermissions = {
-          "*.*" = "ALL PRIVILEGES";
-        };
-      }
-      {
-        name = "mtr";
-        ensurePermissions = {
-          "*.*" = "ALL PRIVILEGES";
-        };
-      }
-      {
-        name = "backup";
-        ensurePermissions = {
-          "*.*" = "SELECT, LOCK TABLES";
-        };
-      }
-    ];
-  };
 
   # required for lldb debugging with neovim
   # WARN: allows any process to trace any other process. This can be a security risk, so ensure you understand the implications before making this change.
