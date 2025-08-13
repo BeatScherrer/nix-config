@@ -7,6 +7,7 @@
   description = "Nixos config flake";
 
   inputs = {
+    # nixpkgs.url = "path:/home/beat/src/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = {
@@ -56,6 +57,10 @@
       url = "github:omarcresp/cursor-flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -74,6 +79,7 @@
       ghostty,
       claude-desktop,
       cursor,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -115,14 +121,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/trident/configuration.nix
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [
-                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-                ];
-              };
-            }
             nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
@@ -132,31 +130,13 @@
               home-manager.users.${user} = import ./hosts/trident/home.nix;
               home-manager.backupFileExtension = "backup";
             }
+            lanzaboote.nixosModules.lanzaboote
             (
-              { ... }:
+              { pkgs, ... }:
               {
                 nixpkgs.overlays = [
                   rust-overlay.overlays.default
-                  # ghostty.packages.${system}.default
                 ];
-              }
-            )
-            (
-              { config, ... }:
-              let
-                gitRev =
-                  if self ? rev then
-                    builtins.substring 0 7 self.rev
-                  else if self ? dirtyShortRev then
-                    self.dirtyShortRev
-                  else
-                    "unknown";
-              in
-              {
-                system.nixos.label =
-                  (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
-                  + config.system.nixos.version
-                  + "-SHA:${gitRev}";
               }
             )
           ];
@@ -189,24 +169,6 @@
                 nixpkgs.overlays = [
                   rust-overlay.overlays.default
                 ];
-              }
-            )
-            (
-              { config, ... }:
-              let
-                gitRev =
-                  if self ? rev then
-                    builtins.substring 0 7 self.rev
-                  else if self ? dirtyShortRev then
-                    self.dirtyShortRev
-                  else
-                    "unknown";
-              in
-              {
-                system.nixos.label =
-                  (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
-                  + config.system.nixos.version
-                  + "-SHA:${gitRev}";
               }
             )
           ];

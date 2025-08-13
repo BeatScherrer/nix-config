@@ -1,4 +1,18 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+let
+  gitRev =
+    if inputs.self ? rev then
+      builtins.substring 0 7 inputs.self.rev
+    else if inputs.self ? dirtyShortRev then
+      inputs.self.dirtyShortRev
+    else
+      "unknown";
+in
 {
   environment.systemPackages = with pkgs; [
     fd
@@ -45,5 +59,10 @@
   programs.bash.blesh = {
     enable = true;
   };
+
+  system.nixos.label =
+    (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
+    + config.system.nixos.version
+    + "-SHA:${gitRev}";
 
 }

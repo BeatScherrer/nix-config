@@ -43,3 +43,7 @@ outputs
 ```
 
 
+# Secure Boot
+
+## [Lanzaboote](https://github.com/nix-community/lanzaboote)
+check the following [guide](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md) to use secure boot

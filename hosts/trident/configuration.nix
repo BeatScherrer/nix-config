@@ -28,6 +28,7 @@
     # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix
     ../../modules/nixos/cooling_control/cooling_control.nix
+    ../../modules/nixos/secure-boot.nix
 
     # work modules
     ../../modules/nixos/mtr/mtr.nix

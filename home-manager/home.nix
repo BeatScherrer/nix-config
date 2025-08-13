@@ -163,6 +163,18 @@ in
 
   home.file = { };
 
+  # NOTE: `xdg-settings set default-web-browser firefox.desktop`
+  # xdg.mimeApps = {
+  #   enable = true;
+  #   defaultApplications = {
+  #     "text/html" = "firefox.desktop";
+  #     "x-scheme-handler/http" = "firefox.desktop";
+  #     "x-scheme-handler/https" = "firefox.desktop";
+  #     "x-scheme-handler/about" = "firefox.desktop";
+  #     "x-scheme-handler/unknown" = "firefox.desktop";
+  #   };
+  # };
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home
   # Manager then you have to manually source 'hm-session-vars.sh' located at
