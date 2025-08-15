@@ -38,6 +38,24 @@ nix repl
 # Tab-complete to explore: inputs, outputs
 ```
 
+### Flake Updates
+```bash
+# Update all inputs
+nix flake update
+
+# Update single input
+nix flake lock --update-input nixpkgs
+
+# Update specific stable channel
+nix flake lock --update-input nixpkgs-stable
+```
+
+### Convenient Aliases
+Shell aliases are configured for common operations:
+- `nixupdate`: `sudo nixos-rebuild switch --flake ~/.nix`
+- `nixtest`: `sudo nixos-rebuild test --flake ~/.nix` 
+- `homeupdate`: `home-manager switch --flake ~/.nix` (for standalone Home Manager)
+
 ## Architecture Overview
 
 ### Multi-Host Configuration
@@ -80,6 +98,7 @@ nix repl
 - All configurations use Nix Flakes for reproducibility
 - `flake.lock` should be committed to maintain version consistency
 - Development shell includes nixd LSP and nixfmt-rfc-style formatter
+- `patches/` directory contains custom patches applied to nixpkgs (e.g., nvidia-ctk.patch for Legion host)
 
 ### Module System
 - Custom modules are defined in `modules/` with configurable options
