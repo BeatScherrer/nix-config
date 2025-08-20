@@ -18,15 +18,18 @@
     ../../modules/nixos/container/container.nix
     ../../modules/nixos/sound.nix
     ../../modules/nixos/crypto.nix
-    ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/i3lock.nix
     # ../../modules/nixos/ollama.nix # TODO:
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
-    # ../../modules/nixos/hyprland.nix
+
+    ../../modules/nixos/herbstluftwm.nix
     # ../../modules/nixos/gnome.nix
-    # ../../modules/nixos/cosmic.nix
+    # ../../modules/nixos/cosmic.nix # WARN: build errors
+    # ../../modules/nixos/hyprland.nix # WARN: egl issue
+    # ../../modules/nixos/sway.nix # WARN: egl issue
+
     ../../modules/nixos/cooling_control/cooling_control.nix
     ../../modules/nixos/secure-boot.nix
 
@@ -38,7 +41,7 @@
   # ---------------------------------------------------------------------------
   container = {
     enable = true;
-    containerEngine = "docker";
+    containerEngine = "both";
   };
   # ---------------------------------------------------------------------------
 

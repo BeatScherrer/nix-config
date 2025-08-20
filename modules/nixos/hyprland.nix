@@ -15,9 +15,14 @@
     xwayland.enable = true;
   };
 
-  services.desktopManager.gnome = {
-    enable = true;
-    wayland = true;
+  users.users.beat.extraGroups = [
+    "video"
+    "render"
+  ];
+
+  services.displayManager = {
+    gdm.enable = true;
+    gdm.wayland = true;
   };
 
   environment.sessionVariables = {

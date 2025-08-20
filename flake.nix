@@ -118,7 +118,7 @@
       nixosConfigurations = {
         trident = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs user; };
           modules = [
             ./hosts/trident/configuration.nix
             nixos-cosmic.nixosModules.default
@@ -205,14 +205,6 @@
           ];
         };
       };
-
-      # homeConfigurations = {
-      #   ${user} = home-manager.lib.homeManagerConfiguration {
-      #     pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-      #     modules = [ ./home-manager/home.nix ];
-      #     extraSpecialArgs = { inherit inputs user; };
-      #   };
-      # };
 
       devShells = forAllSystems devShell;
     };

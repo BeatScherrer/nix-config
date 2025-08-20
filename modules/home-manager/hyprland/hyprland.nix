@@ -17,57 +17,56 @@
       "$browser" = "firefox";
 
       # Keybindings
-      bind =
-        [
-          # Launcher
-          "$mod, Space, exec, rofi -modi drun -show drun"
-          # Applications
-          "$mod, B, exec, $browser"
-          "$mod, F, exec, $fileManager"
-          # "$mod, T, exec, kitty"
-          "$mod, T, exec, alacritty" # TODO: set to Enter?
-          "$mod, Print, exec, grimblast copy area"
-          # Navigation
-          "$mod, w, killactive"
-          "$mod, h, movefocus, l"
-          "$mod, j, movefocus, d"
-          "$mod, k, movefocus, u"
-          "$mod, l, movefocus, r"
-          "$mod SHIFT, h, swapwindow, l"
-          "$mod SHIFT, j, swapwindow, d"
-          "$mod SHIFT, k, swapwindow, u"
-          "$mod SHIFT, l, swapwindow, r"
-          "$mod SHIFT, 1, movetoworkspace, 1"
-          "$mod SHIFT, 2, movetoworkspace, 2"
-          "$mod SHIFT, 3, movetoworkspace, 3"
-          "$mod SHIFT, 4, movetoworkspace, 4"
-          "$mod SHIFT, 5, movetoworkspace, 5"
-          "$mod SHIFT, 6, movetoworkspace, 6"
-          "$mod SHIFT, 7, movetoworkspace, 7"
-          "$mod SHIFT, 8, movetoworkspace, 8"
-          "$mod SHIFT, 9, movetoworkspace, 9"
-          "$mod SHIFT, 0, movetoworkspace, 0"
-          # Scratchpad
-          "$mod, Minus, togglespecialworkspace, magic"
-          "$mod SHIFT, S, movetoworkspace, special:magic"
+      bind = [
+        # Launcher
+        "$mod, Space, exec, rofi -modi drun -show drun"
+        # Applications
+        "$mod, B, exec, $browser"
+        "$mod, F, exec, $fileManager"
+        # "$mod, T, exec, kitty"
+        "$mod, Return, exec, alacritty" # TODO: set to Enter?
+        "$mod, Print, exec, grimblast copy area"
+        # Navigation
+        "$mod, w, killactive"
+        "$mod, h, movefocus, l"
+        "$mod, j, movefocus, d"
+        "$mod, k, movefocus, u"
+        "$mod, l, movefocus, r"
+        "$mod SHIFT, h, swapwindow, l"
+        "$mod SHIFT, j, swapwindow, d"
+        "$mod SHIFT, k, swapwindow, u"
+        "$mod SHIFT, l, swapwindow, r"
+        "$mod SHIFT, 1, movetoworkspace, 1"
+        "$mod SHIFT, 2, movetoworkspace, 2"
+        "$mod SHIFT, 3, movetoworkspace, 3"
+        "$mod SHIFT, 4, movetoworkspace, 4"
+        "$mod SHIFT, 5, movetoworkspace, 5"
+        "$mod SHIFT, 6, movetoworkspace, 6"
+        "$mod SHIFT, 7, movetoworkspace, 7"
+        "$mod SHIFT, 8, movetoworkspace, 8"
+        "$mod SHIFT, 9, movetoworkspace, 9"
+        "$mod SHIFT, 0, movetoworkspace, 0"
+        # Scratchpad
+        "$mod, Minus, togglespecialworkspace, magic"
+        "$mod SHIFT, S, movetoworkspace, special:magic"
 
-        ]
-        ++ (
-          # workspaces
-          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-          builtins.concatLists (
-            builtins.genList (
-              i:
-              let
-                ws = i + 1;
-              in
-              [
-                "$mod, code:1${toString i}, workspace, ${toString ws}"
-                "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-              ]
-            ) 9
-          )
-        );
+      ]
+      ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        builtins.concatLists (
+          builtins.genList (
+            i:
+            let
+              ws = i + 1;
+            in
+            [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          ) 9
+        )
+      );
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
