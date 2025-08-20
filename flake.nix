@@ -206,7 +206,6 @@
         };
       };
 
-      # TODO: how to use the provided nixpkgs?
       # homeConfigurations = {
       #   ${user} = home-manager.lib.homeManagerConfiguration {
       #     pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
