@@ -117,6 +117,7 @@ in
 
     # periphery
     rofi-bluetooth
+    blueman
 
     # basic GUI tools
     dbus
