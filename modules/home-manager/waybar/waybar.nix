@@ -8,7 +8,7 @@
       position = "top";
       height = 26;
       output = [
-        "eDP-1"
+        "DP-3" # TODO: how to make this flexible? wrap in config?
       ];
 
       modules-left = [
@@ -48,7 +48,6 @@
         format = "{shortDescription}";
         tooltip = false;
         on-click = ''swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next'';
-
       };
 
       "clock" = {
@@ -69,7 +68,7 @@
       border-radius: 0;
       padding: 0;
       margin: 0;
-      font-size: 11px;
+      font-size: 24px;
     }
 
     window#waybar {
@@ -78,16 +77,21 @@
     }
 
     #custom-logo {
-      font-size: 18px;
+      font-size: 40px;
       margin: 0;
       margin-left: 7px;
       margin-right: 12px;
       padding: 0;
-      font-family: NotoSans Nerd Font Mono;
+      font-family: Iosevka Nerd Font;
+    }
+
+    #workspaces {
+      margin-left: 20px;
     }
 
     #workspaces button {
-      margin-right: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
       color: #ffffff;
     }
     #workspaces button:hover, #workspaces button:active {
@@ -95,7 +99,7 @@
       color: #ffffff;
     }
     #workspaces button.focused {
-      background-color: #383737;
+      background-color: #de935f;
     }
 
     #language {

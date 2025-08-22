@@ -7,6 +7,7 @@
     slurp
     mesa
     libGL
+    wlr-randr
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -27,6 +28,7 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  # NOTE: keep this here if we want to use greetd
   # services.greetd = {
   #   enable = true;
   #   settings = rec {

@@ -8,13 +8,14 @@ set $right l
 
 # Terminal
 set $term ghostty
+set $browser librewolf
 
 # Colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #999999 #5f676a #999999 #999999   #999999
-client.focused_inactive #999999 #5f676a #999999 #999999   #999999
+client.focused          #de935f #de935f #999999 #de935f   #999999
+client.focused_inactive #101010 #de935f #999999 #999999   #999999
 client.unfocused        #333333 #222222 #888888 #292d2e   #1f1e1e
-client.urgent           #999999 #5f676a #999999 #999999   #999999
+client.urgent           #a54242 #5f676a #999999 #999999   #999999
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
@@ -22,11 +23,12 @@ client.background       #ffffff
 default_border pixel 1
 
 # Wallpaper
-output * bg /home/simon/nixos-config/wallpaper.png fill
+output * bg /home/beat/.local/share/wallpapers/wallpaper_plants.jpg fill
 
 # Key bindings
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+b exec $browser
 
     # Kill focused window
     bindsym $mod+w kill
