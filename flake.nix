@@ -48,6 +48,7 @@
     };
     ghostty = {
       url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-desktop = {
       url = "github:k3d3/claude-desktop-linux-flake";
