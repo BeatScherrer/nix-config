@@ -10,6 +10,7 @@
     xorg.xauth
     xorg.xeyes
     xorg.xinit
+    xdg-desktop-portal-gtk
   ];
 
   services.xserver = {
@@ -18,15 +19,18 @@
     xkb.options = "compose:ralt";
     enable = true;
     displayManager = {
+      gdm.enable = true;
       # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
         ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
       '';
     };
+    desktopManager.gnome.enable = true;
   };
 
-  services.displayManager.gdm.enable = true;
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # RDP
   services.xrdp = {
