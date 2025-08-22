@@ -37,8 +37,8 @@
     # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
-  # xdg.portal.enable = true;
-  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # boot.initrd.availableKernelModules = [
   #   "nvidia"
