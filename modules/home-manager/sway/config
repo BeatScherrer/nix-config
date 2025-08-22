@@ -9,10 +9,12 @@ set $right l
 # Terminal
 set $term ghostty
 set $browser librewolf
+set $fileExplorer nautilus
+set $mailClient thunderbird
 
 # Colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #de935f #de935f #999999 #de935f   #999999
+client.focused          #de935f #de935f #999999 #de935f   #de935f
 client.focused_inactive #101010 #de935f #999999 #999999   #999999
 client.unfocused        #333333 #222222 #888888 #292d2e   #1f1e1e
 client.urgent           #a54242 #5f676a #999999 #999999   #999999
@@ -20,7 +22,10 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-default_border pixel 1
+default_border pixel 2
+
+gaps inner 10
+gaps outer 10
 
 # Wallpaper
 output * bg /home/beat/.local/share/wallpapers/wallpaper_plants.jpg fill
@@ -29,6 +34,9 @@ output * bg /home/beat/.local/share/wallpapers/wallpaper_plants.jpg fill
     # Start a terminal
     bindsym $mod+Return exec $term
     bindsym $mod+b exec $browser
+    bindsym $mod+f exec $fileExplorer
+    bindsym $mod+e exec $mailClient
+    bindsym $mod+Space exec rofi -modi drun -show drun
 
     # Kill focused window
     bindsym $mod+w kill
@@ -101,7 +109,7 @@ bindsym $mod+g exec wl-copy ""
     #bindsym $mod+h splith
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym $mod+m fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -154,5 +162,9 @@ for_window [app_id="com.github.finefindus.eyedropper"] floating enable
 exec dbus-sway-environment
 exec configure-gtk
 exec systemctl --user import-environment
+
+exec_always {
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+}
 
 include @sysconfdir@/sway/config.d/*
