@@ -11,6 +11,7 @@
     xorg.xeyes
     xorg.xinit
     xdg-desktop-portal-gtk
+    mesa-demos
   ];
 
   services.xserver = {

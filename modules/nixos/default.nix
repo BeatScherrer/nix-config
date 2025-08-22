@@ -42,6 +42,7 @@ in
     mpv
     wireguard-tools
     inetutils
+    pciutils
 
     # network shares
     samba
