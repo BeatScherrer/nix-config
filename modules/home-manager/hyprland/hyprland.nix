@@ -24,7 +24,7 @@
         "$mod, B, exec, $browser"
         "$mod, F, exec, $fileManager"
         # "$mod, T, exec, kitty"
-        "$mod, Return, exec, alacritty" # TODO: set to Enter?
+        "$mod, Return, exec, $terminal"
         "$mod, Print, exec, grimblast copy area"
         # Navigation
         "$mod, w, killactive"
