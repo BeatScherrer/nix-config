@@ -12,7 +12,7 @@
         "~/.local/share/wallpapers/wallpaper_plants.jpg"
       ];
       wallpaper = [
-        ", ~/.local/share/wallpapers/wallpaper_plants.jpg"
+        "~/.local/share/wallpapers/wallpaper_plants.jpg"
       ];
     };
   };

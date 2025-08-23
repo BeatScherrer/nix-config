@@ -2,6 +2,7 @@
 {
   imports = [
     ./hyprpaper.nix
+    ../waybar/waybar.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -12,9 +13,9 @@
 
       # Variables
       "$mod" = "SUPER";
-      "$terminal" = "alacritty";
+      "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
-      "$browser" = "firefox";
+      "$browser" = "librewolf";
 
       # Keybindings
       bind = [
