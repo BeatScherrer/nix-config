@@ -4,7 +4,6 @@
     ../polybar/polybar.nix
     ../rofi/rofi.nix
     ../dunst/dunst.nix
-    ../ags/ags.nix
   ];
 
   xdg.configFile."herbstluftwm/autostart".source =

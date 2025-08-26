@@ -96,6 +96,7 @@ in
     btop
     iotop
     iftop
+    nix-tree
 
     # LSP and formatters
     stylua

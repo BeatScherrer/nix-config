@@ -62,8 +62,9 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags = {
-      url = "github:Aylur/ags";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -84,6 +85,7 @@
       claude-desktop,
       cursor,
       lanzaboote,
+      quickshell,
       ...
     }@inputs:
     let
@@ -158,7 +160,6 @@
                 ];
               };
             }
-            nixos-cosmic.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -175,6 +176,7 @@
                 ];
               }
             )
+            nixos-cosmic.nixosModules.default
           ];
         };
       };

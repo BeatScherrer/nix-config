@@ -27,8 +27,8 @@
     ../../modules/nixos/herbstluftwm.nix
     # ../../modules/nixos/gnome.nix
     # ../../modules/nixos/cosmic.nix # WARN: build errors
-    # ../../modules/nixos/hyprland.nix # WARN: egl issue
-    # ../../modules/nixos/sway.nix # WARN: egl issue
+    # ../../modules/nixos/hyprland.nix
+    # ../../modules/nixos/sway.nix
 
     ../../modules/nixos/cooling_control/cooling_control.nix
     ../../modules/nixos/secure-boot.nix

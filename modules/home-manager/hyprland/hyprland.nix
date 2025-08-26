@@ -3,6 +3,7 @@
   imports = [
     ./hyprpaper.nix
     ../waybar/waybar.nix
+    ../quickshell/quickshell.nix
   ];
 
   wayland.windowManager.hyprland = {
