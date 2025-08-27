@@ -1,9 +1,9 @@
 Host api.unlimited-booking.io
   User root
   Hostname api.unlimited-booking.io
-  IdentityFile ~/.ssh/unlimited-booking-deploy-key
+  IdentityFile ~/.ssh/unlimited-booking-deploy
 
-Host api.staging.unlimited-booking.io
+Host staging.api.unlimited-booking.io
   User root
-  Hostname api.staging.unlimited-booking.io
-  IdentityFile ~/.ssh/unlimited-booking-deploy-key
+  Hostname staging.api.unlimited-booking.io
+  IdentityFile ~/.ssh/unlimited-booking-deploy
