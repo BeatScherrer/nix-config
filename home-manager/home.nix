@@ -146,6 +146,7 @@ in
     fontconfig
     libreoffice
     inkscape
+    krita
     gimp
     obsidian
 
