@@ -113,6 +113,8 @@
               nativeBuildInputs = with pkgs; [
                 nixd
                 nixfmt-rfc-style
+                neovim
+                git
               ];
               shellHook = ''
                 export EDITOR=nvim
