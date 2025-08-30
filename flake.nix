@@ -181,6 +181,38 @@
             nixos-cosmic.nixosModules.default
           ];
         };
+        proart = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/proart/configuration.nix
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [
+                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+                ];
+              };
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.${user} = import ./hosts/proart/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [
+                  rust-overlay.overlays.default
+                ];
+              }
+            )
+            nixos-cosmic.nixosModules.default
+          ];
+        };
       };
 
       darwinConfigurations = {
