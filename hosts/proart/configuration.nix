@@ -23,6 +23,7 @@
     # ../../modules/nixos/ollama.nix # TODO:
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
+    ../../modules/nixos/mtr/mtr.nix
 
     # ../../modules/nixos/herbstluftwm.nix
     ../../modules/nixos/gnome.nix
