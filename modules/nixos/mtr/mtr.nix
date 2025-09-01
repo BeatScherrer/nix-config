@@ -8,7 +8,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    mysql-workbench
     xmlstarlet
     libxml2
     tailscale
@@ -16,13 +15,9 @@
     bash-language-server
     neocmakelsp
     pyright
-    remmina
     ccache
-    freecad
     lldb
-    blender
     dig
-    claude-code
     steam-run
     appimage-run
     # Schroot deps

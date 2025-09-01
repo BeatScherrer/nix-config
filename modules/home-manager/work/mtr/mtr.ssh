@@ -14,6 +14,10 @@ Host m3
   User mtr
   Hostname ms-3.mt-robot.com
 
+Host m5
+  User mtr
+  Hostname ms-5.mt-robot.com
+
 Host m12
   User mtr
   Hostname ms-12.mt-robot.com
@@ -22,3 +26,6 @@ Host m13
   User mtr
   Hostname ms-13.mt-robot.com
 
+Host r201
+  User mtr
+  Hostname robot-201.mt-robot.com

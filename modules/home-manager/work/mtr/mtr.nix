@@ -1,5 +1,14 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    mysql-workbench
+    remmina
+    freecad
+    blender
+    claude-code
+    tigervnc
+  ];
+
   # FIXME: the resulting ~/.ssh/config ownership gets mapped to nobody:nobody in distrobox...
   # ssh
   programs.ssh = {
