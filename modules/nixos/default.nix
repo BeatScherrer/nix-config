@@ -44,6 +44,7 @@ in
     wireguard-tools
     inetutils
     pciutils
+    python3Full
 
     # network shares
     samba
