@@ -29,3 +29,5 @@ Host m13
 Host r201
   User mtr
   Hostname robot-201.mt-robot.com
+  ForwardX11 yes
+
