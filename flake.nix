@@ -7,6 +7,7 @@
   description = "Nixos config flake";
 
   inputs = {
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # nixpkgs.url = "path:/home/beat/src/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -71,6 +72,7 @@
   outputs =
     {
       self,
+      nixos-hardware,
       nixpkgs,
       home-manager,
       nixos-cosmic,
@@ -185,6 +187,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            # TODO:
+            # nixos-hardware.nixosModules.
             ./hosts/proart/configuration.nix
             {
               nix.settings = {
