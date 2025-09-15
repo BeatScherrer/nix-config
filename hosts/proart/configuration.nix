@@ -7,7 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/hardware/nvidia.nix
+    # ../../modules/nixos/hardware/nvidia.nix # NOTE: Enable if not using nixos-hardware
     ../../modules/nixos/default.nix
     ../../modules/nixos/nix.nix
     ../../modules/nixos/user.nix
@@ -39,7 +39,8 @@
   # ---------------------------------------------------------------------------
   container = {
     enable = true;
-    containerEngine = "both";
+    nvidia = true;
+    containerEngine = "docker";
   };
   # ---------------------------------------------------------------------------
 
@@ -55,8 +56,6 @@
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
-  services.tailscale.enable = true;
-
   # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
@@ -66,6 +65,11 @@
   programs.bash.blesh.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+
+  environment.systemPackages = with pkgs; [
+    openrgb-with-all-plugins
+    iio-sensor-proxy
+  ];
 
   # TODO:
   environment.sessionVariables = {
