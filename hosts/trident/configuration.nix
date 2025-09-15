@@ -57,7 +57,6 @@
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
-  services.tailscale.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works

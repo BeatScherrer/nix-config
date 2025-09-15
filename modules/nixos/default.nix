@@ -44,7 +44,7 @@ in
     wireguard-tools
     inetutils
     pciutils
-    python3Full
+    python3
 
     # network shares
     samba
@@ -56,8 +56,6 @@ in
 
     pkg-config
   ];
-
-  services.tailscale.enable = true;
 
   programs.bash.blesh = {
     enable = true;

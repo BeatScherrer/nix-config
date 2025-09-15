@@ -10,8 +10,6 @@
   environment.systemPackages = with pkgs; [
     xmlstarlet
     libxml2
-    tailscale
-    tailscale-systray
     bash-language-server
     neocmakelsp
     pyright
@@ -25,10 +23,6 @@
     debootstrap
     pv
   ];
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "client";
-  };
 
   # use 'uc-3' to find 'uc-3.mt-robot.com'
   networking.search = [ "mt-robot.com" ];
@@ -41,14 +35,14 @@
   security.pki.certificateFiles = [ ./ca.crt ]; # NOTE: beware of trailing spaces
 
   # Tailscale
-  systemd.user.services.tailscale-systray = {
-    enable = true;
-    description = "Tailscale system tray";
-    serviceConfig = {
-      ExecStart = ''${pkgs.bashInteractive}/bin/bash -i -c "${pkgs.tailscale-systray}/bin/tailscale-systray"'';
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.user.services.tailscale-systray = {
+  #   enable = true;
+  #   description = "Tailscale system tray";
+  #   serviceConfig = {
+  #     ExecStart = ''${pkgs.bashInteractive}/bin/bash -i -c "${pkgs.tailscale-systray}/bin/tailscale-systray"'';
+  #   };
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   # mysql
 

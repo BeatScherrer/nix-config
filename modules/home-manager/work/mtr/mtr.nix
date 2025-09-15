@@ -6,7 +6,7 @@
     freecad
     blender
     claude-code
-    tigervnc
+    # tigervnc # TODO:
   ];
 
   # FIXME: the resulting ~/.ssh/config ownership gets mapped to nobody:nobody in distrobox...
