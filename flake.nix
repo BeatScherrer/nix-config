@@ -7,7 +7,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "path:/home/beat/src/nixos-hardware";
     # nixpkgs.url = "path:/home/beat/src/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -187,8 +188,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            # TODO:
-            # nixos-hardware.nixosModules.
+            nixos-hardware.nixosModules.asus-px13
             ./hosts/proart/configuration.nix
             {
               nix.settings = {
