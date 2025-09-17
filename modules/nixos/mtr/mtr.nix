@@ -22,6 +22,8 @@
     schroot
     debootstrap
     pv
+    # Packaging deps
+    fakeroot
   ];
 
   # use 'uc-3' to find 'uc-3.mt-robot.com'

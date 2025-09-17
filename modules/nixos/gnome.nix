@@ -19,15 +19,16 @@
     xkb.variant = "";
     xkb.options = "compose:ralt";
     enable = true;
-    displayManager = {
-      gdm.enable = true;
-      # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
-      sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
-        ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
-      '';
-    };
-    desktopManager.gnome.enable = true;
+    # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
+    displayManager.sessionCommands = ''
+      ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
+      ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
+    '';
+  };
+
+  services.desktopManager.gnome.enable = true;
+  services.displayManager = {
+    gdm.enable = true;
   };
 
   xdg.portal.enable = true;
