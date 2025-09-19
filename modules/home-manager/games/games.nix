@@ -5,6 +5,7 @@
     lutris
     heroic
     bottles
+    gamescope
   ];
 
   home.sessionVariables = {
