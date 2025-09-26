@@ -24,5 +24,6 @@
   "redhat.telemetry.enabled": false,
   "workbench.colorTheme": "Kanagawa",
   "github.copilot.nextEditSuggestions.enabled": true,
-  "git.confirmSync": false
+  "git.confirmSync": false,
+  "debug.onTaskErrors": "showErrors"
 }
