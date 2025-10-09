@@ -5,6 +5,7 @@
 {
   imports = [
     ./mysql.nix
+    ../blender.nix
   ];
 
   environment.systemPackages = with pkgs; [
