@@ -1,0 +1,10 @@
+Host shetec-jitsi
+  User shetec
+  Hostname video.shetec.ch
+  IdentityFile ~/.ssh/shetec-deploy-key
+
+Host shetec-n8n
+  User shetec
+  Hostname n8n.shetec.ch
+  IdentityFile ~/.ssh/shetec-deploy-key
+

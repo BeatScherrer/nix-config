@@ -5,6 +5,7 @@
     ../../modules/home-manager/vscode/vscode.nix
     ../../modules/home-manager/work/unlimited-booking/unlimited-booking.nix
     ../../modules/home-manager/work/mtr/mtr.nix
+    ../../modules/home-manager/work/shetec/shetec.nix
     ../../modules/home-manager/themes/gravel_pit.nix
     ../../modules/home-manager/sway/sway.nix
   ];
