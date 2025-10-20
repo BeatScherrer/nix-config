@@ -17,7 +17,7 @@ in
         "nvidia"
         "amd"
       ];
-      default = false;
+      default = "none";
     };
   };
 
@@ -38,7 +38,7 @@ in
     })
 
     (lib.mkIf (cfg.gpu == "amd") {
-      environment.systemPckages = with pkgs; [
+      environment.systemPackages = with pkgs; [
         blender-hip
       ];
     })
