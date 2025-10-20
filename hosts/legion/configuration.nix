@@ -65,6 +65,10 @@
     ${pkgs.autorandr}/bin/autorandr docked
   '';
 
+  services.openssh = {
+    enable = true;
+  };
+
   # TODO: add to fonts module
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
