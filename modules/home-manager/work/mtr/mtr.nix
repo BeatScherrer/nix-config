@@ -4,7 +4,6 @@
     mysql-workbench
     remmina
     freecad
-    blender
     claude-code
     # tigervnc # TODO:
   ];

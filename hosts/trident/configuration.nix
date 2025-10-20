@@ -43,6 +43,10 @@
     enable = true;
     containerEngine = "both";
   };
+  blender = {
+    enable = true;
+    gpu = "amd";
+  };
   # ---------------------------------------------------------------------------
 
   # Bootloader.

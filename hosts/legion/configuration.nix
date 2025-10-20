@@ -37,6 +37,11 @@
     containerEngine = "docker";
     nvidia = true;
   };
+
+  blender = {
+    enable = true;
+    gpu = "nvidia";
+  };
   #----------------------------------------------------------------------------
 
   hardware.bluetooth.enable = true;
