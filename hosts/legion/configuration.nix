@@ -43,6 +43,11 @@
     enable = true;
     gpu = "nvidia";
   };
+
+  davinci-resolve = {
+    enable = true;
+    gpu = "nvidia";
+  };
   #----------------------------------------------------------------------------
 
   hardware.bluetooth.enable = true;
