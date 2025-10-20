@@ -23,6 +23,7 @@
     # ../../modules/nixos/ollama.nix # TODO:
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
+    ../../modules/nixos/davinci-resolve.nix
 
     ../../modules/nixos/herbstluftwm.nix
     # ../../modules/nixos/gnome.nix
@@ -44,6 +45,10 @@
     containerEngine = "both";
   };
   blender = {
+    enable = true;
+    gpu = "amd";
+  };
+  davinci-resolve = {
     enable = true;
     gpu = "amd";
   };
