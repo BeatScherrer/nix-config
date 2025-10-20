@@ -26,6 +26,7 @@
     # ../../modules/nixos/cosmic.nix
     # ../../modules/nixos/hyprland.nix
     ../../modules/nixos/herbstluftwm.nix
+    ../../modules/nixos/davinci-resolve.nix
 
     ../../modules/nixos/mtr/mtr.nix
   ];
