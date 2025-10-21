@@ -23,7 +23,7 @@ in
 
   };
 
-  # NOTE: https://wiki.nixos.org/wiki/DaVinci_Resolv
+  # NOTE: https://wiki.nixos.org/wiki/DaVinci_Resolve
 
   config = mkIf cfg.enable (mkMerge [
     {
@@ -36,14 +36,11 @@ in
     })
 
     (mkIf (cfg.gpu == "amd") {
-      environment.variables = {
-        RUSTICL_ENABLE = "radeonsi";
-      };
-      hardware.graphics = {
-        enable = true;
-        extraPackages = with pkgs; [
-          mesa.opencl
-        ];
+      hardware = {
+        graphics = {
+          enable = true;
+        };
+        amdgpu.opencl.enable = true;
       };
     })
 
