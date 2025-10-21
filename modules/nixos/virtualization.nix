@@ -1,14 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   virtualisation = {
     # VM
     libvirtd = {
       enable = true;
       qemu = {
         package = pkgs.qemu_kvm;
-        ovmf = {
-          enable = true;
-          packages = [ pkgs.OVMFFull.fd ];
-        };
         swtpm.enable = true;
       };
     };
@@ -26,5 +23,8 @@
     quickemu
   ];
 
-  users.users.beat.extraGroups = [ "libvirtd" "kvm" ];
+  users.users.beat.extraGroups = [
+    "libvirtd"
+    "kvm"
+  ];
 }
