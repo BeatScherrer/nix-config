@@ -42,7 +42,7 @@
   # ---------------------------------------------------------------------------
   container = {
     enable = true;
-    containerEngine = "both";
+    containerEngine = "docker";
   };
   blender = {
     enable = true;
