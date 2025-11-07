@@ -139,6 +139,7 @@ in
     evince
     loupe
     masterpdfeditor
+    affine-bin
 
     # font-manager
     pika-backup
