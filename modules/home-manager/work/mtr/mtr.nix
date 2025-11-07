@@ -5,6 +5,7 @@
     remmina
     freecad
     claude-code
+    kdePackages.kdenlive
     # tigervnc # TODO:
   ];
 
