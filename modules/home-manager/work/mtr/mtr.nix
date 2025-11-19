@@ -7,6 +7,7 @@
     claude-code
     kdePackages.kdenlive
     # tigervnc # TODO:
+    unrar-free
   ];
 
   # FIXME: the resulting ~/.ssh/config ownership gets mapped to nobody:nobody in distrobox...

@@ -115,6 +115,7 @@ in
     tailwindcss-language-server
     vale
     docker-language-server
+    csharp-ls
 
     # periphery
     rofi-bluetooth
