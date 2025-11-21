@@ -175,8 +175,12 @@ restart() {
   simrobotrestart
 }
 
-viewShowroomCamera() {
+viewStorage() {
   mpv rtsps://10.0.0.1:7441/DIJkjGw404SBfpIj
+}
+
+viewStorageTransferStations() {
+  mpv rtsps://10.0.0.1:7441/EvdOjZ7C4pzO3Gc6?enableSrtp
 }
 
 mt_debug() {
