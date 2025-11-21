@@ -61,7 +61,6 @@
     shfmt
     codespell
     markdownlint-cli
-    nodePackages.jsonlint
     biome
     lemminx
     dockerfile-language-server-nodejs

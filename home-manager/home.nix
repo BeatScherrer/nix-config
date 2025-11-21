@@ -64,7 +64,7 @@ in
     # Messengers
     telegram-desktop
     signal-desktop-bin
-    whatsapp-for-linux
+    wasistlos
     discord
     element-desktop
     slack
@@ -106,7 +106,6 @@ in
     shfmt
     codespell
     markdownlint-cli
-    nodePackages.jsonlint
     biome
     lemminx
     dockerfile-language-server-nodejs
