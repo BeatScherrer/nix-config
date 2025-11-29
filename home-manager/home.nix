@@ -108,7 +108,7 @@ in
     markdownlint-cli
     biome
     lemminx
-    dockerfile-language-server-nodejs
+    dockerfile-language-server
     hadolint
     taplo
     tailwindcss-language-server
