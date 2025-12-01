@@ -21,6 +21,7 @@ in
     wget
     home-manager
     git
+    git-doc # gitk
     coreutils
     xclip
     usbutils
