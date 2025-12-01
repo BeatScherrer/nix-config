@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    git-doc # gitk
+  ];
+
   programs.git = {
     enable = true;
     settings = {
