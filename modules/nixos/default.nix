@@ -35,9 +35,9 @@ in
     envsubst
     rust-bin.stable.latest.default
     pnpm
-    inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.cursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ghostty
+    claude-desktop
+    cursor
     lsof
     appimage-run
     mpv

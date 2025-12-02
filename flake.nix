@@ -103,6 +103,13 @@
       ];
       # helper to call a function for each system
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
+      # overlay for flake packages
+      flakePackagesOverlay = system: final: prev: {
+        ghostty = ghostty.packages.${system}.default;
+        claude-desktop = claude-desktop.packages.${system}.default;
+        cursor = cursor.packages.${system}.default;
+        quickshell = quickshell.packages.${system}.default;
+      };
       # helper to call the dev shell for each system
       devShell =
         system:
@@ -142,14 +149,12 @@
               home-manager.backupFileExtension = "backup";
             }
             lanzaboote.nixosModules.lanzaboote
-            (
-              { pkgs, ... }:
-              {
-                nixpkgs.overlays = [
-                  rust-overlay.overlays.default
-                ];
-              }
-            )
+            {
+              nixpkgs.overlays = [
+                rust-overlay.overlays.default
+                (flakePackagesOverlay "x86_64-linux")
+              ];
+            }
           ];
         };
         legion = nixpkgs.lib.nixosSystem {
@@ -173,14 +178,12 @@
               home-manager.users.${user} = import ./hosts/legion/home.nix;
               home-manager.backupFileExtension = "backup";
             }
-            (
-              { pkgs, ... }:
-              {
-                nixpkgs.overlays = [
-                  rust-overlay.overlays.default
-                ];
-              }
-            )
+            {
+              nixpkgs.overlays = [
+                rust-overlay.overlays.default
+                (flakePackagesOverlay "x86_64-linux")
+              ];
+            }
             nixos-cosmic.nixosModules.default
           ];
         };
@@ -206,14 +209,12 @@
               home-manager.users.${user} = import ./hosts/proart/home.nix;
               home-manager.backupFileExtension = "backup";
             }
-            (
-              { pkgs, ... }:
-              {
-                nixpkgs.overlays = [
-                  rust-overlay.overlays.default
-                ];
-              }
-            )
+            {
+              nixpkgs.overlays = [
+                rust-overlay.overlays.default
+                (flakePackagesOverlay "x86_64-linux")
+              ];
+            }
             nixos-cosmic.nixosModules.default
           ];
         };
