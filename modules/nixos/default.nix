@@ -36,8 +36,7 @@ in
     rust-bin.stable.latest.default
     pnpm
     inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
-    # FIXME:
-    # inputs.claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.claude-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.cursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     lsof
     appimage-run
