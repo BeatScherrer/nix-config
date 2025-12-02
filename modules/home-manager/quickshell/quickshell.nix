@@ -2,7 +2,7 @@
 {
 
   home.packages = with pkgs; [
-    (inputs.quickshell.packages.${pkgs.system}.default.withModules [
+    (inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default.withModules [
       qt6.qtmultimedia
       qt6.qtwebengine
       qt6.qtnetworkauth # For OAuth authentication
