@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   virtualisation = {
     # VM
@@ -23,7 +23,7 @@
     quickemu
   ];
 
-  users.users.beat.extraGroups = [
+  users.users.${user}.extraGroups = [
     "libvirtd"
     "kvm"
   ];

@@ -131,90 +131,69 @@
               '';
             };
         };
+
+      # helper to create NixOS host configurations
+      mkHost =
+        {
+          name,
+          system ? "x86_64-linux",
+          extraModules ? [ ],
+        }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs user; };
+          modules = [
+            ./hosts/${name}/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs user; };
+              home-manager.users.${user} = import ./hosts/${name}/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+            {
+              nixpkgs.overlays = [
+                rust-overlay.overlays.default
+                (flakePackagesOverlay system)
+              ];
+            }
+          ] ++ extraModules;
+        };
+
+      # cachix config for cosmic desktop
+      cosmicCachix = {
+        nix.settings = {
+          substituters = [ "https://cosmic.cachix.org/" ];
+          trusted-public-keys = [
+            "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+          ];
+        };
+      };
     in
     {
       nixosConfigurations = {
-        trident = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs user; };
-          modules = [
-            ./hosts/trident/configuration.nix
+        trident = mkHost {
+          name = "trident";
+          extraModules = [
             nixos-cosmic.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.${user} = import ./hosts/trident/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
             lanzaboote.nixosModules.lanzaboote
-            {
-              nixpkgs.overlays = [
-                rust-overlay.overlays.default
-                (flakePackagesOverlay "x86_64-linux")
-              ];
-            }
           ];
         };
-        legion = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/legion/configuration.nix
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [
-                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-                ];
-              };
-            }
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.${user} = import ./hosts/legion/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
-            {
-              nixpkgs.overlays = [
-                rust-overlay.overlays.default
-                (flakePackagesOverlay "x86_64-linux")
-              ];
-            }
+
+        legion = mkHost {
+          name = "legion";
+          extraModules = [
+            cosmicCachix
             nixos-cosmic.nixosModules.default
           ];
         };
-        proart = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
+
+        proart = mkHost {
+          name = "proart";
+          extraModules = [
             nixos-hardware.nixosModules.asus-px13
-            ./hosts/proart/configuration.nix
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [
-                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-                ];
-              };
-            }
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.${user} = import ./hosts/proart/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
-            {
-              nixpkgs.overlays = [
-                rust-overlay.overlays.default
-                (flakePackagesOverlay "x86_64-linux")
-              ];
-            }
+            cosmicCachix
             nixos-cosmic.nixosModules.default
           ];
         };
@@ -223,13 +202,13 @@
       darwinConfigurations = {
         obsidian = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs user; };
           modules = [
             ./hosts/obsidian/configuration.nix
             home-manager.darwinModules.home-manager
             {
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs user; };
               home-manager.users.${user} = import ./home-manager/home-darwin.nix;
               home-manager.backupFileExtension = "backup";
             }

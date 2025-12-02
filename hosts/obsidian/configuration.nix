@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  user,
   ...
 }:
 {
@@ -13,9 +14,9 @@
   ];
   nix.settings.trusted-users = [ "@admin" ];
 
-  users.users.beat = {
-    home = "/Users/beat";
-    name = "beat";
+  users.users.${user} = {
+    home = "/Users/${user}";
+    name = user;
   };
 
   nixpkgs.config.allowUnfree = true;

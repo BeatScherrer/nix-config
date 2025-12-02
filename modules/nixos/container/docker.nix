@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  user,
   ...
 }:
 with lib;
@@ -23,8 +24,7 @@ in
       enable = true;
     };
 
-    # FIXME: hard coded user...
-    users.users.beat.extraGroups = [ "docker" ];
+    users.users.${user}.extraGroups = [ "docker" ];
 
     environment.systemPackages = with pkgs; [
       docker-compose

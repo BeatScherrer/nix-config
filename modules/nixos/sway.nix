@@ -1,4 +1,3 @@
-# TODO: use the passed user instead of hard coded
 { pkgs, user, ... }:
 {
   environment.systemPackages = with pkgs; [
@@ -18,7 +17,7 @@
     xwayland.enable = true;
   };
 
-  users.users.beat.extraGroups = [ "video" ];
+  users.users.${user}.extraGroups = [ "video" ];
 
   services.dbus.enable = true;
 

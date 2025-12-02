@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   environment.systemPackages = with pkgs; [
     alsa-scarlett-gui # focusrite control software
@@ -28,6 +28,5 @@
     };
   };
 
-  # TODO: add user name as input to this module
-  users.users.beat.extraGroups = [ "audio" ];
+  users.users.${user}.extraGroups = [ "audio" ];
 }

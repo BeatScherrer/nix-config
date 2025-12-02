@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, user, ... }:
 {
   environment.systemPackages = with pkgs; [
     hyprland
@@ -15,7 +15,7 @@
     xwayland.enable = true;
   };
 
-  users.users.beat.extraGroups = [
+  users.users.${user}.extraGroups = [
     "video"
     "render"
   ];
