@@ -12,6 +12,7 @@ in
     ../modules/home-manager/herbstluftwm/herbstluftwm.nix
     ../modules/home-manager/color-scheme/color-scheme.nix
     ../modules/home-manager/games/games.nix
+    ../modules/home-manager/photography/photography.nix
     ../modules/home-manager/shell/shell.nix
     ../modules/home-manager/wallpapers/wallpapers.nix
     ../modules/home-manager/avatars/avatars.nix
