@@ -16,9 +16,11 @@
       ];
       favorite-apps = [
         "librewolf.desktop"
-        "ghostty.desktop"
+        "com.mitchellh.ghostty.desktop"
         "thunderbird.desktop"
         "zulip.desktop"
+        "signal.desktop"
+        "bitwarden.desktop"
       ];
       had-bluetooth-devices-setup = true;
       remember-mount-password = false;
