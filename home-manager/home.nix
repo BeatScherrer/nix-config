@@ -98,6 +98,7 @@ in
     iotop
     iftop
     nix-tree
+    nodejs
 
     # LSP and formatters
     stylua
