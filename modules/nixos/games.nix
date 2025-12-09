@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
-  hardware.xpadneo.enable = true;
+  # FIXME:
+  # hardware.xpadneo.enable = true;
+
   # services.hardware.xow.enable = true;
 
   # boot.initrd.kernelModules = [
