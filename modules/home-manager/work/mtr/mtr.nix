@@ -8,6 +8,7 @@
     kdePackages.kdenlive
     # tigervnc # TODO:
     unrar-free
+    _1password-gui
   ];
 
   # FIXME: the resulting ~/.ssh/config ownership gets mapped to nobody:nobody in distrobox...
