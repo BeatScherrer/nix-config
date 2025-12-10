@@ -25,5 +25,6 @@
   "workbench.colorTheme": "Kanagawa",
   "github.copilot.nextEditSuggestions.enabled": true,
   "git.confirmSync": false,
-  "debug.onTaskErrors": "showErrors"
+  "debug.onTaskErrors": "showErrors",
+  "claudeCode.preferredLocation": "sidebar"
 }
