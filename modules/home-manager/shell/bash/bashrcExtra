@@ -132,6 +132,10 @@ if [[ -f "$HOME/.bashrc_mt" ]]; then
   . "$HOME/.bashrc_mt"
 fi
 
+if [[ -f "$HOME/.env.local" ]]; then
+  . "$HOME/.env.local"
+fi
+
 set +o noclobber
 
 unset QT_PLUGIN_PATH
