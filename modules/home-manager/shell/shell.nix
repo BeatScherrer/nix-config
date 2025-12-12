@@ -12,9 +12,4 @@
       enableBashIntegration = true; # NOTE: fails on ubuntu22 --> do manually in bashrc
     };
   };
-
-  home.sessionVariables = {
-    TERM = "xterm-256color";
-  };
-
 }
