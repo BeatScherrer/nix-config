@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
 {
+  imports = [
+    ../../claude-code/claude-code.nix
+  ];
+
   home.packages = with pkgs; [
     mysql-workbench
     remmina
     freecad
-    claude-code
     kdePackages.kdenlive
     # tigervnc # TODO:
     unrar-free
