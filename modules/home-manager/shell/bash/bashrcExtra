@@ -11,6 +11,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# NOTE: xterm-ghostty is iffy on some targets
+export TERM=xterm-256color
+
 # Disable telemetry for rti dds gen
 export collect_telemetry=false
 
