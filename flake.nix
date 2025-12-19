@@ -7,9 +7,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    # nixos-hardware.url = "path:/home/beat/src/nixos-hardware";
-    # nixpkgs.url = "path:/home/beat/src/nixpkgs";
+    nixos-hardware.url = "github:BeatScherrer/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = {
@@ -158,7 +156,8 @@
                 (flakePackagesOverlay system)
               ];
             }
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
         };
 
       # cachix config for cosmic desktop
