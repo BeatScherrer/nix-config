@@ -11,7 +11,7 @@ let
 in
 {
   options.bash = {
-    enable = mkenableOption "bash";
+    enable = mkEnableOption "bash";
     mkOutOfStoreSymlink = mkOption {
       type = types.bool;
       default = true;
