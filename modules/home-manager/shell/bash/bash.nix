@@ -44,9 +44,12 @@ in
     };
 
     home.file.".bashrcExtra".source =
-      mkIf (cfg.mkOutOfStoreSymlink) config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
-      + "/.nix/modules/home-manager/shell/bash/bashrcExtra";
-    home.file.".bashrc_mt".source = mkIf (cfg.mkOutOfStoreSymlink
-    ) config.lib.file.mkOutOfStoreSymlink "/home/beat/.nix/modules/home-manager/shell/bash/bashrc_mt";
+      if cfg.mkOutOfStoreSymlink
+      then config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/shell/bash/bashrcExtra")
+      else ./bashrcExtra;
+    home.file.".bashrc_mt".source =
+      if cfg.mkOutOfStoreSymlink
+      then config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/shell/bash/bashrc_mt")
+      else ./bashrc_mt;
   };
 }

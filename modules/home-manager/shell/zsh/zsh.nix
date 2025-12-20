@@ -24,8 +24,9 @@ in
 
     # NOTE: this requires an absolute path... At least this works with mac and linux
     home.file.".zshrcExtra".source =
-      mkIf (cfg.mkOutOfStoreSymlink) config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
-      + "/.nix/modules/home-manager/shell/zsh/zshrcExtra";
+      if cfg.mkOutOfStoreSymlink
+      then config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/shell/zsh/zshrcExtra")
+      else ./zshrcExtra;
 
     programs = {
       zsh = {

@@ -234,7 +234,6 @@
       # Expose home-manager modules for use in other flakes
       homeManagerModules = {
         shell = ./modules/home-manager/shell/shell.nix;
-        shell-server = ./modules/home-manager/shell/shell-server.nix;
       };
     };
 }
