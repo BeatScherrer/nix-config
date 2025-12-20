@@ -26,6 +26,13 @@ in
     # ../modules/home-manager/gnome.nix
   ];
 
+  # --- custom options
+  shell = {
+    enable = true;
+    mkOutOfStoreSymlink = true;
+  };
+  # ---
+
   colorScheme = {
     enable = true;
     name = "gravel-pit";
