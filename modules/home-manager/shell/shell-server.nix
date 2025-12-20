@@ -3,6 +3,8 @@ let
   aliases = import ./aliases.nix;
 in
 {
+  # TODO: use the zsh config here also smh without the out of store symlinks
+
   programs = {
     fzf = {
       enable = true;
