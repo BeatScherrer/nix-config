@@ -55,6 +55,7 @@ fg_color() {
   cyan) echo 36 ;;
   white) echo 37 ;;
   orange) echo 38\;5\;166 ;;
+  gray) echo 90 ;;
   esac
 }
 
@@ -189,9 +190,12 @@ prompt_end() {
   CURRENT_BG=''
 }
 
-prompt_ssh() {
+prompt_rebel() {
+  local rebel_logo=""
   if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
-    prompt_segment default yellow " "
+    prompt_segment default yellow "$rebel_logo "
+  else
+    prompt_segment default gray "$rebel_logo "
   fi
 }
 
@@ -302,9 +306,9 @@ prompt_status() {
 build_prompt() {
   # prompt_schroot
   prompt_os
-  prompt_ssh
   prompt_sim_host
   prompt_context
+  prompt_rebel
   prompt_dir
   prompt_git
   prompt_status
