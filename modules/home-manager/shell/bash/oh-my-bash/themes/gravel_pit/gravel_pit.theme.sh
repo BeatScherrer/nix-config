@@ -233,7 +233,7 @@ prompt_context() {
   user=$(whoami)
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "${_omb_prompt_bold_gray}\u \h "
+    prompt_segment black default "${_omb_prompt_bold_gray}\u \h"
   fi
 }
 
