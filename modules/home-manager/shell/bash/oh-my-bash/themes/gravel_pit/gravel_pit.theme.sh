@@ -189,6 +189,12 @@ prompt_end() {
   CURRENT_BG=''
 }
 
+prompt_ssh() {
+  if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+    prompt_segment default yellow " "
+  fi
+}
+
 prompt_os() {
   local arch_logo="\uF303"
   local debian_logo="\uF306"
@@ -296,6 +302,7 @@ prompt_status() {
 build_prompt() {
   # prompt_schroot
   prompt_os
+  prompt_ssh
   prompt_sim_host
   prompt_context
   prompt_dir
