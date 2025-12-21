@@ -59,9 +59,20 @@ prompt_sim_host() {
   fi
 }
 
-prompt_context() {
+prompt_user() {
   if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    echo -n "%B%F{240}%n %m %f%b"
+    echo -n "%B%F{8}%n%f%b"
+  fi
+}
+
+prompt_rebel() {
+  local rebel_logo="\uf1d0"
+  echo -n "%F{8}$rebel_logo %f"
+}
+
+prompt_host() {
+  if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    echo -n "%B%F{8}%m %f%b"
   fi
 }
 
@@ -115,10 +126,12 @@ build_prompt() {
   RETVAL=$?
   prompt_os
   prompt_sim_host
-  prompt_context
+  prompt_user
+  prompt_rebel
+  prompt_host
   prompt_dir
   prompt_git
   prompt_status
 }
 
-PROMPT='$(build_prompt)'
+PROMPT='$(build_prompt) '
