@@ -1,102 +1,17 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
-# agnoster's Theme - https://gist.github.com/3712874
-# A Powerline-inspired theme for ZSH
+# gravel_pit theme for zsh - matching the oh-my-bash version
 #
-# # README
+# One line prompt showing the following configurable information:
+# OS_LOGO sim_host user@hostname pwd git_branch git_dirty →
 #
-# In order for this theme to render correctly, you will need a
-# [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts).
-# Make sure you have a recent version: the code points that Powerline
-# uses changed in 2012, and older versions will display incorrectly,
-# in confusing ways.
-#
-# In addition, I recommend the
-# [Solarized theme](https://github.com/altercation/solarized/) and, if you're
-# using it on Mac OS X, [iTerm 2](https://iterm2.com/) over Terminal.app -
-# it has significantly better color fidelity.
-#
-# If using with "light" variant of the Solarized color schema, set
-# SOLARIZED_THEME variable to "light". If you don't specify, we'll assume
-# you're using the "dark" variant.
-#
-# # Goals
-#
-# The aim of this theme is to only show you *relevant* information. Like most
-# prompts, it will only show git information when in a git working directory.
-# However, it goes a step further: everything from the current user and
-# hostname to whether the last call exited with an error to whether background
-# jobs are running in this shell will all be displayed automatically when
-# appropriate.
-#
-# NOTE: to test the prompt use `print -P`. This enables the prompt expansion
-# for colors use: `spectrum_ls` (oh-my-zsh uses that apparently)
+# The → arrow shows the exit status of the last command:
+# - green: 0 exit status
+# - red: non-zero exit status
 
 autoload -U colors && colors
 
-### Segment drawing
-# A few utility functions to make it easy and re-usable to draw segmented prompts
-
-case ${SOLARIZED_THEME:-dark} in
-    light) CURRENT_FG='white';;
-    *)     CURRENT_FG='black';;
-esac
-
-# Special Powerline characters
-
-() {
-  local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-  # NOTE: This segment separator character is correct.  In 2012, Powerline changed
-  # the code points they use for their special characters. This is the new code point.
-  # If this is not working for you, you probably have an old version of the
-  # Powerline-patched fonts installed. Download and install the new version.
-  # Do not submit PRs to change this unless you have reviewed the Powerline code point
-  # history and have new information.
-  # This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
-  # what font the user is viewing this source code in. Do not replace the
-  # escape sequence with a single literal character.
-  # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-  SEGMENT_SEPARATOR=$'\ue0b0'
-
-  LEADING_DIAMOND='\ue0b6'
-  TRAILING_DIAMOND='\ue0b4'
-}
-
-leading_separator(){
-  local color="$1"
-  echo -n "%F{$color%}$LEADING_DIAMOND"
-}
-
-trailing_separator(){
-  local color="$1"
-  echo -n "%F{$color%}$TRAILING_DIAMOND"
-}
-
-# create a segment
-# Takes two arguments, background and foreground. Both can be omitted,
-# rendering default background/foreground.
-prompt_segment() {
-  local bg_color fg_color text
-  [[ -n $1 ]] && bg_color="$1" || bg_color="%k"
-  [[ -n $2 ]] && fg_color="$2" || fg_color="%f"
-  text="$3"
-
-  local bg fg
-  [[ -n $bg_color ]] && bg="%K{$bg_color}" || bg="%k"
-  [[ -n $fg_color ]] && fg="%F{$fg_color}" || fg="%f"
-
-  leading_separator $bg_color
-  echo -n "$bg$fg$text%k"
-  trailing_separator $bg_color
-}
-
 ### Prompt components
-# Each component will draw itself, and hide itself if no information needs to be shown
-
-# TODO:
-prompt_schroot() {
-  true
-}
 
 prompt_os() {
   local arch_logo="\uF303"
@@ -106,217 +21,104 @@ prompt_os() {
   local apple_logo="\ue711"
 
   if command -v sw_vers > /dev/null; then
-    prompt_segment "25" white "$apple_logo "
-  else
-  local os_name
-  os_name=$(cat /etc/os-release | grep '^NAME=' | cut -d'=' -f2 | tr -d '"')
+    echo -n "%F{white}$apple_logo %f"
+  elif [[ -f /etc/os-release ]]; then
+    local os_name
+    os_name=$(grep '^NAME=' /etc/os-release | cut -d'=' -f2 | tr -d '"')
 
-  local version_codename
-  version_codename=$(cat /etc/os-release | grep '^VERSION_CODENAME=' | cut -d'=' -f2)
-  if [[ "$os_name" == "NixOS" && -n $version_codename ]]; then
-    prompt_segment blue white "$nixos_logo  $version_codename"
-  elif [[ "$os_name" == "Ubuntu" && -n "$version_codename" ]]; then
-    # NOTE: 202 does not work in ubuntu smh...
-    prompt_segment "202" white "$ubuntu_logo  $version_codename"
-  elif [[ "$os_name" == "Debian" && -n "$version_codename" ]]; then
-    prompt_segment orange white "$debian_logo  $version_codename"
-  elif [[ "$os_name" == "Arch" ]]; then
-    prompt_segment "25" white "$arch_logo "
-  else
-    prompt_segment white black  "fallback: ${os_name} - ${version_codename}"
-  fi
+    if [[ "$os_name" == "NixOS" ]]; then
+      echo -n "%F{blue}$nixos_logo  %f"
+    elif [[ "$os_name" == "Ubuntu" ]]; then
+      local version_id
+      version_id=$(grep '^VERSION_ID=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
+      echo -n "%F{208}$ubuntu_logo $version_id %f"
+    elif [[ "$os_name" == "Debian" ]]; then
+      echo -n "%F{red}$debian_logo %f"
+    elif [[ "$os_name" == "Arch" || "$os_name" == "Arch Linux" ]]; then
+      echo -n "%F{blue}$arch_logo %f"
+    else
+      echo -n "%F{white}$os_name %f"
+    fi
   fi
 }
 
-# Context: user@hostname (who am I)
+prompt_sim_host() {
+  if [[ -n "$HOSTCFG" ]]; then
+    if command -v xmlstarlet &>/dev/null; then
+      local host_type host_id
+      host_type=$(xmlstarlet sel -t -v "/config/hostType" "$HOSTCFG")
+      host_id=$(xmlstarlet sel -t -v "/config/hostId" "$HOSTCFG")
+
+      case "$host_type" in
+        "robot") host_type="r" ;;
+        "master") host_type="m" ;;
+      esac
+
+      echo -n "%F{cyan}${host_type}-${host_id} %f"
+    fi
+  fi
+}
+
 prompt_context() {
   if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)%n   %m"
+    echo -n "%B%F{240}%n %m %f%b"
   fi
 }
 
-
-# TODO:
-prompt_mtr_env() {
-  true
+prompt_dir() {
+  echo -n "%F{blue}%1~ %f"
 }
 
-# Git: branch/detached head, dirty status
 prompt_git() {
   (( $+commands[git] )) || return
   if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" = 1 ]]; then
     return
   fi
-  local PL_BRANCH_CHAR
-  () {
-    local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-    PL_BRANCH_CHAR=$'\ue0a0'         # 
-  }
-  local ref dirty mode repo_path
 
-   if [[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
-    repo_path=$(command git rev-parse --git-dir 2>/dev/null)
-    dirty=$(parse_git_dirty)
-    ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-    ref="◈ $(command git describe --exact-match --tags HEAD 2> /dev/null)" || \
-    ref="➦ $(command git rev-parse --short HEAD 2> /dev/null)"
+  if [[ "$(command git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
+    local ref dirty
 
-    local ahead behind
-    ahead=$(command git log --oneline @{upstream}.. 2>/dev/null)
-    behind=$(command git log --oneline ..@{upstream} 2>/dev/null)
-    if [[ -n "$ahead" ]] && [[ -n "$behind" ]]; then
-      PL_BRANCH_CHAR=$'\u21c5'
-    elif [[ -n "$ahead" ]]; then
-      PL_BRANCH_CHAR=$'\u21b1'
-    elif [[ -n "$behind" ]]; then
-      PL_BRANCH_CHAR=$'\u21b0'
+    # Check if dirty
+    local git_status
+    git_status=$(command git status -s 2>/dev/null | tail -n 1)
+    [[ -n $git_status ]] && dirty=" ●"
+
+    # Get ref
+    ref=$(command git symbolic-ref HEAD 2>/dev/null) || \
+    ref="➦ $(command git rev-parse --short HEAD 2>/dev/null)"
+    ref="${ref#refs/heads/}"
+
+    # Try to abbreviate (extract task from branch name like feature/TASK-123-description)
+    local task
+    task=$(echo "$ref" | cut -f 2 -d '/' | cut -f 1,2 -d '-')
+    if [[ -n "$task" && "$task" != "$ref" ]]; then
+      ref="$task"
     fi
-
-    if [[ -e "${repo_path}/BISECT_LOG" ]]; then
-      mode=" <B>"
-    elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
-      mode=" >M<"
-    elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
-      mode=" >R>"
-    fi
-
-    setopt promptsubst
-    autoload -Uz vcs_info
-
-    zstyle ':vcs_info:*' enable git
-    zstyle ':vcs_info:*' get-revision true
-    zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr '✚ '
-    zstyle ':vcs_info:*' unstagedstr '±'
-    zstyle ':vcs_info:*' formats ' %u%c'
-    zstyle ':vcs_info:*' actionformats ' %u%c'
-    vcs_info
 
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black "${${ref:gs/%/%%}/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+      echo -n "%F{yellow}${ref}${dirty} %f"
     else
-      prompt_segment green black "${${ref:gs/%/%%}/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+      echo -n "%F{green}${ref} %f"
     fi
   fi
 }
 
-prompt_bzr() {
-  (( $+commands[bzr] )) || return
-
-  # Test if bzr repository in directory hierarchy
-  local dir="$PWD"
-  while [[ ! -d "$dir/.bzr" ]]; do
-    [[ "$dir" = "/" ]] && return
-    dir="${dir:h}"
-  done
-
-  local bzr_status status_mod status_all revision
-  if bzr_status=$(command bzr status 2>&1); then
-    status_mod=$(echo -n "$bzr_status" | head -n1 | grep "modified" | wc -m)
-    status_all=$(echo -n "$bzr_status" | head -n1 | wc -m)
-    revision=${$(command bzr log -r-1 --log-format line | cut -d: -f1):gs/%/%%}
-    if [[ $status_mod -gt 0 ]] ; then
-      prompt_segment yellow black "bzr@$revision ✚"
-    else
-      if [[ $status_all -gt 0 ]] ; then
-        prompt_segment yellow black "bzr@$revision"
-      else
-        prompt_segment green black "bzr@$revision"
-      fi
-    fi
-  fi
-}
-
-prompt_hg() {
-  (( $+commands[hg] )) || return
-  local rev st branch
-  if $(command hg id >/dev/null 2>&1); then
-    if $(command hg prompt >/dev/null 2>&1); then
-      if [[ $(command hg prompt "{status|unknown}") = "?" ]]; then
-        # if files are not added
-        prompt_segment red white
-        st='±'
-      elif [[ -n $(command hg prompt "{status|modified}") ]]; then
-        # if any modification
-        prompt_segment yellow black
-        st='±'
-      else
-        # if working copy is clean
-        prompt_segment green $CURRENT_FG
-      fi
-      echo -n ${$(command hg prompt "☿ {rev}@{branch}"):gs/%/%%} $st
-    else
-      st=""
-      rev=$(command hg id -n 2>/dev/null | sed 's/[^-0-9]//g')
-      branch=$(command hg id -b 2>/dev/null)
-      if command hg st | command grep -q "^\?"; then
-        prompt_segment red black
-        st='±'
-      elif command hg st | command grep -q "^[MA]"; then
-        prompt_segment yellow black
-        st='±'
-      else
-        prompt_segment green $CURRENT_FG
-      fi
-      echo -n "☿ ${rev:gs/%/%%}@${branch:gs/%/%%}" $st
-    fi
-  fi
-}
-
-# Dir: current working directory
-prompt_dir() {
-  prompt_segment blue $CURRENT_FG '%~'
-}
-
-# Virtualenv: current working virtualenv
-prompt_virtualenv() {
-  if [[ -n "$VIRTUAL_ENV" && -n "$VIRTUAL_ENV_DISABLE_PROMPT" ]]; then
-    prompt_segment blue black "(${VIRTUAL_ENV:t:gs/%/%%})"
-  fi
-}
-
-# Status:
-# - was there an error
-# - am I root
-# - are there background jobs?
 prompt_status() {
-  local -a symbols
-
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘ "
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙ "
-
-  [[ -n "$symbols" ]] && echo -n "$symbols"
+  if [[ $RETVAL -eq 0 ]]; then
+    echo -n "%F{green}→ %f"
+  else
+    echo -n "%F{red}→ %f"
+  fi
 }
 
-#AWS Profile:
-# - display current AWS_PROFILE name
-# - displays yellow on red if profile name contains 'production' or
-#   ends in '-prod'
-# - displays black on green otherwise
-prompt_aws() {
-  [[ -z "$AWS_PROFILE" || "$SHOW_AWS_PROMPT" = false ]] && return
-  case "$AWS_PROFILE" in
-    *-prod|*production*) prompt_segment red yellow  "AWS: ${AWS_PROFILE:gs/%/%%}" ;;
-    *) prompt_segment green black "AWS: ${AWS_PROFILE:gs/%/%%}" ;;
-  esac
-}
-
-## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_os
-  prompt_schroot
-  prompt_mtr_env
-  prompt_virtualenv
-  prompt_aws
+  prompt_sim_host
   prompt_context
   prompt_dir
   prompt_git
-  prompt_bzr
-  prompt_hg
   prompt_status
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt)
-%F{cyan}>%f '
+PROMPT='$(build_prompt)'
