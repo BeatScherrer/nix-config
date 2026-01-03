@@ -1,13 +1,13 @@
 # TODO: make this configurable for both setups
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-stable, ... }:
 {
   services.autorandr = {
     enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    herbstluftwm
+    pkgs-stable.herbstluftwm
     xorg.xev
     xorg.xauth
     xorg.xhost
@@ -26,6 +26,7 @@
   services.xserver = {
     windowManager.herbstluftwm = {
       enable = true;
+      package = pkgs-stable.herbstluftwm;
     };
     dpi = 140;
     enable = true;

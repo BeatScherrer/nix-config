@@ -137,16 +137,22 @@
           system ? "x86_64-linux",
           extraModules ? [ ],
         }:
+        let
+          pkgs-stable = import inputs.nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs user; };
+          specialArgs = { inherit inputs user pkgs-stable; };
           modules = [
             ./hosts/${name}/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs user; };
+              home-manager.extraSpecialArgs = { inherit inputs user pkgs-stable; };
               home-manager.users.${user} = import ./hosts/${name}/home.nix;
               home-manager.backupFileExtension = "backup";
             }

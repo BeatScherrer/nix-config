@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-stable, lib, ... }:
 let
   customFonts = pkgs.callPackage ../modules/home-manager/fonts/fonts.nix { };
 in
@@ -79,7 +79,7 @@ in
     zulip
     # threema-desktop
 
-    tidal-hifi
+    pkgs-stable.tidal-hifi
 
     # Code editors
     helix

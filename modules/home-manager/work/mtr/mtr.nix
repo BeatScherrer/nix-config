@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-stable, ... }:
 {
   imports = [
     ../../claude-code/claude-code.nix
   ];
 
   home.packages = with pkgs; [
-    mysql-workbench
+    pkgs-stable.mysql-workbench
     remmina
     freecad
     kdePackages.kdenlive

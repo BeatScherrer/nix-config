@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    mysql-workbench
-  ];
-
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;

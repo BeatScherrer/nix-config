@@ -5,6 +5,7 @@
 {
   config,
   pkgs,
+  pkgs-stable,
   lib,
   ...
 }:
@@ -52,7 +53,7 @@ in
     services.polybar = {
       enable = true;
       script = "~/.config/polybar/scripts/launch_polybar.sh";
-      package = pkgs.polybar.override {
+      package = pkgs-stable.polybar.override {
         mpdSupport = true;
         pulseSupport = true;
       };
