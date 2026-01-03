@@ -30,6 +30,9 @@ in
       environment.systemPackages = with pkgs; [
         davinci-resolve
       ];
+
+      # Enable the convert-for-resolve script
+      scripts.convert-for-resolve.enable = true;
     }
 
     (mkIf (cfg.gpu == "none") {

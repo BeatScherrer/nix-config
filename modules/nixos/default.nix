@@ -14,6 +14,10 @@ let
       "unknown";
 in
 {
+  imports = [
+    ./scripts.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     fd
     vim
