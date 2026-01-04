@@ -13,6 +13,7 @@ let
 
     usage() {
       echo "Usage: convert-for-resolve [OPTIONS] <input> [input2 ...]"
+      echo "       convert-for-resolve [OPTIONS] -b [directory]"
       echo ""
       echo "Convert videos to DaVinci Resolve compatible format (DNxHR in MOV)"
       echo ""
@@ -20,16 +21,21 @@ let
       echo "  -q, --quality <QUALITY>  DNxHR quality profile (default: hq)"
       echo "                           Profiles: lb (low), sq (standard), hq (high), hqx (high 10-bit), 444 (highest)"
       echo "  -o, --output <DIR>       Output directory (default: current directory)"
+      echo "  -b, --batch [DIR]        Batch convert all video files in directory (default: current directory)"
       echo "  -h, --help               Show this help message"
       echo ""
       echo "Examples:"
       echo "  convert-for-resolve video.mp4"
       echo "  convert-for-resolve -q hqx -o ./converted *.mp4"
+      echo "  convert-for-resolve -b                      # Convert all videos in current directory"
+      echo "  convert-for-resolve -b ~/Videos -o ./out   # Convert all videos in ~/Videos to ./out"
       exit 0
     }
 
     QUALITY="hq"
     OUTPUT_DIR="."
+    BATCH_MODE=""
+    BATCH_DIR="."
 
     while [[ $# -gt 0 ]]; do
       case "$1" in
@@ -40,6 +46,14 @@ let
         -o|--output)
           OUTPUT_DIR="$2"
           shift 2
+          ;;
+        -b|--batch)
+          BATCH_MODE="1"
+          shift
+          if [[ $# -gt 0 && ! "$1" =~ ^- ]]; then
+            BATCH_DIR="$1"
+            shift
+          fi
           ;;
         -h|--help)
           usage
@@ -54,7 +68,24 @@ let
       esac
     done
 
-    if [[ $# -eq 0 ]]; then
+    # Video file extensions to look for in batch mode
+    VIDEO_EXTENSIONS="mp4 mkv avi mov webm m4v wmv flv"
+
+    if [[ -n "$BATCH_MODE" ]]; then
+      if [[ ! -d "$BATCH_DIR" ]]; then
+        echo "Error: Batch directory not found: $BATCH_DIR" >&2
+        exit 1
+      fi
+      # Build file list from batch directory
+      set -- $(for ext in $VIDEO_EXTENSIONS; do
+        find "$BATCH_DIR" -maxdepth 1 -type f -iname "*.$ext" 2>/dev/null
+      done | sort -u)
+      if [[ $# -eq 0 ]]; then
+        echo "No video files found in: $BATCH_DIR" >&2
+        exit 0
+      fi
+      echo "Found $# video file(s) in $BATCH_DIR"
+    elif [[ $# -eq 0 ]]; then
       echo "Error: No input files specified" >&2
       usage
     fi
