@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs-stable,
   ...
 }:
 with lib;
@@ -27,8 +28,8 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      environment.systemPackages = with pkgs; [
-        davinci-resolve
+      environment.systemPackages = [
+        pkgs-stable.davinci-resolve
       ];
 
       # Enable the convert-for-resolve script
