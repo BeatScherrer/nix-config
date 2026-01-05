@@ -1,4 +1,9 @@
-{ pkgs, pkgs-stable, lib, ... }:
+{
+  pkgs,
+  pkgs-stable,
+  lib,
+  ...
+}:
 let
   customFonts = pkgs.callPackage ../modules/home-manager/fonts/fonts.nix { };
 in
@@ -71,7 +76,7 @@ in
     localsend
     # Messengers
     telegram-desktop
-    signal-desktop-bin
+    signal-desktop
     wasistlos
     discord
     element-desktop
