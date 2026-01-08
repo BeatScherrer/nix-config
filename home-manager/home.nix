@@ -2,6 +2,8 @@
   pkgs,
   pkgs-stable,
   lib,
+  config,
+  user,
   ...
 }:
 let
@@ -46,8 +48,8 @@ in
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "beat";
-  home.homeDirectory = "/home/beat";
+  home.username = "${user}";
+  home.homeDirectory = "/home/${user}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -67,6 +69,13 @@ in
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
+  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 7d --keep 10";
+    flake = config.home.homeDirectory + "/.nix/"; # sets NH_OS_FLAKE variable for you
   };
 
   # The home.packages option allows you to install Nix packages into your
