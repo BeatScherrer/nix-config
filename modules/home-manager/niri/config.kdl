@@ -1,0 +1,228 @@
+// Niri configuration
+// https://github.com/YaLTeR/niri
+
+// Input settings
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            options "compose:ralt"
+        }
+    }
+    mouse {
+        accel-speed 0.0
+    }
+    touchpad {
+        tap
+        natural-scroll
+        accel-speed 0.2
+    }
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+// Layout settings
+layout {
+    gaps 10
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 2
+        active-color "#de935f"
+        inactive-color "#323232"
+    }
+}
+
+// Cursor
+cursor {
+    size 24
+}
+
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot-%Y-%m-%d-%H-%M-%S.png"
+hotkey-overlay { skip-at-startup; }
+
+// Animations
+animations {
+    slowdown 1.0
+
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    window-open {
+        duration-ms 150
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+}
+
+// Environment
+environment {
+    DISPLAY ":0"
+}
+
+// Window rules
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^pavucontrol$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^blueman-manager$"#
+    open-floating true
+}
+
+window-rule {
+    match title=r#"^Picture.in.[Pp]icture$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^gnuplot_qt$"#
+    open-floating true
+}
+
+// Spawn at startup
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "noctalia-shell"
+spawn-at-startup "swaync"
+spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
+spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
+
+// Keybindings
+binds {
+    // Window management
+    Mod+W { close-window; }
+    Mod+M { fullscreen-window; }
+    Mod+Shift+F { toggle-window-floating; }
+    Mod+C { center-window; }
+
+    // Focus navigation (vim-style)
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+
+    // Focus navigation (arrow keys)
+    Mod+Left { focus-column-left; }
+    Mod+Down { focus-window-down; }
+    Mod+Up { focus-window-up; }
+    Mod+Right { focus-column-right; }
+
+    // Move windows (vim-style)
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+
+    // Move windows (arrow keys)
+    Mod+Shift+Left { move-column-left; }
+    Mod+Shift+Down { move-window-down; }
+    Mod+Shift+Up { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+
+    // Workspace navigation
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    // Move to workspace
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    // Workspace cycling
+    Mod+Period { focus-workspace-down; }
+    Mod+Comma { focus-workspace-up; }
+
+    // Monitor navigation
+    Mod+BackSpace { focus-monitor-next; }
+    Mod+Shift+BackSpace { move-column-to-monitor-next; }
+
+    // Column width adjustment
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // Window height adjustment
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // Layout presets
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+
+    // Consume/expel
+    Mod+BracketLeft { consume-window-into-column; }
+    Mod+BracketRight { expel-window-from-column; }
+
+    // Application launchers
+    Mod+Return { spawn "ghostty"; }
+    Mod+Space { spawn "sh" "-c" "rofi -modi drun -show drun"; }
+    Mod+B { spawn "librewolf"; }
+    Mod+F { spawn "nautilus"; }
+    Mod+E { spawn "evolution"; }
+
+    // Screenshot
+    Print { screenshot; }
+    Mod+Print { screenshot-window; }
+    Mod+Shift+Print { screenshot-screen; }
+
+    // Media keys
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioPause { spawn "playerctl" "play-pause"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
+    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+
+    // Brightness
+    XF86MonBrightnessUp { spawn "brightnessctl" "set" "+5%"; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
+
+    // Session
+    Mod+Shift+Q { quit; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+}

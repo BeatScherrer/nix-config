@@ -66,6 +66,10 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -87,6 +91,7 @@
       cursor,
       lanzaboote,
       quickshell,
+      noctalia,
       ...
     }@inputs:
     let
@@ -99,6 +104,14 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
+      # Desktop environment enum
+      desktopEnv = {
+        none = "none";
+        herbstluftwm = "herbstluftwm";
+        gnome = "gnome";
+        niri = "niri";
+        hyprland = "hyprland";
+      };
       # helper to call a function for each system
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
       # overlay for flake packages
@@ -107,6 +120,7 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         cursor = cursor.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
+        noctalia-shell = noctalia.packages.${system}.default;
       };
       # helper to call the dev shell for each system
       devShell =
@@ -135,6 +149,7 @@
         {
           name,
           system ? "x86_64-linux",
+          desktop ? desktopEnv.none,
           extraModules ? [ ],
         }:
         let
@@ -145,14 +160,14 @@
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs user pkgs-stable; };
+          specialArgs = { inherit inputs user pkgs-stable desktop; };
           modules = [
             ./hosts/${name}/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs user pkgs-stable; };
+              home-manager.extraSpecialArgs = { inherit inputs user pkgs-stable desktop; };
               home-manager.users.${user} = import ./hosts/${name}/home.nix;
               home-manager.backupFileExtension = "backup";
             }
@@ -180,6 +195,7 @@
       nixosConfigurations = {
         trident = mkHost {
           name = "trident";
+          desktop = desktopEnv.herbstluftwm;
           extraModules = [
             nixos-cosmic.nixosModules.default
             lanzaboote.nixosModules.lanzaboote
@@ -188,6 +204,7 @@
 
         legion = mkHost {
           name = "legion";
+          desktop = desktopEnv.herbstluftwm;
           extraModules = [
             cosmicCachix
             nixos-cosmic.nixosModules.default
@@ -196,6 +213,7 @@
 
         T14 = mkHost {
           name = "T14";
+          desktop = desktopEnv.gnome;
           extraModules = [
             # NOTE: There is no gen6 t14 module yet
             # nixos-hardware.nixosModules.lenovo.thinkpad.t14.amd.gen5
@@ -204,6 +222,7 @@
 
         proart = mkHost {
           name = "proart";
+          desktop = desktopEnv.gnome;
           extraModules = [
             nixos-hardware.nixosModules.asus-px13
             cosmicCachix

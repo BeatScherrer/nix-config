@@ -7,7 +7,6 @@
     ../../modules/home-manager/work/mtr/mtr.nix
     ../../modules/home-manager/work/shetec/shetec.nix
     ../../modules/home-manager/themes/gravel_pit.nix
-    ../../modules/home-manager/sway/sway.nix
   ];
 
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.

@@ -16,21 +16,18 @@ in
     ../modules/home-manager/ghostty/ghosty.nix
 
     ../modules/home-manager/git/git.nix
-    ../modules/home-manager/herbstluftwm/herbstluftwm.nix
+    ../modules/home-manager/desktop/desktop.nix
     ../modules/home-manager/color-scheme/color-scheme.nix
     ../modules/home-manager/games/games.nix
     ../modules/home-manager/photography/photography.nix
     ../modules/home-manager/shell/shell.nix
     ../modules/home-manager/wallpapers/wallpapers.nix
     ../modules/home-manager/avatars/avatars.nix
-    ../modules/home-manager/hyprland/hyprland.nix
     ../modules/home-manager/scripts/scripts.nix
     # FIXME:
     # ../modules/home-manager/music_production/music_production.nix
     ../modules/home-manager/synology_drive.nix
     ../modules/home-manager/zellij/zellij.nix
-    # FIXME: duplicate option definitions
-    # ../modules/home-manager/gnome.nix
   ];
 
   # --- custom options

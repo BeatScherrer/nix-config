@@ -26,11 +26,7 @@
     ../../modules/nixos/teamviewer/teamviewer.nix
     ../../modules/nixos/davinci-resolve.nix
 
-    # ../../modules/nixos/herbstluftwm.nix
-    ../../modules/nixos/gnome.nix
-    # ../../modules/nixos/cosmic.nix # WARN: build errors
-    # ../../modules/nixos/hyprland.nix
-    # ../../modules/nixos/sway.nix
+    ../../modules/nixos/desktop.nix
 
     # work modules
     ../../modules/nixos/mtr/mtr.nix
