@@ -14,5 +14,8 @@
   polybar = {
     enable = true;
     mainMonitor = "eDP";
+    width = "100%";
+    offset_x = "0%";
+    network_interface = "wlp194s0";
   };
 }
