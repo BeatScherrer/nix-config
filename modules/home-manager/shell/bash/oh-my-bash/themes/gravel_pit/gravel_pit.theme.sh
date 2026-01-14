@@ -269,6 +269,27 @@ prompt_dir() {
   prompt_segment default blue '\W '
 }
 
+prompt_nix_flake() {
+  if [[ -n "$IN_NIX_SHELL" ]]; then
+    local nix_icon="❄"
+    local flake_name=""
+
+    # Priority 1: Custom env var set in flake's devShell
+    if [[ -n "$NIX_FLAKE_NAME" ]]; then
+      flake_name="$NIX_FLAKE_NAME"
+    # Priority 2: Derive from direnv directory (nix-direnv)
+    elif [[ -n "$DIRENV_DIR" ]]; then
+      flake_name=$(basename "${DIRENV_DIR#-}")
+    fi
+
+    if [[ -n "$flake_name" ]]; then
+      prompt_segment default cyan "${nix_icon} ${flake_name} "
+    else
+      prompt_segment default cyan "${nix_icon} "
+    fi
+  fi
+}
+
 git_status_dirty() {
   dirty=$(git status -s 2>/dev/null | tail -n 1)
   [[ -n $dirty ]] && echo " ●"
@@ -306,6 +327,7 @@ prompt_status() {
 build_prompt() {
   # prompt_schroot
   prompt_os
+  prompt_nix_flake
   prompt_sim_host
   prompt_context
   prompt_rebel
