@@ -36,3 +36,8 @@ Host demo
   User mtr
   Hostname 10.0.5.1
   ForwardX11 yes
+
+Host distcc3
+  User mtr
+  Hostname distcc3.mt-robot.com
+  ForwardX11 yes
