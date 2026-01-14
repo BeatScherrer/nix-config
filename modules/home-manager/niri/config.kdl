@@ -48,7 +48,7 @@ layout {
 
 // Cursor
 cursor {
-    size 24
+    xcursor-size 24
 }
 
 prefer-no-csd

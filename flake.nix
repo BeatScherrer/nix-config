@@ -160,14 +160,28 @@
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs user pkgs-stable desktop; };
+          specialArgs = {
+            inherit
+              inputs
+              user
+              pkgs-stable
+              desktop
+              ;
+          };
           modules = [
             ./hosts/${name}/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs user pkgs-stable desktop; };
+              home-manager.extraSpecialArgs = {
+                inherit
+                  inputs
+                  user
+                  pkgs-stable
+                  desktop
+                  ;
+              };
               home-manager.users.${user} = import ./hosts/${name}/home.nix;
               home-manager.backupFileExtension = "backup";
             }
@@ -213,7 +227,7 @@
 
         T14 = mkHost {
           name = "T14";
-          desktop = desktopEnv.gnome;
+          desktop = desktopEnv.niri;
           extraModules = [
             # NOTE: There is no gen6 t14 module yet
             # nixos-hardware.nixosModules.lenovo.thinkpad.t14.amd.gen5

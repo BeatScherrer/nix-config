@@ -67,7 +67,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      quickshell
       noctalia-shell
       brightnessctl
       gpu-screen-recorder

@@ -32,7 +32,7 @@ in
       slurp
       playerctl
       brightnessctl
-      rofi-wayland
+      rofi
       swaynotificationcenter
     ];
   };
