@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
   home.pointerCursor = {
     name = "Nordic-cursors";
     package = pkgs.nordic;

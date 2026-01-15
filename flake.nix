@@ -111,6 +111,7 @@
         gnome = "gnome";
         niri = "niri";
         hyprland = "hyprland";
+        hyprland-noctalia = "hyprland-noctalia";
       };
       # helper to call a function for each system
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
@@ -209,7 +210,7 @@
       nixosConfigurations = {
         trident = mkHost {
           name = "trident";
-          desktop = desktopEnv.herbstluftwm;
+          desktop = desktopEnv.hyprland-noctalia;
           extraModules = [
             nixos-cosmic.nixosModules.default
             lanzaboote.nixosModules.lanzaboote

@@ -13,6 +13,7 @@ in
     ../herbstluftwm/herbstluftwm.nix
     ../gnome.nix
     ../hyprland/hyprland.nix
+    ../hyprland-noctalia/hyprland-noctalia.nix
     ../niri/niri.nix
   ];
 
@@ -24,6 +25,7 @@ in
         "gnome"
         "niri"
         "hyprland"
+        "hyprland-noctalia"
       ];
       default = "none";
       description = "The desktop environment or window manager to use";
@@ -37,5 +39,6 @@ in
     gnomeHome.enable = cfg.environment == "gnome";
     niri.enable = cfg.environment == "niri";
     hyprlandHome.enable = cfg.environment == "hyprland";
+    hyprlandNoctalia.enable = cfg.environment == "hyprland-noctalia";
   };
 }
