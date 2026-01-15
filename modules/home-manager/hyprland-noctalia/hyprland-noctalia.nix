@@ -18,88 +18,6 @@ let
     foreground = "c7c7c7";
   };
 
-  # Virtual monitor split script
-  virtualMonitorScript = pkgs.writeShellScriptBin "hypr-virtual-monitors" ''
-    #!/usr/bin/env bash
-    # Virtual monitor split layouts for ultra-wide displays
-    # Mimics herbstluftwm's layout system
-
-    MONITOR="''${HYPR_MONITOR:-DP-5}"
-    RESOLUTION="''${HYPR_RESOLUTION:-7680x2160}"
-    REFRESH="''${HYPR_REFRESH:-240}"
-
-    # Parse resolution
-    WIDTH=$(echo "$RESOLUTION" | cut -d'x' -f1)
-    HEIGHT=$(echo "$RESOLUTION" | cut -d'x' -f2)
-
-    remove_virtual_monitors() {
-      # Remove all virtual monitors and restore physical
-      hyprctl keyword monitor "$MONITOR,disable"
-      hyprctl keyword monitor "VMON-L,disable" 2>/dev/null || true
-      hyprctl keyword monitor "VMON-C,disable" 2>/dev/null || true
-      hyprctl keyword monitor "VMON-R,disable" 2>/dev/null || true
-      sleep 0.1
-      hyprctl keyword monitor "$MONITOR,''${RESOLUTION}@''${REFRESH},0x0,1"
-    }
-
-    create_split() {
-      local left_pct=$1
-      local center_pct=$2
-      local right_pct=$3
-
-      # Calculate pixel widths
-      local left_w=$((WIDTH * left_pct / 100))
-      local center_w=$((WIDTH * center_pct / 100))
-      local right_w=$((WIDTH * right_pct / 100))
-
-      # Calculate x offsets
-      local center_x=$left_w
-      local right_x=$((left_w + center_w))
-
-      # Disable physical monitor first
-      hyprctl keyword monitor "$MONITOR,disable"
-
-      # Create virtual monitors
-      hyprctl keyword monitor "desc:VMON-L,''${left_w}x''${HEIGHT}@''${REFRESH},0x0,1"
-      hyprctl keyword monitor "desc:VMON-C,''${center_w}x''${HEIGHT}@''${REFRESH},''${center_x}x0,1"
-      hyprctl keyword monitor "desc:VMON-R,''${right_w}x''${HEIGHT}@''${REFRESH},''${right_x}x0,1"
-
-      echo "Created virtual monitors: $left_pct/$center_pct/$right_pct"
-    }
-
-    case "''${1:-none}" in
-      30-40-30|30/40/30)
-        remove_virtual_monitors
-        create_split 30 40 30
-        ;;
-      25-50-25|25/50/25)
-        remove_virtual_monitors
-        create_split 25 50 25
-        ;;
-      20-60-20|20/60/20)
-        remove_virtual_monitors
-        create_split 20 60 20
-        ;;
-      none|reset|single)
-        remove_virtual_monitors
-        echo "Restored single monitor"
-        ;;
-      toggle)
-        # Cycle through layouts
-        CURRENT=$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[0].name')
-        if [[ "$CURRENT" == "VMON-"* ]]; then
-          remove_virtual_monitors
-        else
-          create_split 25 50 25
-        fi
-        ;;
-      *)
-        echo "Usage: hypr-virtual-monitors [30-40-30|25-50-25|20-60-20|none|toggle]"
-        exit 1
-        ;;
-    esac
-  '';
-
   # Scratchpad script (mimics herbstluftwm scratchpad)
   scratchpadScript = pkgs.writeShellScriptBin "hypr-scratchpad" ''
     #!/usr/bin/env bash
@@ -111,7 +29,6 @@ in
   # Note: No hyprpaper import - noctalia handles wallpapers
   imports = [
     ../noctalia/noctalia.nix
-    ../rofi/rofi.nix
     ../dunst/dunst.nix
   ];
 
@@ -126,8 +43,8 @@ in
 
     gapsOut = mkOption {
       type = types.str;
-      default = "80, 20, 20, 20";
-      description = "Outer gaps (top, right, bottom, left) - top is larger for noctalia bar";
+      default = "5";
+      description = "Outer gaps";
     };
   };
 
@@ -135,7 +52,6 @@ in
     noctalia.enable = true;
 
     home.packages = with pkgs; [
-      virtualMonitorScript
       scratchpadScript
       wl-clipboard
       grim
@@ -240,7 +156,7 @@ in
           "$mod, F, exec, $fileManager"
           "$mod, E, exec, evolution"
           "$mod, B, exec, $browser"
-          "$mod, Space, exec, rofi -modi drun -show drun"
+          "$mod, Space, exec, noctalia-shell -t launcher"
 
           # Focus movement (vim keys)
           "$mod, H, movefocus, l"
@@ -320,13 +236,6 @@ in
           # Screenshots
           "$mod, Print, exec, grimblast copy area"
           ", Print, exec, grimblast copy screen"
-
-          # Virtual monitor layouts (herbstluftwm-style splits)
-          "ALT, 1, exec, hypr-virtual-monitors 30-40-30"
-          "ALT, 2, exec, hypr-virtual-monitors 25-50-25"
-          "ALT, 3, exec, hypr-virtual-monitors 20-60-20"
-          "ALT, 0, exec, hypr-virtual-monitors none"
-          "ALT, grave, exec, hypr-virtual-monitors toggle"
         ];
 
         # Resize bindings (matching herbstluftwm Ctrl+hjkl)
