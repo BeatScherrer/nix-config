@@ -199,7 +199,7 @@ binds {
 
     // Application launchers
     Mod+Return { spawn "ghostty"; }
-    Mod+Space { spawn "sh" "-c" "rofi -modi drun -show drun"; }
+    Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+B { spawn "librewolf"; }
     Mod+F { spawn "nautilus"; }
     Mod+E { spawn "evolution"; }
