@@ -17,6 +17,7 @@ in
       noctalia-shell
       brightnessctl
       gpu-screen-recorder
+      upower
     ];
 
     # Out-of-store symlink so noctalia can modify settings dynamically

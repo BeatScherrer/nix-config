@@ -20,6 +20,9 @@
     # Performance optimizations
     max-jobs = "auto";
     cores = 0;
+
+    # Allow wheel group to use substituters
+    trusted-users = [ "root" "@wheel" ];
   };
 
   # garbage collection
