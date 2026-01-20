@@ -38,8 +38,9 @@ in
     })
 
     (lib.mkIf (cfg.gpu == "amd") {
+      nixpkgs.config.rocmSupport = true;
       environment.systemPackages = with pkgs; [
-        blender-hip
+        blender
       ];
     })
   ]);

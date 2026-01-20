@@ -1,4 +1,9 @@
-{ config, pkgs, pkgs-stable, ... }:
+{
+  config,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 {
   imports = [
     ../../claude-code/claude-code.nix
@@ -7,9 +12,9 @@
   home.packages = with pkgs; [
     pkgs-stable.mysql-workbench
     remmina
-    freecad
+    # freecad # FIXME:
     kdePackages.kdenlive
-    # tigervnc # TODO:
+    # tigervnc # FIXME:
     unrar-free
     _1password-gui
   ];
