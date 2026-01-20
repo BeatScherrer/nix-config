@@ -97,7 +97,7 @@ Shell aliases are configured for common operations:
 ### Flakes Workflow
 - All configurations use Nix Flakes for reproducibility
 - `flake.lock` should be committed to maintain version consistency
-- Development shell includes nixd LSP and nixfmt-rfc-style formatter
+- Development shell includes nixd LSP and nixfmt formatter
 - `patches/` directory contains custom patches applied to nixpkgs (e.g., nvidia-ctk.patch for Legion host)
 
 ### Module System

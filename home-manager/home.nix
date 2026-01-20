@@ -124,7 +124,7 @@ in
     stylua
     lua-language-server
     nixd
-    nixfmt-rfc-style
+    nixfmt
     shfmt
     codespell
     markdownlint-cli

@@ -135,7 +135,7 @@
             mkShell {
               nativeBuildInputs = with pkgs; [
                 nixd
-                nixfmt-rfc-style
+                nixfmt
                 neovim
                 git
               ];
