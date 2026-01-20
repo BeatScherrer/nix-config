@@ -140,6 +140,15 @@
                     "middleClickCommand": "pwvucontrol || pavucontrol"
                 },
                 {
+                    "deviceNativePath": "",
+                    "displayMode": "alwaysShow",
+                    "hideIfNotDetected": true,
+                    "id": "Battery",
+                    "showNoctaliaPerformance": false,
+                    "showPowerProfiles": false,
+                    "warningThreshold": 30
+                },
+                {
                     "colorizeDistroLogo": false,
                     "colorizeSystemIcon": "primary",
                     "customIconPath": "",
