@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   nix.settings = {
     experimental-features = [
@@ -31,7 +31,7 @@
   nix.gc.automatic = true;
   nix.gc.dates = "daily";
   # nix.gc.options = "--delete-older-than +10"; # WARN: there is no way to specify a number: `nix-env --delete-generations +10` would do it but requires a custom script
-  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
 
   # list all current system packages in /etc/current-system-packages
   environment.etc."current-system-packages".text =
