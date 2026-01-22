@@ -32,6 +32,10 @@ in
           fi
 
           . ${pkgs.blesh}/share/blesh/ble.sh
+
+          if [[ -f "$HOME/.bashrcHost" ]]; then
+            . $HOME/.bashrcHost
+          fi
         '';
       };
     };
