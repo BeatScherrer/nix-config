@@ -55,4 +55,7 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.fprintd.enable = true;
+
+  # Enable fingerprint authentication for GDM login
+  security.pam.services.gdm-fingerprint.fprintAuth = true;
 }
