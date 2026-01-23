@@ -123,7 +123,8 @@ spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 binds {
     // Window management
     Mod+W { close-window; }
-    Mod+M { fullscreen-window; }
+    Mod+M { maximize-column; }
+    Mod+Shift+M { fullscreen-window; }
     Mod+Shift+F { toggle-window-floating; }
     Mod+C { center-window; }
 
