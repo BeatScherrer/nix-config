@@ -70,6 +70,9 @@
   networking.networkmanager.enable = true;
   networking.wireguard.enable = true;
 
+  # Restrict Avahi to LAN interface (avoid advertising Docker bridge IPs)
+  services.avahi.allowInterfaces = [ "eno1" ];
+
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
