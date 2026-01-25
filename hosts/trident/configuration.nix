@@ -33,6 +33,9 @@
 
     # work modules
     ../../modules/nixos/mtr/mtr.nix
+
+    # binary cache server
+    ../../modules/nixos/harmonia.nix
   ];
 
   # custom module options
@@ -48,6 +51,10 @@
   davinci-resolve = {
     enable = true;
     gpu = "amd";
+  };
+  harmonia = {
+    enable = true;
+    # port = 5000;  # default
   };
   # ---------------------------------------------------------------------------
 
