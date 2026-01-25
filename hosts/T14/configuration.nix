@@ -46,9 +46,7 @@
     enable = true;
     gpu = "amd";
   };
-
-  localCache = true;
-
+  localCache.enable = true;
   # ---------------------------------------------------------------------------
 
   # Bootloader.
