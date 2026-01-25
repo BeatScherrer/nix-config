@@ -14,9 +14,10 @@
 #
 # 3. Client configuration (on machines using this cache):
 #    nix.settings = {
-#      substituters = [ "http://<cache-host>:5000" ];
+#      substituters = [ "http://trident.local:5000" ];
 #      trusted-public-keys = [ "<hostname>-1:<contents-of-cache-pub-key.pem>" ];
 #    };
+#    Or simply enable: localCache.enable = true; (see nix.nix)
 #
 {
   pkgs,
