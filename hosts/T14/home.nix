@@ -11,6 +11,17 @@
 
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "librewolf.desktop";
+      "x-scheme-handler/http" = "librewolf.desktop";
+      "x-scheme-handler/https" = "librewolf.desktop";
+      "x-scheme-handler/about" = "librewolf.desktop";
+      "x-scheme-handler/unknown" = "librewolf.desktop";
+    };
+  };
+
   polybar = {
     enable = true;
     mainMonitor = "eDP";
