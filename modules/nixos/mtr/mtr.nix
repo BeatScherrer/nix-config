@@ -37,18 +37,6 @@
 
   security.pki.certificateFiles = [ ./ca.crt ]; # NOTE: beware of trailing spaces
 
-  # Tailscale
-  # systemd.user.services.tailscale-systray = {
-  #   enable = true;
-  #   description = "Tailscale system tray";
-  #   serviceConfig = {
-  #     ExecStart = ''${pkgs.bashInteractive}/bin/bash -i -c "${pkgs.tailscale-systray}/bin/tailscale-systray"'';
-  #   };
-  #   wantedBy = [ "multi-user.target" ];
-  # };
-
-  # mysql
-
   # required for lldb debugging with neovim
   # WARN: allows any process to trace any other process. This can be a security risk, so ensure you understand the implications before making this change.
   boot.kernel.sysctl."kernel.yama.ptrace_scope" = 0;

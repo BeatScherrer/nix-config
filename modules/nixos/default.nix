@@ -16,6 +16,7 @@ in
 {
   imports = [
     ./scripts.nix
+    ./tailscale.nix
   ];
 
   environment.systemPackages = with pkgs; [
