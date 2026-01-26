@@ -27,15 +27,17 @@ in
           if [[ -f "$HOME/.bashrcExtra" ]]; then
             . $HOME/.bashrcExtra
           fi
+
+          if [[ -f "$HOME/.bashrcHost" ]]; then
+            . $HOME/.bashrcHost
+          fi
+
           if [[ -f "$HOME/.bashrc_mt" ]]; then
             . $HOME/.bashrc_mt
           fi
 
           . ${pkgs.blesh}/share/blesh/ble.sh
 
-          if [[ -f "$HOME/.bashrcHost" ]]; then
-            . $HOME/.bashrcHost
-          fi
         '';
       };
     };
@@ -48,12 +50,18 @@ in
     };
 
     home.file.".bashrcExtra".source =
-      if cfg.mkOutOfStoreSymlink
-      then config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/shell/bash/bashrcExtra")
-      else ./bashrcExtra;
+      if cfg.mkOutOfStoreSymlink then
+        config.lib.file.mkOutOfStoreSymlink (
+          config.home.homeDirectory + "/.nix/modules/home-manager/shell/bash/bashrcExtra"
+        )
+      else
+        ./bashrcExtra;
     home.file.".bashrc_mt".source =
-      if cfg.mkOutOfStoreSymlink
-      then config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/shell/bash/bashrc_mt")
-      else ./bashrc_mt;
+      if cfg.mkOutOfStoreSymlink then
+        config.lib.file.mkOutOfStoreSymlink (
+          config.home.homeDirectory + "/.nix/modules/home-manager/shell/bash/bashrc_mt"
+        )
+      else
+        ./bashrc_mt;
   };
 }

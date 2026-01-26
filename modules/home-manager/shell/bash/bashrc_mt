@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export MTR_CURRENT_MTRSYS="sim"
+export MTR_CURRENT_MTRSYS="${MTR_CURRENT_MTRSYS:-sim}"
 export MTR_WORKSPACE="${HOME}/src/mtrobot"
 export MTR_SYS_PATH="${MTR_WORKSPACE}/mtrsys/${MTR_CURRENT_MTRSYS}"
 export MTR_BUILD_DIR="${MTR_SYS_PATH}/build"
