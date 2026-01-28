@@ -14,7 +14,7 @@
     remmina
     freecad
     # kdePackages.kdenlive # FIXME:
-    # tigervnc # FIXME:
+    tigervnc
     unrar-free
     _1password-gui
   ];
