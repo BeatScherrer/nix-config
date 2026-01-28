@@ -12,7 +12,7 @@
   home.packages = with pkgs; [
     pkgs-stable.mysql-workbench
     remmina
-    # freecad # FIXME:
+    freecad
     # kdePackages.kdenlive # FIXME:
     # tigervnc # FIXME:
     unrar-free
