@@ -13,7 +13,7 @@
     pkgs-stable.mysql-workbench
     remmina
     # freecad # FIXME:
-    kdePackages.kdenlive
+    # kdePackages.kdenlive # FIXME:
     # tigervnc # FIXME:
     unrar-free
     _1password-gui

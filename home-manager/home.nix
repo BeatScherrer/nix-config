@@ -164,7 +164,6 @@ in
     affine
 
     # font-manager
-    pika-backup
     customFonts
     fontconfig
     libreoffice
