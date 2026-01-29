@@ -67,8 +67,6 @@
   time.timeZone = "Europe/Zurich";
 
   networking.hostName = "trident";
-  networking.networkmanager.enable = true;
-  networking.wireguard.enable = true;
 
   # Restrict Avahi to LAN interface (avoid advertising Docker bridge IPs)
   services.avahi.allowInterfaces = [ "eno1" ];

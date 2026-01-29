@@ -58,8 +58,6 @@
   time.timeZone = "Europe/Zurich";
 
   networking.hostName = "T14";
-  networking.networkmanager.enable = true;
-  networking.wireguard.enable = true;
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 

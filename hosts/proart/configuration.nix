@@ -49,8 +49,6 @@
   time.timeZone = "Europe/Zurich";
 
   networking.hostName = "proart";
-  networking.networkmanager.enable = true;
-  networking.wireguard.enable = true;
 
   # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
   services.xserver.displayManager.sessionCommands = ''

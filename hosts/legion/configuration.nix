@@ -57,8 +57,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "legion";
-  networking.networkmanager.enable = true;
-  networking.wireguard.enable = true;
 
   time.timeZone = "Europe/Zurich";
 

@@ -15,6 +15,7 @@ let
 in
 {
   imports = [
+    ./networking.nix
     ./scripts.nix
     ./tailscale.nix
   ];
