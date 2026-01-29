@@ -7,10 +7,11 @@ export MTR_BUILD_DIR="${MTR_SYS_PATH}/build"
 
 MTR_ENV_FILE="${MTR_BUILD_DIR}/test/mtrsys.env"
 if [[ -f "${MTR_ENV_FILE}" ]]; then
+  true
   # shellcheck source=/dev/null
-  . "$MTR_ENV_FILE"
+  # . "$MTR_ENV_FILE"
   # shellcheck source=/dev/null
-  . "$MTR_FUNCTIONS"
+  # . "$MTR_FUNCTIONS"
 fi
 
 export ROS_LOCALHOST_ONLY=1
