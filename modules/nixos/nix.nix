@@ -14,8 +14,8 @@ in
 
     url = mkOption {
       type = types.str;
-      default = "http://trident.local:5000";
-      description = "URL of the local Harmonia binary cache server";
+      default = "http://trident.home:5000";
+      description = "URL of the home Harmonia binary cache server";
     };
 
     publicKey = mkOption {
