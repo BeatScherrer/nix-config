@@ -33,34 +33,37 @@ in
       ];
 
       # Binary cache substituters
-      substituters =
-        [
-          "https://cache.nixos.org"
-          "https://nix-community.cachix.org"
-          "https://ros.cachix.org"
-        ]
-        ++ lib.optionals cfg.enable [ cfg.url ];
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://ros.cachix.org"
+      ];
 
-      trusted-public-keys =
-        [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-          "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
-        ]
-        ++ lib.optionals (cfg.enable && cfg.publicKey != "") [ cfg.publicKey ];
+      # Local cache as fallback — won't block builds if unreachable
+      extra-substituters = lib.optionals cfg.enable [ cfg.url ];
+
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
+      ]
+      ++ lib.optionals (cfg.enable && cfg.publicKey != "") [ cfg.publicKey ];
 
       # Performance optimizations
       max-jobs = "auto";
       cores = 0;
 
       # Allow wheel group to use substituters
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
 
     # garbage collection
-    nix.gc.automatic = true;
-    nix.gc.dates = "daily";
-    # nix.gc.options = "--delete-older-than +10"; # WARN: there is no way to specify a number: `nix-env --delete-generations +10` would do it but requires a custom script
+    # nix.gc.automatic = true;
+    # nix.gc.dates = "daily";
+    # nix.gc.options = "--delete-older-than +10";
     boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
 
     # list all current system packages in /etc/current-system-packages
