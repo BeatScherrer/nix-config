@@ -39,9 +39,7 @@ in
       xdg-desktop-portal-gnome
     ];
 
-    programs.niri = {
-      enable = true;
-    };
+    programs.niri.enable = true;
 
     users.users.${user}.extraGroups = [
       "video"

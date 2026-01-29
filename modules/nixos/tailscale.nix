@@ -6,7 +6,6 @@
 {
   environment.systemPackages = [ pkgs.tailscale ];
 
-  # NOTE: To resolve DNS issues, run: sudo tailscale set --accept-dns=false
   services.tailscale.enable = true;
 
   networking.firewall = {
