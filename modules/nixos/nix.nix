@@ -32,15 +32,17 @@ in
         "flakes"
       ];
 
-      # Binary cache substituters
-      substituters = [
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-        "https://ros.cachix.org"
-      ];
+      # Binary cache substituters — trident first, public caches as fallback
+      substituters =
+        lib.optionals cfg.enable [ cfg.url ]
+        ++ [
+          "https://cache.nixos.org"
+          "https://nix-community.cachix.org"
+          "https://ros.cachix.org"
+        ];
 
-      # Local cache as fallback — won't block builds if unreachable
-      extra-substituters = lib.optionals cfg.enable [ cfg.url ];
+      # Short timeout so builds don't stall when trident is unreachable
+      connect-timeout = 5;
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
