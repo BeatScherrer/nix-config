@@ -14,7 +14,7 @@ in
 
     url = mkOption {
       type = types.str;
-      default = "http://trident.home:5000";
+      default = "http://trident.tail46608.ts.net:5000";
       description = "URL of the home Harmonia binary cache server";
     };
 
@@ -33,13 +33,12 @@ in
       ];
 
       # Binary cache substituters — trident first, public caches as fallback
-      substituters =
-        lib.optionals cfg.enable [ cfg.url ]
-        ++ [
-          "https://cache.nixos.org"
-          "https://nix-community.cachix.org"
-          "https://ros.cachix.org"
-        ];
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://ros.cachix.org"
+      ]
+      ++ lib.optionals cfg.enable [ cfg.url ];
 
       # Short timeout so builds don't stall when trident is unreachable
       connect-timeout = 5;
