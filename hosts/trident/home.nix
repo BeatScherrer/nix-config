@@ -13,6 +13,5 @@
 
   polybar = {
     enable = true;
-    mainMonitor = "DP-3";
   };
 }

@@ -17,7 +17,11 @@ in
 {
   options.polybar = {
     enable = mkEnableOption "polybar";
-    mainMonitor = mkOption { type = types.str; };
+    mainMonitor = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Primary monitor for the bar. If null, polybar auto-detects the first available monitor.";
+    };
     fallbackMonitor = mkOption {
       type = types.str;
       default = "DP-0";
@@ -104,8 +108,10 @@ in
 
         "bar/main" = {
           "inherit" = "bar/base";
+        } // lib.optionalAttrs (cfg.mainMonitor != null) {
           monitor = cfg.mainMonitor;
           monitor-fallback = cfg.fallbackMonitor;
+        } // {
 
           # modules-left = launcher i3 sep
           modules-left = "launcher info-hlwm-workspaces sep";
