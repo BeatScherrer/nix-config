@@ -13,6 +13,6 @@
 
   polybar = {
     enable = true;
-    mainMonitor = "DisplayPort-2";
+    mainMonitor = "DP-3";
   };
 }
