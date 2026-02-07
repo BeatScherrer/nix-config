@@ -161,6 +161,7 @@ in
     loupe
     masterpdfeditor
     affine
+    logseq
 
     # font-manager
     customFonts
