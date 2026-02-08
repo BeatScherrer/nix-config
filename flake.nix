@@ -54,10 +54,6 @@
       url = "github:k3d3/claude-desktop-linux-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    cursor = {
-      url = "github:omarcresp/cursor-flake/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -88,7 +84,6 @@
       homebrew-cask,
       ghostty,
       claude-desktop,
-      cursor,
       lanzaboote,
       quickshell,
       noctalia,
@@ -119,7 +114,6 @@
       flakePackagesOverlay = system: final: prev: {
         ghostty = ghostty.packages.${system}.default;
         claude-desktop = claude-desktop.packages.${system}.default;
-        cursor = cursor.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
       };

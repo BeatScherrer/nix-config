@@ -43,7 +43,6 @@ in
     pnpm
     ghostty
     claude-desktop
-    cursor
     lsof
     appimage-run
     mpv
