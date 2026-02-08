@@ -20,6 +20,17 @@ in
     ./tailscale.nix
   ];
 
+  # Common boot configuration (overridden by secure-boot.nix for lanzaboote)
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  nixpkgs.config.allowUnfree = true;
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.iosevka
+    font-awesome
+  ];
+
   environment.systemPackages = with pkgs; [
     fd
     vim
@@ -50,6 +61,7 @@ in
     inetutils
     pciutils
     python3
+    opencode
 
     # network shares
     samba

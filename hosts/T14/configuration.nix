@@ -49,13 +49,7 @@
   localCache.enable = true;
   # ---------------------------------------------------------------------------
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  time.timeZone = "Europe/Zurich";
 
   networking.hostName = "T14";
 
@@ -67,20 +61,9 @@
     ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
   '';
 
-  programs.bash.blesh.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
-
-  # TODO:
   environment.sessionVariables = {
     MAKE_CORES = "30";
   };
-
-  # TODO: add to fonts module
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-    font-awesome
-  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

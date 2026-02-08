@@ -50,17 +50,10 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 50;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "legion";
-
-  time.timeZone = "Europe/Zurich";
-
-  nixpkgs.config.allowUnfree = true;
 
   environment.sessionVariables = {
     MAKE_CORES = "12";
@@ -74,12 +67,6 @@
   services.openssh = {
     enable = true;
   };
-
-  # TODO: add to fonts module
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-    font-awesome
-  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
