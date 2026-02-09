@@ -45,6 +45,8 @@ OSH_THEME="gravel_pit"
 PATH="$HOME/.local/bin/:$PATH"
 # add home-manager applications
 PATH="$PATH:$HOME/.nix-profile/bin"
+# add bun application
+PATH="$PATH:$HOME/.cache/.bun/bin"
 
 # To disable the uses of "sudo" by oh-my-bash, please set "false" to
 # this variable.  The default behavior for the empty value is "true".
