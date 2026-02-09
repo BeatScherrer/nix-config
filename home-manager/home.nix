@@ -71,9 +71,6 @@ in
       clean.extraArgs = "--keep-since 7d --keep 10";
       flake = config.home.homeDirectory + "/.nix/"; # sets NH_OS_FLAKE variable for you
     };
-    opencode = {
-      enable = true;
-    };
   };
 
   # The home.packages option allows you to install Nix packages into your
