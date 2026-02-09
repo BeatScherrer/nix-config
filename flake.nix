@@ -66,6 +66,9 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opencode = {
+      url = "github:anomalyco/opencode";
+    };
   };
 
   outputs =
@@ -87,6 +90,7 @@
       lanzaboote,
       quickshell,
       noctalia,
+      opencode,
       ...
     }@inputs:
     let
@@ -116,6 +120,7 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
+        opencode = opencode.packages.${system}.default;
       };
       # helper to call the dev shell for each system
       devShell =
