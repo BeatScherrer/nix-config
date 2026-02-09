@@ -61,7 +61,7 @@ in
     inetutils
     pciutils
     python3
-    opencode
+    bun
 
     # network shares
     samba
@@ -85,6 +85,8 @@ in
   programs.bash.blesh = {
     enable = true;
   };
+
+  programs.nix-ld.enable = true;
 
   system.nixos.label =
     (builtins.concatStringsSep "-" (builtins.sort (x: y: x < y) config.system.nixos.tags))
