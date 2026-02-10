@@ -43,6 +43,9 @@ in
       };
       dpi = 140;
       enable = true;
+      serverFlagsSection = ''
+        Option "AllowIndirectGLX" "on"
+      '';
       xkb.layout = "us";
       xkb.variant = "";
       xkb.options = "compose:ralt";
