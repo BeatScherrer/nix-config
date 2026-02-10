@@ -27,7 +27,12 @@
     fakeroot
     # VirtualGL for remote 3D rendering
     virtualgl
+    turbovnc
   ];
+
+  # NOTE: to forward gui with virtualgl and turbovnc:
+  # $ /opt/TurboVNC/bin/vncserver -geometry 1920x1080 -noxstartup
+  # $ DISPLAY=:1 VGL_DISPLAY=egl vglrun mt-visualizer-mtl --no-vsync localization/pf_internals.mtl
 
   # use 'uc-3' to find 'uc-3.mt-robot.com'
   networking.search = [ "mt-robot.com" ];
