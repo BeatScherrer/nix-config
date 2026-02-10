@@ -25,6 +25,8 @@
     pv
     # Packaging deps
     fakeroot
+    # VirtualGL for remote 3D rendering
+    virtualgl
   ];
 
   # use 'uc-3' to find 'uc-3.mt-robot.com'
