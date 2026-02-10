@@ -29,27 +29,27 @@ Host m13
 Host r104
   User mtr
   Hostname robot-104.mt-robot.com
-  ForwardX11 yes
+  ForwardX11Trusted yes
   # LocalForward 9222 lcoalhost:9222 # ucc chromium debug
 
 Host r105
   User mtr
   Hostname robot-105.mt-robot.com
-  ForwardX11 yes
+  ForwardX11Trusted yes
   # LocalForward 9222 lcoalhost:9222 # ucc chromium debug
 
 Host r201
   User mtr
   Hostname robot-201.mt-robot.com
-  ForwardX11 yes
+  ForwardX11Trusted yes
   # LocalForward 9222 lcoalhost:9222 # ucc chromium debug
 
 Host demo
   User mtr
   Hostname 10.0.5.1
-  ForwardX11 yes
+  ForwardX11Trusted yes
 
 Host distcc3
   User mtr
   Hostname distcc3.mt-robot.com
-  ForwardX11 yes
+  ForwardX11Trusted yes
