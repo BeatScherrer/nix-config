@@ -41,7 +41,7 @@ in
       ++ lib.optionals cfg.enable [ cfg.url ];
 
       # Short timeout so builds don't stall when trident is unreachable
-      connect-timeout = 5;
+      connect-timeout = 1;
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
