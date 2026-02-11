@@ -61,6 +61,17 @@ in
       gdm.enable = true;
     };
 
+    programs.dconf.profiles.gdm.databases = [
+      {
+        settings = {
+          "org/gnome/settings-daemon/plugins/power" = {
+            sleep-inactive-ac-type = "nothing";
+            sleep-inactive-battery-type = "nothing";
+          };
+        };
+      }
+    ];
+
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
