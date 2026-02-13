@@ -7,6 +7,7 @@
 {
   imports = [
     ../../claude-code/claude-code.nix
+    ../../opencode/opencode.nix
   ];
 
   home.packages = with pkgs; [
