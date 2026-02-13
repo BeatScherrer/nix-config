@@ -21,11 +21,11 @@ in
 
     environment.systemPackages = with pkgs; [
       pkgs-stable.herbstluftwm
-      xorg.xev
-      xorg.xauth
-      xorg.xhost
-      xorg.xeyes
-      xorg.xinit
+      xev
+      xauth
+      xhost
+      xeyes
+      xinit
       xdotool
       gnome-keyring
       gnome-online-accounts
@@ -52,7 +52,7 @@ in
 
       displayManager = {
         sessionCommands = ''
-          ${pkgs.xorg.xhost}/bin/xhost +local:
+          ${pkgs.xhost}/bin/xhost +local:
         '';
       };
     };

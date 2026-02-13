@@ -57,8 +57,8 @@
 
   # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
   services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xset}/bin/xset s off         # Disable screen saver
-    ${pkgs.xorg.xset}/bin/xset -dpms         # Disable DPMS
+    ${pkgs.xset}/bin/xset s off         # Disable screen saver
+    ${pkgs.xset}/bin/xset -dpms         # Disable DPMS
   '';
 
   environment.sessionVariables = {

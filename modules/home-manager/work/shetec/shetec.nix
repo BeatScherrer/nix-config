@@ -2,9 +2,11 @@
 {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     extraConfig = ''
       Include ~/.ssh/config.d/*
     '';
+    matchBlocks."*" = { };
   };
 
   home.file.".ssh/config.d/shetec".source =

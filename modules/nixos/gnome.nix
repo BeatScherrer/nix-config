@@ -19,11 +19,11 @@ in
       gnome-tweaks
       gnomeExtensions.pop-shell
       gnome-remote-desktop
-      xorg.xev
-      xorg.xhost
-      xorg.xauth
-      xorg.xeyes
-      xorg.xinit
+      xev
+      xhost
+      xauth
+      xeyes
+      xinit
       xdg-desktop-portal-gtk
       mesa-demos
     ];
@@ -34,8 +34,8 @@ in
       xkb.options = "compose:ralt";
       enable = true;
       displayManager.sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset s off
-        ${pkgs.xorg.xset}/bin/xset -dpms
+        ${pkgs.xset}/bin/xset s off
+        ${pkgs.xset}/bin/xset -dpms
       '';
     };
 
