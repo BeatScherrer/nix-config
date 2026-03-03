@@ -14,7 +14,7 @@ in
 
     url = mkOption {
       type = types.str;
-      default = "http://trident.tail46608.ts.net:5000";
+      default = "http://trident.tail46608.ts.net:8080";
       description = "URL of the home Harmonia binary cache server";
     };
 
