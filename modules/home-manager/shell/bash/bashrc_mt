@@ -176,11 +176,11 @@ restart() {
   simrobotrestart
 }
 
-viewStorage() {
-  mpv rtsps://10.0.0.1:7441/DIJkjGw404SBfpIj
+cam-1() {
+  mpv rtsps://10.0.0.1:7441/DIJkjGw404SBfpIj?enableSrtp
 }
 
-viewStorageTransferStations() {
+cam-2() {
   mpv rtsps://10.0.0.1:7441/EvdOjZ7C4pzO3Gc6?enableSrtp
 }
 
