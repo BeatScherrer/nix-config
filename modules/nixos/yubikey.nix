@@ -1,10 +1,18 @@
 { pkgs, ... }:
 {
   # NOTE: to register the yubikey:
-  # 1. nix-shell -p pam_u2f
-  # 2. mkdir -p ~/.config/Yubico
-  # 3. pamu2fcfg > ~/.config/Yubico/u2f_keys
+  # 1. `nix-shell -p pam_u2f`
+  # 2. `mkdir -p ~/.config/Yubico`
+  # 3. `pamu2fcfg > ~/.config/Yubico/u2f_keys`
   # 4. (optional) add another yubikey (optional): pamu2fcfg -n >> ~/.config/Yubico/u2f_keys
+
+  # NOTE: Fingerprint management:
+  # List enrolled fingerprints
+  # ykman fido fingerprints list
+  # Add a new fingerprint (you'll need your FIDO PIN)
+  # ykman fido fingerprints add "right-index" --pin YOUR_PIN
+  # Delete a fingerprint
+  # ykman fido fingerprints delete "right-index"
 
   programs.yubikey-manager.enable = true;
 
@@ -26,7 +34,11 @@
   security.pam = {
     u2f = {
       enable = true;
-      control = "sufficient"; # YubiKey touch alone is enough, no password needed
+      # PAM control modes:
+      # - "sufficient": key tap alone works, falls back to password if no key plugged in
+      # - "required":   key tap AND password both needed (true 2FA, lockout if no key)
+      # - "requisite":  key tap only, no password, fail immediately if no key plugged in
+      control = "sufficient";
       settings = {
         cue = true; # prompt "Please touch the device" when waiting for tap
       };
