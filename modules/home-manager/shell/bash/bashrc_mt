@@ -14,7 +14,6 @@ if [[ -f "${MTR_ENV_FILE}" ]]; then
   # . "$MTR_FUNCTIONS"
 fi
 
-export ROS_LOCALHOST_ONLY=1
 export GZ_DESCRIPTOR_PATH="${GZ_DESCRIPTOR_PATH}:${MTR_SIM_ROS_WS}/ros2_ws/build/mt_gz_msgs/mt_gz_msgs-msgs.gz_desc"
 
 # schroot
