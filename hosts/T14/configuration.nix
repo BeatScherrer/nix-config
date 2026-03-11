@@ -47,7 +47,7 @@
     enable = true;
     gpu = "amd";
   };
-  localCache.enable = true;
+  localCache.enable = false;
   # ---------------------------------------------------------------------------
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
