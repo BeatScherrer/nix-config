@@ -42,6 +42,9 @@
           cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
         };
       };
+      init = {
+        defaultBranch = "main";
+      };
       safe = {
         directory = "*";
       };
