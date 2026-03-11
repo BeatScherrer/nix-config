@@ -36,9 +36,9 @@
     u2f = {
       enable = true;
       # PAM control modes:
-      # - "sufficient": key tap alone works, falls back to password if no key plugged in
+      # - "sufficient": key tap alone grants access, falls back to password if no key
       # - "required":   key tap AND password both needed (true 2FA, lockout if no key)
-      # - "requisite":  key tap only, no password, fail immediately if no key plugged in
+      # - "requisite":  key tap AND password both needed, fail immediately if no key (no fallback)
       control = "sufficient";
       settings = {
         cue = true; # prompt "Please touch the device" when waiting for tap
