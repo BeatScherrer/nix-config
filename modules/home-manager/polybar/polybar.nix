@@ -566,7 +566,7 @@ in
 
         "module/song" = {
           type = "custom/script";
-          interval = 1;
+          interval = 5;
           format = " <label>";
           format-background = "${colorScheme.foreground0}";
           format-foreground = "${colorScheme.background0}";
@@ -585,7 +585,7 @@ in
 
         "module/bluetooth" = {
           type = "custom/script";
-          interval = 1;
+          interval = 5;
           format-background = "${colorScheme.background0}";
           format-foreground = "${colorScheme.foreground0}";
           format-padding = 2;
@@ -603,7 +603,7 @@ in
 
         "module/coolant" = {
           type = "custom/script";
-          interval = 1;
+          interval = 5;
           format = " <label>";
           format-background = "${colorScheme.background0}";
           format-foreground = "${colorScheme.foreground0}";
