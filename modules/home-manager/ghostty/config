@@ -15,6 +15,8 @@ background = #212121
 
 confirm-close-surface = false
 
+cursor-style = block
+
 # TODO: unbind ctrl page_up/page_down so neovim can switch tabs
 keybind = ctrl+page_up=unbind
 keybind = ctrl+page_down=unbind
