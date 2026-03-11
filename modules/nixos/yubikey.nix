@@ -18,8 +18,21 @@
 
   environment.systemPackages = with pkgs; [
     yubikey-touch-detector
+    libnotify
     pam_u2f
   ];
+
+  # NOTE: run yubikey-touch-detector as a user service to show desktop notifications on FIDO tap requests
+  systemd.user.services.yubikey-touch-detector = {
+    description = "YubiKey touch detection and notification";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector -libnotify";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+  };
 
   services = {
     udev.packages = [ pkgs.yubikey-personalization ];
