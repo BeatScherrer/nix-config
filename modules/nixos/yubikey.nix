@@ -18,6 +18,7 @@
 
   environment.systemPackages = with pkgs; [
     yubikey-touch-detector
+    pam_u2f
   ];
 
   services = {
