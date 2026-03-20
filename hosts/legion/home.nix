@@ -11,11 +11,22 @@
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.
 
   # Docked monitor layout (Wayland names)
-  # eDP-1 = laptop (was DP-4 in X11), DP-3 = LG 4K (was DP-2.3), DP-? = third monitor (was DP-2.1)
-  # TODO: verify third monitor Wayland name once connected
+  # eDP-1 = laptop, DP-4 = LG 4K, DP-3 = third monitor
   hyprlandNoctalia.monitor = [
     "eDP-1, 2560x1600@165, 0x0, 1"
-    "DP-3, 4096x2160@60, 2560x0, 1.333"
-    # "DP-X, 2560x1440@75, 6656x0, 1"  # uncomment and fix name when third monitor is identified
+    "DP-4, 4096x2160@60, 2560x0, 1.333"
+    "DP-3, 2560x1440@75, 6656x0, 1"
+  ];
+
+  hyprlandNoctalia.workspace = [
+    "1, monitor:DP-4, default:true"
+    "2, monitor:DP-4"
+    "3, monitor:DP-4"
+    "4, monitor:DP-3, default:true"
+    "5, monitor:DP-3"
+    "6, monitor:DP-3"
+    "7, monitor:eDP-1, default:true"
+    "8, monitor:eDP-1"
+    "9, monitor:eDP-1"
   ];
 }

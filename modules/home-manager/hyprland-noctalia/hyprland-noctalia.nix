@@ -18,11 +18,6 @@ let
     foreground = "c7c7c7";
   };
 
-  # Scratchpad script (mimics herbstluftwm scratchpad)
-  scratchpadScript = pkgs.writeShellScriptBin "hypr-scratchpad" ''
-    #!/usr/bin/env bash
-    hyprctl dispatch togglespecialworkspace scratchpad
-  '';
 
 in
 {
@@ -46,13 +41,18 @@ in
       default = "5";
       description = "Outer gaps";
     };
+
+    workspace = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Workspace-to-monitor bindings (list of Hyprland workspace strings)";
+    };
   };
 
   config = mkIf cfg.enable {
     noctalia.enable = true;
 
     home.packages = with pkgs; [
-      scratchpadScript
       wl-clipboard
       grim
       slurp
@@ -69,7 +69,6 @@ in
         # Autostart
         "exec-once" = [
           "noctalia-shell"
-          "dunst"
         ];
 
         # Variables (matching herbstluftwm)
@@ -80,6 +79,11 @@ in
 
         # Monitor configuration
         "monitor" = cfg.monitor;
+
+        # Workspace-to-monitor bindings
+        "workspace" = cfg.workspace ++ [
+          "special:scratchpad, gapsout:30, on-created-empty:$terminal"
+        ];
 
         # General settings
         general = {
@@ -317,8 +321,6 @@ in
         # Picture-in-picture
         "windowrule[pip]" = "float:true, pin:true, size:640 360, title:^(Picture-in-Picture)$";
 
-        # Scratchpad styling
-        "windowrule[scratchpad]" = "float:true, size:66% 80%, center:true, onworkspace:special:scratchpad";
 
       };
 
