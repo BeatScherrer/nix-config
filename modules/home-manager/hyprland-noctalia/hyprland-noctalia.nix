@@ -82,7 +82,7 @@ in
 
         # Workspace-to-monitor bindings
         "workspace" = cfg.workspace ++ [
-          "special:scratchpad, gapsout:30, on-created-empty:$terminal"
+          "special:scratchpad, gapsout:30"
         ];
 
         # General settings
