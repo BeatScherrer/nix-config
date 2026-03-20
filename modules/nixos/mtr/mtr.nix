@@ -28,6 +28,7 @@
     # VirtualGL for remote 3D rendering
     virtualgl
     turbovnc
+    wireshark
   ];
 
   # NOTE: to forward gui with virtualgl and turbovnc:
