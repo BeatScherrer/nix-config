@@ -15,7 +15,7 @@
   hyprlandNoctalia.monitor = [
     "eDP-1, 2560x1600@165, 0x0, 1"
     "DP-4, 4096x2160@60, 2560x0, 1.333"
-    "DP-3, 2560x1440@75, 6656x0, 1"
+    "DP-3, 2560x1440@75, 5632x0, 1" # x = 2560 (eDP-1) + 4096/1.333 (DP-4 scaled)
   ];
 
   hyprlandNoctalia.workspace = [
