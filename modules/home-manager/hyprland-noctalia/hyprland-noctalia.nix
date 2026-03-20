@@ -36,9 +36,9 @@ in
     enable = mkEnableOption "hyprland with noctalia shell (herbstluftwm-style)";
 
     monitor = mkOption {
-      type = types.str;
-      default = "DP-5,7680x2160@240,0x0,1";
-      description = "Primary monitor configuration";
+      type = types.listOf types.str;
+      default = [ ",preferred,auto,1" ];
+      description = "Monitor configurations (list of Hyprland monitor strings)";
     };
 
     gapsOut = mkOption {
@@ -123,6 +123,20 @@ in
           new_status = "master";
         };
 
+        # Window group (stacking) settings
+        group = {
+          "col.border_active" = "rgba(${colors.active}ff)";
+          "col.border_inactive" = "rgba(${colors.inactive}cc)";
+          groupbar = {
+            enabled = true;
+            font_size = 10;
+            height = 14;
+            render_titles = true;
+            "col.active" = "rgba(${colors.active}ff)";
+            "col.inactive" = "rgba(${colors.normal}cc)";
+          };
+        };
+
         # Misc settings
         misc = {
           force_default_wallpaper = 0;
@@ -156,7 +170,7 @@ in
           "$mod, F, exec, $fileManager"
           "$mod, E, exec, evolution"
           "$mod, B, exec, $browser"
-          "$mod, Space, exec, noctalia-shell -t launcher"
+          "$mod, Space, exec, noctalia-shell ipc call launcher toggle"
 
           # Focus movement (vim keys)
           "$mod, H, movefocus, l"
@@ -169,12 +183,6 @@ in
           "$mod, Down, movefocus, d"
           "$mod, Up, movefocus, u"
           "$mod, Right, movefocus, r"
-
-          # Window movement (vim keys)
-          "$mod SHIFT, H, movewindow, l"
-          "$mod SHIFT, J, movewindow, d"
-          "$mod SHIFT, K, movewindow, u"
-          "$mod SHIFT, L, movewindow, r"
 
           # Window movement (arrow keys)
           "$mod SHIFT, Left, movewindow, l"
@@ -224,6 +232,17 @@ in
 
           # Jump to urgent
           "$mod, I, focusurgentorlast"
+
+          # Window groups (stacking/tabbing)
+          "$mod, T, togglegroup"
+          "$mod, Next, changegroupactive, f"    # PageDown
+          "$mod, Prior, changegroupactive, b"   # PageUp
+          "$mod CTRL, T, moveoutofgroup"
+          "$mod SHIFT, H, movewindoworgroup, l"
+          "$mod SHIFT, J, movewindoworgroup, d"
+          "$mod SHIFT, K, movewindoworgroup, u"
+          "$mod SHIFT, L, movewindoworgroup, r"
+          "$mod, G, lockactivegroup, toggle"
 
           # Layout controls
           "$mod SHIFT, Space, togglesplit"
@@ -278,33 +297,28 @@ in
         # ============================================
         # WINDOW RULES (matching herbstluftwm)
         # ============================================
-        windowrulev2 = [
-          # Floating windows
-          "float, class:^(pavucontrol)$"
-          "float, class:^(blueman-manager)$"
-          "float, class:^(gnuplot_qt)$"
-          "float, class:^(.blueman-manager-wrapped)$"
 
-          # Gaming apps (managed/tiled)
-          "tile, class:^(steam)$"
-          "tile, class:^(Steam)$"
-          "tile, class:^(lutris)$"
+        # Floating windows
+        "windowrule[pavucontrol]" = "float:true, class:^(pavucontrol)$";
+        "windowrule[blueman]" = "float:true, class:^(blueman-manager)$";
+        "windowrule[gnuplot]" = "float:true, class:^(gnuplot_qt)$";
+        "windowrule[blueman-wrapped]" = "float:true, class:^(.blueman-manager-wrapped)$";
 
-          # Dialog windows
-          "float, title:^(Open File)$"
-          "float, title:^(Save File)$"
-          "float, title:^(Confirm)$"
+        # Gaming apps (managed/tiled)
+        "windowrule[steam]" = "tile:true, class:^(steam)$";
+        "windowrule[Steam]" = "tile:true, class:^(Steam)$";
+        "windowrule[lutris]" = "tile:true, class:^(lutris)$";
 
-          # Picture-in-picture
-          "float, title:^(Picture-in-Picture)$"
-          "pin, title:^(Picture-in-Picture)$"
-          "size 640 360, title:^(Picture-in-Picture)$"
+        # Dialog windows
+        "windowrule[open-file]" = "float:true, title:^(Open File)$";
+        "windowrule[save-file]" = "float:true, title:^(Save File)$";
+        "windowrule[confirm]" = "float:true, title:^(Confirm)$";
 
-          # Scratchpad styling
-          "float, class:^(scratchpad)$"
-          "size 80% 80%, class:^(scratchpad)$"
-          "center, class:^(scratchpad)$"
-        ];
+        # Picture-in-picture
+        "windowrule[pip]" = "float:true, pin:true, size:640 360, title:^(Picture-in-Picture)$";
+
+        # Scratchpad styling
+        "windowrule[scratchpad]" = "float:true, size:66% 80%, center:true, onworkspace:special:scratchpad";
 
       };
 

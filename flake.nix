@@ -213,7 +213,7 @@
 
         legion = mkHost {
           name = "legion";
-          desktop = desktopEnv.herbstluftwm;
+          desktop = desktopEnv.hyprland-noctalia;
           extraModules = [
             cosmicCachix
             nixos-cosmic.nixosModules.default

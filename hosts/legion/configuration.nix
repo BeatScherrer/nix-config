@@ -58,12 +58,16 @@
 
   environment.sessionVariables = {
     MAKE_CORES = "12";
+    # NVIDIA Wayland support
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  # Legion-specific display setup
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.autorandr}/bin/autorandr docked
-  '';
+  # Legion-specific display setup (X11 only)
+  # services.xserver.displayManager.sessionCommands = ''
+  #   ${pkgs.autorandr}/bin/autorandr docked
+  # '';
 
   services.openssh = {
     enable = true;

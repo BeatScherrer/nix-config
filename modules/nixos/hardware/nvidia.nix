@@ -2,6 +2,10 @@
 {
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  # Early KMS — required for Wayland compositors and GDM Wayland session
+  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
+
   hardware = {
     graphics.enable = true;
     nvidia = {
