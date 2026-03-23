@@ -12,9 +12,9 @@ in
     enable = lib.mkEnableOption "noctalia";
 
     settingsFile = lib.mkOption {
-      type = lib.types.path;
-      default = ./settings.json;
-      description = "Path to the noctalia settings.json file. Override per-host for host-specific settings.";
+      type = lib.types.str;
+      default = "${config.home.homeDirectory}/.nix/modules/home-manager/noctalia/settings.json";
+      description = "Absolute path to the noctalia settings.json file. Must be a writable filesystem path (not a Nix store path) so noctalia can persist settings changes.";
     };
   };
 
