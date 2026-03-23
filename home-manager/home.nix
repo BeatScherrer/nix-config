@@ -81,7 +81,15 @@ in
     # Messengers
     telegram-desktop
     signal-desktop
-    wasistlos
+    (wasistlos.overrideAttrs (old: {
+      preFixup = (old.preFixup or "") + ''
+        gappsWrapperArgs+=(
+          --set GDK_BACKEND x11
+          --set GDK_SCALE 1
+          --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+        )
+      '';
+    }))
     discord
     element-desktop
     slack
