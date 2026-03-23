@@ -22,6 +22,7 @@ in
       hyprlock
       hypridle
       hyprpaper
+      wlr-randr
     ];
 
     programs.hyprland = {

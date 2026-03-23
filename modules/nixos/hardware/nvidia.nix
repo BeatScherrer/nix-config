@@ -4,7 +4,6 @@
 
   # Early KMS — required for Wayland compositors and GDM Wayland session
   boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-  boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
 
   hardware = {
     graphics.enable = true;
@@ -37,10 +36,12 @@
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-      # TODO: is this possible with a amd ryzen cpu?
+      # NVIDIA Prime for hybrid AMD iGPU + NVIDIA dGPU (e.g. Legion 5 Pro)
+      # Enable if iGPU is active in BIOS (MUX switch set to hybrid mode).
+      # Verify amdgpuBusId with: lspci | grep -i vga
       # prime = {
-      #   sync.enable = true;
-      #   intelBusId = "PCI:0:2:0";
+      #   sync.enable = true;  # or offload.enable for power savings
+      #   amdgpuBusId = "PCI:6:0:0";
       #   nvidiaBusId = "PCI:1:0:0";
       # };
     };
