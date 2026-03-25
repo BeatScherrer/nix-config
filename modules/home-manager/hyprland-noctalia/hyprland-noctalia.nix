@@ -99,6 +99,7 @@ in
         # Decoration (matching herbstluftwm theme)
         decoration = {
           rounding = 0;
+          dim_special = 0.8;
         };
 
         # Animations
@@ -321,6 +322,7 @@ in
 
         # Picture-in-picture
         "windowrule[pip]" = "float:true, pin:true, size:640 360, title:^(Picture-in-Picture)$";
+
 
 
 
