@@ -112,7 +112,7 @@ in
             "borderangle, 1, 8, default"
             "fade, 1, 7, default"
             "workspaces, 1, 6, default"
-            "specialWorkspace, 1, 6, default, slidevert"
+            "specialWorkspace, 1, 1, default, slidevert"
           ];
         };
 
@@ -321,6 +321,7 @@ in
 
         # Picture-in-picture
         "windowrule[pip]" = "float:true, pin:true, size:640 360, title:^(Picture-in-Picture)$";
+
 
 
       };
