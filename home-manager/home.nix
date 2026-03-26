@@ -154,6 +154,7 @@ in
     gnome-calculator
     gnome-clocks
     thunderbird
+    evolution
     kdePackages.okular
     librewolf
     chromium
