@@ -66,6 +66,10 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -87,6 +91,7 @@
       lanzaboote,
       quickshell,
       noctalia,
+      llm-agents,
       ...
     }@inputs:
     let
@@ -116,6 +121,7 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
+        zeroclaw = llm-agents.packages.${system}.zeroclaw;
       };
       # helper to call the dev shell for each system
       devShell =

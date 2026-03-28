@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic Development Loop — Concept & Implementation Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181b24;
+    --surface-2: #1e2230;
+    --border: #2a2e3d;
+    --text: #c9cdd8;
+    --text-muted: #7a8194;
+    --heading: #e8ebf0;
+    --accent: #6e9eff;
+    --accent-dim: #3d5a99;
+    --green: #5ae0a0;
+    --orange: #f0a050;
+    --red: #f06060;
+    --code-bg: #141720;
+    --code-border: #252a38;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 32px 120px;
+  }
+
+  .doc-header {
+    margin-bottom: 64px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .doc-header .subtitle {
+    font-size: 17px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .part-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    margin-top: 72px;
+  }
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
+  h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 28px;
+    margin-bottom: 8px;
+  }
+
+  p { margin-bottom: 16px; }
+
+  blockquote {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--heading);
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #b0b8cc;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface);
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: var(--heading);
+    border-bottom: 2px solid var(--border);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  ol {
+    list-style: none;
+    counter-reset: steps;
+    margin: 16px 0;
+    padding: 0;
+  }
+  ol > li {
+    counter-increment: steps;
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 12px;
+  }
+  ol > li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    background: var(--accent-dim);
+    color: var(--heading);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ul {
+    margin: 12px 0;
+    padding-left: 20px;
+  }
+  ul li {
+    margin-bottom: 6px;
+    list-style-type: "–  ";
+    color: var(--text);
+  }
+
+  .diagram {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+    color: #8090b0;
+  }
+  .diagram .highlight { color: var(--accent); font-weight: 600; }
+  .diagram .green { color: var(--green); }
+  .diagram .orange { color: var(--orange); }
+  .diagram .muted { color: #505870; }
+  .diagram .rust { color: #e06040; }
+
+  .phase {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .phase-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .phase-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--heading);
+  }
+  .phase-timeline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .phase p { margin-bottom: 8px; }
+
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 16px 0;
+    border-left: 3px solid var(--accent);
+  }
+  .agent-card h4 {
+    margin-top: 0;
+    font-size: 16px;
+    color: var(--heading);
+  }
+  .agent-card .role {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .agent-detail {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .agent-detail strong {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 2px;
+  }
+
+  .extension {
+    background: linear-gradient(135deg, #1a1e2e 0%, #181b24 100%);
+    border: 1px dashed var(--accent-dim);
+    border-radius: 10px;
+    padding: 28px 28px;
+    margin: 28px 0;
+  }
+  .extension-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--orange);
+    background: rgba(240, 160, 80, 0.12);
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .extension h3 {
+    margin-top: 0;
+    color: var(--heading);
+  }
+
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .cmd-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 20px;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .cmd-grid code { white-space: nowrap; }
+  .cmd-grid span { color: var(--text-muted); }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  strong { color: var(--heading); font-weight: 600; }
+  em { color: var(--text); }
+
+  @media (max-width: 600px) {
+    .container { padding: 32px 18px 80px; }
+    .doc-header h1 { font-size: 26px; }
+    h2 { font-size: 22px; }
+    .phase-header { flex-wrap: wrap; }
+    .phase-timeline { margin-left: 0; }
+    pre { padding: 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="doc-header">
+    <h1>Agentic Development Loop</h1>
+    <div class="subtitle">Concept & Implementation Plan</div>
+  </div>
+
+  <!-- PART 1 -->
+  <div class="part-label">Part 1</div>
+  <h2>Concept</h2>
+
+  <h3>The Problem</h3>
+  <p>Traditional remote development requires a full environment: terminal, editor, keyboard. Working from a phone means awkward typing, limited screen space, and no access to the toolchain. Even with SSH and tmux, you're manually driving every action.</p>
+
+  <h3>The Solution</h3>
+  <p>Shift the developer's role from <strong>operator</strong> to <strong>director</strong>. Instead of writing code character by character, the developer issues intent — what should happen and why — and a system of specialized agents executes the work, reports progress, and asks for approval when needed.</p>
+
+  <h3>The Loop</h3>
+  <div class="diagram"><span class="highlight">Intent</span> → <span class="green">Plan</span> → <span class="green">Code</span> → <span class="orange">Review</span> → <span class="orange">Test</span> → <span class="highlight">Deploy</span> → <span class="highlight">Monitor</span>
+
+<span class="muted">Developer (Element / Matrix on any device)</span>
+  │
+  ▼
+<span class="highlight">Orchestrator</span> <span class="muted">(ZeroClaw instance on Matrix)</span>
+  │  ← receives messages natively via ZeroClaw's Matrix channel
+  │  ← custom skills: spawn agents, route tasks, manage state
+  │
+  ├── <span class="green">Planner</span>    <span class="muted">ZeroClaw instance + planner skills</span>
+  ├── <span class="green">Coder</span>      <span class="muted">ZeroClaw instance + coder skills + file/git tools</span>
+  ├── <span class="orange">Reviewer</span>   <span class="muted">ZeroClaw instance + reviewer skills + diff tools</span>
+  ├── <span class="orange">Tester</span>     <span class="muted">ZeroClaw instance + test runner tools</span>
+  ├── <span class="highlight">Deployer</span>   <span class="muted">ZeroClaw instance + CI/deploy tools</span>
+  └── <span class="highlight">Monitor</span>    <span class="muted">ZeroClaw daemon + log/metrics tools</span>
+  │
+  ▼
+<span class="muted">Developer (approve / reject / redirect via Matrix)</span></div>
+
+  <h3>Why ZeroClaw</h3>
+  <p>ZeroClaw is a Rust-based AI agent runtime that ships as a single binary under 9MB. It natively supports Matrix as a communication channel, has built-in SQLite memory with vector search, supports custom skills and tools with explicit allowlists, and can run as a daemon — all with under 5MB RAM. This means every agent in the pipeline is a lightweight ZeroClaw process with its own identity, skills, tool access, and memory, without writing custom Matrix integration code or building a framework from scratch.</p>
+
+  <h3>Example Interaction</h3>
+  <p>Developer types into Element on their phone:</p>
+  <blockquote>"Add RFID tag reading to the door integration node. Use the serial protocol spec from the docs folder."</blockquote>
+
+  <ol>
+    <li><strong>Orchestrator</strong> (ZeroClaw on Matrix) receives the message, classifies it as a dev task, creates a task record, invokes the planner.</li>
+    <li><strong>Planner</strong> reads the referenced spec, analyzes the codebase, produces a structured plan. Orchestrator posts plan to Matrix for approval.</li>
+    <li><strong>Developer</strong> reviews and replies "👍" or provides adjustments.</li>
+    <li><strong>Coder</strong> creates a feature branch, writes the implementation, commits incrementally.</li>
+    <li><strong>Reviewer</strong> runs static analysis, checks conventions, reviews the diff. Posts summary.</li>
+    <li><strong>Tester</strong> runs the test suite in a clean environment, reports results.</li>
+    <li><strong>Orchestrator</strong> posts to Matrix: <em>"Branch feature/rfid-door ready. 4/4 tests pass. Approve merge?"</em></li>
+    <li><strong>Developer</strong> replies "merge."</li>
+    <li><strong>Deployer</strong> merges, triggers CI, deploys to staging.</li>
+    <li><strong>Monitor</strong> watches the deployment, alerts if anything breaks.</li>
+  </ol>
+
+  <h3>Manual vs. Agentic</h3>
+  <table>
+    <thead>
+      <tr><th>Dimension</th><th>SSH + AI Tool</th><th>Full Agentic Loop</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Persistence</td><td>Session-bound</td><td>Tasks survive disconnection</td></tr>
+      <tr><td>Complexity</td><td>Single-step interactions</td><td>Multi-step workflows</td></tr>
+      <tr><td>Guardrails</td><td>Manual review</td><td>Automated review + test gates</td></tr>
+      <tr><td>Parallelism</td><td>One task at a time</td><td>Concurrent tasks</td></tr>
+      <tr><td>Auditability</td><td>Terminal scrollback</td><td>Full history in Matrix</td></tr>
+      <tr><td>Mobile UX</td><td>Typing code on phone</td><td>Natural language commands</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- PART 2 -->
+  <div class="part-label">Part 2</div>
+  <h2>Agent Architecture</h2>
+
+  <h3>ZeroClaw as the Agent Runtime</h3>
+  <p>Every agent in the system is a ZeroClaw instance. ZeroClaw provides the runtime layer that each agent needs: LLM provider calls (Anthropic, OpenAI, OpenRouter, Ollama), Matrix channel integration, persistent memory (SQLite + vector search), custom skill loading, tool execution with sandboxing, and daemon mode. You configure agents, not build them.</p>
+
+  <div class="callout">
+    <div class="callout-label">Key Insight</div>
+    <p style="margin-bottom: 0;">The orchestrator is itself a ZeroClaw instance connected to your Matrix project room. It receives your messages through ZeroClaw's native Matrix channel support and uses custom skills to classify intent, manage task state, and invoke other ZeroClaw agent instances. No separate <code>matrix-sdk</code> code or custom Rust binary needed for the base setup.</p>
+  </div>
+
+  <h3>Agent Definition</h3>
+  <p>Every agent is a ZeroClaw instance defined by:</p>
+  <ul>
+    <li><strong>Identity file</strong> — role, personality, constraints, output format (IDENTITY.md or AIEOS JSON)</li>
+    <li><strong>Skills</strong> — capability modules dropped into the workspace directory</li>
+    <li><strong>Tool allowlist</strong> — explicit list of what the agent can execute</li>
+    <li><strong>Provider config</strong> — which LLM model to use and token limits</li>
+    <li><strong>Channel config</strong> — which Matrix room(s) to listen on or report to</li>
+  </ul>
+
+  <h3>System Layout</h3>
+  <div class="diagram"><span class="muted">Your server (NixOS on Hetzner)</span>
+  │
+  ├── <span class="highlight">zeroclaw-orchestrator</span> <span class="muted">(daemon)</span>
+  │     ├── channel: Matrix <span class="muted">(your project room)</span>
+  │     ├── identity: orchestrator
+  │     ├── skills: classify_intent, manage_tasks, spawn_agents
+  │     ├── tools: sqlite, git_status, agent_invoke
+  │     └── memory: task state, conversation history
+  │
+  ├── <span class="green">zeroclaw-planner</span> <span class="muted">(invoked per task)</span>
+  │     ├── identity: planner
+  │     ├── skills: analyze_codebase, create_plan
+  │     ├── tools: file_read, git_log, tree
+  │     └── provider: claude-sonnet
+  │
+  ├── <span class="green">zeroclaw-coder</span> <span class="muted">(invoked per task)</span>
+  │     ├── identity: coder
+  │     ├── skills: write_code, follow_conventions
+  │     ├── tools: file_read, file_write, git, build, format
+  │     └── provider: claude-sonnet
+  │
+  ├── <span class="orange">zeroclaw-reviewer</span> <span class="muted">(invoked per task)</span>
+  │     ├── identity: reviewer
+  │     ├── skills: review_diff, check_conventions
+  │     ├── tools: file_read, git_diff <span class="muted">(read-only)</span>
+  │     └── provider: claude-sonnet
+  │
+  ├── <span class="orange">zeroclaw-tester</span> <span class="muted">(invoked per task)</span>
+  │     ├── identity: tester
+  │     ├── skills: run_tests, summarize_failures
+  │     ├── tools: test_runner, log_read
+  │     └── provider: claude-haiku <span class="muted">(cheaper, mostly tool execution)</span>
+  │
+  ├── <span class="highlight">zeroclaw-deployer</span> <span class="muted">(invoked per task)</span>
+  │     ├── identity: deployer
+  │     ├── tools: git_merge, ci_trigger, deploy_script, rollback
+  │     └── provider: claude-haiku
+  │
+  └── <span class="highlight">zeroclaw-monitor</span> <span class="muted">(long-running daemon)</span>
+        ├── identity: monitor
+        ├── skills: watch_logs, detect_anomalies
+        ├── tools: log_read, metrics_query, alert
+        └── channel: Matrix <span class="muted">(alert room)</span></div>
+
+  <h3>Agent Workspace Structure</h3>
+  <p>Each agent lives in its own workspace directory with ZeroClaw's standard layout:</p>
+  <pre><code>agents/
+  orchestrator/
+    IDENTITY.md          # "You are the orchestrator. Classify intent..."
+    skills/
+      classify_intent/   # skill files
+      manage_tasks/
+      spawn_agents/
+    .env                 # provider keys, Matrix token
+    config.toml          # ZeroClaw config
+
+  coder/
+    IDENTITY.md          # "You are an expert developer..."
+    skills/
+      write_code/
+      follow_conventions/
+    context/
+      CONVENTIONS.md     # project coding standards
+    config.toml
+
+  reviewer/
+    IDENTITY.md          # "You are a thorough code reviewer..."
+    skills/
+      review_diff/
+    config.toml
+
+  ...</code></pre>
+
+  <h3>Agent Specifications</h3>
+
+  <div class="agent-card">
+    <h4>Orchestrator</h4>
+    <div class="role">A ZeroClaw daemon instance connected to your Matrix project room. Manages the task lifecycle.</div>
+    <div class="agent-detail"><strong>How it works</strong>
+      ZeroClaw's native Matrix channel receives your messages. The orchestrator's identity prompt and skills handle classification, task creation, agent invocation, and result routing. Task state is persisted in ZeroClaw's SQLite memory. Custom skills shell out to invoke other ZeroClaw instances and parse their output.</div>
+    <div class="agent-detail"><strong>Skills</strong> <code>classify_intent</code>, <code>manage_tasks</code>, <code>spawn_agents</code>, <code>check_status</code></div>
+    <div class="agent-detail"><strong>State Machine</strong></div>
+    <pre><code>Received → Planning → Plan_Review
+  → Approved → Coding → Code_Review
+    → Reviewing → Testing
+      → Ready → Merge_Review
+        → Merged → Deploying → Deployed → Monitoring
+
+Any state → Failed (with reason)
+Any state → Cancelled (by developer)</code></pre>
+  </div>
+
+  <!-- HYBRID ORCHESTRATOR EXTENSION -->
+  <div class="extension">
+    <div class="extension-badge">Optional Extension</div>
+    <h3>Hybrid Orchestrator</h3>
+    <p>The base orchestrator uses ZeroClaw's built-in LLM provider to classify intent and route tasks — this is already "hybrid" by nature, since ZeroClaw agents use LLM calls as part of their normal operation. But for complex multi-project setups, you may want to replace the orchestrator's custom skills with a dedicated Rust binary that manages the state machine deterministically while still using ZeroClaw instances for each specialized agent.</p>
+
+    <p><strong>When to graduate to a custom orchestrator:</strong></p>
+    <ul>
+      <li>You need fine-grained control over parallel task execution and resource limits</li>
+      <li>The skill-based approach becomes too fragile for complex state machine logic</li>
+      <li>You want typed, compile-time-checked task routing instead of LLM-driven classification</li>
+      <li>You're running 10+ concurrent tasks and need deterministic scheduling</li>
+    </ul>
+
+    <p><strong>Architecture with custom orchestrator:</strong></p>
+    <div class="diagram"><span class="muted">Matrix message arrives</span>
+  │
+  ▼
+<span class="rust">Custom Rust orchestrator</span> <span class="muted">(matrix-sdk, typed state machine)</span>
+  │
+  ├── <span class="highlight">Classifier</span> <span class="muted">(LLM call via ZeroClaw — small, fast)</span>
+  │     ├── dev_task     → <span class="green">standard pipeline</span>
+  │     ├── question     → <span class="green">direct LLM response</span>
+  │     ├── ops_request  → <span class="orange">ops pipeline</span>
+  │     └── ambiguous    → <span class="orange">LLM decides routing</span>
+  │
+  ├── <span class="green">zeroclaw-planner</span> <span class="muted">(invoked as subprocess)</span>
+  ├── <span class="green">zeroclaw-coder</span>
+  ├── <span class="orange">zeroclaw-reviewer</span>
+  └── <span class="orange">zeroclaw-tester</span>
+  │
+  ▼
+<span class="muted">Deterministic state machine takes over</span></div>
+
+    <p><strong>Cost control:</strong> Even in this model, ZeroClaw runs each agent. The custom binary only handles routing, state, and Matrix I/O — the LLM calls still happen inside ZeroClaw instances. This keeps the custom code focused and small.</p>
+  </div>
+
+  <div class="agent-card">
+    <h4>Planner Agent</h4>
+    <div class="role">Decompose a high-level intent into a structured, ordered task list.</div>
+    <div class="agent-detail"><strong>ZeroClaw tools</strong> <code>file_read</code>, <code>git_log</code>, <code>tree</code> (read-only)</div>
+    <div class="agent-detail"><strong>Identity focus</strong>
+      Senior technical lead. Given a feature request and project context, produce a step-by-step plan. Each step must be concrete and actionable. Identify files to create or modify. Flag risks and ambiguities.</div>
+    <div class="agent-detail"><strong>Output</strong></div>
+    <pre><code>{
+  "summary": "Add RFID serial reading to door integration",
+  "steps": [
+    { "id": 1, "action": "read_spec", "description": "Parse serial protocol" },
+    { "id": 2, "action": "create_file", "path": "src/rfid_reader.cpp" },
+    { "id": 3, "action": "modify_file", "path": "src/door_node.cpp" },
+    { "id": 4, "action": "create_file", "path": "test/test_rfid.cpp" },
+    { "id": 5, "action": "modify_file", "path": "CMakeLists.txt" }
+  ],
+  "risks": ["Serial baud rate not specified — need clarification"],
+  "estimated_complexity": "medium"
+}</code></pre>
+  </div>
+
+  <div class="agent-card">
+    <h4>Coder Agent</h4>
+    <div class="role">Execute implementation steps by writing and modifying code.</div>
+    <div class="agent-detail"><strong>ZeroClaw tools</strong> <code>file_read</code>, <code>file_write</code>, <code>git</code>, <code>build</code>, <code>format</code></div>
+    <div class="agent-detail"><strong>Identity focus</strong>
+      Expert developer. Follow conventions exactly. Clean, documented code. Commit after each logical change. Never modify files outside task scope.</div>
+    <div class="agent-detail"><strong>Constraint</strong> Tool allowlist excludes deploy and remote access. Operates exclusively in a feature branch.</div>
+  </div>
+
+  <div class="agent-card">
+    <h4>Reviewer Agent</h4>
+    <div class="role">Review code changes for correctness, style, and safety.</div>
+    <div class="agent-detail"><strong>ZeroClaw tools</strong> <code>file_read</code>, <code>git_diff</code> (read-only)</div>
+    <div class="agent-detail"><strong>Identity focus</strong>
+      Thorough code reviewer. Check for bugs, security issues, error handling gaps, race conditions. Categorize as blocking / warning / suggestion.</div>
+    <div class="agent-detail"><strong>Constraint</strong> Tool allowlist is read-only. Cannot modify code. Blocking issues loop back to coder.</div>
+    <div class="agent-detail"><strong>Output</strong></div>
+    <pre><code>{
+  "verdict": "pass_with_warnings",
+  "issues": [
+    { "severity": "warning", "file": "src/rfid_reader.cpp",
+      "line": 42, "message": "Missing timeout on serial read" }
+  ]
+}</code></pre>
+  </div>
+
+  <div class="agent-card">
+    <h4>Test Agent</h4>
+    <div class="role">Execute test suites and report results.</div>
+    <div class="agent-detail"><strong>ZeroClaw tools</strong> <code>test_runner</code>, <code>log_read</code></div>
+    <div class="agent-detail"><strong>Workflow</strong> Run tests in clean Nix dev shell → parse results → LLM summarizes failures → report back.</div>
+    <div class="agent-detail"><strong>Provider</strong> Uses a cheaper/faster model (e.g. Haiku) since this agent is mostly executing tools and parsing output.</div>
+  </div>
+
+  <div class="agent-card">
+    <h4>Deploy Agent</h4>
+    <div class="role">Execute deployment workflows.</div>
+    <div class="agent-detail"><strong>ZeroClaw tools</strong> <code>git_merge</code>, <code>ci_trigger</code>, <code>deploy_script</code>, <code>rollback</code></div>
+    <div class="agent-detail"><strong>Constraint</strong> Always requires human approval for production. Staging can be configured as auto.</div>
+  </div>
+
+  <div class="agent-card">
+    <h4>Monitor Agent</h4>
+    <div class="role">Watch runtime health after deployment.</div>
+    <div class="agent-detail"><strong>Implementation</strong> Runs as a long-lived ZeroClaw daemon (not invoked per-task). Watches logs, metrics, health endpoints. Uses LLM to interpret anomalies and decide whether to alert. Posts to a dedicated Matrix alert room.</div>
+  </div>
+
+  <h3>Context Pipeline</h3>
+  <p>The orchestrator assembles context for each agent. Each agent sees only what it needs — previous agent outputs flow through the orchestrator, not directly between agents.</p>
+  <div class="diagram"><span class="green">Planner output</span> (task list)
+  → orchestrator feeds into <span class="green">Coder</span> as instructions
+    → Coder output (branch, diff, commits)
+      → orchestrator feeds into <span class="orange">Reviewer</span> as review target
+        → <span class="orange">Reviewer verdict</span>
+          → if pass → <span class="orange">Test Agent</span>
+          → if fail → loop back to <span class="green">Coder</span> with issues
+            → <span class="orange">Test result</span>
+              → if pass → ready for merge approval
+              → if fail → loop back to <span class="green">Coder</span></div>
+
+  <h3>Security Model</h3>
+  <p>ZeroClaw's built-in security features map directly to the agent architecture:</p>
+  <ul>
+    <li><strong>Tool allowlists</strong> — each agent's config.toml specifies exactly which tools it can use. The coder cannot deploy; the reviewer cannot write files.</li>
+    <li><strong>Workspace isolation</strong> — each agent operates in its own scoped workspace directory</li>
+    <li><strong>Encrypted secrets</strong> — API keys and tokens are encrypted at rest by ZeroClaw</li>
+    <li><strong>Sandboxed execution</strong> — ZeroClaw supports native and Docker sandboxing with configurable network, memory, and CPU limits</li>
+    <li>All actions logged with agent identity and timestamp via ZeroClaw's observability layer</li>
+  </ul>
+
+  <h3>Human-in-the-Loop Gates</h3>
+  <table>
+    <thead><tr><th>Gate Level</th><th>Actions</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Always auto</strong></td><td>Lint, test, build, branch creation</td><td>Low risk, fast feedback</td></tr>
+      <tr><td><strong>Always ask</strong></td><td>Merge to main, deploy, delete, config changes</td><td>Irreversible or high-impact</td></tr>
+      <tr><td><strong>Configurable</strong></td><td>Code generation</td><td>Auto for small fixes, ask for new modules</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- PART 3 -->
+  <div class="part-label">Part 3</div>
+  <h2>Infrastructure</h2>
+
+  <h3>Communication — Matrix/Synapse</h3>
+  <p>Matrix serves as the universal message bus, accessed natively through ZeroClaw's built-in Matrix channel support. Self-hosted Synapse gives full data ownership, E2EE for sensitive projects, and a rich client ecosystem.</p>
+  <ul>
+    <li><strong>Project room</strong> — the orchestrator listens here for developer messages</li>
+    <li><strong>Admin room</strong> — agent management commands</li>
+    <li><strong>Alert room</strong> — monitor agent posts deployment health</li>
+    <li><strong>Archive</strong> — full audit trail of every decision and action</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">ZeroClaw + Matrix</div>
+    <p style="margin-bottom: 0;">ZeroClaw's Matrix channel integration handles authentication, message parsing, and response posting out of the box. The orchestrator agent simply receives messages as input and posts responses as output — no custom Matrix client code needed. Additional agents communicate with the orchestrator through ZeroClaw's tool/skill invocation, not through Matrix directly.</p>
+  </div>
+
+  <h3>Execution — NixOS</h3>
+  <p>All agent code execution happens inside Nix dev shells: reproducible, isolated, declarative, and fast after first build.</p>
+  <pre><code>{
+  devShells.default = pkgs.mkShell {
+    buildInputs = with pkgs; [
+      gcc cmake colcon ros2-humble clang-tools
+    ];
+    shellHook = ''
+      export ROS_DOMAIN_ID=42
+      source /opt/ros/humble/setup.bash
+    '';
+  };
+}</code></pre>
+  <p>Agent tools execute within <code>nix develop --command &lt;tool&gt;</code> for each step, ensuring consistent environments.</p>
+
+  <h3>Hosting & Networking</h3>
+  <ul>
+    <li><strong>Primary</strong> — dedicated server (e.g. Hetzner) running NixOS</li>
+    <li><strong>Services</strong> — Synapse, ZeroClaw daemons (orchestrator + monitor), agent workspaces</li>
+    <li><strong>Networking</strong> — Tailscale for secure access from any device</li>
+    <li><strong>Monitoring</strong> — ZeroClaw's built-in observability + Prometheus/Grafana for infrastructure</li>
+    <li><strong>Mobile client</strong> — Element on Android/iOS</li>
+  </ul>
+
+  <h3>Resource Footprint</h3>
+  <p>ZeroClaw's minimal resource usage makes this architecture feasible on modest hardware. The orchestrator and monitor run as persistent daemons (under 5MB RAM each). All other agents are invoked on demand and exit after completing their task. A single Hetzner VPS can comfortably run the entire system.</p>
+
+  <hr>
+
+  <!-- PART 4 -->
+  <div class="part-label">Part 4</div>
+  <h2>Implementation Plan</h2>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 0</span>
+      <span class="phase-title">Immediate Productivity</span>
+      <span class="phase-timeline">Week 1</span>
+    </div>
+    <p><strong>Goal:</strong> Productive remote dev from phone today, zero custom infrastructure.</p>
+    <p>Install Termux + Tailscale on Android. SSH into desktop, start tmux session. Use an AI coding tool interactively. Optional: Mosh for better mobile resilience.</p>
+    <p><strong>Deliverable:</strong> Working SSH-based dev workflow from phone.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 1</span>
+      <span class="phase-title">ZeroClaw on Matrix — Single Agent</span>
+      <span class="phase-timeline">Weeks 2–4</span>
+    </div>
+    <p><strong>Goal:</strong> Send a coding request via Matrix, get a branch with changes back.</p>
+    <p>Install ZeroClaw on the server. Configure a single agent with Matrix channel, an identity prompt for coding tasks, and tools for file I/O and git. The agent receives messages from Element, writes code in a feature branch, and reports back. Task history is stored in ZeroClaw's built-in SQLite memory.</p>
+    <p>No multi-agent separation yet — one ZeroClaw instance handles everything in a single pass.</p>
+    <p><strong>Deliverable:</strong> Type a request in Element, get a branch with a diff link.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 2</span>
+      <span class="phase-title">Orchestrator + Planner/Coder Split</span>
+      <span class="phase-timeline">Weeks 5–8</span>
+    </div>
+    <p><strong>Goal:</strong> Separate planning from execution, add human oversight.</p>
+    <p>Promote the single agent to an orchestrator role. Add custom skills for intent classification and task management. Create separate ZeroClaw workspaces for the planner and coder agents. The orchestrator invokes them via skills and posts plans to Matrix for approval before coding begins.</p>
+    <p><strong>Deliverable:</strong> Two-phase workflow — plan review, then code generation.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 3</span>
+      <span class="phase-title">Automated Review + Testing</span>
+      <span class="phase-timeline">Weeks 9–12</span>
+    </div>
+    <p><strong>Goal:</strong> Automated quality gates before results reach the developer.</p>
+    <p>Add reviewer and tester ZeroClaw instances. Reviewer runs linting + LLM diff review. Tester executes the suite in a Nix dev shell. Orchestrator manages failure loops back to coder. Max retry limit (default 3) to prevent infinite loops.</p>
+    <p><strong>Deliverable:</strong> Developer only sees changes that pass lint, review, and tests.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 4</span>
+      <span class="phase-title">Deploy + Monitor</span>
+      <span class="phase-timeline">Weeks 13–16</span>
+    </div>
+    <p><strong>Goal:</strong> End-to-end from intent to production.</p>
+    <p>Add deployer and monitor ZeroClaw instances. Monitor runs as a persistent daemon watching logs and metrics, posting to a dedicated Matrix alert room. Rollback capability via <code>!deploy rollback</code>. Staging = auto, production = always ask.</p>
+    <p><strong>Deliverable:</strong> Full loop — type intent, approve plan, approve merge, monitor deployment.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 5</span>
+      <span class="phase-title">Multi-Task + Parallelism</span>
+      <span class="phase-timeline">Weeks 17–20</span>
+    </div>
+    <p><strong>Goal:</strong> Handle multiple concurrent tasks across projects.</p>
+    <p>Task queue with priority and dependencies. Per-project agent configurations. Concurrent ZeroClaw invocations on different branches. Resource management for LLM API rate limits and git lock contention. Evaluate whether to graduate to a custom Rust orchestrator (see Optional Extension above).</p>
+    <p><strong>Deliverable:</strong> Work on multiple features simultaneously from your phone.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-number">Phase 6</span>
+      <span class="phase-title">Refinement + Prompt Engineering</span>
+      <span class="phase-timeline">Ongoing</span>
+    </div>
+    <p><strong>Goal:</strong> Continuously improve agent quality.</p>
+    <p>Version identity files and skills in git. A/B test prompt variations on non-critical tasks. Build project-specific context libraries. Analyze failure modes via ZeroClaw's observability logs. Add specialized sub-agents for specific domains (database migrations, API design, documentation).</p>
+  </div>
+
+  <hr>
+
+  <!-- PART 5 -->
+  <div class="part-label">Part 5</div>
+  <h2>Agent Management</h2>
+
+  <h3>Admin Commands (Matrix)</h3>
+  <p>The orchestrator responds to admin commands in the Matrix admin room:</p>
+  <div class="cmd-grid">
+    <code>!agents list</code> <span>Show all agents and status</span>
+    <code>!agents reload &lt;agent&gt;</code> <span>Hot-reload agent identity/skills</span>
+    <code>!agents disable &lt;agent&gt;</code> <span>Temporarily disable</span>
+    <code>!agents enable &lt;agent&gt;</code> <span>Re-enable</span>
+    <code>!agents logs &lt;agent&gt; --last &lt;n&gt;</code> <span>Recent actions</span>
+    <code>!task list</code> <span>Show active tasks</span>
+    <code>!task status &lt;id&gt;</code> <span>Detailed task status</span>
+    <code>!task cancel &lt;id&gt;</code> <span>Cancel running task</span>
+    <code>!task retry &lt;id&gt;</code> <span>Retry from last good state</span>
+    <code>!task history &lt;id&gt;</code> <span>Full task timeline</span>
+    <code>!config gate &lt;agent&gt; &lt;action&gt; auto|ask</code> <span>Change gate settings</span>
+  </div>
+
+  <h3>Identity & Skill Versioning</h3>
+  <p>Agent identities and skills are stored in git alongside the project:</p>
+  <pre><code>agents/
+  orchestrator/
+    IDENTITY.md
+    skills/
+      classify_intent/
+      manage_tasks/
+    CHANGELOG.md
+
+  coder/
+    IDENTITY.md       ← v2 (current)
+    IDENTITY.v1.md    ← previous version
+    skills/
+      write_code/
+    context/
+      CONVENTIONS.md
+
+  reviewer/
+    IDENTITY.md
+    skills/
+      review_diff/</code></pre>
+  <p>Rollback is swapping an identity file. The orchestrator's <code>!agents reload</code> command picks up changes without restarting the daemon.</p>
+
+  <h3>Observability</h3>
+  <p>ZeroClaw includes built-in observability (log, Prometheus, OpenTelemetry). Each agent invocation produces structured data:</p>
+  <pre><code>{
+  "task_id": "task-2024-0042",
+  "agent": "coder",
+  "phase": "coding",
+  "identity_version": "coder/v2",
+  "model": "claude-sonnet-4-20250514",
+  "tokens_in": 12450,
+  "tokens_out": 3200,
+  "duration_ms": 8500,
+  "result": "success",
+  "files_modified": ["src/rfid_reader.cpp", "CMakeLists.txt"],
+  "commit": "a1b2c3d"
+}</code></pre>
+  <p>Feeds dashboards for cost tracking, performance analysis, and failure pattern detection.</p>
+
+  <hr>
+
+  <!-- PART 6 -->
+  <div class="part-label">Part 6</div>
+  <h2>Tech Stack Summary</h2>
+
+  <table>
+    <thead><tr><th>Layer</th><th>Technology</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Agent runtime</td><td>ZeroClaw</td><td>Runs each agent as a lightweight Rust process</td></tr>
+      <tr><td>Communication</td><td>Matrix / Synapse</td><td>Message bus between developer and agents</td></tr>
+      <tr><td>LLM providers</td><td>Anthropic, OpenAI, Ollama</td><td>Intelligence layer (swappable per agent)</td></tr>
+      <tr><td>Agent memory</td><td>ZeroClaw SQLite + vector search</td><td>Persistent context and task state</td></tr>
+      <tr><td>Dev environments</td><td>Nix devenv / flakes</td><td>Reproducible, isolated build environments</td></tr>
+      <tr><td>Hosting</td><td>Hetzner / NixOS</td><td>Self-hosted infrastructure</td></tr>
+      <tr><td>Networking</td><td>Tailscale</td><td>Secure access from any device</td></tr>
+      <tr><td>VCS</td><td>Git</td><td>Branch-per-task workflow</td></tr>
+      <tr><td>Mobile client</td><td>Element (Android/iOS)</td><td>Developer interface</td></tr>
+      <tr><td>Observability</td><td>ZeroClaw + Prometheus + Grafana</td><td>Logging, metrics, cost tracking</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>
