@@ -67,9 +67,26 @@
     matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
     apiKeys.openrouterKeyFile = "/etc/secrets/openrouter-api-key";
     apiKeys.matrixTokenFile = "/etc/secrets/matrix-token";
-    agents.orchestrator.enable = true;
-    agents.orchestrator.provider = "openrouter";
-    agents.orchestrator.model = "anthropic/claude-sonnet-4-20250514";
+
+    agents = {
+      orchestrator = {
+        enable = true;
+        provider = "openrouter";
+        model = "anthropic/claude-sonnet-4";
+      };
+
+      planner = {
+        enable = true;
+        provider = "openrouter";
+        model = "anthropic/claude-opus-4";
+      };
+
+      coder = {
+        enable = true;
+        provider = "openrouter";
+        model = "anthropic/claude-sonnet-4";
+      };
+    };
   };
   # ---------------------------------------------------------------------------
 
