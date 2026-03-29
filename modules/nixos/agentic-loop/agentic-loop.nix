@@ -100,19 +100,25 @@ in
       anthropicKeyFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = "Path to file containing the Anthropic API key";
+        description = "Path to file containing ANTHROPIC_API_KEY";
       };
 
       openaiKeyFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = "Path to file containing the OpenAI API key";
+        description = "Path to file containing OPENAI_API_KEY";
+      };
+
+      openrouterKeyFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        description = "Path to file containing OPENROUTER_API_KEY";
       };
 
       matrixTokenFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = "Path to file containing the Matrix access token";
+        description = "Path to file containing MATRIX_ACCESS_TOKEN";
       };
     };
 

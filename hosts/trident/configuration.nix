@@ -37,6 +37,9 @@
 
     # binary cache server
     ../../modules/nixos/harmonia.nix
+
+    # agentic development loop
+    ../../modules/nixos/agentic-loop/agentic-loop.nix
   ];
 
   # custom module options
@@ -56,6 +59,17 @@
   harmonia = {
     enable = true;
     port = 8080;
+  };
+  agenticLoop = {
+    enable = true;
+    matrix.homeserverUrl = "https://matrix.shetec.ch";
+    matrix.roomId = "!BeDNBxaHRdhpRTVTpi:matrix.org";
+    matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
+    apiKeys.openrouterKeyFile = "/etc/secrets/openrouter-api-key";
+    apiKeys.matrixTokenFile = "/etc/secrets/matrix-token";
+    agents.orchestrator.enable = true;
+    agents.orchestrator.provider = "openrouter";
+    agents.orchestrator.model = "anthropic/claude-sonnet-4-20250514";
   };
   # ---------------------------------------------------------------------------
 

@@ -121,7 +121,9 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
-        zeroclaw = llm-agents.packages.${system}.zeroclaw;
+        zeroclaw = llm-agents.packages.${system}.zeroclaw.overrideAttrs (old: {
+          cargoBuildFeatures = (old.cargoBuildFeatures or []) ++ [ "channel-matrix" ];
+        });
       };
       # helper to call the dev shell for each system
       devShell =

@@ -24,6 +24,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.enableContainers = true;
+
   nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [

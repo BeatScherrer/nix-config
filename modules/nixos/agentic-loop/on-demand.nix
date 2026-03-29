@@ -29,7 +29,8 @@ let
 
   envFiles =
     optional (cfg.apiKeys.anthropicKeyFile != null) cfg.apiKeys.anthropicKeyFile
-    ++ optional (cfg.apiKeys.openaiKeyFile != null) cfg.apiKeys.openaiKeyFile;
+    ++ optional (cfg.apiKeys.openaiKeyFile != null) cfg.apiKeys.openaiKeyFile
+    ++ optional (cfg.apiKeys.openrouterKeyFile != null) cfg.apiKeys.openrouterKeyFile;
 
   mkAgentService = name: {
     # Template service: systemctl start agentic-loop-<name>@"message"
