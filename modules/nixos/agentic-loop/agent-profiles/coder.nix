@@ -32,6 +32,6 @@
     allowedTools = [ "shell" "read_file" "write_file" "list_directory" "search_files" ];
     agentic = true;
     timeoutSecs = 300;
-    maxIterations = 100;
+    maxIterations = 999999;
   };
 }

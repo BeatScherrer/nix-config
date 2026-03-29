@@ -103,7 +103,7 @@ default_model = "${agentCfg.model}"
 default_temperature = ${toString agentCfg.temperature}
 
 [agent]
-max_tool_iterations = 200
+max_tool_iterations = 999999
 parallel_tools = false
 
 ${profile.autonomy}
