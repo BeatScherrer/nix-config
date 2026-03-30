@@ -25,6 +25,7 @@
 
   boot.initrd.kernelModules = [ "amdgpu" ];
 
+  boot.kernelParams = [ "drm_kms_helper.poll=1" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
