@@ -7,6 +7,7 @@
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;
+        vhostUserPackages = [ pkgs.virtiofsd ];
       };
     };
   };
@@ -20,6 +21,7 @@
     spice-protocol
     virtio-win
     win-spice
+    virtiofsd
     quickemu
   ];
 
