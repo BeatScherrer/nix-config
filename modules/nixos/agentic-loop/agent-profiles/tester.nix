@@ -21,7 +21,6 @@
     [autonomy]
     level = "supervised"
     workspace_only = true
-    forbidden_paths = ["/etc", "/sys", "/proc", "/boot"]
   '';
 
   delegate = {

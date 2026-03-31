@@ -71,6 +71,14 @@ allowed_tools = [${toolsList}]
 system_prompt = "${lib.escape [ ''"'' "\\" ] d.systemPrompt}"
 '') delegatableAgents;
 
+  # Autonomy path policy — injected into every agent's [autonomy] section
+  forbiddenPathsLine = ''forbidden_paths = ["/etc", "/root", "/sys", "/proc", "/boot"]'';
+  allowedRootsLine =
+    if cfg.extraReadWritePaths != [] then
+      "allowed_roots = [${concatMapStringsSep ", " (p: ''"${p}"'') cfg.extraReadWritePaths}]"
+    else
+      "";
+
   # Generate config.toml for an agent
   mkConfigToml =
     name:
@@ -107,6 +115,8 @@ max_tool_iterations = 999999
 parallel_tools = false
 
 ${profile.autonomy}
+${forbiddenPathsLine}
+${allowedRootsLine}
 
 [gateway]
 host = "0.0.0.0"

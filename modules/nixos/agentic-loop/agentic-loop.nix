@@ -72,7 +72,6 @@ in
     ./agents.nix
     ./orchestrator.nix
     ./monitor.nix
-    ./on-demand.nix
   ];
 
   options.agenticLoop = {
@@ -94,6 +93,12 @@ in
       type = types.str;
       default = "/var/lib/agentic-loop";
       description = "Base directory for agent home directories";
+    };
+
+    extraReadWritePaths = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Additional directories agents can read/write (e.g. project repos)";
     };
 
     apiKeys = {

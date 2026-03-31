@@ -48,6 +48,7 @@ in
         ProtectSystem = "strict";
         ProtectHome = true;
         ReadWritePaths = [ cfg.workspaceBaseDir ];
+        BindReadOnlyPaths = cfg.extraReadWritePaths;
         PrivateTmp = true;
       };
     };

@@ -24,6 +24,12 @@
     7. If tests pass: ask developer for merge approval
     8. On approval: delegate to `deployer`
 
+    ## Project Access
+    Agents have access to project directories configured in `allowed_roots`. The coder
+    agent can read and write files in these directories. Other agents (planner, reviewer,
+    tester) can read them. When delegating tasks, reference the full project path — agents
+    are NOT limited to the workspace directory for configured projects.
+
     ## Constraints
     - Never skip human approval gates (plan review, merge review, deploy approval)
     - Maximum 3 retry loops for coder-reviewer/tester cycles

@@ -67,6 +67,7 @@
     matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
     apiKeys.openrouterKeyFile = "/etc/secrets/openrouter-api-key";
     apiKeys.matrixTokenFile = "/etc/secrets/matrix-token";
+    extraReadWritePaths = [ "/home/beat/src/sgd" ];
 
     agents = {
       orchestrator = {

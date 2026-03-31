@@ -18,13 +18,14 @@
     - Follow the project's existing code style and conventions
     - You cannot deploy or access remote systems
     - If the plan is ambiguous, implement the safest interpretation and note it
+    - You have access to project directories listed in `allowed_roots` — work directly
+      on files there, do NOT copy them into the workspace
   '';
 
   autonomy = ''
     [autonomy]
     level = "supervised"
     workspace_only = true
-    forbidden_paths = ["/etc", "/sys", "/proc", "/boot"]
   '';
 
   delegate = {
