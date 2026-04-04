@@ -10,17 +10,11 @@ let
   cfg = config.niri;
 in
 {
-  imports = [
-    ./noctalia.nix
-  ];
-
   options.niri = {
     enable = mkEnableOption "niri";
   };
 
   config = mkIf cfg.enable {
-    noctalia.enable = true;
-
     environment.systemPackages = with pkgs; [
       niri
       xwayland-satellite

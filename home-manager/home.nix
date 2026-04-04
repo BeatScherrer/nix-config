@@ -192,17 +192,9 @@ in
     # '')
   ];
 
-  # NOTE: `xdg-settings set default-web-browser firefox.desktop`
-  # xdg.mimeApps = {
-  #   enable = true;
-  #   defaultApplications = {
-  #     "text/html" = "firefox.desktop";
-  #     "x-scheme-handler/http" = "firefox.desktop";
-  #     "x-scheme-handler/https" = "firefox.desktop";
-  #     "x-scheme-handler/about" = "firefox.desktop";
-  #     "x-scheme-handler/unknown" = "firefox.desktop";
-  #   };
-  # };
+  xdg.configFile."mimeapps.list".source =
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
+    + "/.nix/home-manager/mimeapps.list";
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home

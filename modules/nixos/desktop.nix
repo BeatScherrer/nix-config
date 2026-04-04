@@ -40,6 +40,6 @@ in
     niri.enable = cfg.environment == "niri";
     # Both hyprland variants use the same system-level configuration
     hyprland.enable = cfg.environment == "hyprland" || cfg.environment == "hyprland-noctalia";
-    noctalia.enable = cfg.environment == "hyprland-noctalia";
+    noctalia.enable = cfg.environment == "hyprland-noctalia" || cfg.environment == "niri";
   };
 }

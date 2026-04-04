@@ -26,7 +26,6 @@ in
   imports = [
     ../noctalia/noctalia.nix
     ../rofi/rofi.nix
-    ../dunst/dunst.nix
   ];
 
   options.niri = {
