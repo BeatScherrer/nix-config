@@ -58,6 +58,7 @@ in
     home.packages = with pkgs; [
       wl-clipboard
       grim
+      grimblast
       slurp
       playerctl
       brightnessctl

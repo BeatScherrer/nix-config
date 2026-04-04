@@ -209,9 +209,8 @@ binds {
     Mod+E { spawn "evolution"; }
 
     // Screenshot
-    Print { screenshot; }
-    Mod+Print { screenshot-window; }
-    Mod+Shift+Print { screenshot-screen; }
+    Print { spawn "grimblast" "copy" "area"; }
+    Mod+Print { spawn "grimblast" "copy" "screen"; }
 
     // Media keys
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
