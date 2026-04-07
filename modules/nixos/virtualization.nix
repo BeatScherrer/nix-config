@@ -29,4 +29,9 @@
     "libvirtd"
     "kvm"
   ];
+
+  # vm's require this to be of kvm group so we do not need root to run vms that rely on kvm
+  services.udev.extraRules = ''
+    KERNEL=="kvm", GROUP="kvm", MODE="0660"
+  '';
 }
