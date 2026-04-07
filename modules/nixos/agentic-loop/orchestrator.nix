@@ -37,6 +37,8 @@ in
         ZEROCLAW_AGENT = "orchestrator";
       };
 
+      path = [ pkgs.git pkgs.openssh ];
+
       serviceConfig = {
         Type = "simple";
         User = cfg.user;
@@ -54,7 +56,6 @@ in
         ProtectSystem = "strict";
         ProtectHome = true;
         ReadWritePaths = [ cfg.workspaceBaseDir ];
-        BindPaths = cfg.extraReadWritePaths;
         PrivateTmp = true;
       };
     };

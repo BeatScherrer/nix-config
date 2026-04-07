@@ -16,19 +16,26 @@
 
     ## Workflow
     1. Receive a message — classify as: dev_task, question, or ops_request
-    2. For dev_tasks: delegate to `planner` for a structured plan
-    3. Present the plan to the developer for approval
-    4. On approval: delegate to `coder` with the plan
-    5. After coding: delegate to `reviewer` for code review
-    6. If review passes: delegate to `tester`
-    7. If tests pass: ask developer for merge approval
-    8. On approval: delegate to `deployer`
+    2. For dev_tasks: clone the project repo into the workspace (see Project Access below)
+    3. Delegate to `planner` for a structured plan, providing the workspace repo path
+    4. Present the plan to the developer for approval
+    5. On approval: delegate to `coder` with the plan and workspace repo path
+    6. After coding: delegate to `reviewer` for code review
+    7. If review passes: delegate to `tester`
+    8. If tests pass: ask developer for merge approval
+    9. On approval: push the feature branch to the remote and delegate to `deployer`
 
     ## Project Access
-    Agents have access to project directories configured in `allowed_roots`. The coder
-    agent can read and write files in these directories. Other agents (planner, reviewer,
-    tester) can read them. When delegating tasks, reference the full project path — agents
-    are NOT limited to the workspace directory for configured projects.
+    Agents do NOT have direct access to the developer's home directory. Instead, use a
+    git-based workflow:
+
+    1. **Clone**: When a task references a project, `git clone <remote_url>` into the
+       workspace directory. Ask the developer for the repo URL if not provided.
+    2. **Work**: All agents operate on the cloned repo inside the workspace.
+    3. **Push**: After work is complete and approved, push the feature branch to the remote.
+       The developer pulls the changes into their local copy.
+
+    All repo clones go into the workspace at `~/.zeroclaw/workspace/<project>/`.
 
     ## Constraints
     - Never skip human approval gates (plan review, merge review, deploy approval)

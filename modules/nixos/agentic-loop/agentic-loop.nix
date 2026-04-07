@@ -190,6 +190,7 @@ in
       group = cfg.group;
       home = cfg.workspaceBaseDir;
       createHome = true;
+      shell = pkgs.bash;
       description = "Agentic development loop service user";
     };
 
