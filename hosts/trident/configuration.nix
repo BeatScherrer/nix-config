@@ -67,8 +67,6 @@
     matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
     apiKeys.openrouterKeyFile = "/etc/secrets/openrouter-api-key";
     apiKeys.matrixTokenFile = "/etc/secrets/matrix-token";
-    extraReadWritePaths = [ "/home/beat/src/sgd" ];
-
     agents = {
       orchestrator = {
         enable = true;
@@ -105,6 +103,7 @@
     ${pkgs.xset}/bin/xset s off         # Disable screen saver
     ${pkgs.xset}/bin/xset -dpms         # Disable DPMS
   '';
+
 
   environment.sessionVariables = {
     MAKE_CORES = "30";
