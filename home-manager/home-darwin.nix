@@ -68,6 +68,7 @@
     taplo
     tailwindcss-language-server
     vale
+    rust-analyzer
 
     # thunderbird
     # firefox

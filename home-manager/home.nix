@@ -141,6 +141,7 @@ in
     vale
     docker-language-server
     csharp-ls
+    rust-analyzer
 
     # periphery
     rofi-bluetooth
