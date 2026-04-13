@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -7,6 +8,12 @@
     ./mysql.nix
     ../blender.nix
   ];
+
+  sops.secrets."smb-mtr" = {
+    sopsFile = ../../../secrets/legion/smb-mtr.yaml;
+    mode = "0400";
+    owner = "root";
+  };
 
   environment.systemPackages = with pkgs; [
     xmlstarlet
@@ -30,6 +37,26 @@
     turbovnc
     wireshark
   ];
+
+  # SMB auto-mount for //files.mt-robot.com/staff
+  # Credentials live in secrets/legion/smb-mtr.yaml (sops-encrypted).
+  fileSystems."/mnt/mt/files" = {
+    device = "//files.mt-robot.com/staff";
+    fsType = "cifs";
+    options = [
+      "credentials=${config.sops.secrets."smb-mtr".path}"
+      "uid=1000"
+      "gid=100"
+      "file_mode=0644"
+      "dir_mode=0755"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
+      "_netdev"
+    ];
+  };
 
   # NOTE: to forward gui with virtualgl and turbovnc:
   # $ /opt/TurboVNC/bin/vncserver -geometry 1920x1080 -noxstartup

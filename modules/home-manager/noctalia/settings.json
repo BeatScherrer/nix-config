@@ -89,6 +89,27 @@
                     "textColor": "none",
                     "useFixedWidth": false,
                     "visualizerType": "linear"
+                },
+                {
+                    "compactMode": true,
+                    "diskPath": "/",
+                    "iconColor": "none",
+                    "id": "SystemMonitor",
+                    "showCpuFreq": false,
+                    "showCpuTemp": true,
+                    "showCpuUsage": true,
+                    "showDiskAvailable": false,
+                    "showDiskUsage": false,
+                    "showDiskUsageAsPercent": false,
+                    "showGpuTemp": false,
+                    "showLoadAverage": false,
+                    "showMemoryAsPercent": false,
+                    "showMemoryUsage": true,
+                    "showNetworkStats": false,
+                    "showSwapUsage": false,
+                    "textColor": "none",
+                    "useMonospaceFont": true,
+                    "usePadding": false
                 }
             ],
             "left": [
@@ -131,27 +152,6 @@
                     ]
                 },
                 {
-                    "compactMode": true,
-                    "diskPath": "/",
-                    "iconColor": "none",
-                    "id": "SystemMonitor",
-                    "showCpuFreq": false,
-                    "showCpuTemp": true,
-                    "showCpuUsage": true,
-                    "showDiskAvailable": false,
-                    "showDiskUsage": false,
-                    "showDiskUsageAsPercent": false,
-                    "showGpuTemp": false,
-                    "showLoadAverage": false,
-                    "showMemoryAsPercent": false,
-                    "showMemoryUsage": true,
-                    "showNetworkStats": true,
-                    "showSwapUsage": true,
-                    "textColor": "none",
-                    "useMonospaceFont": true,
-                    "usePadding": false
-                },
-                {
                     "displayMode": "onhover",
                     "iconColor": "none",
                     "id": "Bluetooth",
@@ -164,12 +164,19 @@
                     "textColor": "none"
                 },
                 {
-                    "hideWhenZero": false,
-                    "hideWhenZeroUnread": false,
-                    "iconColor": "none",
-                    "id": "NotificationHistory",
-                    "showUnreadBadge": true,
-                    "unreadBadgeColor": "primary"
+                    "defaultSettings": {
+                        "compactMode": false,
+                        "defaultPeerAction": "copy-ip",
+                        "hideDisconnected": false,
+                        "hideMullvadExitNodes": true,
+                        "pingCount": 5,
+                        "refreshInterval": 5000,
+                        "showIpAddress": true,
+                        "showPeerCount": true,
+                        "sshUsername": "",
+                        "terminalCommand": ""
+                    },
+                    "id": "plugin:tailscale"
                 },
                 {
                     "displayMode": "onhover",

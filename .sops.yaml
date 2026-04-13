@@ -1,0 +1,10 @@
+keys:
+  - &user_beat age1ws087u4xsk5f23mez8gmsm4ntxqskyz47lm2zkeuuvazzagcze6sn9jfvn
+  - &host_legion age1nmezlysmn34km6mr2n3cjz60z6vv3lq8hgst7rlmn49hy7t8ycds9avy3c
+
+creation_rules:
+  - path_regex: secrets/legion/.*\.yaml$
+    key_groups:
+      - age:
+          - *user_beat
+          - *host_legion

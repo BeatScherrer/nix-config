@@ -70,6 +70,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -92,6 +96,7 @@
       quickshell,
       noctalia,
       llm-agents,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -122,7 +127,7 @@
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
         zeroclaw = llm-agents.packages.${system}.zeroclaw.overrideAttrs (old: {
-          cargoBuildFeatures = (old.cargoBuildFeatures or []) ++ [ "channel-matrix" ];
+          cargoBuildFeatures = (old.cargoBuildFeatures or [ ]) ++ [ "channel-matrix" ];
         });
       };
       # helper to call the dev shell for each system

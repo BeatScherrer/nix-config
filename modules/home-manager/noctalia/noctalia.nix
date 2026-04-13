@@ -18,6 +18,13 @@ in
     };
   };
 
+  # Lock screen crash fix (NVIDIA + Wayland):
+  # Quickshell crashes with QSGRenderLoop::handleContextCreationFailure when
+  # creating the ext-session-lock-v1 surface. If the lock screen dies on lock,
+  # try adding these env vars (in order of preference):
+  #   QSG_RHI_BACKEND=opengl    — force Qt scene graph to use OpenGL over Vulkan
+  #   QSG_RENDER_LOOP=basic     — use single-threaded render loop as fallback
+
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       noctalia-shell

@@ -18,6 +18,7 @@ in
     ./networking.nix
     ./scripts.nix
     ./tailscale.nix
+    ./sops.nix
   ];
 
   # Common boot configuration (overridden by secure-boot.nix for lanzaboote)
