@@ -29,6 +29,11 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  environment.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
     font-awesome
