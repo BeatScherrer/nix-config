@@ -9,8 +9,8 @@
     ../blender.nix
   ];
 
-  sops.secrets."smb-mtr" = {
-    sopsFile = ../../../secrets/legion/smb-mtr.yaml;
+  sops.secrets."mtr-user" = {
+    sopsFile = ../../../secrets/mtr/user.yaml;
     mode = "0400";
     owner = "root";
   };
@@ -39,12 +39,12 @@
   ];
 
   # SMB auto-mount for //files.mt-robot.com/staff
-  # Credentials live in secrets/legion/smb-mtr.yaml (sops-encrypted).
+  # Credentials live in secrets/mtr/smb.yaml (sops-encrypted).
   fileSystems."/mnt/mt/files" = {
     device = "//files.mt-robot.com/staff";
     fsType = "cifs";
     options = [
-      "credentials=${config.sops.secrets."smb-mtr".path}"
+      "credentials=${config.sops.secrets."mtr-user".path}"
       "uid=1000"
       "gid=100"
       "file_mode=0644"
