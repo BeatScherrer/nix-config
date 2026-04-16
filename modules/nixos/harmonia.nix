@@ -47,7 +47,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.harmonia = {
+    services.harmonia.cache = {
       enable = true;
       signKeyPaths = mkIf (cfg.signKeyPath != null) [ cfg.signKeyPath ];
       settings = {

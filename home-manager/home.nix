@@ -76,7 +76,7 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    neofetch
+    fastfetch
     localsend
     # Messengers
     telegram-desktop
@@ -194,8 +194,7 @@ in
   ];
 
   xdg.configFile."mimeapps.list".source =
-    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
-    + "/.nix/home-manager/mimeapps.list";
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory + "/.nix/home-manager/mimeapps.list";
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home
