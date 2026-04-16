@@ -26,6 +26,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.enableContainers = true;
+  boot.supportedFilesystems = [ "nfs" ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -74,6 +75,7 @@ in
     # network shares
     samba
     cifs-utils
+    nfs-utils
 
     gnome-keyring
     gnome-online-accounts
