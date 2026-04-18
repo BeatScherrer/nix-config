@@ -3,6 +3,8 @@ keys:
   - &host_legion age1nmezlysmn34km6mr2n3cjz60z6vv3lq8hgst7rlmn49hy7t8ycds9avy3c
   - &user_beat_trident age1g95cy8y3qzawxerhcpguen9skjg77npkazkl7cvlaj7fffdhrgasf3suut
   - &host_trident age149kgl763e0w5v4znnjgfl6784kcnqecahfjmx0g4cy7tlxxfkpeq7y7pek
+  - &user_beat_t14 age1thl4966j2n8tp652656vey4gxqtv9fyhtzx7uh7vr3egwldt292s0h4wd7
+  - &host_t14 age15uyqcpmknv655a686k4czp8q85l5z8ss6m3tkdwa985rnaf785kqtuf0fk
 
 creation_rules:
   - path_regex: secrets/mtr/.*\.yaml$
@@ -12,6 +14,8 @@ creation_rules:
           - *host_legion
           - *user_beat_trident
           - *host_trident
+          - *user_beat_t14
+          - *host_t14
   - path_regex: secrets/legion/.*\.yaml$
     key_groups:
       - age:
