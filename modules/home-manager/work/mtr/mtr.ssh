@@ -14,6 +14,10 @@ Host b5
   User mtr
   Hostname robot-105.mt-robot.com
 
+Host m1
+  User mtr
+  Hostname ms-1.mt-robot.com
+
 Host m3
   User mtr
   Hostname ms-3.mt-robot.com
@@ -29,6 +33,13 @@ Host m12
 Host m13
   User mtr
   Hostname ms-13.mt-robot.com
+
+Host r103
+  User mtr
+  Hostname robot-103.mt-robot.com
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  # LocalForward 9222 lcoalhost:9222 # ucc chromium debug
 
 Host r104
   User mtr
