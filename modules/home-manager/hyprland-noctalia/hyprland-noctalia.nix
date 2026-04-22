@@ -65,6 +65,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      plugins = [ pkgs.hyprlandPlugins.hy3 ];
       settings = {
         # Autostart
         "exec-once" = [
@@ -92,8 +93,30 @@ in
           border_size = 5;
           "col.active_border" = "rgba(${colors.active}ff)";
           "col.inactive_border" = "rgba(${colors.inactive}cc)";
-          layout = "dwindle";
+          layout = "hy3";
           allow_tearing = false;
+        };
+
+        # hy3 plugin settings (herbstluftwm-style tiling)
+        plugin = {
+          hy3 = {
+            no_gaps_when_only = 0;
+            node_collapse_policy = 1;
+            group_inset = 0;
+            tabs = {
+              height = 15;
+              padding = 4;
+              render_text = true;
+              "col.active" = "rgba(${colors.active}ff)";
+              "col.inactive" = "rgba(${colors.normal}cc)";
+              "col.urgent" = "rgba(${colors.urgent}ff)";
+              text_font = "Dejavu Sans";
+              text_height = 10;
+            };
+            autotile = {
+              enable = false;
+            };
+          };
         };
 
         # Decoration (matching herbstluftwm theme)
@@ -117,30 +140,9 @@ in
           ];
         };
 
-        # Dwindle layout settings
-        dwindle = {
-          pseudotile = true;
-          preserve_split = true;
-          force_split = 2;
-        };
-
         # Master layout settings (alternative)
         master = {
           new_status = "master";
-        };
-
-        # Window group (stacking) settings
-        group = {
-          "col.border_active" = "rgba(${colors.active}ff)";
-          "col.border_inactive" = "rgba(${colors.inactive}cc)";
-          groupbar = {
-            enabled = true;
-            font_size = 10;
-            height = 14;
-            render_titles = true;
-            "col.active" = "rgba(${colors.active}ff)";
-            "col.inactive" = "rgba(${colors.normal}cc)";
-          };
         };
 
         # Misc settings
@@ -161,46 +163,69 @@ in
         # KEY BINDINGS (matching herbstluftwm)
         # ============================================
         bind = [
-          # Session control
+          # Session control (hlwm: Mod-Shift-q quit, Mod-Shift-r reload)
           "$mod SHIFT, Q, exit"
           "$mod SHIFT, R, exec, hyprctl reload"
 
-          # Window control
-          "$mod, W, killactive"
+          # Window control (hlwm: Mod-w close, Mod-m fullscreen, Mod-Shift-f float, Mod-p pseudotile)
+          "$mod, W, hy3:killactive"
           "$mod, M, fullscreen, 0"
           "$mod SHIFT, F, togglefloating"
-          "$mod, P, pseudo"
+          "$mod, P, hy3:setephemeral, toggle"
 
-          # Applications
+          # Applications (hlwm: Mod-Return/f/e/b/space)
           "$mod, Return, exec, $terminal"
           "$mod, F, exec, $fileManager"
           "$mod, E, exec, evolution"
           "$mod, B, exec, $browser"
           "$mod, Space, exec, noctalia-shell ipc call launcher toggle"
 
-          # Focus movement (vim keys)
+          # Focus movement — vim keys (hlwm: Mod-h/j/k/l focus)
           "$mod, H, movefocus, l"
           "$mod, J, movefocus, d"
           "$mod, K, movefocus, u"
           "$mod, L, movefocus, r"
 
-          # Focus movement (arrow keys)
+          # Focus movement — arrows (hlwm: Mod-Left/Down/Up/Right focus)
           "$mod, Left, movefocus, l"
           "$mod, Down, movefocus, d"
           "$mod, Up, movefocus, u"
           "$mod, Right, movefocus, r"
 
-          # Window movement (arrow keys)
-          "$mod SHIFT, Left, movewindow, l"
-          "$mod SHIFT, Down, movewindow, d"
-          "$mod SHIFT, Up, movewindow, u"
-          "$mod SHIFT, Right, movewindow, r"
+          # Window movement — vim keys (hlwm: Mod-Shift-h/j/k/l shift)
+          "$mod SHIFT, H, hy3:movewindow, l"
+          "$mod SHIFT, J, hy3:movewindow, d"
+          "$mod SHIFT, K, hy3:movewindow, u"
+          "$mod SHIFT, L, hy3:movewindow, r"
 
-          # Scratchpad
+          # Window movement — arrows (hlwm: Mod-Shift-Left/Down/Up/Right shift)
+          "$mod SHIFT, Left, hy3:movewindow, l"
+          "$mod SHIFT, Down, hy3:movewindow, d"
+          "$mod SHIFT, Up, hy3:movewindow, u"
+          "$mod SHIFT, Right, hy3:movewindow, r"
+
+          # Splits (hlwm: Mod-u split bottom, Mod-o split right)
+          "$mod, U, hy3:makegroup, v"
+          "$mod, O, hy3:makegroup, h"
+
+          # Tabbed/group toggle (hlwm: Mod1-t set_layout max, Mod1-v/h set_layout vertical/horizontal)
+          "$mod, T, hy3:changegroup, toggletab"
+          "ALT, T, hy3:changegroup, tab"
+          "ALT, V, hy3:changegroup, v"
+          "ALT, H, hy3:changegroup, h"
+
+          # Toggle split orientation (hlwm: Mod-Shift-space cycle_layout)
+          "$mod SHIFT, Space, hy3:changegroup, opposite"
+
+          # Tab/group navigation (hlwm: Mod-Next/Prior focus --level=tabs)
+          "$mod, Next, hy3:focustab, r"
+          "$mod, Prior, hy3:focustab, l"
+
+          # Scratchpad (hlwm: Mod-minus scratchpad, Mod-Shift-minus move scratchpad)
           "$mod, Minus, togglespecialworkspace, scratchpad"
           "$mod SHIFT, Minus, movetoworkspace, special:scratchpad"
 
-          # Workspace switching
+          # Workspace switching (hlwm: Mod-1..0 use_index)
           "$mod, 1, workspace, 1"
           "$mod, 2, workspace, 2"
           "$mod, 3, workspace, 3"
@@ -212,7 +237,7 @@ in
           "$mod, 9, workspace, 9"
           "$mod, 0, workspace, 10"
 
-          # Move window to workspace
+          # Move window to workspace (hlwm: Mod-Shift-1..0 move_index)
           "$mod SHIFT, 1, movetoworkspace, 1"
           "$mod SHIFT, 2, movetoworkspace, 2"
           "$mod SHIFT, 3, movetoworkspace, 3"
@@ -224,39 +249,20 @@ in
           "$mod SHIFT, 9, movetoworkspace, 9"
           "$mod SHIFT, 0, movetoworkspace, 10"
 
-          # Cycle workspaces (matching herbstluftwm period/comma)
+          # Cycle workspaces (hlwm: Mod-period/comma use_index +1/-1)
           "$mod, Period, workspace, e+1"
           "$mod, Comma, workspace, e-1"
 
-          # Cycle windows
+          # Cycle windows (hlwm: Mod-Tab cycle_all, Mod-c cycle)
           "$mod, Tab, cyclenext"
           "$mod SHIFT, Tab, cyclenext, prev"
           "$mod, C, cyclenext"
 
-          # Monitor cycling
+          # Monitor cycling (hlwm: Mod-BackSpace cycle_monitor)
           "$mod, BackSpace, focusmonitor, +1"
 
-          # Jump to urgent
+          # Jump to urgent (hlwm: Mod-i jumpto urgent)
           "$mod, I, focusurgentorlast"
-
-          # Window groups (stacking/tabbing)
-          "$mod, T, togglegroup"
-          "$mod, Next, changegroupactive, f"    # PageDown
-          "$mod, Prior, changegroupactive, b"   # PageUp
-          "$mod CTRL, T, moveoutofgroup"
-          "$mod SHIFT, H, movewindoworgroup, l"
-          "$mod SHIFT, J, movewindoworgroup, d"
-          "$mod SHIFT, K, movewindoworgroup, u"
-          "$mod SHIFT, L, movewindoworgroup, r"
-          "$mod, G, lockactivegroup, toggle"
-
-          # Layout controls
-          "$mod SHIFT, Space, togglesplit"
-
-          # Splitting (create new splits like herbstluftwm)
-          "$mod, U, layoutmsg, preselect d"
-          "$mod, O, layoutmsg, preselect r"
-          "$mod, Y, layoutmsg, preselect l"
 
           # Screenshots
           "$mod, Print, exec, grimblast copy area"
