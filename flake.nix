@@ -265,15 +265,6 @@
           ];
         };
 
-        proart = mkHost {
-          name = "proart";
-          desktop = desktopEnv.gnome;
-          extraModules = [
-            nixos-hardware.nixosModules.asus-px13
-            cosmicCachix
-            nixos-cosmic.nixosModules.default
-          ];
-        };
       };
 
       darwinConfigurations = {
