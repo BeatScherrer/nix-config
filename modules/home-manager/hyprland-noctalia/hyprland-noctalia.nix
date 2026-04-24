@@ -102,7 +102,7 @@ in
           hy3 = {
             no_gaps_when_only = 0;
             node_collapse_policy = 1;
-            group_inset = 0;
+            group_inset = 10;
             tabs = {
               height = 15;
               padding = 4;
@@ -208,9 +208,14 @@ in
           "$mod, U, hy3:makegroup, v"
           "$mod, O, hy3:makegroup, h"
 
-          # Tabbed/group toggle (hlwm: Mod1-t set_layout max, Mod1-v/h set_layout vertical/horizontal)
-          "$mod, T, hy3:changegroup, toggletab"
+          # Group / ungroup (wraps in a split group; Shift pops out)
+          "$mod, G, hy3:makegroup, h"
+          "$mod SHIFT, G, hy3:changegroup, untab"
+
+          # Tab mode (hlwm: Mod1-t set_layout max)
           "ALT, T, hy3:changegroup, tab"
+
+          # Layout orientation (hlwm: Mod1-v/h set_layout vertical/horizontal)
           "ALT, V, hy3:changegroup, v"
           "ALT, H, hy3:changegroup, h"
 
