@@ -27,6 +27,7 @@ in
     ../modules/home-manager/music_production/music_production.nix
     ../modules/home-manager/synology_drive.nix
     ../modules/home-manager/zellij/zellij.nix
+    ../modules/home-manager/crush/crush.nix
   ];
 
   # --- custom options

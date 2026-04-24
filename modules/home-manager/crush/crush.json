@@ -1,0 +1,19 @@
+{
+  "$schema": "https://charm.land/crush.json",
+  "providers": {
+    "anthropic": {
+      "type": "anthropic",
+      "api_key": "$ANTHROPIC_API_KEY"
+    }
+  },
+  "models": {
+    "large": {
+      "model": "claude-opus-4-6",
+      "provider": "anthropic"
+    },
+    "small": {
+      "model": "claude-sonnet-4-5",
+      "provider": "anthropic"
+    }
+  }
+}

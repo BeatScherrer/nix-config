@@ -19,6 +19,7 @@ in
     ./scripts.nix
     ./tailscale.nix
     ./sops.nix
+    ./anthropic.nix
   ];
 
   # Common boot configuration (overridden by secure-boot.nix for lanzaboote)

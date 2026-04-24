@@ -5,17 +5,18 @@ keys:
   - &host_trident age149kgl763e0w5v4znnjgfl6784kcnqecahfjmx0g4cy7tlxxfkpeq7y7pek
   - &user_beat_t14 age1thl4966j2n8tp652656vey4gxqtv9fyhtzx7uh7vr3egwldt292s0h4wd7
   - &host_t14 age15uyqcpmknv655a686k4czp8q85l5z8ss6m3tkdwa985rnaf785kqtuf0fk
+  - &all_hosts
+    - *user_beat_legion
+    - *host_legion
+    - *user_beat_trident
+    - *host_trident
+    - *user_beat_t14
+    - *host_t14
 
 creation_rules:
   - path_regex: secrets/mtr/.*\.yaml$
     key_groups:
-      - age:
-          - *user_beat_legion
-          - *host_legion
-          - *user_beat_trident
-          - *host_trident
-          - *user_beat_t14
-          - *host_t14
+      - age: *all_hosts
   - path_regex: secrets/legion/.*\.yaml$
     key_groups:
       - age:
@@ -26,3 +27,6 @@ creation_rules:
       - age:
           - *user_beat_trident
           - *host_trident
+  - path_regex: secrets/anthropic\.yaml$
+    key_groups:
+      - age: *all_hosts
