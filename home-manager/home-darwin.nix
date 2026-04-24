@@ -52,7 +52,7 @@
     # productivity
     # synology-drive-client
     #
-    neofetch
+    fastfetch
     # # LSP and formatters
     stylua
     lua-language-server

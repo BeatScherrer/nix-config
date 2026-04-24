@@ -22,10 +22,11 @@
     ../../modules/nixos/crypto.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/i3lock.nix
-    # ../../modules/nixos/ollama.nix # TODO:
+    # ../../modules/nixos/ollama.nix
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
     ../../modules/nixos/davinci-resolve.nix
+    ../../modules/nixos/printing-3d.nix
 
     ../../modules/nixos/desktop.nix
 
@@ -52,6 +53,7 @@
     enable = true;
     gpu = "amd";
   };
+  printing-3d.enable = true;
   davinci-resolve = {
     enable = true;
     gpu = "amd";

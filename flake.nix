@@ -300,6 +300,16 @@
 
       devShells = forAllSystems devShell;
 
+      checks.x86_64-linux =
+        let
+          evalCfg = name: self.nixosConfigurations.${name}.config.system.build.toplevel;
+        in
+        {
+          trident = evalCfg "trident";
+          legion = evalCfg "legion";
+          T14 = evalCfg "T14";
+        };
+
       # Expose home-manager modules for use in other flakes
       homeManagerModules = {
         shell = ./modules/home-manager/shell/shell.nix;

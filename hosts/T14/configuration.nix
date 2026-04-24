@@ -22,7 +22,7 @@
     ../../modules/nixos/crypto.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/i3lock.nix
-    # ../../modules/nixos/ollama.nix # TODO:
+    # ../../modules/nixos/ollama.nix
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
     ../../modules/nixos/davinci-resolve.nix
@@ -56,7 +56,6 @@
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # NOTE: another attempt to fix the odyssey g9 monitor issue... this one works
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xset}/bin/xset s off         # Disable screen saver
     ${pkgs.xset}/bin/xset -dpms         # Disable DPMS

@@ -1,14 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   # NOTE: The default GID is 100, which proved to be troublesome when
   # using systemd-nspawn! (cannot bind the user without a private user group)
   users = {
-    users.beat = {
+    users.${user} = {
       isNormalUser = true;
       description = "Beat Scherrer";
-      group = "beat";
+      group = user;
       extraGroups = [
         "networkmanager"
         "wheel"
@@ -16,8 +16,8 @@
       ];
     };
     groups = {
-      beat = {
-        members = [ "beat" ];
+      ${user} = {
+        members = [ user ];
         gid = 1000;
       };
     };

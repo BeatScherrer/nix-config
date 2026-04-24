@@ -19,6 +19,6 @@
     serviceConfig = {
       ExecStart = ''${pkgs.bashInteractive}/bin/bash -i -c "${pkgs.tailscale-systray}/bin/tailscale-systray"'';
     };
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = [ "graphical-session.target" ];
   };
 }
