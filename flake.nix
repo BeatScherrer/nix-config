@@ -214,7 +214,9 @@
                   ;
               };
               home-manager.users.${user} = import ./hosts/${name}/home.nix;
-              home-manager.backupFileExtension = "backup";
+              home-manager.backupCommand = ''
+                ${nixpkgs.legacyPackages.${system}.coreutils}/bin/mv "$1" "$1.backup-$(${nixpkgs.legacyPackages.${system}.coreutils}/bin/date +%Y%m%d%H%M%S)"
+              '';
             }
             {
               nixpkgs.overlays = [
@@ -278,7 +280,9 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs user; };
               home-manager.users.${user} = import ./home-manager/home-darwin.nix;
-              home-manager.backupFileExtension = "backup";
+              home-manager.backupCommand = ''
+                ${nixpkgs.legacyPackages.aarch64-darwin.coreutils}/bin/mv "$1" "$1.backup-$(${nixpkgs.legacyPackages.aarch64-darwin.coreutils}/bin/date +%Y%m%d%H%M%S)"
+              '';
             }
             nix-homebrew.darwinModules.nix-homebrew
             {
