@@ -61,10 +61,22 @@ in
       ];
     };
 
-    # garbage collection
-    # nix.gc.automatic = true;
-    # nix.gc.dates = "daily";
-    # nix.gc.options = "--delete-older-than +10";
+    # garbage collection: weekly `nh clean all` as root, mirroring the
+    # home-manager user timer's policy (`--keep 10 --keep-since 7d`).
+    systemd.services.nh-clean = {
+      description = "nh clean all";
+      serviceConfig.Type = "oneshot";
+      script = "${pkgs.nh}/bin/nh clean all --keep 10 --keep-since 7d";
+    };
+    systemd.timers.nh-clean = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "weekly";
+        Persistent = true;
+        RandomizedDelaySec = "1h";
+      };
+    };
+
     boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
 
     # list all current system packages in /etc/current-system-packages
