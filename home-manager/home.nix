@@ -124,6 +124,7 @@ in
     iftop
     nix-tree
     nodejs
+    glow
 
     # LSP and formatters
     stylua

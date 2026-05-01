@@ -39,6 +39,7 @@ Host r103
   Hostname robot-103.mt-robot.com
   ForwardX11 yes
   ForwardX11Trusted yes
+  IdentitiesOnly yes
   # LocalForward 9222 lcoalhost:9222 # ucc chromium debug
 
 Host r104
