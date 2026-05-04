@@ -10,6 +10,6 @@
     "npm:pi-web-access"
   ],
   "defaultThinkingLevel": "medium",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-7"
+  "defaultProvider": "ollama",
+  "defaultModel": "qwen3.6:35b-a3b"
 }
