@@ -29,6 +29,7 @@ in
     ../modules/home-manager/zellij/zellij.nix
     ../modules/home-manager/anthropic.nix
     ../modules/home-manager/crush/crush.nix
+    ../modules/home-manager/pi/pi.nix
   ];
 
   # --- custom options

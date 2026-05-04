@@ -1,0 +1,12 @@
+{
+  "lastChangelogVersion": "0.72.1",
+  "packages": [
+    "npm:pi-claude-permissions",
+    "npm:@samfp/pi-memory",
+    "npm:pi-subagents",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-powerline-footer",
+    "npm:@juicesharp/rpiv-todo"
+  ],
+  "defaultThinkingLevel": "medium"
+}
