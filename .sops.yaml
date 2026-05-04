@@ -13,8 +13,20 @@ keys:
     - *user_beat_t14
     - *host_t14
 
+_anchors:
+  all_hosts: &all_hosts
+    - *user_beat_legion
+    - *host_legion
+    - *user_beat_trident
+    - *host_trident
+    - *user_beat_t14
+    - *host_t14
+
 creation_rules:
   - path_regex: secrets/mtr/.*\.yaml$
+    key_groups:
+      - age: *all_hosts
+  - path_regex: secrets/anthropic\.yaml$
     key_groups:
       - age: *all_hosts
   - path_regex: secrets/legion/.*\.yaml$
@@ -27,6 +39,3 @@ creation_rules:
       - age:
           - *user_beat_trident
           - *host_trident
-  - path_regex: secrets/anthropic\.yaml$
-    key_groups:
-      - age: *all_hosts
