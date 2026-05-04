@@ -5,4 +5,8 @@
   home.file.".pi/agent/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink
       (config.home.homeDirectory + "/.nix/modules/home-manager/pi/settings.json");
+
+  home.file.".pi/agent/models.json".source =
+    config.lib.file.mkOutOfStoreSymlink
+      (config.home.homeDirectory + "/.nix/modules/home-manager/pi/models.json");
 }

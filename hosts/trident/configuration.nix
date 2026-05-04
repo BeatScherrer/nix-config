@@ -22,7 +22,7 @@
     ../../modules/nixos/crypto.nix
     ../../modules/nixos/ssh.nix
     ../../modules/nixos/i3lock.nix
-    # ../../modules/nixos/ollama.nix
+    ../../modules/nixos/ollama.nix
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/teamviewer/teamviewer.nix
     ../../modules/nixos/davinci-resolve.nix
