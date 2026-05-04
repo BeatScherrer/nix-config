@@ -8,6 +8,6 @@
     # is not exposed to the public internet.
     host = "0.0.0.0";
     port = 11434;
-    # loadModels = [ "qwen3.6:35b-a3b" ];
+    loadModels = [ "qwen3.6:35b-a3b" ];
   };
 }
