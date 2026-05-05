@@ -114,9 +114,9 @@ in
         } // {
 
           # modules-left = launcher i3 sep
-          modules-left = "launcher info-hlwm-workspaces sep";
+          modules-left = "launcher info-hlwm-workspaces sep memory coolant gpu cpu";
           modules-center = "date song";
-          modules-right = "scrot sep volume bluetooth sep network sep memory temperature coolant cpu sep battery powermenu sep";
+          modules-right = "scrot sep volume bluetooth sep network sep battery powermenu sep";
 
           # The separator will be inserted between the output of each module
           separator = " ";
@@ -255,6 +255,18 @@ in
           format-padding = 2;
 
           label = " %percentage%%";
+        };
+
+        "module/gpu" = {
+          type = "custom/script";
+          interval = 2;
+          format = "<label>";
+          format-prefix = "GPU";
+          format-background = "${colorScheme.background0}";
+          format-foreground = "${colorScheme.foreground0}";
+          format-padding = 2;
+          exec = "~/.config/polybar/scripts/get_gpu_load.sh";
+          label = " %output%%";
         };
 
         "module/date" = {
