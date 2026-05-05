@@ -34,4 +34,16 @@
   home.file.".ssh/config.d/mtr".source =
     config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
     + "/.nix/modules/home-manager/work/mtr/mtr.ssh";
+
+  # MTR-specific git identity for all repos under ~/src/mtrobot.
+  # Uses git's includeIf with a gitdir prefix match — this automatically
+  # covers every repository at any depth under that directory.
+  programs.git.includes = [
+    {
+      condition = "gitdir:${config.home.homeDirectory}/src/mtrobot/";
+      contents = {
+        user.email = "b.scherrer@mt-robot.com";
+      };
+    }
+  ];
 }
