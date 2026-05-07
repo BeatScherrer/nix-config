@@ -66,11 +66,11 @@ const DESTRUCTIVE_BASH = [
 	/\bpodman\s+(rm|rmi|system\s+prune|volume\s+rm)/,
 	/\bcurl\b.*\|\s*(sh|bash|zsh)/,
 	/\bwget\b.*\|\s*(sh|bash|zsh)/,
-	// Output redirection that overwrites or appends to files.
-	/(^|[^>&])>\s*\S/,
-	/>>\s*\S/,
-	// In-place tee.
-	/\btee\b(?!.*--)/,
+	// Output redirection (>, >>, with optional leading fd like 2>) that
+	// targets a real file. Skip /dev/null and fd-dups like 2>&1.
+	/(?:^|\s)\d?>{1,2}\s*(?!&|\/dev\/null\b)\S/,
+	// In-place tee writing to a real file.
+	/\btee\b\s+(?!-)\S/,
 ];
 
 function isDestructiveBash(cmd: string): boolean {
