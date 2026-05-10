@@ -125,6 +125,17 @@ in
         default = null;
         description = "Path to file containing MATRIX_ACCESS_TOKEN";
       };
+
+      extraEnvFiles = mkOption {
+        type = types.listOf types.path;
+        default = [ ];
+        description = ''
+          Additional EnvironmentFile paths to load for the orchestrator and
+          monitor services. Each file must be in `KEY=VALUE` format. Use this
+          for secrets that don't have a dedicated option above (e.g. a
+          BITBUCKET_PAT for git access to private repos).
+        '';
+      };
     };
 
     matrix = {

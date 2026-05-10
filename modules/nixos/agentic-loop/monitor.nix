@@ -16,7 +16,8 @@ let
     optional (cfg.apiKeys.anthropicKeyFile != null) cfg.apiKeys.anthropicKeyFile
     ++ optional (cfg.apiKeys.openaiKeyFile != null) cfg.apiKeys.openaiKeyFile
     ++ optional (cfg.apiKeys.openrouterKeyFile != null) cfg.apiKeys.openrouterKeyFile
-    ++ optional (cfg.apiKeys.matrixTokenFile != null) cfg.apiKeys.matrixTokenFile;
+    ++ optional (cfg.apiKeys.matrixTokenFile != null) cfg.apiKeys.matrixTokenFile
+    ++ cfg.apiKeys.extraEnvFiles;
 in
 {
   config = mkIf (cfg.enable && cfg.agents.monitor.enable) {

@@ -41,6 +41,9 @@
 
     # agentic development loop
     ../../modules/nixos/agentic-loop/agentic-loop.nix
+
+    # Poseidon — personal-assistant zeroclaw daemon
+    ../../modules/nixos/poseidon/poseidon.nix
   ];
 
   # custom module options
@@ -62,13 +65,48 @@
     enable = true;
     port = 8080;
   };
+  sops.secrets."openrouter-api-key" = {
+    sopsFile = ../../secrets/trident/openrouter-api-key.yaml;
+    mode = "0400";
+    owner = "agentic";
+    group = "agentic";
+  };
+  sops.secrets."matrix-token" = {
+    sopsFile = ../../secrets/trident/matrix-token.yaml;
+    mode = "0400";
+    owner = "agentic";
+    group = "agentic";
+  };
+  sops.secrets."bitbucket-pat" = {
+    sopsFile = ../../secrets/trident/bitbucket-pat.yaml;
+    mode = "0400";
+    owner = "agentic";
+    group = "agentic";
+  };
+  sops.secrets."github-pat" = {
+    sopsFile = ../../secrets/trident/github-pat.yaml;
+    mode = "0400";
+    owner = "agentic";
+    group = "agentic";
+  };
+  sops.secrets."matrix-poseidon-token" = {
+    sopsFile = ../../secrets/trident/matrix-poseidon-token.yaml;
+    mode = "0400";
+    owner = "poseidon";
+    group = "poseidon";
+  };
+
   agenticLoop = {
     enable = true;
     matrix.homeserverUrl = "https://matrix.shetec.ch";
     matrix.roomId = "!BeDNBxaHRdhpRTVTpi:matrix.org";
     matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
-    apiKeys.openrouterKeyFile = "/etc/secrets/openrouter-api-key";
-    apiKeys.matrixTokenFile = "/etc/secrets/matrix-token";
+    apiKeys.openrouterKeyFile = config.sops.secrets."openrouter-api-key".path;
+    apiKeys.matrixTokenFile = config.sops.secrets."matrix-token".path;
+    apiKeys.extraEnvFiles = [
+      config.sops.secrets."bitbucket-pat".path
+      config.sops.secrets."github-pat".path
+    ];
     agents = {
       orchestrator = {
         enable = true;
@@ -89,6 +127,38 @@
       };
     };
   };
+
+  poseidon = {
+    enable = true;
+    # Read-only host paths bind-mounted into Poseidon's namespace. ACLs are
+    # applied so the `poseidon` user can read them. Add more dirs as you find
+    # friction.
+    bindReadOnlyPaths = [
+      "/home/beat/Documents"
+    ];
+    # Read-write. The Poseidon subfolder lives inside the synology-drive sync
+    # root, so anything Poseidon writes is pushed to the NAS by the
+    # synology-drive user service. Make sure the synology-drive client is
+    # configured to sync ~/SynologyDrive ↔ a dedicated NAS folder.
+    bindReadWritePaths = [
+      "/home/beat/SynologyDrive/Poseidon"
+    ];
+
+    # Matrix integration: leave roomId empty until you've created a separate
+    # Matrix account + room. Then fill matrix-poseidon-token.yaml and set
+    # roomId here.
+    matrix.roomId = "";
+    matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
+    matrix.accessTokenFile = config.sops.secrets."matrix-poseidon-token".path;
+  };
+
+  # Ensure the synology-drive sync root and Poseidon's subfolder exist before
+  # the poseidon service tries to bind-mount them. Owned by `beat` so
+  # synology-drive (which runs as beat) can manage the contents.
+  systemd.tmpfiles.rules = [
+    "d /home/beat/SynologyDrive 0755 beat users -"
+    "d /home/beat/SynologyDrive/Poseidon 0755 beat users -"
+  ];
   # ---------------------------------------------------------------------------
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
