@@ -45,10 +45,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     claude-desktop = {
       url = "github:k3d3/claude-desktop-linux-flake";
       # NOTE: don't follow our nixpkgs — upstream still references the removed
@@ -91,7 +87,6 @@
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
-      ghostty,
       claude-desktop,
       lanzaboote,
       quickshell,
@@ -123,13 +118,6 @@
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
       # overlay for flake packages
       flakePackagesOverlay = system: final: prev: {
-        # openldap's checkPhase runs test017-syncreplication-refresh, which is
-        # timing-flaky (fixed sleep windows for syncrepl convergence) and fails
-        # consistently on a loaded build host. Unmodified source; skip its
-        # self-test, as nixpkgs Hydra effectively does.
-        openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
-
-        ghostty = ghostty.packages.${system}.default;
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
@@ -154,20 +142,6 @@
               jq --arg h "$newHash" '.files["src/lib.rs"] = $h' \
                 "$vendorDir/.cargo-checksum.json" > "$vendorDir/.cargo-checksum.json.new"
               mv "$vendorDir/.cargo-checksum.json.new" "$vendorDir/.cargo-checksum.json"
-            fi
-
-            # zeroclaw 0.7.5 surfaces the same matrix-sdk-crypto Send overflow
-            # (E0275) while compiling the first-party `zeroclaw-channels`
-            # crate. rustc asks for #![recursion_limit] on that crate itself;
-            # it's source (not vendored) so no .cargo-checksum.json refresh.
-            chanLib=$(find "$NIX_BUILD_TOP" -maxdepth 6 -type f \
-              -path '*crates/zeroclaw-channels/src/lib.rs' | head -n1)
-            if [ -z "$chanLib" ]; then
-              echo "zeroclaw-channels lib.rs not found under $NIX_BUILD_TOP" >&2
-              exit 1
-            fi
-            if ! grep -q 'recursion_limit' "$chanLib"; then
-              sed -i '1i #![recursion_limit = "1024"]' "$chanLib"
             fi
           '';
         });
