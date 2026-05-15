@@ -95,6 +95,17 @@
     owner = "poseidon";
     group = "poseidon";
   };
+  # Same encrypted yaml as openrouter-api-key (used by agentic-loop), but
+  # decrypted to a separate file owned by `poseidon` so the hardened poseidon
+  # service can read it without sharing groups with `agentic`.
+  sops.secrets."openrouter-api-key-poseidon" = {
+    sopsFile = ../../secrets/trident/openrouter-api-key.yaml;
+    key = "openrouter-api-key";
+    mode = "0400";
+    owner = "poseidon";
+    group = "poseidon";
+    restartUnits = [ "poseidon.service" ];
+  };
 
   agenticLoop = {
     enable = true;
@@ -130,6 +141,9 @@
 
   poseidon = {
     enable = true;
+    provider = "openrouter";
+    model = "anthropic/claude-sonnet-4";
+    openrouterApiKeyFile = config.sops.secrets."openrouter-api-key-poseidon".path;
     # Read-only host paths bind-mounted into Poseidon's namespace. ACLs are
     # applied so the `poseidon` user can read them. Add more dirs as you find
     # friction.
@@ -147,7 +161,7 @@
     # Matrix integration: leave roomId empty until you've created a separate
     # Matrix account + room. Then fill matrix-poseidon-token.yaml and set
     # roomId here.
-    matrix.roomId = "";
+    matrix.roomId = "!pLqQKnSGoscMDCgpZJ:matrix.org";
     matrix.allowedUsers = [ "@BeatScherrer:matrix.org" ];
     matrix.accessTokenFile = config.sops.secrets."matrix-poseidon-token".path;
   };

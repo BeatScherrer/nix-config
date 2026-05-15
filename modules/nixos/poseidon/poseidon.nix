@@ -206,6 +206,15 @@ in
         '';
       };
     };
+
+    openrouterApiKeyFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = ''
+        Path to a file containing `OPENROUTER_API_KEY=...`, readable by the
+        poseidon user. Required when provider = "openrouter".
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -251,7 +260,9 @@ in
         Group = cfg.group;
         WorkingDirectory = cfg.workspaceBaseDir;
 
-        EnvironmentFile = optional (matrixEnabled && cfg.matrix.accessTokenFile != null) "-${cfg.matrix.accessTokenFile}";
+        EnvironmentFile =
+          optional (matrixEnabled && cfg.matrix.accessTokenFile != null) "-${cfg.matrix.accessTokenFile}"
+          ++ optional (cfg.openrouterApiKeyFile != null) "-${cfg.openrouterApiKeyFile}";
 
         ExecStartPre = "${prestart}/bin/poseidon-prestart ${configTemplate} ${if matrixEnabled then "matrix" else "no-matrix"}";
         ExecStart = "${pkgs.zeroclaw}/bin/zeroclaw daemon";

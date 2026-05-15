@@ -191,6 +191,7 @@ in
     # Generate config.toml at activation time, substituting secrets
     # Config is written (not symlinked) so we can inject the Matrix access token
     system.activationScripts.agentic-loop-configs = {
+      deps = [ "setupSecrets" ];
       text = concatMapStrings (name:
         let
           template = cfg._internal.configFiles.${name};
