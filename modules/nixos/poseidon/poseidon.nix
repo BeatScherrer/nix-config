@@ -248,6 +248,17 @@ in
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
+      # Force a restart whenever the rendered config, prestart script, or
+      # identity file changes between generations. sops-nix `restartUnits`
+      # only fires when a secret's *ciphertext* changes, so a pure config
+      # change (e.g. wiring openrouterApiKeyFile / switching provider) would
+      # otherwise leave a stale process running with the old environment.
+      restartTriggers = [
+        configTemplate
+        "${prestart}/bin/poseidon-prestart"
+        (toString cfg.identityFile)
+      ];
+
       environment = {
         HOME = cfg.workspaceBaseDir;
       };

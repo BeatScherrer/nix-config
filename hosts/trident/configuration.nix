@@ -141,9 +141,10 @@
 
   poseidon = {
     enable = true;
-    provider = "openrouter";
-    model = "anthropic/claude-sonnet-4";
-    openrouterApiKeyFile = config.sops.secrets."openrouter-api-key-poseidon".path;
+    # Local inference via the trident ollama service (modules/nixos/ollama.nix),
+    # which preloads this model. No API key / outbound network needed.
+    provider = "ollama";
+    model = "qwen3.6:35b-a3b";
     # Read-only host paths bind-mounted into Poseidon's namespace. ACLs are
     # applied so the `poseidon` user can read them. Add more dirs as you find
     # friction.
