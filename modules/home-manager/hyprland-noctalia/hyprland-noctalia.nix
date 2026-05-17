@@ -176,7 +176,7 @@ in
           # Applications (hlwm: Mod-Return/f/e/b/space)
           "$mod, Return, exec, $terminal"
           "$mod, F, exec, $fileManager"
-          "$mod, E, exec, evolution"
+          "$mod, E, exec, thunderbird"
           "$mod, B, exec, $browser"
           "$mod, Space, exec, noctalia-shell ipc call launcher toggle"
 

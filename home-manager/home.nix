@@ -85,15 +85,7 @@ in
     # Messengers
     telegram-desktop
     signal-desktop
-    (wasistlos.overrideAttrs (old: {
-      preFixup = (old.preFixup or "") + ''
-        gappsWrapperArgs+=(
-          --set GDK_BACKEND x11
-          --set GDK_SCALE 1
-          --set WEBKIT_DISABLE_DMABUF_RENDERER 1
-        )
-      '';
-    }))
+    karere
     discord
     element-desktop
     slack
@@ -160,7 +152,6 @@ in
     gnome-calculator
     gnome-clocks
     thunderbird
-    evolution
     kdePackages.okular
     librewolf
     chromium

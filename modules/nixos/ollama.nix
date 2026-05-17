@@ -11,11 +11,11 @@
     loadModels = [ "qwen3.6:35b-a3b" ];
   };
 
-  services.open-webui = {
-    enable = true;
-    port = 8088;
-    host = "0.0.0.0";
-    environment.OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
-    openFirewall = true;
-  };
+  # services.open-webui = {
+  #   enable = true;
+  #   port = 8088;
+  #   host = "0.0.0.0";
+  #   environment.OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+  #   openFirewall = true;
+  # };
 }
