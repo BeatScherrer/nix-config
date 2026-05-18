@@ -44,6 +44,16 @@ layout {
         active-color "#de935f"
         inactive-color "#323232"
     }
+
+    tab-indicator {
+        width 4
+        gap 5
+        corner-radius 8
+        place-within-column false
+        position "left"
+        active-color "#de935f"
+        inactive-color "#323232"
+    }
 }
 
 // Cursor
@@ -200,6 +210,9 @@ binds {
     // Consume/expel
     Mod+BracketLeft { consume-window-into-column; }
     Mod+BracketRight { expel-window-from-column; }
+
+    // Tabbed column display
+    Alt+T { toggle-column-tabbed-display; }
 
     // Application launchers
     Mod+Return { spawn "ghostty"; }
