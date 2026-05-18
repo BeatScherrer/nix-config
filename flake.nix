@@ -121,14 +121,44 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
+        # openldap's test017-syncreplication-refresh is timing-flaky (it
+        # relies on fixed sleeps and fails under build-machine load / newer
+        # kernels). Disable the check phase. Remove if nixpkgs ships a
+        # cached openldap again.
+        openldap = prev.openldap.overrideAttrs (_: {
+          doCheck = false;
+        });
+        # nixos-unstable shipped hyprland 0.55.1 but hyprlandPlugins.hy3 is
+        # still 0.54.2.1, which fails to build against the new CBox/Vector2D
+        # API (nixpkgs#475993). Pin hy3 to upstream tag hl0.55.0 (compatible
+        # with hyprland 0.55.1) until nixpkgs catches up; then remove this.
+        hyprlandPlugins = prev.hyprlandPlugins // {
+          hy3 = prev.hyprlandPlugins.hy3.overrideAttrs (_: {
+            version = "0.55.0";
+            src = final.fetchFromGitHub {
+              owner = "outfoxxed";
+              repo = "hy3";
+              rev = "a7282db2d7ca336d3c9faa5d10d75fc43eed37aa";
+              hash = "sha256-P3wwiIfqo89evW7xzI+wOI/qM1WPZBiiSmGNtBmYeVk=";
+            };
+          });
+        };
         zeroclaw = llm-agents.packages.${system}.zeroclaw.overrideAttrs (old: {
           cargoBuildFeatures = (old.cargoBuildFeatures or [ ]) ++ [ "channel-matrix" ];
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.jq ];
-          # matrix-sdk 0.16.0 overflows rustc's default query-depth limit
-          # under the current toolchain. Inject #![recursion_limit = "512"]
-          # into the vendored crate root and refresh its cargo checksum.
-          # Remove once numtide/llm-agents.nix ships a matrix-sdk that
+          # The deep matrix-sdk 0.16.0 async types overflow rustc's default
+          # recursion limit. recursion_limit is per-crate, so it must be set
+          # on every crate that hits the overflow: the vendored matrix-sdk
+          # crate root (below, in preBuild) AND zeroclaw's own
+          # zeroclaw-channels crate, whose src/matrix.rs instantiates those
+          # types. Remove once numtide/llm-agents.nix ships a matrix-sdk that
           # compiles without bumping the limit.
+          postPatch = (old.postPatch or "") + ''
+            libFile=crates/zeroclaw-channels/src/lib.rs
+            if [ -f "$libFile" ] && ! grep -q 'recursion_limit' "$libFile"; then
+              sed -i '1i #![recursion_limit = "1024"]' "$libFile"
+            fi
+          '';
           preBuild = (old.preBuild or "") + ''
             vendorDir=$(find "$NIX_BUILD_TOP" -maxdepth 3 -type d -name 'matrix-sdk-0.16.0' | head -n1)
             if [ -z "$vendorDir" ]; then
