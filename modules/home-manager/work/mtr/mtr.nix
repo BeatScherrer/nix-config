@@ -35,6 +35,10 @@
     config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
     + "/.nix/modules/home-manager/work/mtr/mtr.ssh";
 
+  home.file.".claude/commands/mtr-diagnose.md".source =
+    config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
+    + "/.nix/modules/home-manager/work/mtr/mtr-diagnose.md";
+
   # MTR-specific git identity for all repos under ~/src/mtrobot.
   # Uses git's includeIf with a gitdir prefix match — this automatically
   # covers every repository at any depth under that directory.

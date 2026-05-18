@@ -6,4 +6,7 @@
 
   home.file.".claude/CLAUDE.md".source =
     config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/claude-code/CLAUDE.md");
+
+  home.file.".claude/settings.json".source =
+    config.lib.file.mkOutOfStoreSymlink (config.home.homeDirectory + "/.nix/modules/home-manager/claude-code/settings.json");
 }

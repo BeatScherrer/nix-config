@@ -8,6 +8,19 @@ with lib;
 let
   cfg = config.hyprlandNoctalia;
 
+  # nixpkgs ships Hyprland 0.55.x but hy3 only 0.54.2.1, which fails to build
+  # against the 0.55 API. Override the src to upstream's hl0.55.0 tag until
+  # nixpkgs catches up.
+  hy3 = pkgs.hyprlandPlugins.hy3.overrideAttrs (old: {
+    version = "0.55.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "outfoxxed";
+      repo = "hy3";
+      rev = "hl0.55.0";
+      hash = "sha256-P3wwiIfqo89evW7xzI+wOI/qM1WPZBiiSmGNtBmYeVk=";
+    };
+  });
+
   # Gravel pit color scheme (matching herbstluftwm)
   colors = {
     active = "de935f"; # yellow/orange
@@ -65,7 +78,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      plugins = [ pkgs.hyprlandPlugins.hy3 ];
+      plugins = [ hy3 ];
       settings = {
         # Autostart
         "exec-once" = [
