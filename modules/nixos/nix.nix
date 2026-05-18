@@ -26,6 +26,10 @@ in
   };
 
   config = {
+    # Pull from trident's Harmonia cache by default on every host (incl.
+    # trident itself). Override per-host with `localCache.enable = false`.
+    localCache.enable = lib.mkDefault true;
+
     nix.settings = {
       experimental-features = [
         "nix-command"
