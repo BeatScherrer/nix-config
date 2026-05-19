@@ -85,7 +85,20 @@ in
     # Messengers
     telegram-desktop
     signal-desktop
-    karere
+    # nixpkgs' karere ships no GStreamer plugins, so WebKitGTK's web process
+    # aborts whenever WhatsApp plays media (voice notes, videos, ringtones).
+    # Add the gst plugins; wrapGAppsHook4 picks them up automatically.
+    (karere.overrideAttrs (old: {
+      buildInputs =
+        (old.buildInputs or [ ])
+        ++ (with gst_all_1; [
+          gstreamer
+          gst-plugins-base
+          gst-plugins-good
+          gst-plugins-bad
+          gst-libav
+        ]);
+    }))
     discord
     element-desktop
     slack
