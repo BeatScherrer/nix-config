@@ -239,7 +239,9 @@
               };
               home-manager.users.${user} = import ./hosts/${name}/home.nix;
               home-manager.backupCommand = ''
-                ${nixpkgs.legacyPackages.${system}.coreutils}/bin/mv "$1" "$1.backup-$(${nixpkgs.legacyPackages.${system}.coreutils}/bin/date +%Y%m%d%H%M%S)"
+                ${nixpkgs.legacyPackages.${system}.coreutils}/bin/mv "$1" "$1.backup-$(${
+                  nixpkgs.legacyPackages.${system}.coreutils
+                }/bin/date +%Y%m%d%H%M%S)"
               '';
             }
             {
@@ -284,7 +286,7 @@
 
         T14 = mkHost {
           name = "T14";
-          desktop = desktopEnv.niri;
+          desktop = desktopEnv.mango;
           extraModules = [
             # NOTE: There is no gen6 t14 module yet
             # nixos-hardware.nixosModules.lenovo.thinkpad.t14.amd.gen5
