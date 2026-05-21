@@ -14,6 +14,7 @@ in
     ./gnome.nix
     ./hyprland.nix
     ./niri.nix
+    ./mango.nix
     ./noctalia.nix
   ];
 
@@ -24,6 +25,7 @@ in
         "herbstluftwm"
         "gnome"
         "niri"
+        "mango"
         "hyprland"
         "hyprland-noctalia"
       ];
@@ -38,8 +40,10 @@ in
     herbstluftwm.enable = cfg.environment == "herbstluftwm";
     gnome.enable = cfg.environment == "gnome";
     niri.enable = cfg.environment == "niri";
+    mango.enable = cfg.environment == "mango";
     # Both hyprland variants use the same system-level configuration
     hyprland.enable = cfg.environment == "hyprland" || cfg.environment == "hyprland-noctalia";
-    noctalia.enable = cfg.environment == "hyprland-noctalia" || cfg.environment == "niri";
+    noctalia.enable =
+      cfg.environment == "hyprland-noctalia" || cfg.environment == "niri" || cfg.environment == "mango";
   };
 }

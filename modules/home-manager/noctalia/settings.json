@@ -210,6 +210,9 @@
                     "useDistroLogo": true
                 },
                 {
+                    "defaultSettings": {
+                        "mode": "region"
+                    },
                     "id": "plugin:screenshot"
                 }
             ]

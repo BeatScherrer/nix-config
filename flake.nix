@@ -111,6 +111,7 @@
         herbstluftwm = "herbstluftwm";
         gnome = "gnome";
         niri = "niri";
+        mango = "mango";
         hyprland = "hyprland";
         hyprland-noctalia = "hyprland-noctalia";
       };

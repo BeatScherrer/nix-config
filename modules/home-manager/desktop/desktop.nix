@@ -15,6 +15,7 @@ in
     ../hyprland/hyprland.nix
     ../hyprland-noctalia/hyprland-noctalia.nix
     ../niri/niri.nix
+    ../mango/mango.nix
   ];
 
   options.desktop = {
@@ -24,6 +25,7 @@ in
         "herbstluftwm"
         "gnome"
         "niri"
+        "mango"
         "hyprland"
         "hyprland-noctalia"
       ];
@@ -38,6 +40,7 @@ in
     herbstluftwm.enable = cfg.environment == "herbstluftwm";
     gnomeHome.enable = cfg.environment == "gnome";
     niri.enable = cfg.environment == "niri";
+    mango.enable = cfg.environment == "mango";
     hyprlandHome.enable = cfg.environment == "hyprland";
     hyprlandNoctalia.enable = cfg.environment == "hyprland-noctalia";
   };
