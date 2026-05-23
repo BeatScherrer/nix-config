@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   services.mysql = {
-    enable = false;
+    enable = true;
     package = pkgs.mariadb;
     # NOTE: for mysql workbench root use root password authentication
     # WARN: This is only executed on initial setup!
