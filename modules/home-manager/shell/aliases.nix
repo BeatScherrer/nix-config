@@ -1,5 +1,6 @@
 {
   nixupdate = "nh os switch ~/.nix";
+  nixupdate-nocache = "nh os switch ~/.nix -- --option extra-substituters '' --option extra-trusted-public-keys ''";
   nixtest = "nh os test ~/.nix";
   nixclean = "nh clean all --keep 10 --keep-since 7d";
   homeupdate = "nh home switch ~/.nix";
