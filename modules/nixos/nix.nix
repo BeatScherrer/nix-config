@@ -30,6 +30,10 @@ in
     # trident itself). Override per-host with `localCache.enable = false`.
     localCache.enable = lib.mkDefault true;
 
+    # Lix replaces upstream Nix. Avoids the nix-daemon 2.34.7 crash where
+    # any worker-thread exception during queryMissing terminates the daemon.
+    nix.package = pkgs.lix;
+
     nix.settings = {
       experimental-features = [
         "nix-command"
