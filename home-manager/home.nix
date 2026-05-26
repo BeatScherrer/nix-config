@@ -105,7 +105,13 @@ in
     zulip
     # threema-desktop
 
-    pkgs-stable.tidal-hifi
+    # Electron 40 namespace sandbox aborts here (chrome-sandbox is not SUID, sandbox child gets ESRCH on every syscall); force --no-sandbox.
+    (tidal-hifi.overrideAttrs (old: {
+      postFixup = (old.postFixup or "") + ''
+        substituteInPlace $out/bin/tidal-hifi \
+          --replace-fail '"$@"' '--no-sandbox "$@"'
+      '';
+    }))
 
     # Code editors
     helix
