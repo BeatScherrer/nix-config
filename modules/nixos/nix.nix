@@ -38,6 +38,7 @@ in
       experimental-features = [
         "nix-command"
         "flakes"
+        "flake-self-attrs" # required by lix (upstream nix enables by default)
       ];
 
       # Binary cache substituters
