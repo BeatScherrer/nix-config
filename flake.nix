@@ -276,7 +276,7 @@
       nixosConfigurations = {
         trident = mkHost {
           name = "trident";
-          desktop = desktopEnv.herbstluftwm;
+          desktop = desktopEnv.gpwm;
           extraModules = [
             nixos-cosmic.nixosModules.default
             lanzaboote.nixosModules.lanzaboote
