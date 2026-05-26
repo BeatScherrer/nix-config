@@ -15,6 +15,7 @@ in
     ./hyprland.nix
     ./niri.nix
     ./mango.nix
+    ./gpwm.nix
     ./noctalia.nix
   ];
 
@@ -28,6 +29,7 @@ in
         "mango"
         "hyprland"
         "hyprland-noctalia"
+        "gpwm"
       ];
       default = "none";
       description = "The desktop environment or window manager to use";
@@ -43,7 +45,11 @@ in
     mango.enable = cfg.environment == "mango";
     # Both hyprland variants use the same system-level configuration
     hyprland.enable = cfg.environment == "hyprland" || cfg.environment == "hyprland-noctalia";
+    gpwm.enable = cfg.environment == "gpwm";
     noctalia.enable =
-      cfg.environment == "hyprland-noctalia" || cfg.environment == "niri" || cfg.environment == "mango";
+      cfg.environment == "hyprland-noctalia"
+      || cfg.environment == "niri"
+      || cfg.environment == "mango"
+      || cfg.environment == "gpwm";
   };
 }

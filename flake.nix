@@ -63,6 +63,11 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    gpwm = {
+      url = "git+ssh://git@gitlab.com/BeatScherrer/gpwm.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -91,6 +96,7 @@
       lanzaboote,
       quickshell,
       noctalia,
+      gpwm,
       llm-agents,
       sops-nix,
       ...
@@ -114,6 +120,7 @@
         mango = "mango";
         hyprland = "hyprland";
         hyprland-noctalia = "hyprland-noctalia";
+        gpwm = "gpwm";
       };
       # helper to call a function for each system
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
@@ -122,6 +129,7 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
+        gpwm = gpwm.packages.${system}.default;
         # openldap's test017-syncreplication-refresh is timing-flaky (it
         # relies on fixed sleeps and fails under build-machine load / newer
         # kernels). Disable the check phase. Remove if nixpkgs ships a
