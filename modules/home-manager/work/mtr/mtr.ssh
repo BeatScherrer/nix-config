@@ -1,4 +1,4 @@
-Host bitbucket.mt-robot.com
+Match host *.mt-robot.com
   IdentityFile ~/.ssh/id_ed25519
   IdentitiesOnly yes
 
