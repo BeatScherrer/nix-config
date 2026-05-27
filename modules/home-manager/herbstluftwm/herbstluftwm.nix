@@ -21,6 +21,7 @@ in
 
   config = mkIf cfg.enable {
     polybar.enable = true;
+    dunst.enable = true;
 
     xdg.configFile."herbstluftwm/autostart".source =
       config.lib.file.mkOutOfStoreSymlink config.home.homeDirectory
