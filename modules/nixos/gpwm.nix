@@ -16,6 +16,20 @@ in
 
   options.gpwm = {
     enable = lib.mkEnableOption "Gravel Pit Window Manager (gpwm), Beat's Rust-based Wayland compositor";
+
+    shell = lib.mkOption {
+      type = lib.types.enum [
+        "noctalia"
+        "dms"
+      ];
+      default = "noctalia";
+      description = ''
+        Which Quickshell-based session shell to wire as a gpwm-session helper.
+        Selects whether noctalia.enable or dms.enable gets flipped on (system
+        services) and which user service the home-manager gpwm module brings
+        up against gpwm-session.target.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {

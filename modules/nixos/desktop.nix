@@ -17,6 +17,7 @@ in
     ./mango.nix
     ./gpwm.nix
     ./noctalia.nix
+    ./dms.nix
   ];
 
   options.desktop = {
@@ -50,6 +51,7 @@ in
       cfg.environment == "hyprland-noctalia"
       || cfg.environment == "niri"
       || cfg.environment == "mango"
-      || cfg.environment == "gpwm";
+      || (cfg.environment == "gpwm" && config.gpwm.shell == "noctalia");
+    dms.enable = cfg.environment == "gpwm" && config.gpwm.shell == "dms";
   };
 }

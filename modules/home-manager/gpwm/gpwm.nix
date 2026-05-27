@@ -11,10 +11,24 @@ in
 {
   imports = [
     ../noctalia/noctalia.nix
+    ../dms/dms.nix
   ];
 
   options.gpwm = {
     enable = mkEnableOption "Gravel Pit Window Manager (Beat's Rust Wayland compositor)";
+
+    shell = mkOption {
+      type = types.enum [
+        "noctalia"
+        "dms"
+      ];
+      default = "noctalia";
+      description = ''
+        Which Quickshell-based session shell to install and run alongside gpwm.
+        Drives noctalia/dms package installation and the corresponding
+        systemd user service bound to gpwm-session.target.
+      '';
+    };
 
     wallpaper = mkOption {
       type = types.nullOr types.path;
@@ -24,7 +38,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    noctalia.enable = true;
+    noctalia.enable = cfg.shell == "noctalia";
+    dms.enable = cfg.shell == "dms";
 
     home.packages = with pkgs; [
       wl-clipboard
@@ -57,7 +72,7 @@ in
       Install.WantedBy = [ "gpwm-session.target" ];
     };
 
-    systemd.user.services.noctalia-shell = {
+    systemd.user.services.noctalia-shell = mkIf (cfg.shell == "noctalia") {
       Unit = {
         Description = "Noctalia shell";
         PartOf = [ "gpwm-session.target" ];
@@ -66,6 +81,19 @@ in
       };
       Service = {
         ExecStart = "${pkgs.noctalia-shell}/bin/noctalia-shell";
+      };
+      Install.WantedBy = [ "gpwm-session.target" ];
+    };
+
+    systemd.user.services.dms-shell = mkIf (cfg.shell == "dms") {
+      Unit = {
+        Description = "DankMaterialShell";
+        PartOf = [ "gpwm-session.target" ];
+        BindsTo = [ "gpwm-session.target" ];
+        After = [ "gpwm-session.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.dms-shell}/bin/dms run --session";
       };
       Install.WantedBy = [ "gpwm-session.target" ];
     };
