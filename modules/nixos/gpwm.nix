@@ -48,6 +48,15 @@ in
       "seat"
     ];
 
+    # gpwm leaves smithay's XkbConfig at Default, so xkbcommon falls back to
+    # these env vars for layout/options. services.xserver.xkb.* only affects
+    # X11 sessions, hence Compose-on-RAlt has to be wired through here for
+    # Wayland.
+    environment.sessionVariables = {
+      XKB_DEFAULT_LAYOUT = "us";
+      XKB_DEFAULT_OPTIONS = "compose:ralt";
+    };
+
     environment.systemPackages = with pkgs; [
       wl-clipboard
       grim
