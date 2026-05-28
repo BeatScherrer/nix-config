@@ -41,6 +41,62 @@ in
     # wired through home-manager's gpwm module via WantedBy=gpwm-session.target.
     programs.gpwm.enable = true;
 
+    # Full keybind set (replaces gpwm's built-in defaults). Reproduces every
+    # default and layers on Super+{b,e,f} for librewolf/thunderbird/nautilus;
+    # fullscreen moves from Super+f to Super+Shift+m so it pairs with the
+    # existing Super+m → toggle-maximize.
+    programs.gpwm.keybindings = [
+      # Frame / tab navigation
+      { mods = [ "super" ]; key = "h"; action = "navigate-left"; }
+      { mods = [ "super" ]; key = "j"; action = "navigate-down"; }
+      { mods = [ "super" ]; key = "k"; action = "navigate-up"; }
+      { mods = [ "super" ]; key = "l"; action = "navigate-right"; }
+      { mods = [ "super" "shift" ]; key = "h"; action = "move-left"; }
+      { mods = [ "super" "shift" ]; key = "j"; action = "move-down"; }
+      { mods = [ "super" "shift" ]; key = "k"; action = "move-up"; }
+      { mods = [ "super" "shift" ]; key = "l"; action = "move-right"; }
+      { mods = [ "super" ]; key = "Page_Down"; action = "focus-next-tab"; }
+      { mods = [ "super" ]; key = "Page_Up"; action = "focus-prev-tab"; }
+
+      # Spawn
+      { mods = [ "super" ]; key = "Return"; action = { spawn = "ghostty"; }; }
+      { mods = [ "super" ]; key = "space"; action = { spawn = "wofi"; }; }
+      { mods = [ "super" ]; key = "b"; action = { spawn = "librewolf"; }; }
+      { mods = [ "super" ]; key = "e"; action = { spawn = "thunderbird"; }; }
+      { mods = [ "super" ]; key = "f"; action = { spawn = "nautilus"; }; }
+
+      # Window ops
+      { mods = [ "super" ]; key = "w"; action = "close"; }
+      { mods = [ "super" "shift" ]; key = "space"; action = "cycle-layout"; }
+      { mods = [ "super" ]; key = "m"; action = "toggle-maximize"; }
+      { mods = [ "super" "shift" ]; key = "m"; action = "toggle-fullscreen"; }
+
+      # Workspaces 1..9 (switch and move-to)
+      { mods = [ "super" ]; key = "1"; action = { workspace = 1; }; }
+      { mods = [ "super" ]; key = "2"; action = { workspace = 2; }; }
+      { mods = [ "super" ]; key = "3"; action = { workspace = 3; }; }
+      { mods = [ "super" ]; key = "4"; action = { workspace = 4; }; }
+      { mods = [ "super" ]; key = "5"; action = { workspace = 5; }; }
+      { mods = [ "super" ]; key = "6"; action = { workspace = 6; }; }
+      { mods = [ "super" ]; key = "7"; action = { workspace = 7; }; }
+      { mods = [ "super" ]; key = "8"; action = { workspace = 8; }; }
+      { mods = [ "super" ]; key = "9"; action = { workspace = 9; }; }
+      { mods = [ "super" "shift" ]; key = "1"; action = { "move-to-workspace" = 1; }; }
+      { mods = [ "super" "shift" ]; key = "2"; action = { "move-to-workspace" = 2; }; }
+      { mods = [ "super" "shift" ]; key = "3"; action = { "move-to-workspace" = 3; }; }
+      { mods = [ "super" "shift" ]; key = "4"; action = { "move-to-workspace" = 4; }; }
+      { mods = [ "super" "shift" ]; key = "5"; action = { "move-to-workspace" = 5; }; }
+      { mods = [ "super" "shift" ]; key = "6"; action = { "move-to-workspace" = 6; }; }
+      { mods = [ "super" "shift" ]; key = "7"; action = { "move-to-workspace" = 7; }; }
+      { mods = [ "super" "shift" ]; key = "8"; action = { "move-to-workspace" = 8; }; }
+      { mods = [ "super" "shift" ]; key = "9"; action = { "move-to-workspace" = 9; }; }
+
+      # Scratchpad + quit
+      { mods = [ "super" ]; key = "minus"; action = "toggle-scratchpad"; }
+      { mods = [ "super" "shift" ]; key = "minus"; action = "move-to-scratchpad"; }
+      { mods = [ "super" "shift" ]; key = "q"; action = "quit"; }
+    ];
+
     services.displayManager = {
       gdm.enable = true;
       gdm.wayland = true;
@@ -71,6 +127,11 @@ in
       playerctl
       swaybg
       libnotify
+      wofi
+      # Spawn targets for Super+{b,e,f} keybinds — gpwm runs these via PATH.
+      librewolf
+      thunderbird
+      nautilus
     ];
   };
 }

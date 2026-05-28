@@ -208,12 +208,6 @@
                     "icon": "noctalia",
                     "id": "ControlCenter",
                     "useDistroLogo": true
-                },
-                {
-                    "defaultSettings": {
-                        "mode": "region"
-                    },
-                    "id": "plugin:screenshot"
                 }
             ]
         }
