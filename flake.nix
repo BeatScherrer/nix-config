@@ -294,7 +294,7 @@
 
         T14 = mkHost {
           name = "T14";
-          desktop = desktopEnv.mango;
+          desktop = desktopEnv.gpwm;
           extraModules = [
             # NOTE: There is no gen6 t14 module yet
             # nixos-hardware.nixosModules.lenovo.thinkpad.t14.amd.gen5

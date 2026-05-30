@@ -65,11 +65,17 @@ in
       { mods = [ "super" ]; key = "e"; action = { spawn = "thunderbird"; }; }
       { mods = [ "super" ]; key = "f"; action = { spawn = "nautilus"; }; }
 
-      # Window ops
+      # Window / frame ops
       { mods = [ "super" ]; key = "w"; action = "close"; }
+      { mods = [ "super" "shift" ]; key = "w"; action = "remove-frame"; }
       { mods = [ "super" "shift" ]; key = "space"; action = "cycle-layout"; }
       { mods = [ "super" ]; key = "m"; action = "toggle-maximize"; }
       { mods = [ "super" "shift" ]; key = "m"; action = "toggle-fullscreen"; }
+
+      # Frame splits: o splits to the right (new leaf side-by-side), u splits
+      # downward (new leaf stacked underneath).
+      { mods = [ "super" ]; key = "o"; action = "split-right"; }
+      { mods = [ "super" ]; key = "u"; action = "split-down"; }
 
       # Workspaces 1..9 (switch and move-to)
       { mods = [ "super" ]; key = "1"; action = { workspace = 1; }; }

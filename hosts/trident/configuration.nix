@@ -48,6 +48,8 @@
 
   # custom module options
   # ---------------------------------------------------------------------------
+  # gpwm session shell: use DankMaterialShell instead of the noctalia default.
+  gpwm.shell = "dms";
   container = {
     enable = true;
     containerEngine = "docker";

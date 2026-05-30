@@ -11,6 +11,9 @@
 
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.
 
+  # gpwm session shell: use DankMaterialShell instead of the noctalia default.
+  gpwm.shell = "dms";
+
   polybar = {
     enable = true;
   };
