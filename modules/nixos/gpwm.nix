@@ -8,6 +8,18 @@
 }:
 let
   cfg = config.gpwm;
+
+  # Super+Space opens the app launcher of whichever shell is active, driven
+  # over that shell's IPC; wofi is the fallback when neither shell is selected.
+  # Both shell launchers are layer surfaces that declare keyboard
+  # interactivity, so gpwm focuses them on open and you can type straight away.
+  launcherCmd =
+    if cfg.shell == "dms" then
+      "dms ipc launcher toggle"
+    else if cfg.shell == "noctalia" then
+      "noctalia-shell ipc call launcher toggle"
+    else
+      "wofi";
 in
 {
   imports = [
@@ -60,7 +72,7 @@ in
 
       # Spawn
       { mods = [ "super" ]; key = "Return"; action = { spawn = "ghostty"; }; }
-      { mods = [ "super" ]; key = "space"; action = { spawn = "wofi"; }; }
+      { mods = [ "super" ]; key = "space"; action = { spawn = launcherCmd; }; }
       { mods = [ "super" ]; key = "b"; action = { spawn = "librewolf"; }; }
       { mods = [ "super" ]; key = "e"; action = { spawn = "thunderbird"; }; }
       { mods = [ "super" ]; key = "f"; action = { spawn = "nautilus"; }; }
