@@ -65,9 +65,12 @@ in
       { mods = [ "super" ]; key = "e"; action = { spawn = "thunderbird"; }; }
       { mods = [ "super" ]; key = "f"; action = { spawn = "nautilus"; }; }
 
-      # Window / frame ops
+      # Window / frame ops. close (super+w) and remove-frame (super+shift+w)
+      # mirror herbstluftwm's $Mod-w close. alt+w → remove-frame reproduces
+      # herbstluftwm's Mod1-w remove muscle memory (gpwm accepts "alt"/"mod1").
       { mods = [ "super" ]; key = "w"; action = "close"; }
       { mods = [ "super" "shift" ]; key = "w"; action = "remove-frame"; }
+      { mods = [ "alt" ]; key = "w"; action = "remove-frame"; }
       { mods = [ "super" "shift" ]; key = "space"; action = "cycle-layout"; }
       { mods = [ "super" ]; key = "m"; action = "toggle-maximize"; }
       { mods = [ "super" "shift" ]; key = "m"; action = "toggle-fullscreen"; }
@@ -120,8 +123,8 @@ in
     # X11 sessions, hence Compose-on-RAlt has to be wired through here for
     # Wayland.
     environment.sessionVariables = {
-      XKB_DEFAULT_LAYOUT = "us";
-      XKB_DEFAULT_OPTIONS = "compose:ralt";
+      XKB_DEFAULT_LAYOUT = "us,ch";
+      XKB_DEFAULT_OPTIONS = "compose:ralt,grp:alt_shift_toggle";
     };
 
     environment.systemPackages = with pkgs; [
