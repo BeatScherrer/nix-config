@@ -136,7 +136,7 @@ in
     # Wayland.
     environment.sessionVariables = {
       XKB_DEFAULT_LAYOUT = "us,ch";
-      XKB_DEFAULT_OPTIONS = "compose:ralt,grp:alt_shift_toggle";
+      XKB_DEFAULT_OPTIONS = "compose:ralt,grp:ctrl_alt_toggle";
     };
 
     environment.systemPackages = with pkgs; [
