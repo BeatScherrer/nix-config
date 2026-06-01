@@ -285,7 +285,7 @@
 
         legion = mkHost {
           name = "legion";
-          desktop = desktopEnv.hyprland-noctalia;
+          desktop = desktopEnv.gpwm;
           extraModules = [
             cosmicCachix
             nixos-cosmic.nixosModules.default

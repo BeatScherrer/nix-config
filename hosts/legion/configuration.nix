@@ -31,6 +31,18 @@
 
   # Custom options
   #----------------------------------------------------------------------------
+  # gpwm session shell: use DankMaterialShell instead of the noctalia default.
+  gpwm.shell = "dms";
+
+  # Match T14's layout: start every workspace with a single full-width leaf
+  # instead of the upstream 25/50/25 three-column default. The leaf is
+  # "vertical" so additional windows stack top-to-bottom, each spanning the
+  # full width.
+  programs.gpwm.settings = {
+    default-layout = "fullwidth";
+    layout.fullwidth.leaf = "vertical";
+  };
+
   container = {
     enable = true;
     containerEngine = "docker";
