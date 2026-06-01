@@ -10,6 +10,12 @@
 
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.
 
+  # gpwm session shell: use DankMaterialShell instead of the noctalia default.
+  # Must be set on the home-manager side too — the system module's gpwm.shell
+  # only drives the launcher command; this one selects the systemd user service
+  # (dms-shell vs noctalia-shell) bound to gpwm-session.target.
+  gpwm.shell = "dms";
+
   # Docked monitor layout (Wayland names)
   # eDP-1 = laptop, DP-3 = LG 4K (via dock), HDMI-A-1 = ASUS PB277 (direct HDMI)
   hyprlandNoctalia.monitor = [
