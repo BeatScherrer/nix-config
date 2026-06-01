@@ -50,6 +50,25 @@
   # ---------------------------------------------------------------------------
   # gpwm session shell: use DankMaterialShell instead of the noctalia default.
   gpwm.shell = "dms";
+
+  # trident's single DisplayPort-3 monitor at 1.5x scale. Once any [output]
+  # table exists gpwm requires workspaces 1..9 to be claimed exactly once, so
+  # this one output owns them all. DMS can't set gpwm's scale (it only drives
+  # niri/hyprland), so configure it declaratively here.
+  programs.gpwm.settings.output."DisplayPort-3" = {
+    workspaces = [
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      8
+      9
+    ];
+    scale = 1.5;
+  };
   container = {
     enable = true;
     containerEngine = "docker";
