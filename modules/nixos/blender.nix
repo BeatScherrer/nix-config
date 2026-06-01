@@ -31,9 +31,10 @@ in
 
     (lib.mkIf (cfg.gpu == "nvidia") {
       environment.systemPackages = with pkgs; [
-        (blender.override {
-          cudaSupport = true;
-        })
+        blender
+        # (blender.override {
+        #   cudaSupport = true;
+        # })
       ];
     })
 
