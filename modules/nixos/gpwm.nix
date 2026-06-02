@@ -20,6 +20,23 @@ let
       "noctalia-shell ipc call launcher toggle"
     else
       "wofi";
+
+  # gpwm's spawn action execs the program directly (no shell), so a command
+  # with pipes/$() must live in a wrapper script. This is the "pick a window
+  # and screenshot it" snippet from gpwm's IPC docs: gpwm msg clients feeds
+  # each window's geometry to slurp, and grim captures the chosen region.
+  # grim/slurp/jq are pinned via runtimeInputs; gpwm itself is on session PATH.
+  screenshotWindow = pkgs.writeShellApplication {
+    name = "gpwm-screenshot-window";
+    runtimeInputs = with pkgs; [
+      grim
+      slurp
+      jq
+    ];
+    text = ''
+      grim -g "$(gpwm msg clients | jq -r '.[]|"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)" window.png
+    '';
+  };
 in
 {
   imports = [
@@ -76,6 +93,7 @@ in
       { mods = [ "super" ]; key = "b"; action = { spawn = "librewolf"; }; }
       { mods = [ "super" ]; key = "e"; action = { spawn = "thunderbird"; }; }
       { mods = [ "super" ]; key = "f"; action = { spawn = "nautilus"; }; }
+      { mods = [ "ctrl" "shift" ]; key = "b"; action = { spawn = "${screenshotWindow}/bin/gpwm-screenshot-window"; }; }
 
       # Window / frame ops. close (super+w) and remove-frame (super+shift+w)
       # mirror herbstluftwm's $Mod-w close. alt+w → remove-frame reproduces
