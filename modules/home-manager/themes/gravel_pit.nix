@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -17,6 +17,9 @@
   gtk.enable = true;
   gtk.theme.package = pkgs.nordic;
   gtk.theme.name = "Nordic-darker";
+  # Keep legacy behavior: apply the gtk3 theme to gtk4 as well
+  # (silences the home-manager >= 26.05 default-change warning).
+  gtk.gtk4.theme = config.gtk.theme;
 
   gtk.iconTheme.package = pkgs.nordic;
   gtk.iconTheme.name = "Nordic-green";
