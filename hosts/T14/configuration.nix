@@ -36,16 +36,9 @@
   # custom module options
   # ---------------------------------------------------------------------------
   # gpwm session shell: use DankMaterialShell instead of the noctalia default.
+  # gpwm keybindings/layout settings live on the home-manager side now —
+  # see hosts/T14/home.nix.
   gpwm.shell = "dms";
-
-  # T14's 14" screen is too narrow for the upstream 25/50/25 three-column
-  # default — start every workspace with a single full-width leaf instead.
-  # The leaf is "vertical" so additional windows stack top-to-bottom, each
-  # still spanning the full width.
-  programs.gpwm.settings = {
-    default-layout = "fullwidth";
-    layout.fullwidth.leaf = "vertical";
-  };
 
   container = {
     enable = true;
