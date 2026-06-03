@@ -42,8 +42,4 @@
   # default). Fraction in (0, 1] of the focused output's usable area; live-
   # reloaded on config save.
   programs.gpwm.settings.general.scratchpad-width = 0.45;
-
-  polybar = {
-    enable = true;
-  };
 }
