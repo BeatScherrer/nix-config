@@ -87,6 +87,13 @@ in
       { mods = [ "super" ]; key = "Page_Down"; action = "focus-next-tab"; }
       { mods = [ "super" ]; key = "Page_Up"; action = "focus-prev-tab"; }
 
+      # Output (monitor) navigation. super+{y,u,i,o} mirror hjkl one row up:
+      # y=left, u=down, i=up, o=right move focus to the adjacent output.
+      { mods = [ "super" ]; key = "y"; action = "focus-output-left"; }
+      { mods = [ "super" ]; key = "u"; action = "focus-output-down"; }
+      { mods = [ "super" ]; key = "i"; action = "focus-output-up"; }
+      { mods = [ "super" ]; key = "o"; action = "focus-output-right"; }
+
       # Spawn
       { mods = [ "super" ]; key = "Return"; action = { spawn = "ghostty"; }; }
       { mods = [ "super" ]; key = "space"; action = { spawn = launcherCmd; }; }
@@ -105,10 +112,11 @@ in
       { mods = [ "super" ]; key = "m"; action = "toggle-maximize"; }
       { mods = [ "super" "shift" ]; key = "m"; action = "toggle-fullscreen"; }
 
-      # Frame splits: o splits to the right (new leaf side-by-side), u splits
-      # downward (new leaf stacked underneath).
-      { mods = [ "super" ]; key = "o"; action = "split-right"; }
-      { mods = [ "super" ]; key = "u"; action = "split-down"; }
+      # Frame splits: shift+o splits to the right (new leaf side-by-side),
+      # shift+u splits downward (new leaf stacked underneath). Moved off
+      # super+{o,u} so those keys are free for output navigation above.
+      { mods = [ "super" "shift" ]; key = "o"; action = "split-right"; }
+      { mods = [ "super" "shift" ]; key = "u"; action = "split-down"; }
 
       # Workspaces 1..9 (switch and move-to)
       { mods = [ "super" ]; key = "1"; action = { workspace = 1; }; }
