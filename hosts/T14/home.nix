@@ -27,13 +27,24 @@
     default-layout = "fullwidth";
     layout.fullwidth.leaf = "horizontal";
 
-    # Internal panel (eDP-1) is a 2880x1800 display that also advertises a
-    # 120Hz mode. Scale it to 1.25 so UI is legibly sized at that resolution,
-    # and pin the 120Hz mode (the connector's preferred mode is only 60Hz).
+    # Natural (reverse) scrolling on the touchpad — content tracks the fingers.
+    # gpwm applies this to every libinput device that supports it (touchpad and
+    # any wheel mouse), and hot-reloads it on config save.
+    input.natural-scroll = true;
+
+    # Internal panel is a 2880x1800 display that also advertises a 120Hz mode.
+    # Scale it to 1.25 so UI is legibly sized at that resolution, and pin the
+    # 120Hz mode (the connector's preferred mode is only 60Hz).
     # Once any [output.X] table exists, gpwm requires every workspace 1..9 to
     # be claimed exactly once — this laptop has a single output, so all nine
     # live here.
-    output."eDP-1" = {
+    #
+    # NB: gpwm/smithay names the connector "EmbeddedDisplayPort-1" (the long
+    # form, as reported by `gpwm msg outputs` / `wlr-randr`), NOT the kernel
+    # short name "eDP-1". Using "eDP-1" silently no-ops the whole table — scale
+    # and mode get dropped and the workspaces bind to a phantom output. (legion
+    # already uses the long form.)
+    output."EmbeddedDisplayPort-1" = {
       workspaces = [
         1
         2
