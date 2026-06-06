@@ -86,6 +86,13 @@ in
     programs.gpwm.enable = true;
 
     programs.gpwm.settings = {
+      # Scratchpad overlay height as a fraction (0, 1] of the focused output's
+      # usable area — span 90% tall instead of gpwm's 0.8 default. Lives in the
+      # [general] TOML table and is hot-reloaded on config save. Shared across
+      # every gpwm host; per-host home.nix files can still override width (e.g.
+      # trident's narrower 0.45) by merging into the same [general] table.
+      general.scratchpad-height = 0.9;
+
       # Full keybind set (replaces gpwm's built-in defaults). Reproduces every
       # default and layers on Super+{b,e,f} for librewolf/thunderbird/nautilus;
       # fullscreen moves from Super+f to Super+Shift+m so it pairs with the
