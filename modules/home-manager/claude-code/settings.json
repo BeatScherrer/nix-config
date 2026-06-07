@@ -11,6 +11,6 @@
   "autoDreamEnabled": true,
   "statusLine": {
     "type": "command",
-    "command": "jq -r '\"[\\(.model.display_name)] ctx \\((.context_window.used_percentage // 0)|floor)% (\\(.context_window.total_input_tokens // 0)t) · $\\(((.cost.total_cost_usd // 0)*100|round)/100)\"'"
+    "command": "jq -r '\"[\\(.model.display_name)] ctx \\((.context_window.used_percentage // 0)|floor)% (\\((.context_window.total_input_tokens // 0)/1000|floor)k) · $\\(((.cost.total_cost_usd // 0)*100|round)/100)\"'"
   }
 }
