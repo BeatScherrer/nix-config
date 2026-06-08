@@ -29,6 +29,10 @@ in
   boot.enableContainers = true;
   boot.supportedFilesystems = [ "nfs" ];
 
+  # gvfs SMB backend so nautilus (and other GIO apps) can browse smb:// shares.
+  # Lives here rather than per-WM so every session — gpwm included — gets it.
+  services.gvfs.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   environment.sessionVariables = {
@@ -77,6 +81,7 @@ in
     samba
     cifs-utils
     nfs-utils
+    gnome.gvfs
 
     gnome-keyring
     gnome-online-accounts

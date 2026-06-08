@@ -29,7 +29,6 @@ in
       xdotool
       gnome-keyring
       gnome-online-accounts
-      gnome.gvfs
       dbus
       blueman
       xdg-desktop-portal
@@ -83,7 +82,6 @@ in
       evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
     };
-    services.gvfs.enable = true;
     services.blueman.enable = true;
 
     security.pam.services.login.enableGnomeKeyring = true;
