@@ -599,11 +599,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780867583,
-        "narHash": "sha256-QcnqdRkm5ELY0FmBucPBP1nRtuTYT2fp5zO3NHcltGo=",
+        "lastModified": 1780947283,
+        "narHash": "sha256-KPwhGr7NnWk6f5w8Pek3SPAfy+dyVoQEL8j8X7jznmc=",
         "ref": "refs/heads/main",
-        "rev": "2bdcde09f216a116829d867dcaac6af739cc600c",
-        "revCount": 192,
+        "rev": "1723ef1fcdc4c481e642867bc70157b3c0d94357",
+        "revCount": 201,
         "type": "git",
         "url": "ssh://git@gitlab.com/BeatScherrer/gpwm.git"
       },
