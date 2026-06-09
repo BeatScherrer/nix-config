@@ -25,10 +25,9 @@ let
   # with pipes/$() must live in a wrapper script. This is the "pick a window
   # and screenshot it" snippet from gpwm's IPC docs: gpwm msg clients feeds
   # each window's geometry to slurp, and grim captures the chosen region.
-  # grim writes the PNG to stdout (-) and wl-copy puts it on the Wayland
-  # clipboard as image/png instead of dropping a file in the spawn cwd.
-  # grim/slurp/jq/wl-clipboard are pinned via runtimeInputs; gpwm itself is on
-  # session PATH.
+  # grim writes the PNG to /tmp/screenshot.png, then it's both copied to the
+  # Wayland clipboard as image/png and left as a file on disk. grim/slurp/jq/
+  # wl-clipboard are pinned via runtimeInputs; gpwm itself is on session PATH.
   screenshotWindow = pkgs.writeShellApplication {
     name = "gpwm-screenshot-window";
     runtimeInputs = with pkgs; [
@@ -38,7 +37,8 @@ let
       wl-clipboard
     ];
     text = ''
-      grim -g "$(gpwm msg clients | jq -r '.[]|"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)" - | wl-copy --type image/png
+      grim -g "$(gpwm msg clients | jq -r '.[]|"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)" /tmp/screenshot.png
+      wl-copy --type image/png < /tmp/screenshot.png
     '';
   };
 in
