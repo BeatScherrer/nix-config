@@ -226,7 +226,15 @@ in
       Install.WantedBy = [ "gpwm-session.target" ];
     };
 
-    systemd.user.services.dms-shell = mkIf (cfg.shell == "dms") {
+    # Named exactly `dms` (not `dms-shell`) on purpose: the dms-shell package
+    # ships its own share/systemd/user/dms.service (Type=dbus, BusName
+    # org.freedesktop.Notifications) which systemd --user picks up from the
+    # profile. That packaged unit gets D-Bus-activated by the first desktop
+    # notification (e.g. during nixos-rebuild switch) and runs `dms run
+    # --session` a SECOND time alongside this one. Writing our own dms.service
+    # to ~/.config/systemd/user shadows the packaged copy (higher precedence
+    # load path), so only this one instance ever runs, bound to gpwm-session.
+    systemd.user.services.dms = mkIf (cfg.shell == "dms") {
       Unit = {
         Description = "DankMaterialShell";
         PartOf = [ "gpwm-session.target" ];
