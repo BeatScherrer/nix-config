@@ -48,6 +48,9 @@
       safe = {
         directory = "*";
       };
+      credential."https://gitlab.com" = {
+        helper = "!${pkgs.glab}/bin/glab auth git-credential";
+      };
     };
   };
 }
