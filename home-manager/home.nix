@@ -129,6 +129,7 @@ in
     ripgrep
     jq
     lazygit
+    glab
     tldr
     just
     killall
