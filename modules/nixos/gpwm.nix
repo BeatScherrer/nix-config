@@ -68,6 +68,9 @@ in
     environment.sessionVariables = {
       XKB_DEFAULT_LAYOUT = "us,ch";
       XKB_DEFAULT_OPTIONS = "compose:ralt,grp:ctrl_alt_toggle";
+      # Firefox/Thunderbird default to XWayland (blurry HiDPI, mispositioned
+      # popups/dialogs). Opt into native Wayland; gpwm spawns these via PATH.
+      MOZ_ENABLE_WAYLAND = "1";
     };
 
     environment.systemPackages = with pkgs; [
