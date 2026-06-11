@@ -45,17 +45,6 @@
     # and mode get dropped and the workspaces bind to a phantom output. (legion
     # already uses the long form.)
     output."EmbeddedDisplayPort-1" = {
-      workspaces = [
-        1
-        2
-        3
-        4
-        5
-        6
-        7
-        8
-        9
-      ];
       scale = 1.25;
       mode = "2880x1800@120";
     };
