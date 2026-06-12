@@ -114,6 +114,10 @@ cdaquila() {
   cdbeat tauri-app || return
 }
 
+cdgpwm() {
+  cdbeat gpwm || return
+}
+
 nixSearch() {
   if ! rg "$1" </etc/current-system-packages; then
     echo "no package found with '$1'"
