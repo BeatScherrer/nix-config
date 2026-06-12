@@ -26,8 +26,10 @@ let
   # and screenshot it" snippet from gpwm's IPC docs: gpwm msg clients feeds
   # each window's geometry to slurp, and grim captures the chosen region.
   # grim writes the PNG to /tmp/screenshot.png, then it's both copied to the
-  # Wayland clipboard as image/png and left as a file on disk. grim/slurp/jq/
-  # wl-clipboard are pinned via runtimeInputs; gpwm itself is on session PATH.
+  # Wayland clipboard as image/png and left as a file on disk, and a desktop
+  # notification thumbnails the capture (-i renders the PNG as the notification
+  # image in noctalia/dms). grim/slurp/jq/wl-clipboard/libnotify are pinned via
+  # runtimeInputs; gpwm itself is on session PATH.
   screenshotWindow = pkgs.writeShellApplication {
     name = "gpwm-screenshot-window";
     runtimeInputs = with pkgs; [
@@ -35,10 +37,12 @@ let
       slurp
       jq
       wl-clipboard
+      libnotify
     ];
     text = ''
       grim -g "$(gpwm msg clients | jq -r '.[]|"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp)" /tmp/screenshot.png
       wl-copy --type image/png < /tmp/screenshot.png
+      notify-send -i /tmp/screenshot.png "Screenshot taken" "Copied to clipboard and saved to /tmp/screenshot.png"
     '';
   };
 in
