@@ -42,4 +42,23 @@
   # default). Fraction in (0, 1] of the focused output's usable area; live-
   # reloaded on config save.
   programs.gpwm.settings.general.scratchpad-width = 0.45;
+
+  # Startup frame skeleton for the ultrawide: three columns at 25% | 50% | 25%
+  # (gpwm's n-ary `children` layout form; sizes are fractions of the whole and
+  # must sum to 1). Outer columns stack windows top-to-bottom ("vertical" leaf
+  # layout); the wide middle places them side-by-side ("horizontal").
+  # `selected = 1` puts the focus path on the middle column, so the first
+  # spawned window lands there. Instantiated on every workspace at startup; a
+  # reloaded default-layout only affects future startups, so apply to a live
+  # workspace with `gpwm msg dispatch load-layout ultrawide`.
+  programs.gpwm.settings.default-layout = "ultrawide";
+  programs.gpwm.settings.layout.ultrawide = {
+    orientation = "horizontal";
+    selected = 1;
+    children = [
+      { size = 0.25; leaf = "vertical"; }
+      { size = 0.50; leaf = "horizontal"; }
+      { size = 0.25; leaf = "vertical"; }
+    ];
+  };
 }
