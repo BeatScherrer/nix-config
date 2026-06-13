@@ -3,6 +3,9 @@
   pkgs,
   lib,
   inputs,
+  # Present only when home-manager runs as a NixOS module; absent (defaulted to
+  # null here) under standalone home-manager, e.g. on Arch.
+  osConfig ? null,
   ...
 }:
 with lib;
@@ -68,11 +71,18 @@ in
         "noctalia"
         "dms"
       ];
-      default = "noctalia";
+      # Single source of truth on NixOS: inherit the system module's gpwm.shell
+      # (set per-host in configuration.nix), so flipping shells is a one-line
+      # edit there rather than keeping this side in sync by hand. Falls back to
+      # "noctalia" under standalone home-manager, where osConfig is absent.
+      default = if osConfig != null && osConfig ? gpwm then osConfig.gpwm.shell else "noctalia";
+      defaultText = literalExpression ''osConfig.gpwm.shell or "noctalia"'';
       description = ''
         Which Quickshell-based session shell to install and run alongside gpwm.
         Drives noctalia/dms package installation and the corresponding
-        systemd user service bound to gpwm-session.target.
+        systemd user service bound to gpwm-session.target. On NixOS this
+        defaults to the system-level `gpwm.shell`; override here only under
+        standalone home-manager.
       '';
     };
 

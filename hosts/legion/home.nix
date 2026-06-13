@@ -10,11 +10,8 @@
 
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.
 
-  # gpwm session shell: use DankMaterialShell instead of the noctalia default.
-  # Must be set on the home-manager side too — the system module's gpwm.shell
-  # only drives the launcher command; this one selects the systemd user service
-  # (dms-shell vs noctalia-shell) bound to gpwm-session.target.
-  gpwm.shell = "dms";
+  # gpwm session shell is inherited from the system config (osConfig.gpwm.shell,
+  # set in hosts/legion/configuration.nix) — no need to repeat it here.
 
   # gpwm layout + per-output workspace assignment. Written to
   # ~/.config/gpwm/config.toml by the upstream home module (enabled via the

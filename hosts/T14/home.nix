@@ -11,8 +11,8 @@
 
   # NOTE: only host-specific options should be set here. Common options belong to the imported home.nix.
 
-  # gpwm session shell: use DankMaterialShell instead of the noctalia default.
-  gpwm.shell = "dms";
+  # gpwm session shell is inherited from the system config (osConfig.gpwm.shell,
+  # set in hosts/T14/configuration.nix) — no need to repeat it here.
 
   # gpwm layout. Written to ~/.config/gpwm/config.toml by the upstream home
   # module (enabled via the shared modules/home-manager/gpwm/gpwm.nix), which
