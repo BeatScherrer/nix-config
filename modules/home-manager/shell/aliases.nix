@@ -1,6 +1,8 @@
 {
   nixupdate = "nh os switch ~/.nix";
-  nixupdate-nocache = "nh os switch ~/.nix -- --option extra-substituters '' --option extra-trusted-public-keys ''";
+  # Override `substituters` directly: `extra-substituters ''` can't clear the
+  # trident entry baked into nix.conf (extra-* only ever appends).
+  nixupdate-nocache = "nh os switch ~/.nix -- --option substituters 'https://cache.nixos.org https://nix-community.cachix.org https://ros.cachix.org'";
   nixtest = "nh os test ~/.nix";
   nixclean = "nh clean all --keep 10 --keep-since 7d";
   homeupdate = "nh home switch ~/.nix";

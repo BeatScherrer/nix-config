@@ -50,7 +50,7 @@ in
 
       # Local cache as optional extra — doesn't block builds when unreachable.
       extra-substituters = lib.optionals cfg.enable [ cfg.url ];
-      connect-timeout = 5;
+      connect-timeout = 1;
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
