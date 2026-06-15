@@ -130,6 +130,7 @@ in
     jq
     lazygit
     glab
+    tea # Gitea/Forgejo CLI (Codeberg)
     tldr
     just
     killall
