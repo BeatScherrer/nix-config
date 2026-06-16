@@ -27,11 +27,6 @@
     default-layout = "fullwidth";
     layout.fullwidth.leaf = "horizontal";
 
-    # Natural (reverse) scrolling on the touchpad — content tracks the fingers.
-    # gpwm applies this to every libinput device that supports it (touchpad and
-    # any wheel mouse), and hot-reloads it on config save.
-    input.natural-scroll = true;
-
     # Internal panel is a 2880x1800 display that also advertises a 120Hz mode.
     # Scale it to 1.25 so UI is legibly sized at that resolution, and pin the
     # 120Hz mode (the connector's preferred mode is only 60Hz).
