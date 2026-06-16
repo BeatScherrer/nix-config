@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.73.0",
+  "lastChangelogVersion": "0.79.4",
   "packages": [
     "npm:pi-claude-permissions",
     "npm:@samfp/pi-memory",
@@ -10,7 +10,7 @@
     "npm:pi-web-access"
   ],
   "defaultThinkingLevel": "medium",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-7",
+  "defaultProvider": "mistral",
+  "defaultModel": "devstral-latest",
   "theme": "kanagawa"
 }

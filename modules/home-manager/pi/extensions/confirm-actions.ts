@@ -22,6 +22,8 @@
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { promises as fs } from "fs";
+import path from "path";
 
 // Patterns that mark a bash command as destructive. Matched against the
 // raw command string; intentionally broad — false positives just mean an
@@ -77,7 +79,108 @@ function isDestructiveBash(cmd: string): boolean {
 	return DESTRUCTIVE_BASH.some((re) => re.test(cmd));
 }
 
+/**
+ * Enhanced "Yes, but..." functionality that writes the user's feedback
+ * and the proposed changes to a temporary file, making it easier for
+ * the model to incorporate the feedback directly.
+ */
+async function handleYesButWithContext(
+	toolName: string,
+	path: string,
+	edits: unknown[],
+	userFeedback: string,
+	ctx: any
+): Promise<{ block: true; reason: string }> {
+	// Create a temporary file with the changes and feedback
+	const tempDir = path.join(process.cwd(), ".pi-changes");
+	const tempFile = path.join(tempDir, `yesbut_${Date.now()}.txt`);
+	
+	try {
+		// Ensure directory exists
+		await fs.mkdir(tempDir, { recursive: true });
+		
+		// Write detailed context for the model
+		const contextContent = `
+📝 YES-BUT FEEDBACK CONTEXT
+========================================
+
+User Feedback:
+${userFeedback}
+
+Proposed Changes:
+- Tool: ${toolName}
+- File: ${path}
+- Edits: ${edits.length} change(s)
+
+Detailed Edits:
+${JSON.stringify(edits, null, 2)}
+
+========================================
+To incorporate this feedback:
+1. Review the user's feedback above
+2. Modify the proposed changes accordingly
+3. Provide the corrected implementation
+`;
+		
+		await fs.writeFile(tempFile, contextContent, "utf-8");
+		
+		const relativePath = path.relative(process.cwd(), tempFile);
+		
+		return {
+			block: true,
+			reason: `User approved in principle but added guidance — please incorporate and retry: ${userFeedback}. \n\n📄 Detailed context written to: ${relativePath}. Use \\read ${relativePath} to review the full context.`
+		};
+	} catch (error) {
+		return {
+			block: true,
+			reason: `User approved in principle but added guidance — please incorporate and retry: ${userFeedback}. \n\n⚠️  Could not write context file: ${error}`
+		};
+	}
+}
+
 export default function (pi: ExtensionAPI) {
+	// Register command to list yes-but context files
+	pi.registerCommand({
+		name: "list-yesbut",
+		description: "List yes-but context files",
+		usage: "list-yesbut",
+		async handler(args, ctx) {
+			const tempDir = path.join(process.cwd(), ".pi-changes");
+			try {
+				const files = await fs.readdir(tempDir);
+				const yesbutFiles = files.filter(f => f.startsWith("yesbut_") && f.endsWith(".txt"));
+				
+				if (yesbutFiles.length === 0) {
+					return "No yes-but context files found.";
+				}
+				
+				const fileList = yesbutFiles.map(f => `- ${f}`).join("\n");
+				return `📋 Yes-But Context Files:\n\n${fileList}\n\nUse \\read-yesbut <file> to view a file.`;
+			} catch (error) {
+				return "No yes-but context files found.";
+			}
+		}
+	});
+
+	// Register command to read yes-but context files
+	pi.registerCommand({
+		name: "read-yesbut",
+		description: "Read a yes-but context file",
+		usage: "read-yesbut <file>",
+		async handler(args, ctx) {
+			if (!args[0]) {
+				return "Usage: \\read-yesbut <file>";
+			}
+			
+			const filePath = path.join(process.cwd(), ".pi-changes", args[0]);
+			try {
+				const content = await fs.readFile(filePath, "utf-8");
+				return `📄 Yes-But Context: ${args[0]}\n\n${content}`;
+			} catch (error) {
+				return `❌ Could not read file ${args[0]}: ${error}`;
+			}
+		}
+	});
 	// Session-scoped allow-list. Key format: `${toolName}:${identity}`
 	// where identity is the exact command (bash) or path (write/edit).
 	// Lives for the lifetime of the pi process.
@@ -133,11 +236,21 @@ export default function (pi: ExtensionAPI) {
 		if (choice === "Yes, but…") {
 			const note = await ctx.ui.input("Feedback for the model:", "");
 			const trimmed = (note ?? "").trim();
+			
+			if (!trimmed) {
+				return { block: true, reason: "Blocked by user (no note provided)" };
+			}
+			
+			// Enhanced handling for file operations
+			if ((toolName === "write" || toolName === "edit") && path) {
+				const edits = toolName === "edit" ? (event.input.edits as unknown[]) : [];
+				return handleYesButWithContext(toolName, path, edits, trimmed, ctx);
+			}
+			
+			// For other tools, use the original format
 			return {
 				block: true,
-				reason: trimmed
-					? `User approved in principle but added guidance — please incorporate and retry: ${trimmed}`
-					: "Blocked by user (no note provided)",
+				reason: `User approved in principle but added guidance — please incorporate and retry: ${trimmed}`
 			};
 		}
 
