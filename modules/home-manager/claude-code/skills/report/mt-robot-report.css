@@ -1,0 +1,149 @@
+/* MT Robot AG — shared report theme.
+   Brand: primary red #af111d · ink #1a171b · Arial/Helvetica.
+   Derived from the mt-robot-ag website (PrimeNG primary=red) + email signature.
+   Edit HERE to restyle every report from every skill. */
+
+:root {
+  --mtr-red: #af111d;
+  --mtr-red-soft: #c81e2a;
+  --mtr-ink: #1a171b;
+  --mtr-text: #212529;
+  --mtr-text-secondary: #6c757d;
+  --mtr-text-muted: #9ca3af;
+  --mtr-surface: #ffffff;
+  --mtr-surface-alt: #f8f9fa;
+  --mtr-border: #dee2e6;
+  --mtr-font: Arial, "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
+  --mtr-mono: "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--mtr-font);
+  color: var(--mtr-text);
+  background: var(--mtr-surface-alt);
+  line-height: 1.6;
+  font-size: 15px;
+  margin: 0;
+  padding: 32px 16px;
+}
+
+.report {
+  max-width: 880px;
+  margin: 0 auto;
+  background: var(--mtr-surface);
+  border: 1px solid var(--mtr-border);
+  border-radius: 10px;
+  padding: 40px 48px 28px;
+  box-shadow: 0 1px 3px rgba(26, 23, 27, .06), 0 8px 24px rgba(26, 23, 27, .05);
+}
+
+/* Header */
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-bottom: 18px;
+  border-bottom: 3px solid var(--mtr-red);
+  margin-bottom: 28px;
+}
+.report-header .brand svg { height: 46px; width: auto; display: block; }
+.report-meta { flex: 1; min-width: 0; }
+.report-title { font-size: 26px; font-weight: 700; color: var(--mtr-ink); margin: 0 0 2px; line-height: 1.2; }
+.report-date { color: var(--mtr-text-secondary); font-size: 13px; }
+
+/* Headings */
+h1, h2, h3, h4 { color: var(--mtr-ink); font-weight: 700; line-height: 1.25; }
+h2 { font-size: 20px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--mtr-border); }
+h3 { font-size: 16px; margin: 22px 0 8px; }
+h4 { font-size: 14px; margin: 18px 0 6px; }
+
+p { margin: 10px 0; }
+a { color: var(--mtr-red); text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { color: var(--mtr-ink); }
+
+/* Code */
+code {
+  font-family: var(--mtr-mono);
+  font-size: .88em;
+  background: var(--mtr-surface-alt);
+  border: 1px solid var(--mtr-border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+pre {
+  background: var(--mtr-surface-alt);
+  border: 1px solid var(--mtr-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow: auto;
+  line-height: 1.45;
+}
+pre code { background: none; border: 0; padding: 0; font-size: .85em; }
+
+/* Blockquote — quoted source code in reviews */
+blockquote {
+  margin: 12px 0;
+  padding: 8px 16px;
+  border-left: 3px solid var(--mtr-red);
+  background: var(--mtr-surface-alt);
+  color: var(--mtr-text);
+  border-radius: 0 6px 6px 0;
+}
+blockquote code { background: #fff; }
+
+/* Tables */
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+th, td { border: 1px solid var(--mtr-border); padding: 8px 11px; text-align: left; vertical-align: top; }
+thead th { background: var(--mtr-ink); color: #fff; font-weight: 600; }
+tbody tr:nth-child(even) { background: var(--mtr-surface-alt); }
+
+/* Lists */
+ul, ol { margin: 10px 0; padding-left: 24px; }
+li { margin: 4px 0; }
+
+hr { border: 0; border-top: 1px solid var(--mtr-border); margin: 28px 0; }
+
+/* Severity / confidence badges (auto-applied to matching table cells) */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 999px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.badge-blocking    { background: var(--mtr-red); color: #fff; }
+.badge-important   { background: #fde7c2; color: #8a4b00; }
+.badge-minor       { background: #e2e8f0; color: #334155; }
+.badge-nit         { background: #eceff1; color: #5b6b73; }
+.badge-verified    { background: #d8f3df; color: #166534; }
+.badge-likely      { background: #fde7c2; color: #8a4b00; }
+.badge-speculative { background: #e4e7ff; color: #3730a3; }
+
+/* Footer */
+.report-footer {
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 1px solid var(--mtr-border);
+  color: var(--mtr-text-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.report-footer .footer-brand { color: var(--mtr-ink); font-weight: 700; }
+.report-footer a { color: var(--mtr-text-secondary); }
+.report-footer .footer-note { margin-top: 4px; color: var(--mtr-text-muted); }
+
+/* Print — clean PDF via the browser's "Save as PDF" */
+@media print {
+  body { background: #fff; padding: 0; font-size: 11pt; }
+  .report { border: 0; border-radius: 0; box-shadow: none; max-width: none; padding: 0; }
+  a { color: var(--mtr-ink); }
+  thead th, .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

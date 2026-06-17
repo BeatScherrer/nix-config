@@ -1,0 +1,250 @@
+#!/usr/bin/env node
+'use strict';
+/*
+ * mt-report — render markdown into a self-contained MT Robot themed HTML report.
+ *
+ *   mt-report [--title "Title"] [--out file.html] [--open] [input.md]
+ *   cat content.md | mt-report --title "Careful Review" --open
+ *
+ * Reads markdown from <input.md> or stdin and writes a single self-contained
+ * HTML file (CSS + logo embedded). Default output: the input path with a .html
+ * extension, or reports/<slug>-<date>.html when reading stdin.
+ *
+ * ALL styling lives beside this script (mt-robot-report.css, template.html,
+ * mt-robot-logo.svg). Callers supply markdown content only — that is what keeps
+ * every report from every skill visually identical. To restyle, edit the CSS.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const HERE = __dirname;
+// Sentinel for inline code spans: a private-use char that survives escapeHtml
+// and cannot occur in real report text. Declared early to avoid the TDZ.
+const SENTINEL = String.fromCharCode(0xE000);
+// Markdown table separator-row matcher (hoisted above its use in mdToHtml()).
+const SEP_RE = /^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/;
+
+// ---------- args ----------
+const argv = process.argv.slice(2);
+let title = 'Report';
+let out = null;
+let open = false;
+let input = null;
+for (let i = 0; i < argv.length; i++) {
+  const a = argv[i];
+  if (a === '--title') title = argv[++i] ?? title;
+  else if (a === '--out') out = argv[++i] ?? null;
+  else if (a === '--open') open = true;
+  else if (a === '--help' || a === '-h') { help(); process.exit(0); }
+  else if (!a.startsWith('--')) input = a;
+}
+
+function help() {
+  process.stdout.write(
+`mt-report — MT Robot themed HTML report generator
+
+  mt-report [--title "Title"] [--out file.html] [--open] [input.md]
+  cat content.md | mt-report --title "Careful Review" --open
+
+Reads markdown from <input.md> or stdin; writes self-contained themed HTML.
+Default output: input path with .html extension, else reports/<slug>-<date>.html.
+--open launches the result via xdg-open.
+`);
+}
+
+// ---------- read markdown ----------
+let md;
+try {
+  md = fs.readFileSync(input ? input : 0, 'utf8');
+} catch (e) {
+  process.stderr.write(`mt-report: cannot read input: ${e.message}\n`);
+  process.exit(1);
+}
+
+// ---------- date (plain Node — Date is fine here) ----------
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+const now = new Date();
+const pad = n => String(n).padStart(2, '0');
+const dateHuman = `${now.getDate()} ${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+const dateSlug = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
+// ---------- render ----------
+let css, logo, template;
+try {
+  css = fs.readFileSync(path.join(HERE, 'mt-robot-report.css'), 'utf8');
+  logo = fs.readFileSync(path.join(HERE, 'mt-robot-logo.svg'), 'utf8');
+  template = fs.readFileSync(path.join(HERE, 'template.html'), 'utf8');
+} catch (e) {
+  process.stderr.write(`mt-report: missing theme asset next to the script: ${e.message}\n`);
+  process.exit(1);
+}
+
+const content = mdToHtml(md);
+
+// Function replacers so $-sequences in assets/content are inserted literally.
+// CONTENT is substituted last so any literal {{...}} inside it is left untouched.
+const html = template
+  .replace(/\{\{CSS\}\}/g, () => css)
+  .replace(/\{\{LOGO\}\}/g, () => logo)
+  .replace(/\{\{TITLE\}\}/g, () => escapeHtml(title))
+  .replace(/\{\{DATE\}\}/g, () => dateHuman)
+  .replace(/\{\{CONTENT\}\}/g, () => content);
+
+// ---------- output ----------
+if (!out) {
+  if (input) {
+    out = input.replace(/\.(md|markdown|txt)$/i, '') + '.html';
+    if (out === input) out += '.html';
+  } else {
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'report';
+    out = path.join('reports', `${slug}-${dateSlug}.html`);
+  }
+}
+const abs = path.resolve(out);
+fs.mkdirSync(path.dirname(abs), { recursive: true });
+fs.writeFileSync(abs, html);
+process.stdout.write(abs + '\n');
+
+if (open) {
+  try {
+    require('child_process')
+      .spawn('xdg-open', [abs], { detached: true, stdio: 'ignore' })
+      .unref();
+  } catch (e) { /* non-fatal */ }
+}
+
+// ================= markdown =================
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function inline(text) {
+  const codes = [];
+  // 1. pull out inline code spans (no formatting inside them)
+  text = text.replace(/`([^`]+)`/g, (m, c) => { codes.push(c); return SENTINEL + (codes.length - 1) + SENTINEL; });
+  // 2. escape everything else
+  text = escapeHtml(text);
+  // 3. links, then bold, then italic
+  text = text.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) => `<a href="${u}">${t}</a>`);
+  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+  text = text.replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, '$1<em>$2</em>');
+  text = text.replace(/(^|[^_\w])_([^_\s][^_]*?)_(?![_\w])/g, '$1<em>$2</em>');
+  // 4. restore code spans (escaped content)
+  text = text.replace(new RegExp(SENTINEL + '(\\d+)' + SENTINEL, 'g'), (m, i) => `<code>${escapeHtml(codes[+i])}</code>`);
+  return text;
+}
+
+function splitRow(s) {
+  return s.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim());
+}
+
+function isBlockStart(line, next) {
+  return /^\s*(```+|~~~+)/.test(line)
+    || /^#{1,6}\s+/.test(line)
+    || /^\s*>/.test(line)
+    || /^\s*[-*+]\s+/.test(line)
+    || /^\s*\d+\.\s+/.test(line)
+    || /^\s*([-*_])\s*(\1\s*){2,}$/.test(line)
+    || (line.includes('|') && next && SEP_RE.test(next) && next.includes('-'));
+}
+
+function badge(cellHtml) {
+  const plain = cellHtml.replace(/<[^>]+>/g, '').trim().toLowerCase();
+  const known = ['blocking', 'important', 'minor', 'nit', 'verified', 'likely', 'speculative'];
+  return known.includes(plain) ? `<span class="badge badge-${plain}">${plain}</span>` : cellHtml;
+}
+
+function mdToHtml(src) {
+  const lines = src.replace(/\r\n?/g, '\n').split('\n');
+  const out = [];
+  const n = lines.length;
+  const isBlank = s => /^\s*$/.test(s);
+  let i = 0;
+
+  while (i < n) {
+    const line = lines[i];
+
+    if (isBlank(line)) { i++; continue; }
+
+    // fenced code
+    const fence = line.match(/^\s*(```+|~~~+)/);
+    if (fence) {
+      const marker = fence[1][0] === '`' ? '```' : '~~~';
+      const closeRe = new RegExp('^\\s*' + marker);
+      i++;
+      const buf = [];
+      while (i < n && !closeRe.test(lines[i])) { buf.push(lines[i]); i++; }
+      i++; // closing fence
+      out.push(`<pre><code>${escapeHtml(buf.join('\n'))}</code></pre>`);
+      continue;
+    }
+
+    // heading
+    const h = line.match(/^(#{1,6})\s+(.*?)\s*#*\s*$/);
+    if (h) { const l = h[1].length; out.push(`<h${l}>${inline(h[2])}</h${l}>`); i++; continue; }
+
+    // horizontal rule
+    if (/^\s*([-*_])\s*(\1\s*){2,}$/.test(line)) { out.push('<hr>'); i++; continue; }
+
+    // table
+    if (line.includes('|') && i + 1 < n && SEP_RE.test(lines[i + 1]) && lines[i + 1].includes('-')) {
+      const header = splitRow(line);
+      const aligns = splitRow(lines[i + 1]).map(c => {
+        const l = c.startsWith(':'), r = c.endsWith(':');
+        return (l && r) ? 'center' : r ? 'right' : l ? 'left' : '';
+      });
+      i += 2;
+      const rows = [];
+      while (i < n && !isBlank(lines[i]) && lines[i].includes('|')) { rows.push(splitRow(lines[i])); i++; }
+      let t = '<table>\n<thead><tr>';
+      header.forEach((c, k) => { t += `<th${aligns[k] ? ` style="text-align:${aligns[k]}"` : ''}>${inline(c)}</th>`; });
+      t += '</tr></thead>\n<tbody>';
+      rows.forEach(r => {
+        t += '<tr>';
+        for (let k = 0; k < header.length; k++) {
+          const c = r[k] != null ? r[k] : '';
+          t += `<td${aligns[k] ? ` style="text-align:${aligns[k]}"` : ''}>${badge(inline(c))}</td>`;
+        }
+        t += '</tr>';
+      });
+      out.push(t + '</tbody></table>');
+      continue;
+    }
+
+    // blockquote
+    if (/^\s*>/.test(line)) {
+      const buf = [];
+      while (i < n && /^\s*>/.test(lines[i])) { buf.push(lines[i].replace(/^\s*>\s?/, '')); i++; }
+      const inner = buf.map(b => isBlank(b) ? '' : inline(b)).join('<br>\n');
+      out.push(`<blockquote>${inner}</blockquote>`);
+      continue;
+    }
+
+    // unordered list
+    if (/^\s*[-*+]\s+/.test(line)) {
+      const buf = [];
+      while (i < n && /^\s*[-*+]\s+/.test(lines[i])) { buf.push(lines[i].replace(/^\s*[-*+]\s+/, '')); i++; }
+      out.push('<ul>' + buf.map(b => `<li>${inline(b)}</li>`).join('') + '</ul>');
+      continue;
+    }
+
+    // ordered list
+    if (/^\s*\d+\.\s+/.test(line)) {
+      const buf = [];
+      while (i < n && /^\s*\d+\.\s+/.test(lines[i])) { buf.push(lines[i].replace(/^\s*\d+\.\s+/, '')); i++; }
+      out.push('<ol>' + buf.map(b => `<li>${inline(b)}</li>`).join('') + '</ol>');
+      continue;
+    }
+
+    // paragraph
+    const buf = [];
+    while (i < n && !isBlank(lines[i]) && !isBlockStart(lines[i], lines[i + 1])) { buf.push(lines[i]); i++; }
+    out.push(`<p>${inline(buf.join(' '))}</p>`);
+  }
+
+  return out.join('\n');
+}
