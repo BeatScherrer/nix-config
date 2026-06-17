@@ -9,7 +9,7 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-web-access"
   ],
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "defaultProvider": "openrouter",
   "defaultModel": "qwen/qwen3.7-max",
   "theme": "kanagawa"
