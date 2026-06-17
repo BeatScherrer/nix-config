@@ -64,7 +64,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gpwm = {
-      url = "git+ssh://git@gitlab.com/BeatScherrer/gpwm.git";
+      url = "git+ssh://git@codeberg.org/Stencill/GPWM.git";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

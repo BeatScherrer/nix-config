@@ -599,17 +599,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1781387936,
-        "narHash": "sha256-Sn5LTjZumAsYKGrT2ypxTt9tDCSUh/NrATjkyT+MpJE=",
+        "lastModified": 1781609850,
+        "narHash": "sha256-7ZGp9MGV5FDJU2LJS2KI/4Gtks49gLqQDWhbH0PBoPk=",
         "ref": "refs/heads/main",
-        "rev": "a990974f3be07d3731199052894e8bb7df167a33",
-        "revCount": 282,
+        "rev": "1d5904bc2bddc42069994de5f61aff79446508ca",
+        "revCount": 310,
         "type": "git",
-        "url": "ssh://git@gitlab.com/BeatScherrer/gpwm.git"
+        "url": "ssh://git@codeberg.org/Stencill/GPWM.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/BeatScherrer/gpwm.git"
+        "url": "ssh://git@codeberg.org/Stencill/GPWM.git"
       }
     },
     "home-manager": {
