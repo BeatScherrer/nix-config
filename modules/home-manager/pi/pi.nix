@@ -15,10 +15,6 @@
     config.lib.file.mkOutOfStoreSymlink
       (config.home.homeDirectory + "/.nix/modules/home-manager/pi/extensions/tavily.ts");
 
-  home.file.".pi/agent/extensions/confirm-actions.ts".source =
-    config.lib.file.mkOutOfStoreSymlink
-      (config.home.homeDirectory + "/.nix/modules/home-manager/pi/extensions/confirm-actions.ts");
-
   home.file.".pi/agent/extensions/side-by-side-diff.ts".source =
     config.lib.file.mkOutOfStoreSymlink
       (config.home.homeDirectory + "/.nix/modules/home-manager/pi/extensions/side-by-side-diff.ts");

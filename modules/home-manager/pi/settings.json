@@ -10,7 +10,7 @@
     "npm:pi-web-access"
   ],
   "defaultThinkingLevel": "medium",
-  "defaultProvider": "mistral",
-  "defaultModel": "devstral-latest",
+  "defaultProvider": "openrouter",
+  "defaultModel": "qwen/qwen3.7-max",
   "theme": "kanagawa"
 }
