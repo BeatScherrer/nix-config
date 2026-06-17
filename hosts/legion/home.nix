@@ -25,11 +25,6 @@
     default-layout = "fullwidth";
     layout.fullwidth.leaf = "horizontal";
 
-    # Natural (reverse) scrolling — content tracks the fingers. gpwm applies
-    # this to every libinput device that supports it (touchpad and any wheel
-    # mouse), and hot-reloads it on config save.
-    input.natural-scroll = true;
-
     # Per-output workspace ownership, modes, and left-to-right placement:
     # EmbeddedDisplayPort-1 (left) | DisplayPort-3 (middle) | HDMIA-1 (right).
     # Once any [output] table exists gpwm requires workspaces 1..9 to be
