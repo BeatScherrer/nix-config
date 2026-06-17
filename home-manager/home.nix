@@ -30,6 +30,7 @@ in
     ../modules/home-manager/anthropic.nix
     ../modules/home-manager/tavily.nix
     ../modules/home-manager/mistral.nix
+    ../modules/home-manager/openrouter.nix
     ../modules/home-manager/crush/crush.nix
     ../modules/home-manager/pi/pi.nix
   ];

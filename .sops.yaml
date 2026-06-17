@@ -35,6 +35,9 @@ creation_rules:
   - path_regex: secrets/mistral\.yaml$
     key_groups:
       - age: *all_hosts
+  - path_regex: secrets/openrouter\.yaml$
+    key_groups:
+      - age: *all_hosts
   - path_regex: secrets/legion/.*\.yaml$
     key_groups:
       - age:
