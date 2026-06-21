@@ -11,6 +11,6 @@
   ],
   "defaultThinkingLevel": "high",
   "defaultProvider": "openrouter",
-  "defaultModel": "qwen/qwen3.7-max",
+  "defaultModel": "z-ai/glm-5.2",
   "theme": "kanagawa"
 }

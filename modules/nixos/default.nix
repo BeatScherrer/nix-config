@@ -33,6 +33,9 @@ in
   # Lives here rather than per-WM so every session — gpwm included — gets it.
   services.gvfs.enable = true;
 
+  # fwupd daemon so `fwupdmgr` can pull firmware/BIOS updates from LVFS.
+  services.fwupd.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   environment.sessionVariables = {
