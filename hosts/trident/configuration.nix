@@ -52,7 +52,7 @@
   # inherits this via osConfig, so flipping noctalia<->dms is this one line plus
   # a rebuild. gpwm keybindings/output settings live on the home-manager side —
   # see hosts/trident/home.nix.
-  gpwm.shell = "noctalia";
+  gpwm.shell = "dms";
 
   container = {
     enable = true;
