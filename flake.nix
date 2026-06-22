@@ -64,7 +64,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gpwm = {
-      url = "git+ssh://git@codeberg.org/Stencill/GPWM.git";
+      # Local dev checkout. Revert to the Codeberg remote for deploys:
+      #   url = "git+ssh://git@codeberg.org/Stencill/GPWM.git";
+      url = "git+file:///home/beat/src/beat/gpwm";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
