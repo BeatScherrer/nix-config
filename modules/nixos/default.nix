@@ -17,6 +17,7 @@ in
   imports = [
     ./networking.nix
     ./scripts.nix
+    ./sudo.nix
     ./tailscale.nix
     ./sops.nix
     ./anthropic.nix

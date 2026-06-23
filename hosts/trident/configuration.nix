@@ -8,7 +8,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/yubikey.nix
-    ../../modules/nixos/sudo.nix
     ../../modules/nixos/default.nix
     ../../modules/nixos/nix.nix
     ../../modules/nixos/user.nix
@@ -181,31 +180,6 @@
     "d /home/beat/SynologyDrive/Poseidon 0755 beat users -"
   ];
   # ---------------------------------------------------------------------------
-
-  # Passwordless sudo for sim-container diagnostics. Claude Code runs as `beat`
-  # with no controlling tty, so plain `sudo` can't prompt for a password; this
-  # lets it (and the mtr-sim-container-diagnose skill) enter the mtrsys nspawn
-  # sim containers and pull logs hands-free. Scoped to the two entry points.
-  # Caveat: `nixos-container run <name> -- <cmd>` executes arbitrary commands
-  # as root inside the container, so this is effectively broad root for these
-  # bins — acceptable on this personal dev box, and deliberately host-scoped
-  # here (not in the shared modules/nixos/sudo.nix) so work laptops stay
-  # password-gated.
-  security.sudo.extraRules = [
-    {
-      users = [ "beat" ];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/nixos-container";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/run/current-system/sw/bin/machinectl";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

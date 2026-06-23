@@ -8,7 +8,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/yubikey.nix
-    ../../modules/nixos/sudo.nix
     ../../modules/nixos/default.nix
     ../../modules/nixos/nix.nix
     ../../modules/nixos/user.nix
