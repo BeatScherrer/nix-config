@@ -111,6 +111,13 @@ in
       # trident's narrower 0.45) by merging into the same [general] table.
       general.scratchpad-height = 0.9;
 
+      # Rounded-corner radius for tiled/floating windows and their borders, in
+      # logical pixels (ADR 0008). 0 = square (the default, ends direct
+      # scanout); 10 is a typical rounded look. Hot-reloaded: editing this and
+      # rebuilding live-applies it without restarting gpwm. Set to 0 to restore
+      # square corners + scanout.
+      general.corner-radius = 10;
+
       # Full keybind set (replaces gpwm's built-in defaults). Reproduces every
       # default and layers on Super+{b,e,f} for librewolf/thunderbird/nautilus;
       # fullscreen moves from Super+f to Super+Shift+m so it pairs with the
