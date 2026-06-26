@@ -200,6 +200,10 @@ in
       # and survives any future default change.
       mousebind = [
         { button = "back"; action = "toggle-overview"; }
+        # Forward side-button (evdev 277 = BTN_FORWARD; "forward"/"277"/"0x115"
+        # all accepted) toggles the scratchpad overlay — the pointer counterpart
+        # to the Super+minus keybind above.
+        { button = "forward"; action = "toggle-scratchpad"; }
       ];
     };
 
