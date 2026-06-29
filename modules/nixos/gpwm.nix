@@ -67,7 +67,10 @@ in
     # Wayland.
     environment.sessionVariables = {
       XKB_DEFAULT_LAYOUT = "us,ch";
-      XKB_DEFAULT_OPTIONS = "compose:ralt,grp:ctrl_alt_toggle";
+      # No grp:* layout-toggle option: it would steal Ctrl+Alt (breaking
+      # Ctrl+Alt+Fn VT switching). gpwm cycles us↔ch on Ctrl+Alt+Space via its
+      # own `cycle-keyboard-layout` keybind instead.
+      XKB_DEFAULT_OPTIONS = "compose:ralt";
       # Firefox/Thunderbird default to XWayland (blurry HiDPI, mispositioned
       # popups/dialogs). Opt into native Wayland; gpwm spawns these via PATH.
       MOZ_ENABLE_WAYLAND = "1";
