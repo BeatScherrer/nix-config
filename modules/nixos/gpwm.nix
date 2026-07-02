@@ -74,6 +74,11 @@ in
       # Firefox/Thunderbird default to XWayland (blurry HiDPI, mispositioned
       # popups/dialogs). Opt into native Wayland; gpwm spawns these via PATH.
       MOZ_ENABLE_WAYLAND = "1";
+      # Proton games default to XWayland; opt them into Wine's native Wayland
+      # driver. Only Proton Experimental / 10+ honor this — older versions
+      # silently stay on XWayland. Override per game with
+      # `PROTON_ENABLE_WAYLAND=0 %command%` in its Steam launch options.
+      PROTON_ENABLE_WAYLAND = "1";
     };
 
     environment.systemPackages = with pkgs; [
