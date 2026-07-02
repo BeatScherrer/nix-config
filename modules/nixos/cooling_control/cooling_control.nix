@@ -1,22 +1,15 @@
 { pkgs, ... }:
 {
-  systemd.timers.cooling_control_timer = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "5s";
-      OnUnitActiveSec = "5s";
-      Unit = "cooling_control.service";
-    };
-  };
-
   systemd.services.cooling_control = {
     enable = true;
-    after = [ "network.target" ];
-    wantedBy = [ "default.target" ];
-    description = "Cooling control service";
+    description = "Coolant-temperature-driven fan control";
+    after = [ "multi-user.target" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.bash}/bin/bash ${./cooling_control.sh}";
+      Restart = "on-failure";
+      RestartSec = "10s";
     };
     path = with pkgs; [
       coreutils
@@ -26,5 +19,4 @@
       lm_sensors
     ];
   };
-
 }
