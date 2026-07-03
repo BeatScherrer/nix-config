@@ -78,7 +78,7 @@ cdgazebo() {
     return 1
   fi
 
-  cd "${MTR_SIM_ROS_WS:-/home/beat/src/jazz}/ros2_ws/src/mt-gazebo" || return 1
+  cd "${MTR_SIM_ROS_WS}/src/mt-gazebo" || return 1
 }
 
 # submodule navigation helper
