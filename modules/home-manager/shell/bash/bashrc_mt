@@ -14,7 +14,7 @@ if [[ -f "${MTR_ENV_FILE}" ]]; then
   # . "$MTR_FUNCTIONS"
 fi
 
-export GZ_DESCRIPTOR_PATH="${GZ_DESCRIPTOR_PATH}:${MTR_SIM_ROS_WS}/ros2_ws/build/mt_gz_msgs/mt_gz_msgs-msgs.gz_desc"
+export GZ_DESCRIPTOR_PATH="${GZ_DESCRIPTOR_PATH}:${MTR_SIM_ROS_WS}/build/mt_gz_msgs/mt_gz_msgs-msgs.gz_desc"
 
 # schroot
 # export MTR_SIM_GAZEBO_CMD="schroot -c "$(getSimSchroot)" /bin/bash -- -ic"
