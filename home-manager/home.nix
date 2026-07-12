@@ -186,8 +186,6 @@ in
     evince
     loupe
     masterpdfeditor
-    affine
-    logseq
 
     # font-manager
     customFonts

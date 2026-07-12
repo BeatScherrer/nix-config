@@ -14,9 +14,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.config.permittedInsecurePackages = [
-      "snapmaker-luban-4.15.0"
-    ];
+    # snapmaker-luban is marked insecure; its permit lives in the common
+    # nixpkgs.config.permittedInsecurePackages list in modules/nixos/default.nix
+    # (nixpkgs.config is shallow-merged, so it must be set in one place).
 
     environment.systemPackages = with pkgs; [
       orca-slicer

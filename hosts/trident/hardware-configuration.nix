@@ -34,20 +34,23 @@
     enable32Bit = true;
   };
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/6e12a3a2-6d58-4582-99f3-86067aeba16a";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/6e12a3a2-6d58-4582-99f3-86067aeba16a";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/FC82-E16D";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
-
-    swapDevices =
-    [ { device = "/dev/disk/by-uuid/b7c585df-c13b-4745-be94-709e9e07195a"; }
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/FC82-E16D";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
     ];
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/b7c585df-c13b-4745-be94-709e9e07195a"; }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

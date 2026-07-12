@@ -52,7 +52,7 @@
       # its own pinned nixpkgs until upstream migrates to `pkgs.asar`.
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+      url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     quickshell = {
@@ -154,38 +154,38 @@
             };
           });
         };
-        zeroclaw = llm-agents.packages.${system}.zeroclaw.overrideAttrs (old: {
-          cargoBuildFeatures = (old.cargoBuildFeatures or [ ]) ++ [ "channel-matrix" ];
-          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.jq ];
-          # The deep matrix-sdk 0.16.0 async types overflow rustc's default
-          # recursion limit. recursion_limit is per-crate, so it must be set
-          # on every crate that hits the overflow: the vendored matrix-sdk
-          # crate root (below, in preBuild) AND zeroclaw's own
-          # zeroclaw-channels crate, whose src/matrix.rs instantiates those
-          # types. Remove once numtide/llm-agents.nix ships a matrix-sdk that
-          # compiles without bumping the limit.
-          postPatch = (old.postPatch or "") + ''
-            libFile=crates/zeroclaw-channels/src/lib.rs
-            if [ -f "$libFile" ] && ! grep -q 'recursion_limit' "$libFile"; then
-              sed -i '1i #![recursion_limit = "1024"]' "$libFile"
-            fi
-          '';
-          preBuild = (old.preBuild or "") + ''
-            vendorDir=$(find "$NIX_BUILD_TOP" -maxdepth 3 -type d -name 'matrix-sdk-0.16.0' | head -n1)
-            if [ -z "$vendorDir" ]; then
-              echo "matrix-sdk vendor dir not found under $NIX_BUILD_TOP" >&2
-              exit 1
-            fi
-            libFile="$vendorDir/src/lib.rs"
-            if ! grep -q 'recursion_limit' "$libFile"; then
-              sed -i '1i #![recursion_limit = "512"]' "$libFile"
-              newHash=$(sha256sum "$libFile" | awk '{print $1}')
-              jq --arg h "$newHash" '.files["src/lib.rs"] = $h' \
-                "$vendorDir/.cargo-checksum.json" > "$vendorDir/.cargo-checksum.json.new"
-              mv "$vendorDir/.cargo-checksum.json.new" "$vendorDir/.cargo-checksum.json"
-            fi
-          '';
-        });
+        # zeroclaw = llm-agents.packages.${system}.zeroclaw.overrideAttrs (old: {
+        #   cargoBuildFeatures = (old.cargoBuildFeatures or [ ]) ++ [ "channel-matrix" ];
+        #   nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.jq ];
+        #   # The deep matrix-sdk async types overflow rustc's default
+        #   # recursion limit. recursion_limit is per-crate, so it must be set
+        #   # on every crate that hits the overflow: the vendored matrix-sdk
+        #   # crate root (below, in preBuild) AND zeroclaw's own
+        #   # zeroclaw-channels crate, whose src/matrix.rs instantiates those
+        #   # types. Remove once numtide/llm-agents.nix ships a matrix-sdk that
+        #   # compiles without bumping the limit.
+        #   postPatch = (old.postPatch or "") + ''
+        #     libFile=crates/zeroclaw-channels/src/lib.rs
+        #     if [ -f "$libFile" ] && ! grep -q 'recursion_limit' "$libFile"; then
+        #       sed -i '1i #![recursion_limit = "1024"]' "$libFile"
+        #     fi
+        #   '';
+        #   preBuild = (old.preBuild or "") + ''
+        #     vendorDir=$(find "$NIX_BUILD_TOP" -maxdepth 3 -type d -name 'matrix-sdk-0.*' | head -n1)
+        #     if [ -z "$vendorDir" ]; then
+        #       echo "matrix-sdk vendor dir not found under $NIX_BUILD_TOP" >&2
+        #       exit 1
+        #     fi
+        #     libFile="$vendorDir/src/lib.rs"
+        #     if ! grep -q 'recursion_limit' "$libFile"; then
+        #       sed -i '1i #![recursion_limit = "512"]' "$libFile"
+        #       newHash=$(sha256sum "$libFile" | awk '{print $1}')
+        #       jq --arg h "$newHash" '.files["src/lib.rs"] = $h' \
+        #         "$vendorDir/.cargo-checksum.json" > "$vendorDir/.cargo-checksum.json.new"
+        #       mv "$vendorDir/.cargo-checksum.json.new" "$vendorDir/.cargo-checksum.json"
+        #     fi
+        #   '';
+        # });
       };
       # helper to call the dev shell for each system
       devShell =

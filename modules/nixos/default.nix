@@ -38,6 +38,15 @@ in
   services.fwupd.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config is a shallow-merged attrset, so permittedInsecurePackages
+  # must be defined in exactly one place — collect all entries here.
+  #   - electron-39.8.10: pulled in by bitwarden-desktop; EOL upstream. Permit
+  #     until a newer bitwarden bumps to a supported electron.
+  #   - snapmaker-luban-4.15.0: pulled in by the printing-3d module.
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+    "snapmaker-luban-4.15.0"
+  ];
 
   environment.sessionVariables = {
     EDITOR = "nvim";
@@ -48,6 +57,16 @@ in
     nerd-fonts.iosevka
     font-awesome
   ];
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+    # Wine-bundling AppImages (Affinity) ship an ntdll.so linked against
+    # libunwind.so.8, which the default appimage-run FHS env does not provide.
+    package = pkgs.appimage-run.override {
+      extraPkgs = pkgs: [ pkgs.libunwind ];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     fd
@@ -73,7 +92,6 @@ in
     ghostty
     claude-desktop
     lsof
-    appimage-run
     mpv
     wireguard-tools
     inetutils

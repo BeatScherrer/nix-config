@@ -37,7 +37,6 @@ in
 
     services.displayManager = {
       gdm.enable = true;
-      gdm.wayland = true;
     };
 
     environment.sessionVariables = {
