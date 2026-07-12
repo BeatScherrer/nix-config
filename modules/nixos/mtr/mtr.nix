@@ -25,7 +25,9 @@
     lldb
     dig
     steam-run
-    appimage-run
+    # appimage-run comes from programs.appimage in modules/nixos/default.nix,
+    # which installs an FHS env carrying extra libs. Adding pkgs.appimage-run
+    # here too collides in the system profile and the un-overridden one wins.
     # Schroot deps
     schroot
     debootstrap
