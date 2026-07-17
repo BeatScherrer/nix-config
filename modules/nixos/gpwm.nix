@@ -59,6 +59,21 @@ in
       defaultSession = "gpwm";
     };
 
+    # gpwm is a bare Wayland compositor with no desktop environment, so nothing
+    # ever starts a Secret Service (org.freedesktop.secrets) provider. Anything
+    # that stores credentials in the login keyring — MySQL Workbench, browsers,
+    # network-manager — then fails with "Could not activate remote peer
+    # 'org.freedesktop.secrets': unit failed", because D-Bus on-demand
+    # activation can't unlock the keyring without the login password.
+    #
+    # Enabling gnome-keyring installs the daemon, its D-Bus activation file and
+    # the cap_ipc_lock wrapper, and wires the TTY `login` PAM service. GDM
+    # graphical logins go through the `gdm-password` PAM stack instead, so
+    # enable it there too — pam_gnome_keyring then starts the daemon and
+    # unlocks it with the same password at login.
+    services.gnome.gnome-keyring.enable = true;
+    security.pam.services.gdm-password.enableGnomeKeyring = true;
+
     users.users.${user}.extraGroups = [
       "video"
       "render"
