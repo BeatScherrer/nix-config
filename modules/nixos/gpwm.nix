@@ -51,6 +51,12 @@ in
 
     services.displayManager = {
       gdm.enable = true;
+      # Pin the session so GDM never depends on the per-user AccountsService
+      # record (~/.../AccountsService/users/$USER: `Session=`). A stale entry
+      # there — e.g. a since-removed `none+herbstluftwm` — makes GDM 50 abort
+      # with "Unable to run session" instead of falling back to the only
+      # installed session like GDM 49 did. "gpwm" matches gpwm.desktop's basename.
+      defaultSession = "gpwm";
     };
 
     users.users.${user}.extraGroups = [
