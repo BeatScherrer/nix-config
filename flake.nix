@@ -63,6 +63,16 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dank-material-shell = {
+      # Our DankMaterialShell fork (Codeberg). nixpkgs' dms-shell is pinned
+      # old (1.4.6) and lacks the compositor-agnostic wlr-output-management
+      # apply path, so DMS can't set gpwm's mode/scale. Our fork picks up the
+      # newer wlr path (and lets us patch it). Local dev checkout for
+      # iteration:
+      #   url = "git+file:///home/beat/src/beat/DankMaterialShell";
+      url = "git+ssh://git@codeberg.org/Stencill/DankMaterialShell.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     gpwm = {
       # Local dev checkout. Revert to the Codeberg remote for deploys:
       #   url = "git+ssh://git@codeberg.org/Stencill/GPWM.git";
@@ -98,6 +108,7 @@
       lanzaboote,
       quickshell,
       noctalia,
+      dank-material-shell,
       gpwm,
       llm-agents,
       sops-nix,
@@ -131,6 +142,11 @@
         claude-desktop = claude-desktop.packages.${system}.default;
         quickshell = quickshell.packages.${system}.default;
         noctalia-shell = noctalia.packages.${system}.default;
+        # Override nixpkgs' (old, 1.4.6) dms-shell with our fork's build so
+        # DMS speaks the compositor-agnostic wlr-output-management apply path
+        # and can set gpwm's mode/scale. Every pkgs.dms-shell consumer (the
+        # home module, the dms.service ExecStart) picks this up.
+        dms-shell = dank-material-shell.packages.${system}.dms-shell;
         gpwm = gpwm.packages.${system}.default;
         # openldap's test017-syncreplication-refresh is timing-flaky (it
         # relies on fixed sleeps and fails under build-machine load / newer
