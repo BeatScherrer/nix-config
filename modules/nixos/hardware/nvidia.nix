@@ -34,7 +34,22 @@
       nvidiaSettings = true;
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      #
+      # PINNED 2026-07-20 — display flicker bisect.
+      # The 26.05 -> 26.11 channel bump (gen 248 -> 249, Jul 17) moved kernel
+      # 7.0.8 -> 7.1.2 AND nvidia 595.71.05 -> 595.84 together; flicker started
+      # after it. This pins the old driver onto the new kernel to separate the
+      # two: flicker gone => driver regression, flicker stays => kernel.
+      # Hashes are the nixpkgs d233902 (gen 248) `production` block verbatim.
+      # To revert: restore `nvidiaPackages.stable`.
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "595.71.05";
+        sha256_64bit = "sha256-NiA7iWC35JyKQva6H1hjzeNKBek9KyS3mK8G3YRva4I=";
+        sha256_aarch64 = "sha256-XzKloS00dFKTd4ATWkTIhm9eG/OzR/Sim6MboNZWPu8=";
+        openSha256 = "sha256-Lfz71QWKM6x/jD2B22SWpUi7/og30HRlXg1kL3EWzEw=";
+        settingsSha256 = "sha256-mXnf3jyvznfB3OfKd657rxv0rYHQb/dX/Riw/+N9EKU=";
+        persistencedSha256 = "sha256-Z/6IvEEa/XfZ5F5qoSIPvXJLGtscYVqjFxHZaN/M2Ts=";
+      };
 
       # NVIDIA Prime for hybrid AMD iGPU + NVIDIA dGPU (e.g. Legion 5 Pro)
       # Enable if iGPU is active in BIOS (MUX switch set to hybrid mode).
