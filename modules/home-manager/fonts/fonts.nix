@@ -11,7 +11,7 @@ stdenv.mkDerivation {
 
   src = ./fonts;
 
-  buildInputs = lib.optional (!stdenv.isDarwin) [ fontconfig ];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [ fontconfig ];
 
   installPhase =
     ''
