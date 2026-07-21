@@ -56,7 +56,11 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  boot.loader.systemd-boot.configurationLimit = 50;
+  # 511M ESP. The initrd is currently ~198MB (nvidia + firmware, early KMS), so
+  # each generation costs ~212MB and only ~2 fit. This limit of 5 only works
+  # once the initrd is slimmed (see initrd compression / firmware pruning below);
+  # otherwise the bootloader install fills /boot and fails with ENOSPC.
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "legion";
