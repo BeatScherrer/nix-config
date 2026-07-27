@@ -41,6 +41,14 @@ in
     # wired through home-manager's gpwm module via WantedBy=gpwm-session.target.
     programs.gpwm.enable = true;
 
+    # security.polkit.enable (set by the upstream module) only starts polkitd —
+    # it no longer installs the setuid pkexec wrapper, since nixpkgs split that
+    # off into security.polkit.enablePkexecWrapper, default false. Without it
+    # the only pkexec in PATH is the plain binary from the polkit package, which
+    # bails out with "pkexec must be setuid root". Tray apps that escalate that
+    # way (tailscale-systray's up/down toggle) need the wrapper.
+    security.polkit.enablePkexecWrapper = true;
+
     # Keybindings and per-host `settings` (layouts, per-output workspace
     # assignment) live on the home-manager side now — see
     # modules/home-manager/gpwm/gpwm.nix and each host's home.nix. The upstream

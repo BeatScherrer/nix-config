@@ -614,11 +614,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784270549,
-        "narHash": "sha256-wlBrTXVZ/D5xaSkLb9nFPLDd+gM19hCFon9ap0aD6AI=",
+        "lastModified": 1784896946,
+        "narHash": "sha256-GP182K3r1fEj3CumynVtaGZybaGR4mOnPfbxJiTnkCs=",
         "ref": "refs/heads/main",
-        "rev": "eebd633705ea06d0467be753a7e3090d8cf5c018",
-        "revCount": 373,
+        "rev": "3b419df802176aecbaa44b09dd2fd52dc4137d19",
+        "revCount": 380,
         "type": "git",
         "url": "file:///home/beat/src/beat/gpwm"
       },
