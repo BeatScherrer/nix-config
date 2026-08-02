@@ -39,9 +39,12 @@ in
     })
 
     (lib.mkIf (cfg.gpu == "amd") {
-      nixpkgs.config.rocmSupport = true;
-      environment.systemPackages = with pkgs; [
-        blender
+      # Scoped override rather than nixpkgs.config.rocmSupport: the global flag
+      # flips rocmSupport on for every package that reads it, which drags
+      # onnxruntime (and therefore rccl and the ROCm stack) out of the binary
+      # cache — and with it librewolf-unwrapped, which depends on onnxruntime.
+      environment.systemPackages = [
+        (pkgs.blender.override { rocmSupport = true; })
       ];
     })
   ]);
