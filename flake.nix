@@ -151,13 +151,13 @@
         # home module, the dms.service ExecStart) picks this up.
         dms-shell = dank-material-shell.packages.${system}.dms-shell;
         gpwm = gpwm.packages.${system}.default;
-        # openldap's test017-syncreplication-refresh is timing-flaky (it
-        # relies on fixed sleeps and fails under build-machine load / newer
-        # kernels). Disable the check phase. Remove if nixpkgs ships a
-        # cached openldap again.
-        openldap = prev.openldap.overrideAttrs (_: {
-          doCheck = false;
-        });
+        # (Removed: an openldap doCheck=false override, added when
+        # test017-syncreplication-refresh — timing-flaky, fixed sleeps, fails
+        # under build-machine load / newer kernels — had no cached build.
+        # nixpkgs ships a cached openldap again, so the override only served to
+        # rehash openldap and everything under it, most visibly libreoffice.
+        # If a future nixpkgs bump lands an uncached openldap that fails that
+        # test locally, reinstate it.)
         # nixos-unstable shipped hyprland 0.55.1 but hyprlandPlugins.hy3 is
         # still 0.54.2.1, which fails to build against the new CBox/Vector2D
         # API (nixpkgs#475993). Pin hy3 to upstream tag hl0.55.0 (compatible
