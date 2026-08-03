@@ -59,6 +59,8 @@ in
         clangd-vscode
         playwright-vscode
         redhat.vscode-xml
+        streetsidesoftware.code-spell-checker
+        streetsidesoftware.code-spell-checker-german
       ];
 
       # NOTE: Do not use the nix declarative config so the config can still be adjusted from inside vscode...
