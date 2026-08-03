@@ -69,7 +69,7 @@
       # apply path, so DMS can't set gpwm's mode/scale. Our fork picks up the
       # newer wlr path (and lets us patch it). Local dev checkout for
       # iteration:
-      #   url = "git+file:///home/beat/src/beat/DankMaterialShell";
+      # url = "git+file:///home/beat/src/beat/DankMaterialShell";
       # https, not ssh: `sudo nixos-rebuild` fetches inputs as root, which has
       # no Codeberg key.
       url = "git+https://codeberg.org/Stencill/DankMaterialShell.git";
@@ -78,8 +78,8 @@
     gpwm = {
       # Local dev checkout. Revert to the Codeberg remote for deploys
       # (https, not ssh — `sudo nixos-rebuild` fetches inputs as root):
-      #   url = "git+https://codeberg.org/Stencill/GPWM.git";
-      url = "git+file:///home/beat/src/beat/gpwm";
+      url = "git+https://codeberg.org/Stencill/GPWM.git";
+      # url = "git+file:///home/beat/src/beat/gpwm";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
