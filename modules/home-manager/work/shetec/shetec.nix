@@ -6,7 +6,7 @@
     extraConfig = ''
       Include ~/.ssh/config.d/*
     '';
-    matchBlocks."*" = { };
+    settings."*" = { };
   };
 
   home.file.".ssh/config.d/shetec".source =

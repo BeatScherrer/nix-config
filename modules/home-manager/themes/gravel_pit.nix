@@ -7,6 +7,7 @@
   };
 
   home.pointerCursor = {
+    enable = true;
     name = "Nordic-cursors";
     package = pkgs.nordic;
     size = 32;
